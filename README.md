@@ -1,6 +1,6 @@
 # SBBT — Small Business Budget Tool (v1.2.4 BETA)
 **Master Business Dashboard | Executive Financial Control System (USD $)**
-*GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
+*Official Release Date: October 26, 2026 | GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
 
@@ -13,6 +13,16 @@
 > *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
+
+## 📅 Historical Release Log & Version Availability
+
+| Version | Release Date | Download Package | Release Notes / Changelog |
+|---|---|---|---|
+| **v1.2.4 BETA** *(Latest)* | **October 26, 2026** | [📦 Download SBBT_v1.2.4_BETA.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip) | [View v1.2.4 Notes](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md) |
+| **v1.0.0** | **October 25, 2026** | *Archived Baseline* | [View v1.0.0 Archive](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md#historical-version-archive) |
+
+*Full change details are maintained in [RELEASE_NOTES.md](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md).*
+
 
 ## 📌 Executive Overview
 The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.2.4 BETA)** is an executive-grade financial management platform and spreadsheet model engineered specifically for small-to-midsize businesses operating in the State of New Jersey and beyond.

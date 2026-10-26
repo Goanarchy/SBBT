@@ -1,8 +1,15 @@
-# Release Notes: Version 1.2.4 BETA 🚀
+# Release Notes & Version History 🚀
 **Master Business Dashboard (Executive Financial Control System)**
-*Edition: Version 1.2.4 BETA | Dynamic Calendar Accuracy, Global English & Intuitive Expense Billing*
+*GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
+
+## 🌟 Version 1.2.4 BETA (Current Official Release)
+* **Official Release Date**: October 26, 2026
+* **Status**: Available & Active
+* **Package Asset**: [`SBBT_v1.2.4_BETA_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip)
+* **Summary of Changes**: Dynamic Calendar Accuracy, Global English Standardization, Always-On Usage Guidance, Clarified Quotes Pipeline & Practical Expense Billing.
+
 
 ### Welcome to Version 1.2.4 BETA!
 This milestone release addresses core user requirements for maximum ease-of-use and professional presentation:
@@ -48,3 +55,18 @@ This milestone release addresses core user requirements for maximum ease-of-use 
 #### 7. 👨‍💻 Developer Notes & Quick Support Link
 * **LinkedIn Connection**: Direct clickable link to Victor Montoya Rojas's profile (**@goanarchy**).
 * **One-Click Email**: Pre-filled email link to `andres00787@gmail.com` with subject `Inquiry - Master Business Dashboard v1.2.4`.
+
+---
+
+## 🏛️ Historical Version Archive
+
+### Version 1.0.0 (Foundational Architecture)
+* **Official Release Date**: October 25, 2026
+* **Status**: Baseline Foundation
+* **Highlights**:
+  * 10-tab modular architecture (Executive Dashboard, Revenue & Invoices, Project COGS, Fleet, Facility, Insurance, Payroll, Utilities, NJ Taxes, and 12-Month P&L Rollup).
+  * New Jersey statutory financial grounding (NJ Sales Tax 6.625%, Corporation Business Tax CBT safe-harbor, IRS standard mileage rate).
+  * Client-side native Excel exporter (`.xls` SpreadsheetML) with live Excel formulas (`=SUM()`, `=IF()`).
+  * Interactive "What-If" Scenario Simulator for dynamic sensitivity analysis.
+  * Local browser data persistence (`localStorage`) with zero server dependency.
+
