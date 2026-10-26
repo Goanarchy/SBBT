@@ -1,10 +1,11 @@
-# Master Business Dashboard (v1.2.4 BETA)
-**Executive Financial Control System | Operating in USD ($)**
+# SBBT — Small Business Budget Tool (v1.2.4 BETA)
+**Master Business Dashboard | Executive Financial Control System (USD $)**
+*GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
 
 ## 📌 Executive Overview
-The **Master Business Dashboard (v1.2.4 BETA)** is an executive-grade financial management platform and spreadsheet model engineered specifically for small-to-midsize businesses operating in the State of New Jersey and beyond.
+The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.2.4 BETA)** is an executive-grade financial management platform and spreadsheet model engineered specifically for small-to-midsize businesses operating in the State of New Jersey and beyond.
 
 It merges corporate financial accounting with an ultra-clean, intuitive, and modern interface. Featuring **dynamic calendar day calculations** (accurate 28/29, 30, and 31 days per month), a **100% English interface**, an **always-on startup usage guide**, **clarified quotes and estimates pipeline tracking**, **practical and intuitive expense billing**, a prominent **💡 How to Start** button, category-level period filters, 2-column Inflow vs Outflow comparisons, predictive Google-style autocomplete, custom tax rates, and a dedicated System Tools hub. It eliminates spreadsheet clutter and manual calculation errors while remaining 100% customizable with ON/OFF switches for every category.
 
