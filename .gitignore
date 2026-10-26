@@ -8,5 +8,9 @@ Desktop.ini
 *.tmp
 *.bak
 
+# Internal planning & roadmap
+NEXT_VERSION_ROADMAP.md
+
 # Archives
 *.zip
+

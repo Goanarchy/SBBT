@@ -32,6 +32,8 @@
 7. **👨‍💻 Developer Notes & Quick Support Link**:
    * **LinkedIn Connection**: Direct clickable link to Victor Montoya Rojas's profile (**@goanarchy**).
    * **One-Click Email**: Pre-filled email link to `andres00787@gmail.com` with subject `Inquiry - Master Business Dashboard v1.2.4`.
+8. **📖 Official Bilingual User Manual (`START_HERE_USER_GUIDE.md`)**:
+   * **Complete Step-by-Step Guide**: Formally included in the root package with English and Spanish editions, action-oriented instructions, cause-and-effect troubleshooting, and New Jersey tax annexes.
 
 ---
 
