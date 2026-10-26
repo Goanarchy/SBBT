@@ -16,12 +16,17 @@
 
 ## 📅 Historical Release Log & Version Availability
 
-| Version | Release Date | Download Package | Release Notes / Changelog |
+| Version | Release Date | Status & Asset | Core Highlights & Upgrades |
 |---|---|---|---|
-| **v1.2.4 BETA** *(Latest)* | **October 26, 2026** | [📦 Download SBBT_v1.2.4_BETA.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip) | [View v1.2.4 Notes](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md) |
-| **v1.0.0** | **October 25, 2026** | *Archived Baseline* | [View v1.0.0 Archive](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md#historical-version-archive) |
+| **v1.2.4 BETA** *(Latest)* | **October 26, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip) | Dynamic calendar days per month (28/29, 30, 31), 100% English interface, startup guide, quotes pipeline, intuitive expense bills area, `💡 How to Start` roadmap. |
+| **v1.2.3** | **October 25, 2026** | *Milestone Archive* | Dropdown-only date pickers across all entry modals, instant reactive data rendering, category-level period filters, author credits (`@goanarchy`). |
+| **v1.2.2** | **October 25, 2026** | *Milestone Archive* | Rebranding to Master Business Dashboard, 2-column comparative cash flow chart, System Tools Hub card grid, predictive autocomplete memory, custom tax rates (`Other %`), interactive 5-step onboarding guide. |
+| **v1.2.1** | **October 25, 2026** | *Milestone Archive* | Sticky global fiscal period selector (Month & Year sync), category guidance banners, Basic Mode vs Advanced Details split, chart hover guides. |
+| **v1.2.0** | **October 25, 2026** | *Milestone Archive* | Modular ON/OFF switches per discipline, full Dark Mode (🌙 Night / ☀️ Day), isolated "What-If" scenario simulator toggle, standardized status dropdowns. |
+| **v1.1.0** | **October 25, 2026** | *Milestone Archive* | JSON Data Backup & Restore system (`Save Backup` / `Load Backup`), contextual cell hover tooltips with NJ statutory citations, seed data toggle. |
+| **v1.0.0** | **October 25, 2026** | *Baseline Foundation* | Initial 10-tab financial architecture, NJ Sales Tax (6.625%), CBT safe harbor (25-30%), IRS mileage deduction, native Excel export (`.xls` SpreadsheetML), localStorage persistence. |
 
-*Full change details are maintained in [RELEASE_NOTES.md](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md).*
+*Full historical changelog and release notes are maintained in [RELEASE_NOTES.md](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/RELEASE_NOTES.md).*
 
 
 ## 📌 Executive Overview
