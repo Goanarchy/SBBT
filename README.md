@@ -2,11 +2,15 @@
 **Master Business Dashboard | Executive Financial Control System (USD $)**
 *GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
-> ### ⚡ Quick Start: How to Run the Latest Version (v1.2.4 BETA)
-> 1. Click the green **`<> Code`** button at the top right and select **Download ZIP** (or download from [Releases](https://github.com/Goanarchy/SBBT/releases)).
-> 2. Extract the downloaded ZIP file on your computer.
-> 3. Double-click **`index.html`** in any web browser (Chrome, Edge, Firefox, Safari).
-> *No server, installation, or internet connection required! The application runs 100% locally on your computer with complete privacy.*
+---
+
+### 📥 [Click Here to Download: SBBT_v1.2.4_BETA_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip)
+> **🚀 Complete Ready-to-Use Package (Zero Setup)**:
+> 1. **Download**: Click the link above to get **`SBBT_v1.2.4_BETA_Ready_To_Use.zip`**.
+> 2. **Extract**: Unzip the folder anywhere on your computer.
+> 3. **Launch**: Double-click **`index.html`** in any web browser (Chrome, Edge, Safari, Firefox).
+> 4. *(Optional)*: Open **`NJ_Small_Business_Budget_v1.2.4.xls`** if you prefer working in Microsoft Excel.
+> *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
 
