@@ -2,6 +2,12 @@
 **Master Business Dashboard | Executive Financial Control System (USD $)**
 *GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
+> ### ⚡ Quick Start: How to Run the Latest Version (v1.2.4 BETA)
+> 1. Click the green **`<> Code`** button at the top right and select **Download ZIP** (or download from [Releases](https://github.com/Goanarchy/SBBT/releases)).
+> 2. Extract the downloaded ZIP file on your computer.
+> 3. Double-click **`index.html`** in any web browser (Chrome, Edge, Firefox, Safari).
+> *No server, installation, or internet connection required! The application runs 100% locally on your computer with complete privacy.*
+
 ---
 
 ## 📌 Executive Overview
