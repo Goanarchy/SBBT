@@ -1,0 +1,1009 @@
+﻿<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Google Antigravity Engineering</Author>
+  <Title>NJ Small Business Budget &amp; Financial Control System v1.2.1</Title>
+  <Company>Garden State Premier Solutions LLC</Company>
+ </DocumentProperties>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0F172A"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <!-- Main Title -->
+  <Style ss:ID="TitleStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="14" ss:Color="#1E3A8A" ss:Bold="1"/>
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="SubtitleStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#475569" ss:Italic="1"/>
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <!-- Table Header -->
+  <Style ss:ID="HeaderStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#0F172A" ss:Pattern="Solid"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2" ss:Color="#334155"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#334155"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#334155"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#334155"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="HeaderFillable">
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#E0F2FE" ss:Bold="1"/>
+   <Interior ss:Color="#0369A1" ss:Pattern="Solid"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2" ss:Color="#0284C7"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#0284C7"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#0284C7"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#0284C7"/>
+   </Borders>
+  </Style>
+  <!-- Fillable Input Cells (Soft Light Blue) -->
+  <Style ss:ID="InputCellText">
+   <Interior ss:Color="#E0F2FE" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0369A1" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="InputCellCurrency">
+   <Interior ss:Color="#E0F2FE" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0369A1" ss:Bold="1"/>
+   <NumberFormat ss:Format="&quot;$&quot;#,##0.00"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+  </Style>
+  <!-- Calculated Formula Cells -->
+  <Style ss:ID="FormulaCell">
+   <Interior ss:Color="#F8FAFC" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0F172A" ss:Bold="1"/>
+   <NumberFormat ss:Format="&quot;$&quot;#,##0.00"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="FormulaCellGeneral">
+   <Interior ss:Color="#F8FAFC" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0F172A" ss:Bold="1"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <!-- Standard Regular Cell -->
+  <Style ss:ID="StandardCell">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+   </Borders>
+  </Style>
+  <!-- Totals Row -->
+  <Style ss:ID="TotalsLabel">
+   <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+   <Font ss:FontName="Segoe UI" ss:Size="11" ss:Color="#0F172A" ss:Bold="1"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2" ss:Color="#64748B"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3" ss:Color="#64748B"/>
+   </Borders>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="TotalsCurrency">
+   <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+   <Font ss:FontName="Segoe UI" ss:Size="11" ss:Color="#0F172A" ss:Bold="1"/>
+   <NumberFormat ss:Format="&quot;$&quot;#,##0.00"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2" ss:Color="#64748B"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3" ss:Color="#64748B"/>
+   </Borders>
+  </Style>
+  <!-- Legend Styles -->
+  <Style ss:ID="LegendFillable">
+   <Interior ss:Color="#E0F2FE" ss:Pattern="Solid"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9" ss:Color="#0369A1" ss:Bold="1"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="LegendFormula">
+   <Interior ss:Color="#F8FAFC" ss:Pattern="Solid"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9" ss:Color="#0F172A" ss:Bold="1"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+   </Borders>
+  </Style>
+ </Styles>
+
+ <!-- ========================================== -->
+ <!-- TAB 1: EXECUTIVE SUMMARY                   -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Executive Summary">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="240"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="260"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">GARDEN STATE FINANCIAL CONTROL SYSTEM - EXECUTIVE DASHBOARD</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
+   </Row>
+   <Row><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Executive Metric / KPI</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Value</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Accounting Rationale &amp; NJ Context</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Gross Invoiced Revenue</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C5"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accrual billings before sales tax</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Cash Collected</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C9"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Realized cash in operating bank account</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Direct COGS &amp; Materials</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Direct COGS'!R8C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Direct materials, equipment rental, freight</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Gross Profit</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=R5C2-R7C2"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Gross Margin = Gross Revenue - Direct COGS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Operating Expenses (OpEx)</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Fleet &amp; Fuel'!R7C10+'Facility &amp; Mortgage'!R7C7+'Insurance Policies'!R7C7+'Payroll &amp; Labor'!R7C8+'Utilities &amp; Overhead'!R8C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Facility, Fleet, Payroll, Ins, Utilities</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String">NET OPERATING INCOME (EBIT)</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R8C2-R9C2"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">True bottom line before corporate income taxes</Data></Cell>
+   </Row>
+   <Row><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Tax Reserve Required</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='NJ Taxes &amp; Compliance'!R7C5"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Safe harbor statutory requirement (CBT + Sales Tax)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Tax Reserve Funded</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='NJ Taxes &amp; Compliance'!R7C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Funds isolated in tax savings account</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 2: REVENUE & INVOICES                  -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Revenue &amp; Invoices">
+  <Table ss:DefaultColumnWidth="105" ss:DefaultRowHeight="20">
+   <Column ss:Width="90"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Invoice #</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Client / Customer [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project Scope [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Billed Amount ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">NJ Taxable? [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">NJ Sales Tax (6.625%) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Due ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cash Collected ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">AR Balance ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Payment Method [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Horizon Healthcare NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Facility Smart Sensor Upgrades</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">14500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NO</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">14500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">14500.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">ACH Transfer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-08</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Rutgers Innovation Lab</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Custom Network Cabling &amp; Racks</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">21800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">YES</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">1444.25</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">23244.25</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">21800.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">1444.25</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">ACH Transfer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-14</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Bergen Logistics Center</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Security Access Control Systems</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18200.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">YES</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">1205.75</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">19405.75</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">10000.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">9405.75</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Check</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Pending</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-19</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hoboken Waterfront Retail</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">POS Network &amp; Surge Systems</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">8600.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NO</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">8600.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">8600.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Credit Card</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-24</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Prudential Plaza Tenant Build</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Conference AV Setup</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">26500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">YES</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">1755.63</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">28255.63</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">28255.63</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">ACH Transfer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Pending</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INV-2025-06</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-25</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey Shore Hospitality</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Outdoor Mesh Wi-Fi Infrastructure</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NO</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-1]=&quot;YES&quot;, RC[-2]*0.06625, 0)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-1]"><Data ss:Type="Number">9400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9400.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Check</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTALS</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R7C5)"><Data ss:Type="Number">99000.00</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R7C7)"><Data ss:Type="Number">4405.63</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R7C8)"><Data ss:Type="Number">103405.63</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R7C9)"><Data ss:Type="Number">64300.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R7C10)"><Data ss:Type="Number">39105.63</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 3: DIRECT COGS                         -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Direct COGS">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="100"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Receipt / PO #</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Supplier / Vendor [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Allocated Project [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Category [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Amount ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Paid Via [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Grainger Industrial NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Facility Smart Sensor Upgrades</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hardware &amp; Parts</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3850.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Company Card</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-09</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Anixter Cabling Newark</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Custom Network Cabling &amp; Racks</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Raw Materials</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5640.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Net-30 Vendor Credit</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-12</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Sunbelt Rentals Fairfield NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Custom Network Cabling &amp; Racks</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Equipment Rental</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1250.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Company Card</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-16</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">ADI Global Distribution</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Security Access Control Systems</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hardware &amp; Parts</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4900.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Net-30 Vendor Credit</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-20</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Accu-Tech Edison NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Conference AV Setup</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Raw Materials</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">7200.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">ACH</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Pending</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">MAT-2025-06</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-22</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Tri-State Freight NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Conference AV Setup</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Freight &amp; Delivery</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">680.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Company Card</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL DIRECT COGS</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R7C6)"><Data ss:Type="Number">23520.00</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 4: FLEET & FUEL                        -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Fleet &amp; Fuel">
+  <Table ss:DefaultColumnWidth="105" ss:DefaultRowHeight="20">
+   <Column ss:Width="80"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Log ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Vehicle &amp; Driver [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Business Purpose [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Log Method [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Miles [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Fuel ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Tolls ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Repairs ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Cost ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-101</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Ford Transit Van #1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Delivery &amp; Install - Rutgers</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">95</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">145.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">28.50</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-5]=&quot;IRS Mileage Rate&quot;, (RC[-4]*0.70)+RC[-2]+RC[-1], RC[-3]+RC[-2]+RC[-1])"><Data ss:Type="Number">173.50</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-102</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-07</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chevy Silverado #2</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Bergen Site Assessment</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">120</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">160.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">32.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-5]=&quot;IRS Mileage Rate&quot;, (RC[-4]*0.70)+RC[-2]+RC[-1], RC[-3]+RC[-2]+RC[-1])"><Data ss:Type="Number">192.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-103</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-13</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Ford Transit Van #1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">30,000mi Service &amp; Tires</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">65.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">12.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-5]=&quot;IRS Mileage Rate&quot;, (RC[-4]*0.70)+RC[-2]+RC[-1], RC[-3]+RC[-2]+RC[-1])"><Data ss:Type="Number">557.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-104</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-18</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Owner Personal SUV</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey City Client Meeting</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">IRS Mileage Rate</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">84</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">38.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-5]=&quot;IRS Mileage Rate&quot;, (RC[-4]*0.70)+RC[-2]+RC[-1], RC[-3]+RC[-2]+RC[-1])"><Data ss:Type="Number">96.80</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Reimbursed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-105</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-23</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chevy Silverado #2</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hoboken Retail Emergency</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">110.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">26.50</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(RC[-5]=&quot;IRS Mileage Rate&quot;, (RC[-4]*0.70)+RC[-2]+RC[-1], RC[-3]+RC[-2]+RC[-1])"><Data ss:Type="Number">136.50</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FLEET COST</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">409</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">137.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R6C10)"><Data ss:Type="Number">1155.80</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 5: FACILITY & MORTGAGE                 -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Facility &amp; Mortgage">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="90"/>
+   <Column ss:Width="200"/>
+   <Column ss:Width="140"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Facility ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Premises / Location [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Expense Category [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Landlord / Bank Payee [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Due Date [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Budgeted ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Actual Paid ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Variance ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Lease</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Properties Inc</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4200.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4200.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Property Tax Escrow</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Twp Tax Collector</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1350.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1350.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CAM &amp; Maintenance</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Properties Inc</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">650.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">620.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">-30.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Storage Yard - Kenilworth NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Storage Yard Lease</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Kenilworth Storage LLC</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-05</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">950.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">950.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CAM &amp; Maintenance</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HVAC Filter Tuneup</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-15</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">450.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">50.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FACILITY COST</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">7550.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">7570.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">20.00</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 6: INSURANCE POLICIES                  -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Insurance Policies">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="90"/>
+   <Column ss:Width="220"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Policy ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Insurance Line [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Carrier [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Policy # [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Renewal Date [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Annual Premium ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Monthly Cost ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Workers' Compensation (Mandatory)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Manufacturers (NJM)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJM-WC-49821</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-03-31</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">7800.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]/12"><Data ss:Type="Number">650.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Active</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial General Liability (CGL)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Travelers Insurance</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">TRV-GL-88219</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-05-15</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5400.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]/12"><Data ss:Type="Number">450.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Active</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Auto Fleet</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Progressive Commercial</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">PRG-CA-33910</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-06-30</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6600.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]/12"><Data ss:Type="Number">550.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Active</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Professional Liability (E&amp;O)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">The Hartford</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HTF-EO-19044</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-08-01</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3200.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]/12"><Data ss:Type="Number">266.67</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Active</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cyber &amp; Data Breach</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chubb Insurance</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CHB-CY-99411</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-09-30</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2100.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]/12"><Data ss:Type="Number">175.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Active</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL INSURANCE</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">25100.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">2091.67</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 7: PAYROLL & LABOR                     -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Payroll &amp; Labor">
+  <Table ss:DefaultColumnWidth="110" ss:DefaultRowHeight="20">
+   <Column ss:Width="80"/>
+   <Column ss:Width="140"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="85"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Pay ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Personnel Name [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Role [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Classification [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Gross Pay ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Employer Taxes [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Benefits ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Employer Cost [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Net Take-Home [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-101</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Elena Rostova</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Senior Project Engineer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4600.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">501.40</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">650.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-2]+RC[-1]"><Data ss:Type="Number">5751.40</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3450.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Disbursed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-102</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Carlos Mendez</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Lead Systems Technician</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3750.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">408.75</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">550.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-2]+RC[-1]"><Data ss:Type="Number">4708.75</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2840.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Disbursed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-103</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">David Kim</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Field Installer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2900.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">316.10</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">450.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-2]+RC[-1]"><Data ss:Type="Number">3666.10</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2210.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Disbursed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-104</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Apex Fiber Optics NJ LLC</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Splicing Subcontractor</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">1099-NEC Contractor</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3800.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-2]+RC[-1]"><Data ss:Type="Number">3800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Disbursed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-105</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Andres M.</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Managing Member</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Owner Draw</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6000.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-3]+RC[-2]+RC[-1]"><Data ss:Type="Number">6000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Disbursed</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL PAYROLL BURDEN</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R6C5)"><Data ss:Type="Number">21050.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">1226.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">1650.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">23926.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">18300.00</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 8: UTILITIES & OVERHEAD                -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Utilities &amp; Overhead">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="90"/>
+   <Column ss:Width="200"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="80"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Account ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Provider / Service [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Category [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cycle [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Budgeted ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Actual Invoice ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Variance ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">PSE&amp;G Electric &amp; Gas</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Power &amp; Gas</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">680.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">715.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">35.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ American Water</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Water &amp; Sewer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">110.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">98.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">-12.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Verizon Fios Gigabit Commercial</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Internet / Telecom</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">240.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">239.99</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">-0.01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">QuickBooks Online Advanced</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Software SaaS</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">260.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">260.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Google Workspace &amp; M365</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Software SaaS</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">180.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">180.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-06</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Waste Management Commercial</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Waste &amp; Recycling</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">220.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">225.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number">5.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL UTILITIES</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R7C5)"><Data ss:Type="Number">1690.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R7C6)"><Data ss:Type="Number">1717.99</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R7C7)"><Data ss:Type="Number">27.99</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- ========================================== -->
+ <!-- TAB 9: NJ TAXES & COMPLIANCE               -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="NJ Taxes &amp; Compliance">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="80"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="200"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="110"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tax ID</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Period [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Obligation / Agency [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Statutory Rate</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Estimated Due ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Reserve Funded ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Reserve Gap ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Deadline [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">TAX-01</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Q3 (Jul - Sep)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ CBT - Corporation Business Tax</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">6.5% Net Inc</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2950.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2950.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-15</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Remitted &amp; Filed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">TAX-02</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Q3 (Jul - Sep)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Sales Tax (ST-50)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">6.625% Flat</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4410.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4410.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-20</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Remitted &amp; Filed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">TAX-03</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Q4 (Oct - Dec)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Federal Estimated Tax</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">15.3% SE / Fed</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5800.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-01-15</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Fully Funded</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">TAX-04</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Q4 (Oct - Dec)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ CBT - Corporation Business Tax</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">6.5% Net Inc</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3200.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2500.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">700.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-01-15</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Reserve Needed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">TAX-05</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Annual</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Annual State Report</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Flat Fee</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">75.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">75.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-04-30</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Fully Funded</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL TAX RESERVES</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R6C5)"><Data ss:Type="Number">16435.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">15735.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">700.00</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+</Workbook>
