@@ -4,40 +4,56 @@
 
 ---
 
-## 🌟 Version 1.2.4 BETA (Current Official Release)
+## 🌟 Version 1.3.0 (Current Official Release)
 * **Official Release Date**: October 26, 2026
 * **Status**: Available & Active
-* **Package Asset**: [`SBBT_v1.2.4_BETA_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip)
-* **Core Focus**: Dynamic Calendar Accuracy, Global English Standardization, Always-On Usage Guidance, Clarified Quotes Pipeline & Practical Expense Billing.
+* **Package Asset**: [`SBBT_v1.3.0_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.3.0/SBBT_v1.3.0_Ready_To_Use.zip)
+* **Core Focus**: Job Costing & Project Profitability, Progress Billing & Retainers, NJ ST-8 Capital Improvement Exemption, 1099 COI Audit Sentinel, Overdue AR Alert Banner, First-Run Module Wizard, Two-Way Excel Import Engine, Native Formula Protection in Excel, and 1-Click Printable Invoices.
 
-### 🌟 Key Upgrades in Version 1.2.4 BETA
-1. **📅 Dynamic Days per Month (100% Calendrically Accurate)**:
-   * **Smart Day Generation**: When selecting or editing a date, the Day dropdown automatically recalculates the exact maximum days for that specific month and year (`new Date(year, month, 0).getDate()`).
-   * **Leap Year Support**: February accurately adjusts between 28 days (standard years like 2025) and 29 days (leap years like 2024 and 2028).
-   * **30-Day Month Precision**: April, June, September, and November automatically cap at 30 days. Eliminates impossible dates like February 31.
-2. **🌐 100% English Global Interface**:
-   * **Universal Professional Language**: All text across the dashboard, financial statement tables, modal dialogues, system settings, and developer credits are strictly in English.
-   * **Refined Terminology**: Replaced all colloquial terms with clean executive financial concepts (e.g., Gross Invoiced, Cash Collected, COGS, Safe Harbor Reserves).
-3. **💡 "How to Start" Quick 4-Step Guide**:
-   * **Prominent Header Button**: An eye-catching amber button `💡 How to Start` is permanently visible at the top of the screen.
-   * **Concise 4 Steps**: (1) Pick Fiscal Period, (2) Record Quotes & Invoices, (3) Feed Expense Bills, and (4) Monitor Executive Dashboard & Export to Excel.
-4. **🎯 Clear Quotes & Estimates Pipeline**:
-   * **Dedicated Guidance Banner**: Explains how customer proposals sent to clients are tracked under status `"Quote / Sent"` to forecast revenue.
-   * **Separation of Pipeline vs. Real Cash**: Quotes contribute to projected sales volume, but only mark into **Cash In (Collected)** once officially paid.
-5. **📦 Practical & Intuitive Expense Bills Entry**:
-   * **Streamlined Job Costs**: Clear guidance banner in **Project COGS** explaining material POs, vendor bills, and subcontractor invoices.
-   * **Dropdown Convenience**: Fast entry for dates, payment methods, and statuses.
-6. **👋 Always-On Startup Guidance**:
-   * **Launch Walkthrough**: The interactive guide automatically opens whenever the tool is started to ensure new and returning team members are oriented immediately.
-7. **👨‍💻 Developer Notes & Quick Support Link**:
-   * **LinkedIn Connection**: Direct clickable link to Victor Montoya Rojas's profile (**@goanarchy**).
-   * **One-Click Email**: Pre-filled email link to `andres00787@gmail.com` with subject `Inquiry - Master Business Dashboard v1.2.4`.
-8. **📖 Official Bilingual User Manual (`START_HERE_USER_GUIDE.md`)**:
-   * **Complete Step-by-Step Guide**: Formally included in the root package with English and Spanish editions, action-oriented instructions, cause-and-effect troubleshooting, and New Jersey tax annexes.
+### 🌟 Key Upgrades in Version 1.3.0
+1. **🏗️ Job Costing & Project Profitability Analysis**:
+   * **Direct Invoicing-to-COGS Correlation**: Invoices and material purchase orders/subcontractor bills sharing the same **Project Name** are automatically aggregated.
+   * **Executive Profitability Card on Dashboard**: Real-time display of Contract Value, Cash Collected, Direct COGS, Net Margin ($), Gross Margin %, and visual Profitability Health Badges (🟢 Healthy >35%, 🟡 Moderate 15-35%, 🔴 Low Margin <15%).
+2. **💵 Progress Billing & Down Payments (Deposits)**:
+   * **Contract Retainer Tracking**: Separate inputs for Gross Contract Value, Initial Down Payment / Deposit Received, and Cash Collected to date.
+   * **Auto-Computed Remaining Balance**: Displays the exact outstanding balance due across all invoices and projects.
+   * **Contractor Status Lifecycle**: Refined statuses (`Quote / Sent`, `Deposit / Active`, `Pending Balance`, `Paid in Full`, `Overdue`).
+3. **🏛️ NJ Form ST-8 Capital Improvement 0% Exemption**:
+   * **Statutory Compliance**: Full support for New Jersey Sales Tax exemption under N.J.S.A. 54:32B-3 for permanent capital improvements to real property.
+   * **Dedicated 0% Classification**: Added `"ST-8 (0% - NJ Capital Improvement)"` alongside standard taxable 6.625% and custom rates with automated statutory audit notices.
+4. **🛡️ 1099 Subcontractor COI (Certificate of Insurance) Audit Sentinel**:
+   * **Audit Risk Surcharge Prevention**: Added dedicated `COI Status` tracking for 1099 independent contractors (`COI Verified`, `NO COI (Audit Risk ⚠️)`, `N/A`).
+   * **Visual Sentinel**: Highlights uninsured subcontractors with prominent red warning badges to prevent unexpected penalty surcharges during annual NJ Workers' Compensation insurance audits.
+5. **⚠️ Overdue Accounts Receivable Warning Banner**:
+   * **Dynamic Cash Flow Guardian**: Prominent amber alert banner immediately surfaces at the top of the Executive Dashboard whenever past-due invoices exist, showing the total overdue balance and count with a 1-click link to review aging bills.
+6. **⚙️ First-Run Module Selection Wizard**:
+   * **Tailored Workspace**: Startup onboarding modal allows trade contractors, service firms, or retail businesses to check only the disciplines they use (`revenue`, `cogs`, `fleet`, `facility`, `insurance`, `payroll`, `utilities`, `taxes`).
+   * **Quick Trade Presets**: One-click configuration for All Disciplines or Contractor Core Preset.
+   * **Persistent Module Manager**: Fully reconfigurable at any time via the top header (`⚙️ Modules`) or System Tools.
+7. **📥 Two-Way Excel Import Engine (SheetJS)**:
+   * **Seamless Bidirectional Workflow**: Users can edit their offline `.xls` or `.xlsx` spreadsheet, then upload or drag-and-drop the file into the web app to parse sheets and synchronize data immediately into `localStorage`.
+   * **Instant Recalculation**: All KPI cards, charts, job costing margins, and taxes update upon import without manual data re-entry.
+8. **🔒 Native Formula Cell Protection in Excel Spreadsheet**:
+   * **XML SpreadsheetML Protection**: Generated companion workbook (`NJ_Small_Business_Budget_v1.3.0.xls`) features protected calculation cells (`#F8FAFC`) with unlocked light-blue input cells (`#E0F2FE`), preventing accidental formula deletion by accountants or staff.
+9. **🖨️ 1-Click Printable Client Invoice & Estimate (`🖨️ PDF`)**:
+   * **Branded Presentation**: Integrated modal generates formal contractor invoices and project estimates displaying client information, project scope, tax classification, deposit applied, and remaining balance due, formatted for clean printing and browser PDF saving.
+10. **📖 Complete Bilingual User Manual Synchronization**:
+    * **Always Current**: `START_HERE_USER_GUIDE.md` updated with comprehensive English and Spanish functional instructions, cause-and-effect troubleshooting, and New Jersey statutory tax guides.
 
 ---
 
 ## 🏛️ Complete Historical Version Archive
+
+### Version 1.2.4 BETA (Dynamic Calendars & Global English)
+* **Official Release Date**: October 26, 2026
+* **Status**: Historical Stable Release
+* **Package Asset**: [`SBBT_v1.2.4_BETA_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip)
+* **Highlights & Changes**:
+  * **Dynamic Days per Month**: Accurately computes 28, 29, 30, or 31 days based on month and leap years.
+  * **100% English Global Interface**: Full executive standardization across all tables, tooltips, and credits.
+  * **"How to Start" Quick 4-Step Roadmap**: Permanent header guide for immediate onboarding.
+  * **Quotes & Estimates Pipeline**: Separate pipeline forecasting under `"Quote / Sent"`.
+  * **Always-On Startup Tour**: Direct orientation walkthrough on startup.
 
 ### Version 1.2.3 (Dropdown Date Architecture & Instant Reactivity)
 * **Official Release Date**: October 25, 2026

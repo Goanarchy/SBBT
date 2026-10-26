@@ -222,6 +222,6 @@ function exportBudgetToExcel(store) {
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
   // Trigger Download
-  const filename = `Master_Business_Dashboard_v1.2.4_BETA_${new Date().toISOString().slice(0,10)}.xlsx`;
+  const filename = `Master_Business_Dashboard_v1.3.0_${new Date().toISOString().slice(0,10)}.xlsx`;
   XLSX.writeFile(wb, filename);
 }

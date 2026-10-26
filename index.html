@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.2.4 BETA</span>
+          <span class="badge-version">v1.3.0</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | USD ($)</p>
       </div>
@@ -62,6 +62,14 @@
     <div class="header-actions">
       <button class="btn btn-how-to-start" id="btn-how-to-start" onclick="openHowToStartModal()" title="Quick start guide: First steps to master your dashboard">
         💡 How to Start
+      </button>
+
+      <button class="btn btn-outline-light" id="btn-header-modules" onclick="openModuleWizardModal()" title="Choose which categories to display or hide">
+        ⚙️ Modules
+      </button>
+
+      <button class="btn btn-outline-light" id="btn-header-import-excel" onclick="openExcelImportModal()" title="Upload or drag-and-drop modified Excel spreadsheet to synchronize data">
+        📥 Import Excel
       </button>
 
       <a href="START_HERE_USER_GUIDE.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Open official bilingual user manual (English & Español)">
@@ -177,6 +185,20 @@
         </div>
       </div>
 
+      <!-- Overdue Accounts Receivable Notice Banner -->
+      <div id="dash-ar-alert-banner" class="ar-alert-banner" style="display:none;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:22px;">⚠️</span>
+          <div>
+            <strong id="ar-alert-title" style="font-size:13px;">Overdue Accounts Receivable Notice</strong>
+            <p id="ar-alert-desc" style="margin:2px 0 0 0; font-size:11.5px; opacity:0.95;"></p>
+          </div>
+        </div>
+        <button class="btn btn-outline-dark" style="background:#fff; border-color:#fca5a5; color:#b91c1c; font-weight:700;" onclick="switchToTab('revenue')">
+          Review Aging Invoices ➡️
+        </button>
+      </div>
+
       <!-- PRIMARY DASHBOARD GRID (CHARTS: INFLOWS VS OUTFLOWS & OUTFLOW ALLOCATION) -->
       <div class="dash-primary-grid">
         
@@ -265,6 +287,21 @@
 
         <div class="category-totals-grid" id="category-totals-grid">
           <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Job Costing & Project Profitability Analysis (Direct link Invoices to COGS) -->
+      <div class="job-costing-card" id="dash-job-costing-card">
+        <div class="job-costing-header">
+          <div class="job-costing-title">
+            <span>🏗️</span> Job Costing & Project Profitability (Net Margin per Contract)
+          </div>
+          <span style="font-size:11.5px; color:var(--text-muted);">
+            Directly matches client billings against material POs & subcontractor bills
+          </span>
+        </div>
+        <div id="job-costing-table-wrap" style="overflow-x: auto;">
+          <!-- Rendered dynamically via JS -->
         </div>
       </div>
 
@@ -952,6 +989,36 @@
           </div>
         </div>
 
+        <!-- Tool 9: Two-Way Excel Import Engine -->
+        <div class="tool-action-card" style="border-color: #38bdf8; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+          <div>
+            <div class="tool-card-title" style="color: #0369a1;">
+              <span>📥</span> Two-Way Excel Import Engine
+            </div>
+            <p class="tool-card-desc">
+              Edited your spreadsheet in Microsoft Excel? Upload or drag-and-drop your <strong>.xls</strong> or <strong>.xlsx</strong> file directly into the dashboard. All new entries, materials, and invoices are merged and recalculated instantly!
+            </p>
+          </div>
+          <button class="btn btn-primary" onclick="openExcelImportModal()" style="width: 100%; justify-content: center;">
+            📥 Launch Excel Importer
+          </button>
+        </div>
+
+        <!-- Tool 10: Active Modules & Tab Manager -->
+        <div class="tool-action-card" style="border-color: #a855f7; background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);">
+          <div>
+            <div class="tool-card-title" style="color: #7e22ce;">
+              <span>⚙️</span> Module & Discipline Manager
+            </div>
+            <p class="tool-card-desc">
+              Tailor the workspace to your exact trade. Turn off categories you don't use (e.g. Fleet or commercial Facility) to keep the navigation bar clean, or re-enable them as your company grows!
+            </p>
+          </div>
+          <button class="btn btn-outline-dark" onclick="openModuleWizardModal()" style="width: 100%; justify-content: center; border-color: #c084fc; color: #7e22ce;">
+            ⚙️ Configure Active Modules
+          </button>
+        </div>
+
       </div>
     </section>
 
@@ -966,7 +1033,7 @@
         <span class="footer-logo">MBD</span>
         <div>
           <div class="footer-title">Master Business Dashboard</div>
-          <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.2.4 BETA</strong></div>
+          <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.3.0</strong></div>
         </div>
       </div>
       
@@ -979,7 +1046,7 @@
 
       <div class="footer-support">
         <span>Questions or Inquiries? </span>
-        <a href="mailto:andres00787@gmail.com?subject=Inquiry%20-%20Master%20Business%20Dashboard%20v1.2.4&body=Hello%20Victor%2C%0A%0AI%20am%20using%20the%20Master%20Business%20Dashboard%20(v1.2.4%20BETA)%20and%20I%20have%20the%20following%20question%20or%20inquiry%3A%0A%0A%5BWrite%20your%20question%20here%5D%0A%0AThank%20you!" class="footer-link-email" title="Send email inquiry to andres00787@gmail.com">
+        <a href="mailto:andres00787@gmail.com?subject=Inquiry%20-%20Master%20Business%20Dashboard%20v1.3.0&body=Hello%20Victor%2C%0A%0AI%20am%20using%20the%20Master%20Business%20Dashboard%20(v1.3.0)%20and%20I%20have%20the%20following%20question%20or%20inquiry%3A%0A%0A%5BWrite%20your%20question%20here%5D%0A%0AThank%20you!" class="footer-link-email" title="Send email inquiry to andres00787@gmail.com">
           ✉️ <strong>andres00787@gmail.com</strong>
         </a>
       </div>
@@ -996,6 +1063,7 @@
   <datalist id="list-autocomplete-carriers"></datalist>
   <datalist id="list-autocomplete-personnel"></datalist>
   <datalist id="list-autocomplete-utilities"></datalist>
+  <datalist id="list-autocomplete-projects"></datalist>
 
   <!-- ====================================================================
        ADD RECORD MODAL (WITH DROPDOWN-ONLY DATE GROUP & CUSTOM TAX RATE)
@@ -1118,29 +1186,179 @@
   </div>
 
   <!-- ====================================================================
-       WHAT'S NEW IN V1.2.4 BETA MODAL
+       WHAT'S NEW IN V1.3.0 MODAL
        ==================================================================== -->
   <div class="modal-overlay" id="modal-whats-new" role="dialog" aria-modal="true">
-    <div class="modal-dialog" style="max-width: 620px;">
+    <div class="modal-dialog" style="max-width: 650px;">
       <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);">
         <div>
-          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.2.4 BETA</h3>
+          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.3.0</h3>
           <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 26, 2026</div>
         </div>
         <button class="modal-close-btn" id="modal-whats-new-close">&times;</button>
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6;">
         <ul style="padding-left: 18px;">
-          <li style="margin-bottom: 8px;"><strong>📅 Dynamic Days Per Month:</strong> Calendar days now automatically compute based on the month and year (28/29 days for Feb, 30 for Apr/Jun/Sep/Nov, 31 for others). Zero impossible dates!</li>
-          <li style="margin-bottom: 8px;"><strong>🌐 100% English Global Interface:</strong> The entire application, instructions, table headers, and developer credits are strictly standardized in professional English.</li>
-          <li style="margin-bottom: 8px;"><strong>💡 'How to Start' Quick Guide:</strong> Added a prominent golden lightbulb button with a 4-step quick roadmap for operating the system.</li>
-          <li style="margin-bottom: 8px;"><strong>🎯 Quotes & Estimates Pipeline:</strong> Formal distinction for sent customer estimates and quotes (status "Quote / Sent") feeding into sales volume projections.</li>
-          <li style="margin-bottom: 8px;"><strong>📦 Practical Expense Invoices Area:</strong> Streamlined direct job bills, materials receipts, and subcontractor invoice entry.</li>
-          <li style="margin-bottom: 8px;"><strong>👋 Always-On Usage Guidance on Startup:</strong> Step-by-step instructions automatically greet the user every time the tool is opened.</li>
+          <li style="margin-bottom: 8px;"><strong>🏗️ Job Costing & Project Profitability:</strong> Direct link between Invoicing and Project COGS. View exact gross margin ($ and %) for every contract!</li>
+          <li style="margin-bottom: 8px;"><strong>💵 Progress Billing & Down Payments:</strong> Seamlessly track contract value, initial deposits received, and remaining balances.</li>
+          <li style="margin-bottom: 8px;"><strong>🏛️ NJ Form ST-8 Capital Improvement Exemption:</strong> Dedicated 0% sales tax classification for construction and capital remodeling jobs in New Jersey.</li>
+          <li style="margin-bottom: 8px;"><strong>🛡️ 1099 Subcontractor COI Audit Sentinel:</strong> Flag uninsured 1099 subs to prevent heavy surcharges in your annual NJ Workers' Comp audit.</li>
+          <li style="margin-bottom: 8px;"><strong>⚙️ First-Run Module Selection Wizard:</strong> Check only the categories your trade uses to keep the workspace clean, with full control in System Tools.</li>
+          <li style="margin-bottom: 8px;"><strong>📥 Two-Way Excel Import Engine:</strong> Upload or drag-and-drop modified .xls/.xlsx files to sync data back into the web dashboard immediately.</li>
+          <li style="margin-bottom: 8px;"><strong>🔒 Native Formula Protection in Excel:</strong> Formula cells are safely locked in generated Excel workbooks, preventing accidental formula overwrites.</li>
+          <li style="margin-bottom: 8px;"><strong>🖨️ Printable Client Invoice / Estimate:</strong> Generate clean, branded invoices and proposals with 1 click, ready to print or save to PDF.</li>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="modal-whats-new-ok">Got it!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODULE SELECTION WIZARD MODAL (#modal-module-wizard)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-module-wizard" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 680px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);">
+        <div>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">⚙️ Tailor Your Dashboard: Select Active Modules</h3>
+          <div style="font-size: 11px; color: #c7d2fe; margin-top: 3px;">Check only the categories your business uses. Unchecked tabs will be cleanly hidden.</div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModuleWizardModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:12px; color:var(--text-muted);">Quick Presets:</span>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn btn-outline-dark" style="font-size:11px; padding:3px 8px;" onclick="applyWizardPreset('all')">Select All</button>
+            <button type="button" class="btn btn-outline-dark" style="font-size:11px; padding:3px 8px;" onclick="applyWizardPreset('contractor')">Contractor Core Preset</button>
+          </div>
+        </div>
+
+        <div class="module-wizard-grid" id="wizard-checkbox-container">
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-revenue" value="revenue" checked>
+            <div>
+              <strong style="font-size:12.5px;">💵 Invoicing & Quotes</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Client proposals, deposits, sales tax & cash collections.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-cogs" value="cogs" checked>
+            <div>
+              <strong style="font-size:12.5px;">📦 Project COGS & Materials</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Direct materials, vendor receipts & job costing.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-fleet" value="fleet" checked>
+            <div>
+              <strong style="font-size:12.5px;">🚗 Fleet, Gas & Mileage</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Work trucks, IRS mileage rate ($0.70/mi) & tolls.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-facility" value="facility" checked>
+            <div>
+              <strong style="font-size:12.5px;">🏢 Shop, Facility & Rent</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Commercial shop, storage yard leases & CAM fees.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-insurance" value="insurance" checked>
+            <div>
+              <strong style="font-size:12.5px;">🛡️ Insurance Policies</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Mandatory NJ Workers' Comp, CGL & Inland Marine.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-payroll" value="payroll" checked>
+            <div>
+              <strong style="font-size:12.5px;">👥 Payroll & 1099 Subcontractors</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Team wages, 1099 COI verification & taxes.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-utilities" value="utilities" checked>
+            <div>
+              <strong style="font-size:12.5px;">⚡ Utilities & Overhead</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">PSE&G electric, water, internet & software.</p>
+            </div>
+          </label>
+
+          <label class="module-checkbox-item">
+            <input type="checkbox" id="mod-check-taxes" value="taxes" checked>
+            <div>
+              <strong style="font-size:12.5px;">🏛️ NJ Taxes & Reserves</strong>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">CBT corporate tax, ST-50 Sales Tax & safe harbor.</p>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <span style="font-size:11.5px; color:var(--text-muted);">You can re-adjust anytime in System Tools.</span>
+        <button type="button" class="btn btn-primary" onclick="saveModuleWizardPreferences()">🚀 Save & Update Workspace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       TWO-WAY EXCEL IMPORT MODAL (#modal-import-excel)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-import-excel" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 620px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+        <div>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">📥 Two-Way Excel Spreadsheet Importer</h3>
+          <div style="font-size: 11px; color: #bae6fd; margin-top: 3px;">Seamlessly import your modified .xls or .xlsx workbook</div>
+        </div>
+        <button class="modal-close-btn" onclick="closeExcelImportModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <div class="excel-dropzone" id="excel-dropzone" onclick="document.getElementById('excel-file-input').click()">
+          <span style="font-size: 38px;">📊</span>
+          <h4 style="margin: 8px 0 4px; font-size: 14.5px;">Click to Browse or Drag & Drop Excel File Here</h4>
+          <p style="margin: 0; font-size: 12px; color: var(--text-muted);">Supports .xlsx and .xls files. Operates 100% locally with zero server upload.</p>
+          <input type="file" id="excel-file-input" accept=".xls,.xlsx" style="display:none;" onchange="handleExcelFileSelect(event)">
+        </div>
+
+        <div style="margin-top: 18px; padding: 12px 14px; background: var(--bg-card-subtle); border: 1px solid var(--border-light); border-radius: 6px; font-size: 11.5px; line-height: 1.5;">
+          <strong>💡 How it works:</strong> The importer parses your sheets (Revenue, COGS, Fleet, Payroll, etc.) and merges all new entries into your dashboard. All KPI cards, charts, and balances recalculate instantly!
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end;">
+        <button type="button" class="btn btn-outline-dark" onclick="closeExcelImportModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       PRINTABLE CONTRACTOR INVOICE / ESTIMATE MODAL (#modal-print-invoice)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-print-invoice" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 780px;">
+      <div class="modal-header invoice-modal-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">🖨️ Client Invoice / Proposal Generator</h3>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Executive printable invoice formatted for client presentation & PDF</div>
+        </div>
+        <button class="modal-close-btn" onclick="closePrintInvoiceModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px; background: #e2e8f0;">
+        <div class="invoice-sheet" id="invoice-sheet-content">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+      <div class="modal-footer invoice-modal-footer" style="justify-content: space-between;">
+        <button type="button" class="btn btn-outline-dark" onclick="closePrintInvoiceModal()">Close</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ Print / Save to PDF</button>
       </div>
     </div>
   </div>

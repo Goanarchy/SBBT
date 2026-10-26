@@ -1,16 +1,16 @@
-# SBBT — Small Business Budget Tool (v1.2.4 BETA)
+# SBBT — Small Business Budget Tool (v1.3.0)
 **Master Business Dashboard | Executive Financial Control System (USD $)**
 *Official Release Date: October 26, 2026 | GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
 
-### 📥 [Click Here to Download: SBBT_v1.2.4_BETA_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip)
+### 📥 [Click Here to Download: SBBT_v1.3.0_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.3.0/SBBT_v1.3.0_Ready_To_Use.zip)
 > **🚀 Complete Ready-to-Use Package (Zero Setup)**:
-> 1. **Download**: Click the link above to get **`SBBT_v1.2.4_BETA_Ready_To_Use.zip`**.
+> 1. **Download**: Click the link above to get **`SBBT_v1.3.0_Ready_To_Use.zip`**.
 > 2. **Extract**: Unzip the folder anywhere on your computer.
 > 3. **Launch**: Double-click **`index.html`** in any web browser (Chrome, Edge, Safari, Firefox).
 > 4. **User Guide**: Read **[`START_HERE_USER_GUIDE.md`](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/START_HERE_USER_GUIDE.md)** for the complete English & Spanish step-by-step walkthrough.
-> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.2.4.xls`** if you prefer working in Microsoft Excel.  
+> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.3.0.xls`** if you prefer working in Microsoft Excel with native formula protection.  
 > *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
@@ -22,7 +22,8 @@
 
 | Version | Release Date | Status & Asset | Core Highlights & Upgrades |
 |---|---|---|---|
-| **v1.2.4 BETA** *(Latest)* | **October 26, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip) | Dynamic calendar days per month (28/29, 30, 31), 100% English interface, startup guide, quotes pipeline, intuitive expense bills area, `💡 How to Start` roadmap. |
+| **v1.3.0** *(Latest)* | **October 26, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.3.0/SBBT_v1.3.0_Ready_To_Use.zip) | Job Costing & Project Profitability ($ and % net margin), Progress Billing & Retainers, NJ Form ST-8 Capital Improvement 0% Exemption, 1099 COI Audit Sentinel, Overdue AR Alert Banner, First-Run Module Wizard, Two-Way Excel Import Engine, Native Formula Protection in Excel, and 1-Click Printable Invoices. |
+| **v1.2.4 BETA** | **October 26, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.2.4-beta/SBBT_v1.2.4_BETA_Ready_To_Use.zip) | Dynamic calendar days per month (28/29, 30, 31), 100% English interface, startup guide, quotes pipeline, intuitive expense bills area, `💡 How to Start` roadmap. |
 | **v1.2.3** | **October 25, 2026** | *Milestone Archive* | Dropdown-only date pickers across all entry modals, instant reactive data rendering, category-level period filters, author credits (`@goanarchy`). |
 | **v1.2.2** | **October 25, 2026** | *Milestone Archive* | Rebranding to Master Business Dashboard, 2-column comparative cash flow chart, System Tools Hub card grid, predictive autocomplete memory, custom tax rates (`Other %`), interactive 5-step onboarding guide. |
 | **v1.2.1** | **October 25, 2026** | *Milestone Archive* | Sticky global fiscal period selector (Month & Year sync), category guidance banners, Basic Mode vs Advanced Details split, chart hover guides. |
@@ -34,7 +35,7 @@
 
 
 ## 📌 Executive Overview
-The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.2.4 BETA)** is an executive-grade financial management platform and spreadsheet model engineered specifically for small-to-midsize businesses operating in the State of New Jersey and beyond.
+The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.3.0)** is an executive-grade financial management platform and spreadsheet model engineered specifically for contractors, trade specialists, and small businesses operating in the State of New Jersey and beyond.
 
 It merges corporate financial accounting with an ultra-clean, intuitive, and modern interface. Featuring **dynamic calendar day calculations** (accurate 28/29, 30, and 31 days per month), a **100% English interface**, an **always-on startup usage guide**, **clarified quotes and estimates pipeline tracking**, **practical and intuitive expense billing**, a prominent **💡 How to Start** button, category-level period filters, 2-column Inflow vs Outflow comparisons, predictive Google-style autocomplete, custom tax rates, and a dedicated System Tools hub. It eliminates spreadsheet clutter and manual calculation errors while remaining 100% customizable with ON/OFF switches for every category.
 
@@ -77,6 +78,12 @@ Hovering your cursor over **any table header or data cell** displays a floating 
 
 5. **NJ Employer Payroll Taxes**:
    * W-2 employer burden combines Federal FICA (7.65%) + NJ State Unemployment Insurance (SUI), Temporary Disability Insurance (TDI), and Family Leave Insurance (FLI) (~3.25%), totaling approximately **10.9%** over gross compensation.
+
+6. **NJ Form ST-8 Capital Improvement Exemption (0% Sales Tax)**:
+   * Under N.J.S.A. 54:32B-3, permanent capital improvements and construction to real property in New Jersey are exempt from the 6.625% sales tax, provided a signed Form ST-8 is obtained and retained on file.
+
+7. **1099 Subcontractor COI (Certificate of Insurance) Audit Sentinel**:
+   * In New Jersey, Workers' Compensation insurance auditors classify any 1099 subcontractor lacking an active Certificate of Insurance (COI) as a de facto employee, assessing full back-premiums and penalty surcharges during annual payroll audits.
 
 ---
 

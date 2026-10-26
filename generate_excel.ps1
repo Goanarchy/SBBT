@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.2.4.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.3.0.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.2.4 BETA</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.3.0 BETA</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -57,6 +57,7 @@ $xml = @"
   </Style>
   <!-- Fillable Input Cells (Soft Light Blue) -->
   <Style ss:ID="InputCellText">
+   <Protection ss:Protected="0"/>
    <Interior ss:Color="#E0F2FE" ss:Pattern="Solid"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
@@ -67,6 +68,7 @@ $xml = @"
    <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0369A1" ss:Bold="1"/>
   </Style>
   <Style ss:ID="InputCellCurrency">
+   <Protection ss:Protected="0"/>
    <Interior ss:Color="#E0F2FE" ss:Pattern="Solid"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#7DD3FC"/>
@@ -80,6 +82,7 @@ $xml = @"
   </Style>
   <!-- Calculated Formula Cells -->
   <Style ss:ID="FormulaCell">
+   <Protection ss:Protected="1"/>
    <Interior ss:Color="#F8FAFC" ss:Pattern="Solid"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>

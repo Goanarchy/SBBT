@@ -1,24 +1,27 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.2.4 BETA)
+ * MASTER BUSINESS DASHBOARD (v1.3.0)
  * Executive Financial Control System
  * 
- * New Upgrades in v1.2.4:
- * - 📅 Dynamic Days per Month (Accurate 28/29/30/31 calendar days based on month & year)
- * - 🌐 100% English Global Interface across all tables, tooltips, and developer credits
- * - 💡 'How to Start' Quick-Start Guide Modal with 4-step onboarding roadmap
- * - 🎯 Quotes & Estimates Pipeline tracking in Invoicing (status "Quote / Sent")
- * - 📦 Practical & Intuitive Expense Invoices / Job Bills Entry in Project COGS
- * - 👋 Always-On Usage Guidance Screen on startup
- * - ⚡ Instant Real-Time Visual Updates (Unshift to top + auto period sync + glow animation)
- * - 🎛️ Category-Level Period Filters in every tab toolbar
- * - 🧹 100% Clean Client State ($0.00 everywhere, no fictitious sums)
- * - 👨‍💻 Developer Notes & Quick Contact (@goanarchy & andres00787@gmail.com)
+ * New Upgrades in v1.3.0:
+ * - 🏗️ Job Costing & Project Profitability Analysis (Net margin $ and % linked across Invoices and COGS)
+ * - 💵 Progress Billing & Down Payments (Contract value, deposit received, remaining balance due)
+ * - 🏛️ NJ Form ST-8 Capital Improvement Exemption (0% sales tax for NJ remodeling and capital construction)
+ * - 🛡️ 1099 Subcontractor COI Audit Sentinel (Flags missing COIs to prevent Workers' Comp annual audit surcharges)
+ * - ⚠️ Overdue Accounts Receivable Warning Banner (Instant alert on aging past-due invoices)
+ * - ⚙️ First-Run Module Selection Wizard (Customizes active tabs on first load or via System Tools)
+ * - 📥 Two-Way Excel Import Engine (Drag-and-drop or select .xls/.xlsx to sync data directly into web app)
+ * - 🔒 Native Formula Protection in Excel (SpreadsheetML locks formula cells while keeping inputs open)
+ * - 🖨️ Printable Client Invoice / Estimate (1-click generation formatted for client presentation & PDF)
+ * - 📅 Dynamic Days per Month & Dropdown-only date pickers
+ * - 🧹 100% Clean Client State ready for genuine business entries
  */
 
 class BudgetStore {
   constructor() {
+    this.version = "1.3.0";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
+    this.wizardFlagKey = "MBD_WIZARD_V130";
     this.data = this.loadData();
     this.activeTab = "dashboard";
     this.dashboardViewMode = "basic"; // "basic" or "advanced"
@@ -121,15 +124,18 @@ class BudgetStore {
         rate = NJ_BUDGET_CONFIG.njSalesTaxRate; // 6.625%
       } else if (taxStr.includes("OTHER")) {
         rate = (Number(row.customRate) || 0) / 100;
+      } else if (taxStr.includes("ST-8") || taxStr.includes("Capital Improvement")) {
+        rate = 0; // NJ Form ST-8 Capital Improvement Exemption
       } else {
-        rate = 0; // Exempt
+        rate = 0; // Standard 0% Exempt
       }
 
       const salesTax = gross * rate;
       const totalDue = gross + salesTax;
+      const deposit = Number(row.depositReceived) || 0;
       const received = Number(row.amountReceived) || 0;
       const outstanding = Math.max(0, totalDue - received);
-      return { salesTax, totalDue, outstanding, appliedRate: rate * 100 };
+      return { salesTax, totalDue, outstanding, appliedRate: rate * 100, deposit };
     }
 
     if (tabKey === "fleet") {
@@ -163,7 +169,8 @@ class BudgetStore {
         employerTaxes = gross * 0.109; // FICA (7.65%) + NJ SUI/FLI (~3.25%)
       }
       const totalCost = gross + employerTaxes;
-      return { employerTaxes, totalCost };
+      const coiWarning = Boolean(row.type && row.type.includes("1099") && String(row.coiStatus || "").includes("NO COI"));
+      return { employerTaxes, totalCost, coiWarning };
     }
 
     if (tabKey === "utilities") {
@@ -238,6 +245,7 @@ class BudgetStore {
     let cashCollected = 0;
     let accountsReceivable = 0;
     let overdueAR = 0;
+    let overdueCount = 0;
     if (isDisciplineActive("revenue")) {
       (this.data.revenue || []).forEach(r => {
         if (!this.matchesPeriod(r)) return;
@@ -245,7 +253,10 @@ class BudgetStore {
         grossRevenue += Number(r.grossBilled) || 0;
         cashCollected += Number(r.amountReceived) || 0;
         accountsReceivable += f.outstanding;
-        if (r.status === "Overdue") overdueAR += f.outstanding;
+        if (r.status === "Overdue" && f.outstanding > 0) {
+          overdueAR += f.outstanding;
+          overdueCount++;
+        }
       });
     }
 
@@ -330,6 +341,7 @@ class BudgetStore {
       cashCollected,
       accountsReceivable,
       overdueAR,
+      overdueCount,
       totalCogs,
       grossProfit,
       grossMarginPercent,
@@ -401,12 +413,17 @@ function initUI() {
   initQuickDatePickerDays();
   updateAutocompleteDatalists();
   renderCategoryGuides();
+  setupExcelDropzone();
   syncAllPeriodSelects(store.selectedMonth, store.selectedYear);
   renderAll();
 
-  // Always present the welcome/usage instructions screen on startup as requested
+  // First-run experience: Check if user has configured their modules wizard
   setTimeout(() => {
-    startOnboardingTour();
+    if (!localStorage.getItem("MBD_WIZARD_COMPLETED_V130")) {
+      openModuleWizardModal();
+    } else {
+      startOnboardingTour();
+    }
   }, 450);
 }
 
@@ -641,6 +658,10 @@ function updateAutocompleteDatalists() {
   const carriers = (store.data.insurance || []).map(i => i.carrier);
   const personnel = (store.data.payroll || []).map(p => p.name);
   const utilities = (store.data.utilities || []).map(u => u.service);
+  const projects = [
+    ...(store.data.revenue || []).map(r => r.project),
+    ...(store.data.cogs || []).map(c => c.project)
+  ];
 
   populateList("list-autocomplete-clients", clients);
   populateList("list-autocomplete-vendors", vendors);
@@ -649,6 +670,7 @@ function updateAutocompleteDatalists() {
   populateList("list-autocomplete-carriers", carriers);
   populateList("list-autocomplete-personnel", personnel);
   populateList("list-autocomplete-utilities", utilities);
+  populateList("list-autocomplete-projects", projects);
 }
 
 // ==========================================================================
@@ -882,14 +904,20 @@ function renderTabCounts() {
 function renderDashboard() {
   const kpis = store.calculateKPIs();
 
-  // 1. Render Current Month Category Totals Deck (Basic Mode indicator)
+  // 1. Render Overdue Accounts Receivable Alert Banner (if any overdue)
+  renderArAlertBanner(kpis);
+
+  // 2. Render Current Month Category Totals Deck (Basic Mode indicator)
   renderCategoryTotalsDeck(kpis);
 
-  // 2. Render Inflow vs Outflow Charts & Outflow Allocation Donut
+  // 3. Render Job Costing & Project Profitability Analysis
+  renderJobCostingAnalysis();
+
+  // 4. Render Inflow vs Outflow Charts & Outflow Allocation Donut
   renderInflowOutflowCharts(kpis);
   renderOutflowDonutChart(kpis);
 
-  // 3. Render Advanced Deck & Comparison (Inside Advanced Container)
+  // 5. Render Advanced Deck & Comparison (Inside Advanced Container)
   renderAdvancedMetrics(kpis);
 }
 
@@ -1275,10 +1303,16 @@ function renderDisciplineTable(tabKey) {
           const statusLower = String(displayVal).toLowerCase();
           let color = "#16a34a";
           if (statusLower.includes("quote")) color = "#0284c7"; // Sky Blue for sent quotes & estimates
+          else if (statusLower.includes("deposit")) color = "#6366f1"; // Indigo for Deposit / Active
           else if (["pending", "scheduled", "draft", "invoiced"].some(s => statusLower.includes(s))) color = "#f59e0b"; // Amber
           else if (statusLower.includes("overdue") || statusLower.includes("needed") || statusLower.includes("cancelled")) color = "#dc2626"; // Red
           else if (statusLower.includes("paid") || statusLower.includes("current") || statusLower.includes("received")) color = "#16a34a"; // Green
           badgeHtml = `<span style="font-weight:700; color:${color};">${displayVal}</span>`;
+        }
+
+        // 1099 Subcontractor COI Audit Warning
+        if (tabKey === "payroll" && col.key === "coiStatus" && String(val || "").includes("NO COI")) {
+          badgeHtml = `<span style="font-weight:800; color:#dc2626;" title="Audit Alert: Uninsured 1099 Sub will trigger NJ Workers' Comp surcharge!">⚠️ NO COI (Audit Risk)</span>`;
         }
 
         const alignClass = (col.type === "currency" || col.type === "formula" || col.type === "number") ? "cell-number" : "";
@@ -1298,14 +1332,27 @@ function renderDisciplineTable(tabKey) {
         `;
       });
 
-      // Actions column
-      tableHTML += `
-        <td class="cell-center">
-          <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
-            ✕
-          </button>
-        </td>
-      </tr>`;
+      // Actions column (with 1-click printable invoice for revenue rows)
+      if (tabKey === "revenue") {
+        tableHTML += `
+          <td class="cell-center" style="white-space:nowrap;">
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; margin-right: 4px; color: #0284c7; border-color: #7dd3fc;" onclick="openPrintInvoiceModal(${originalIdx})" title="Generate & Print Professional Invoice / Estimate">
+              🖨️ PDF
+            </button>
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
+              ✕
+            </button>
+          </td>
+        </tr>`;
+      } else {
+        tableHTML += `
+          <td class="cell-center">
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
+              ✕
+            </button>
+          </td>
+        </tr>`;
+      }
     });
 
     // FOOTER - TOTALS ROW
@@ -1668,7 +1715,8 @@ function openAddModal(tabKey) {
     location: "list-autocomplete-locations",
     carrier: "list-autocomplete-carriers",
     name: "list-autocomplete-personnel",
-    service: "list-autocomplete-utilities"
+    service: "list-autocomplete-utilities",
+    project: "list-autocomplete-projects"
   };
 
   let fieldsHTML = "";
@@ -1720,12 +1768,12 @@ function openAddModal(tabKey) {
         </div>
       `;
     } else if (col.key === "taxable") {
-      // NJ Taxable with Custom Rate reveal
+      // NJ Taxable with ST-8 Capital Improvement and Custom Rate reveal
       fieldsHTML += `
         <select class="form-control" id="modal-field-${col.key}" onchange="toggleCustomTaxField(this.value)">
           <option value="NO (0% - Exempt)">NO (0% - Exempt)</option>
+          <option value="ST-8 (0% - NJ Capital Improvement)">ST-8 (0% - NJ Capital Improvement)</option>
           <option value="YES (6.625% NJ)">YES (6.625% NJ Standard)</option>
-          <option value="OTHER (Custom %)">OTHER (Custom %)</option>
         </select>
       `;
     } else if (col.type === "select") {
@@ -1830,8 +1878,8 @@ const TOUR_STEPS = [
   {
     badge: "LEVEL 1 • WELCOME",
     title: "🎮 Welcome to Master Business Dashboard!",
-    text: "Your executive financial control system designed for New Jersey small businesses. It gives you 100% clarity over your actual cash collections, project job costs, operating overhead, and safe-harbor NJ state taxes without confusing accounting jargon.",
-    tip: "✨ <strong>Total Freedom:</strong> Every discipline is modular. If you don't need a category, you can turn it off anytime with one click!"
+    text: "Your executive financial control system designed for New Jersey small businesses and contractors. It gives you 100% clarity over your actual cash collections, project job costs, operating overhead, and safe-harbor NJ state taxes without confusing accounting jargon.<br><br>💡 <strong>Quick Action:</strong> We invite you to press <strong>'💡 How to Start'</strong> in the top header (or click below) for the 4-step roadmap to get up and running immediately!",
+    tip: "👉 <button type='button' class='btn btn-outline-dark' style='font-size:11px; padding:2px 8px; margin-left:4px; color:#1d4ed8; font-weight:700;' onclick='openHowToStartModal()'>Open 'How to Start' Guide Now 💡</button>"
   },
   {
     badge: "LEVEL 2 • TOTAL CONTROL",
@@ -1925,5 +1973,478 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+// ==========================================================================
+// Overdue AR Warning Banner & Quick Tab Switching
+// ==========================================================================
+window.switchToTab = function(tabKey) {
+  setActiveTab(tabKey);
+};
+
+function renderArAlertBanner(kpis) {
+  const banner = document.getElementById("dash-ar-alert-banner");
+  const title = document.getElementById("ar-alert-title");
+  const desc = document.getElementById("ar-alert-desc");
+  if (!banner) return;
+
+  if (kpis.overdueAR > 0) {
+    banner.style.display = "flex";
+    if (title) title.textContent = `Overdue Accounts Receivable Alert: ${formatMoney(kpis.overdueAR)}`;
+    if (desc) desc.textContent = `You have ${kpis.overdueCount || 1} past-due invoice(s). Immediate client follow-up is recommended to maintain positive cash flow and prevent contractor liquidity gaps.`;
+  } else {
+    banner.style.display = "none";
+  }
+}
+
+// ==========================================================================
+// Job Costing & Project Profitability Analysis (Direct Invoicing to COGS Link)
+// ==========================================================================
+function calculateJobCosting() {
+  const projectsMap = {};
+
+  // Aggregate billings from revenue
+  (store.data.revenue || []).forEach(r => {
+    const pName = (r.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
+
+    if (!projectsMap[pName]) {
+      projectsMap[pName] = {
+        project: pName,
+        client: r.client || "Client",
+        contractBilled: 0,
+        collected: 0,
+        deposit: 0,
+        directCosts: 0,
+        status: r.status || "Active"
+      };
+    }
+    const f = store.calculateFormulas("revenue", r);
+    projectsMap[pName].contractBilled += Number(r.grossBilled) || 0;
+    projectsMap[pName].collected += Number(r.amountReceived) || 0;
+    projectsMap[pName].deposit += Number(r.depositReceived) || 0;
+    if (r.status === "Overdue") projectsMap[pName].status = "Overdue ⚠️";
+  });
+
+  // Aggregate direct costs from COGS
+  (store.data.cogs || []).forEach(c => {
+    const pName = (c.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
+
+    if (!projectsMap[pName]) {
+      projectsMap[pName] = {
+        project: pName,
+        client: "Project Client",
+        contractBilled: 0,
+        collected: 0,
+        deposit: 0,
+        directCosts: 0,
+        status: "In Progress"
+      };
+    }
+    projectsMap[pName].directCosts += Number(c.amount) || 0;
+  });
+
+  return Object.values(projectsMap).map(p => {
+    const netProfit = p.contractBilled - p.directCosts;
+    const marginPct = p.contractBilled > 0 ? ((netProfit / p.contractBilled) * 100).toFixed(1) : "0.0";
+    return {
+      ...p,
+      netProfit,
+      marginPct: parseFloat(marginPct)
+    };
+  });
+}
+
+function renderJobCostingAnalysis() {
+  const wrap = document.getElementById("job-costing-table-wrap");
+  if (!wrap) return;
+
+  const projects = calculateJobCosting();
+  if (projects.length === 0) {
+    wrap.innerHTML = `
+      <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 12px;">
+        No active projects assigned yet. Assign a <strong>Project Name</strong> to your Invoices and Material COGS entries to automatically track contract profitability and gross margins here!
+      </div>
+    `;
+    return;
+  }
+
+  let html = `
+    <table class="spreadsheet-grid job-costing-table">
+      <thead>
+        <tr>
+          <th>Project / Contract</th>
+          <th>Client</th>
+          <th style="text-align: right;">Contract Value</th>
+          <th style="text-align: right;">Collected</th>
+          <th style="text-align: right;">Direct COGS</th>
+          <th style="text-align: right;">Net Margin ($)</th>
+          <th style="text-align: right;">Margin %</th>
+          <th style="text-align: center;">Profitability Health</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  projects.forEach(p => {
+    let healthBadge = "";
+    if (p.marginPct >= 35) {
+      healthBadge = `<span style="background:#dcfce7; color:#15803d; font-weight:800; font-size:10.5px; padding:3px 8px; border-radius:12px; border:1px solid #86efac;">🟢 Healthy (${p.marginPct}%)</span>`;
+    } else if (p.marginPct >= 15) {
+      healthBadge = `<span style="background:#fef3c7; color:#b45309; font-weight:800; font-size:10.5px; padding:3px 8px; border-radius:12px; border:1px solid #fde047;">🟡 Moderate (${p.marginPct}%)</span>`;
+    } else {
+      healthBadge = `<span style="background:#fee2e2; color:#b91c1c; font-weight:800; font-size:10.5px; padding:3px 8px; border-radius:12px; border:1px solid #fca5a5;">🔴 Low Margin (${p.marginPct}%)</span>`;
+    }
+
+    html += `
+      <tr>
+        <td style="font-weight: 700; color: #1e3a8a;">🏗️ ${escapeHtml(p.project)}</td>
+        <td>${escapeHtml(p.client)}</td>
+        <td class="cell-number" style="font-weight: 700;">${formatMoney(p.contractBilled)}</td>
+        <td class="cell-number" style="color: #16a34a;">${formatMoney(p.collected)}</td>
+        <td class="cell-number" style="color: #d97706;">${formatMoney(p.directCosts)}</td>
+        <td class="cell-number" style="font-weight: 800; color: ${p.netProfit >= 0 ? '#16a34a' : '#dc2626'};">${formatMoney(p.netProfit)}</td>
+        <td class="cell-number" style="font-weight: 800;">${p.marginPct}%</td>
+        <td class="cell-center">${healthBadge}</td>
+      </tr>
+    `;
+  });
+
+  html += `</tbody></table>`;
+  wrap.innerHTML = html;
+}
+
+// ==========================================================================
+// First-Run Module Selection Wizard Controllers
+// ==========================================================================
+window.openModuleWizardModal = function() {
+  const modal = document.getElementById("modal-module-wizard");
+  if (!modal) return;
+  const disciplines = ["revenue", "cogs", "fleet", "facility", "insurance", "payroll", "utilities", "taxes"];
+  disciplines.forEach(d => {
+    const chk = document.getElementById(`mod-check-${d}`);
+    if (chk) {
+      chk.checked = store.data.disciplineStatus ? store.data.disciplineStatus[d] !== false : true;
+    }
+  });
+  modal.classList.add("open");
+};
+
+window.closeModuleWizardModal = function() {
+  const modal = document.getElementById("modal-module-wizard");
+  if (modal) modal.classList.remove("open");
+};
+
+window.applyWizardPreset = function(preset) {
+  const disciplines = ["revenue", "cogs", "fleet", "facility", "insurance", "payroll", "utilities", "taxes"];
+  if (preset === "all") {
+    disciplines.forEach(d => {
+      const chk = document.getElementById(`mod-check-${d}`);
+      if (chk) chk.checked = true;
+    });
+  } else if (preset === "contractor") {
+    const contractorActive = ["revenue", "cogs", "fleet", "insurance", "payroll", "taxes"];
+    disciplines.forEach(d => {
+      const chk = document.getElementById(`mod-check-${d}`);
+      if (chk) chk.checked = contractorActive.includes(d);
+    });
+  }
+};
+
+window.saveModuleWizardPreferences = function() {
+  if (!store.data.disciplineStatus) store.data.disciplineStatus = {};
+  const disciplines = ["revenue", "cogs", "fleet", "facility", "insurance", "payroll", "utilities", "taxes"];
+  disciplines.forEach(d => {
+    const chk = document.getElementById(`mod-check-${d}`);
+    if (chk) {
+      store.data.disciplineStatus[d] = chk.checked;
+    }
+  });
+  store.saveData();
+  localStorage.setItem("MBD_WIZARD_COMPLETED_V130", "true");
+  closeModuleWizardModal();
+  setupDisciplineToggles();
+  renderAll();
+  alert("✅ Workspace updated! Your active modules and tabs have been customized.");
+};
+
+// ==========================================================================
+// Two-Way Excel Import Engine (Client-Side SheetJS Integration)
+// ==========================================================================
+window.openExcelImportModal = function() {
+  const modal = document.getElementById("modal-import-excel");
+  if (modal) modal.classList.add("open");
+};
+
+window.closeExcelImportModal = function() {
+  const modal = document.getElementById("modal-import-excel");
+  if (modal) modal.classList.remove("open");
+};
+
+window.handleExcelFileSelect = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  processExcelImportFile(file);
+};
+
+function setupExcelDropzone() {
+  const dropzone = document.getElementById("excel-dropzone");
+  if (!dropzone) return;
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.add("dragover");
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.remove("dragover");
+    }, false);
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files && files.length > 0) {
+      processExcelImportFile(files[0]);
+    }
+  }, false);
+}
+
+function processExcelImportFile(file) {
+  if (typeof XLSX === 'undefined') {
+    alert("⚠️ Excel processing library is loading. Please try again in a few seconds.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      parseExcelWorkbookData(workbook);
+    } catch (err) {
+      alert("⚠️ Error parsing Excel spreadsheet: " + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function parseExcelWorkbookData(workbook) {
+  const sheetMap = {
+    "revenue": ["revenue & invoicing", "revenue", "invoicing", "sales"],
+    "cogs": ["project cogs", "cogs", "materials", "direct costs"],
+    "fleet": ["fleet & travel", "fleet", "mileage", "vehicles"],
+    "facility": ["facility & lease", "facility", "mortgage", "rent"],
+    "insurance": ["insurance policies", "insurance"],
+    "payroll": ["payroll & labor", "payroll", "team labor", "subcontractors"],
+    "utilities": ["utilities & saas", "utilities", "overhead"],
+    "taxes": ["taxes & safe harbor", "taxes", "tax reserves"]
+  };
+
+  let totalImportedCount = 0;
+  let sheetsProcessed = 0;
+
+  workbook.SheetNames.forEach(sheetName => {
+    const normalized = sheetName.trim().toLowerCase();
+    let matchedKey = null;
+
+    for (const [key, aliases] of Object.entries(sheetMap)) {
+      if (aliases.some(a => normalized.includes(a))) {
+        matchedKey = key;
+        break;
+      }
+    }
+
+    if (!matchedKey) return;
+
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonRows = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+    if (!jsonRows || jsonRows.length === 0) return;
+
+    const schema = SCHEMA_DEFINITIONS[matchedKey];
+    if (!schema) return;
+
+    const parsedRecords = [];
+
+    jsonRows.forEach(row => {
+      const record = {};
+      let hasMeaningfulData = false;
+
+      schema.forEach(col => {
+        let foundVal = undefined;
+        for (const [rowKey, rowVal] of Object.entries(row)) {
+          const normRK = rowKey.trim().toLowerCase();
+          const normColLabel = col.label.trim().toLowerCase();
+          const normColKey = col.key.trim().toLowerCase();
+
+          if (normRK === normColLabel || normRK === normColKey || normRK.includes(normColKey)) {
+            foundVal = rowVal;
+            break;
+          }
+        }
+
+        if (foundVal !== undefined && String(foundVal).trim() !== "") {
+          if (col.type === "currency" || col.type === "number") {
+            record[col.key] = parseFloat(String(foundVal).replace(/[^0-9.-]+/g, "")) || 0;
+          } else if (col.type === "boolean") {
+            const s = String(foundVal).toUpperCase();
+            record[col.key] = s.includes("YES") || s === "TRUE";
+          } else {
+            record[col.key] = String(foundVal).trim();
+          }
+          hasMeaningfulData = true;
+        } else {
+          if (col.type === "currency" || col.type === "number") record[col.key] = 0;
+          else if (col.type === "boolean") record[col.key] = false;
+          else record[col.key] = "";
+        }
+      });
+
+      if (hasMeaningfulData) {
+        parsedRecords.push(record);
+      }
+    });
+
+    if (parsedRecords.length > 0) {
+      store.data[matchedKey] = parsedRecords;
+      totalImportedCount += parsedRecords.length;
+      sheetsProcessed++;
+    }
+  });
+
+  if (sheetsProcessed > 0) {
+    store.saveData();
+    updateAutocompleteDatalists();
+    closeExcelImportModal();
+    renderAll();
+    alert(`✅ Excel Workbook Imported Successfully!\n\nSynchronized ${totalImportedCount} total records across ${sheetsProcessed} discipline sheets.\nAll KPI cards, margins, and charts have been recalculated.`);
+  } else {
+    alert("⚠️ No matching financial sheets found in this workbook. Ensure sheet names match standard disciplines (e.g. Revenue, COGS, Fleet, etc.).");
+  }
+}
+
+// ==========================================================================
+// Printable Client Invoice / Estimate Modal
+// ==========================================================================
+window.openPrintInvoiceModal = function(rowIdx) {
+  const row = (store.data.revenue || [])[rowIdx];
+  if (!row) return;
+
+  const f = store.calculateFormulas("revenue", row);
+  const container = document.getElementById("invoice-sheet-content");
+  if (!container) return;
+
+  const gross = Number(row.grossBilled) || 0;
+  const deposit = Number(row.depositReceived) || 0;
+  const received = Number(row.amountReceived) || 0;
+  const total = f.totalDue || gross;
+  const balance = f.outstanding || 0;
+
+  container.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #0f172a; padding-bottom:14px; margin-bottom:16px;">
+      <div>
+        <div style="font-size:20px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
+          ${row.status?.includes("Quote") ? "CONTRACT ESTIMATE & PROPOSAL" : "INVOICE / BILL OF WORK"}
+        </div>
+        <div style="font-size:11px; color:#475569; margin-top:3px;">
+          Commercial & Residential Contractor Services • State of New Jersey
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:14px; font-weight:800; color:#1e3a8a;"># ${escapeHtml(row.id || "INV-" + (rowIdx + 1))}</div>
+        <div style="font-size:11px; color:#475569; margin-top:2px;">Date: <strong>${escapeHtml(row.date || "N/A")}</strong></div>
+        <div style="font-size:11px; color:#475569;">Due Date: <strong>${escapeHtml(row.dueDate || "Net 30")}</strong></div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; font-size:12px;">
+      <div style="background:#f8fafc; padding:12px; border:1px solid #cbd5e1; border-radius:6px;">
+        <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:4px;">BILL TO CLIENT:</div>
+        <div style="font-size:14px; font-weight:800; color:#0f172a;">${escapeHtml(row.client || "Valued Client")}</div>
+        <div style="color:#475569; margin-top:2px;">Project: <strong>${escapeHtml(row.project || "General Contract Work")}</strong></div>
+      </div>
+      <div style="background:#f8fafc; padding:12px; border:1px solid #cbd5e1; border-radius:6px;">
+        <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:4px;">STATUS & TERMS:</div>
+        <div style="font-size:13px; font-weight:700; color:#0284c7;">${escapeHtml(row.status || "Active")}</div>
+        <div style="font-size:11px; color:#475569; margin-top:2px;">Payment Method: <strong>${escapeHtml(row.method || "Direct Deposit / Check")}</strong></div>
+      </div>
+    </div>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:20px; font-size:12px;">
+      <thead>
+        <tr style="background:#0f172a; color:#fff;">
+          <th style="padding:8px 10px; text-align:left;">Description of Scope / Deliverables</th>
+          <th style="padding:8px 10px; text-align:center; width:140px;">Tax Classification</th>
+          <th style="padding:8px 10px; text-align:right; width:140px;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #cbd5e1;">
+          <td style="padding:12px 10px;">
+            <strong>${escapeHtml(row.project || "Contract Scope")}</strong>
+            <div style="color:#64748b; font-size:11px; margin-top:3px;">Labor, materials, installation and standard commercial service delivery.</div>
+          </td>
+          <td style="padding:12px 10px; text-align:center; font-size:11px;">
+            ${escapeHtml(row.taxable || "Exempt / Standard")}
+          </td>
+          <td style="padding:12px 10px; text-align:right; font-weight:700; font-family:monospace;">
+            ${formatMoney(gross)}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display:flex; justify-content:flex-end; margin-bottom:24px;">
+      <div style="width:300px; font-size:12px;">
+        <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #e2e8f0;">
+          <span>Subtotal / Contract Base:</span>
+          <strong style="font-family:monospace;">${formatMoney(gross)}</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #e2e8f0;">
+          <span>NJ Sales Tax (${f.appliedRate ? f.appliedRate.toFixed(3) + '%' : '0%'}):</span>
+          <strong style="font-family:monospace;">${formatMoney(f.salesTax)}</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:2px solid #0f172a; font-size:13px; font-weight:800;">
+          <span>Total Contract Price:</span>
+          <span style="font-family:monospace; color:#1e3a8a;">${formatMoney(total)}</span>
+        </div>
+        ${deposit > 0 ? `
+        <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #e2e8f0; color:#16a34a;">
+          <span>Down Payment / Deposit Received:</span>
+          <strong style="font-family:monospace;">- ${formatMoney(deposit)}</strong>
+        </div>
+        ` : ''}
+        ${received > 0 && received !== deposit ? `
+        <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #e2e8f0; color:#16a34a;">
+          <span>Total Payments Received:</span>
+          <strong style="font-family:monospace;">- ${formatMoney(received)}</strong>
+        </div>
+        ` : ''}
+        <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:14px; font-weight:900; color:#b91c1c;">
+          <span>BALANCE DUE:</span>
+          <span style="font-family:monospace;">${formatMoney(balance)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px dashed #94a3b8; padding-top:12px; font-size:10px; color:#64748b; line-height:1.4;">
+      <strong>NJ Statutory Notice:</strong> If this contract represents a Capital Improvement under N.J.S.A. 54:32B-3, sales tax is exempt under <strong>NJ Form ST-8</strong> provided a valid signed certificate is maintained on file. Home Improvement Contractors must be registered with the NJ Division of Consumer Affairs (HICPA N.J.A.C. 13:45A-16).
+    </div>
+  `;
+
+  const modal = document.getElementById("modal-print-invoice");
+  if (modal) modal.classList.add("open");
+};
+
+window.closePrintInvoiceModal = function() {
+  const modal = document.getElementById("modal-print-invoice");
+  if (modal) modal.classList.remove("open");
+};
 
 document.addEventListener("DOMContentLoaded", initUI);
