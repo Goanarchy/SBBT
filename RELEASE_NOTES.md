@@ -4,6 +4,40 @@
 
 ---
 
+## 🏛️ Version 1.4.2 (Latest Release)
+* **Official Release Date**: October 27, 2026
+* **Status**: Available & Active
+* **Package Asset**: [`SBBT_v1.4.2_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.4.2/SBBT_v1.4.2_Ready_To_Use.zip)
+* **Core Focus**: Executive Financial Dashboard Grand Presentation, 100% Zero Loose Numbers in Advanced Mode, Dedicated Project Description & Scope of Work Field, Company Profile & Document Branding Settings, and In-Place Row Editing Across All Ledger Tables.
+
+### 🌟 Key Upgrades in Version 1.4.2
+1. **🏛️ Executive Financial Dashboard Grand Presentation**:
+   * The primary title `"Executive Financial Dashboard"` is positioned prominently at the top of the dashboard tab with executive typography, subtitle context, live operational status badge (`🟢 LIVE BUDGET ACTIVE`), and a unified mode toggle.
+   * The 4 core punchy KPI cards (`Cash In`, `Cash Out`, `Net Profit`, `Total Invoiced`) sit directly below the Executive Header for an immediate overview.
+2. **🧹 Zero Loose Numbers in Advanced Mode**:
+   * Completely eradicated loose numbers, orphaned metric text, and duplicate summary containers when entering Advanced Details (`⚡ Advanced Details`).
+   * The 8 standard category boxes are cleanly hidden in Advanced Mode, letting the 4 Trading Terminal Cards (AR Aging Donut, Category Spending Bar, Cash Runway Meter, and Safe Harbor Tax Sentinel) take center stage without visual clutter.
+3. **📝 Project Description & Scope of Work in Invoices & Sales**:
+   * Added a dedicated `"Description / Scope of Work (Optional)"` input field (`description`) to the Invoicing form and table.
+   * Supports multiline work details, provides full hover tooltips in table rows, prints automatically onto customer invoices and proposals (`🖨️ PDF`), and exports cleanly into Excel workbooks.
+4. **🏢 Company Profile & Document Branding Settings**:
+   * Introduced a dedicated Company Profile settings center accessible from the top navigation header (`🏢 Company Profile`) and the System Tools tab.
+   * Solicits standard, public, non-private business information:
+     - Business Legal Name
+     - Specialty / Trade Tagline
+     - Business Street Address
+     - City, State (NJ), ZIP Code
+     - Business Phone Number
+     - Business Email Address
+     - Official Website
+     - NJ License / HICPA Registration Number
+   * Automatically personalizes all generated documents (PDF Invoices, Work Orders, Project Estimates, and Excel workbooks) with professional branding.
+5. **✏️ In-Place Row Editing Across All Ledger Tables**:
+   * Added an intuitive Edit button (`✏️`) next to every record in all 8 category tables (Invoices, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes).
+   * Clicking Edit opens the entry modal pre-populated with that row's exact data, synchronizing dropdown date pickers and calculation fields so users can correct typos or modify amounts in-place without having to delete and re-enter.
+
+---
+
 ## 🏛️ Version 1.4.0 (Prior Release)
 * **Official Release Date**: October 27, 2026
 * **Status**: Available & Active

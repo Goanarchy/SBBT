@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.4.1.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.4.2.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.4.1 | NJ Local Businesses &amp; Contractors</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.4.2 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -168,7 +168,7 @@ $xml = @"
    <Column ss:Width="160"/>
    <Column ss:Width="260"/>
    <Row ss:Height="26">
-    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.4.1)</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.4.2)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
@@ -181,12 +181,12 @@ $xml = @"
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Gross Invoiced Revenue</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C5"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C6"><Data ss:Type="Number">0</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accrual billings before sales tax</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Cash Collected</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C9"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C10"><Data ss:Type="Number">0</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Realized cash in operating bank account</Data></Cell>
    </Row>
    <Row>

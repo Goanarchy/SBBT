@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.4.1)
+ * MASTER BUSINESS DASHBOARD (v1.4.2)
  * Executive Multi-Tab High-Fidelity Workbook Exporter using SheetJS
  * Tailored for New Jersey Local Businesses & Trade Contractors
  */
@@ -16,9 +16,9 @@ function exportBudgetToExcel(store) {
   // 1. Executive Summary Sheet
   const kpis = store.calculateKPIs();
   const summaryData = [
-    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.4.1)"],
+    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.4.2)"],
     ["Target Audience:", "NJ Local Businesses & Trade Contractors"],
-    ["Company Name:", NJ_BUDGET_CONFIG.companyName],
+    ["Company Name:", (store.companyProfile && store.companyProfile.companyName) || NJ_BUDGET_CONFIG.companyName],
     ["Location:", NJ_BUDGET_CONFIG.location],
     ["State Tax Context:", `NJ Sales Tax: 6.625% (ST-8 0% Exempt) | NJ CBT: 6.5% | IRS Mileage: $${NJ_BUDGET_CONFIG.irsMileageRate}/mi`],
     ["Fiscal Period:", `${store.selectedMonth === 'T12M' ? 'Trailing 12 Months (T12M)' : (store.selectedMonth === 'ALL' ? 'All Months (YTD)' : store.selectedMonth)} ${store.selectedYear}`],
@@ -51,7 +51,7 @@ function exportBudgetToExcel(store) {
   XLSX.utils.book_append_sheet(wb, wsSummary, "Executive Summary");
 
   // 2. Revenue & Invoices Sheet
-  const revHeader = ["Invoice #", "Date", "User / Customer Account", "Job Name (Optional)", "Contract Value ($) [INPUT]", "NJ Taxable?", "NJ Sales Tax ($) [FORMULA]", "Total Due ($) [FORMULA]", "Deposit / Paid ($) [INPUT]", "Balance Due ($) [FORMULA]", "Status"];
+  const revHeader = ["Invoice #", "Date", "User / Customer Account", "Job Name (Optional)", "Description / Scope", "Contract Value ($) [INPUT]", "NJ Taxable?", "NJ Sales Tax ($) [FORMULA]", "Total Due ($) [FORMULA]", "Deposit / Paid ($) [INPUT]", "Balance Due ($) [FORMULA]", "Status"];
   const revRows = [revHeader];
   store.data.revenue.forEach((r, idx) => {
     const rowNum = idx + 2;
@@ -60,25 +60,26 @@ function exportBudgetToExcel(store) {
       r.date || "",
       r.client || "",
       r.jobName || r.project || "",
+      r.description || "",
       Number(r.grossBilled) || 0,
       String(r.taxable || "").includes("YES") ? "YES" : (String(r.taxable || "").includes("ST-8") ? "ST-8 (0%)" : "NO"),
-      { f: `IF(F${rowNum}="YES", E${rowNum}*${NJ_BUDGET_CONFIG.njSalesTaxRate}, 0)` },
-      { f: `E${rowNum}+G${rowNum}` },
+      { f: `IF(G${rowNum}="YES", F${rowNum}*${NJ_BUDGET_CONFIG.njSalesTaxRate}, 0)` },
+      { f: `F${rowNum}+H${rowNum}` },
       Number(r.amountReceived) || 0,
-      { f: `H${rowNum}-I${rowNum}` },
+      { f: `I${rowNum}-J${rowNum}` },
       r.status || "Active"
     ]);
   });
   // Total Row
   const totalRevRow = store.data.revenue.length + 2;
   revRows.push([
-    "TOTALS", "", "", "",
-    { f: `SUM(E2:E${totalRevRow-1})` },
+    "TOTALS", "", "", "", "",
+    { f: `SUM(F2:F${totalRevRow-1})` },
     "",
-    { f: `SUM(G2:G${totalRevRow-1})` },
     { f: `SUM(H2:H${totalRevRow-1})` },
     { f: `SUM(I2:I${totalRevRow-1})` },
     { f: `SUM(J2:J${totalRevRow-1})` },
+    { f: `SUM(K2:K${totalRevRow-1})` },
     ""
   ]);
   const wsRev = XLSX.utils.aoa_to_sheet(revRows);
@@ -87,6 +88,7 @@ function exportBudgetToExcel(store) {
     { wch: 13 }, // Date
     { wch: 28 }, // User Name
     { wch: 28 }, // Job Name (Optional)
+    { wch: 34 }, // Description / Scope
     { wch: 20 }, // Contract Value
     { wch: 16 }, // Taxable
     { wch: 20 }, // Sales Tax
@@ -300,6 +302,6 @@ function exportBudgetToExcel(store) {
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
   // Trigger Download
-  const filename = `Master_Business_Dashboard_v1.4.1_${new Date().toISOString().slice(0,10)}.xlsx`;
+  const filename = `Master_Business_Dashboard_v1.4.2_${new Date().toISOString().slice(0,10)}.xlsx`;
   XLSX.writeFile(wb, filename);
 }

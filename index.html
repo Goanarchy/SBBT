@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.4.1. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.4.1</title>
+  <meta name="description" content="Master Business Dashboard v1.4.2. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.4.2</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.4.1</span>
+          <span class="badge-version">v1.4.2</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
       </div>
@@ -84,7 +84,7 @@
         🌙 Theme
       </button>
 
-      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.1">
+      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.2">
         🚀 What's New
       </button>
 
@@ -146,43 +146,86 @@
   <!-- Main Container -->
   <main class="main-wrapper">
 
-    <!-- Visual Legend & Status Banner -->
-    <section class="legend-banner">
-      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-        <span style="font-weight:700; font-size:11.5px;">Quick Guide:</span>
-        <span class="sample-cell-preview sample-fillable">Light Blue Cells = Editable</span>
-        <span style="font-size:11px; color:var(--text-muted);">(Click or pick from dropdown)</span>
-        <span class="sample-cell-preview sample-calculated">White Cells = Auto-Calculated</span>
-      </div>
-      <div style="font-size:11.5px; color:#0284c7; font-weight:600;">
-        <span>📍 NJ Operating Standards: Sales Tax 6.625% | CBT 6.5% | IRS Mileage $0.70/mi</span>
-      </div>
-    </section>
+
 
     <!-- ====================================================================
-         TAB 1: EXECUTIVE DASHBOARD (CLEAN ESSENTIALS IN BASIC MODE)
+         TAB 1: EXECUTIVE DASHBOARD
          ==================================================================== -->
     <section class="tab-pane active" id="tab-dashboard">
       
-      <!-- Top Control Strip with Basic vs Advanced View Switcher -->
-      <div class="dash-control-strip">
-        <div>
-          <h2 style="font-size: 16px; font-weight: 800; display:flex; align-items:center; gap:8px;">
-            <span>📈</span> Executive Financial Dashboard
-          </h2>
-          <p style="font-size: 11.5px; color: var(--text-muted);" id="dashboard-period-subtitle">
-            Showing performance for: <strong>October 2025</strong>
+      <!-- Executive Dashboard Grand Header (Positioned Prominently at Very Top) -->
+      <div class="dash-executive-header">
+        <div class="dash-title-group">
+          <div class="dash-badge-status">
+            <span class="status-dot-pulse"></span>
+            <span>EXECUTIVE FINANCIAL COMMAND CENTER</span>
+          </div>
+          <h1 class="dash-main-heading">Executive Financial Dashboard</h1>
+          <p class="dash-subheading" id="dashboard-period-subtitle">
+            Live Cash Intelligence &amp; Operating Margins for <strong>October 2025</strong> • State of New Jersey
           </p>
         </div>
 
-        <!-- View Switcher -->
-        <div class="view-mode-toggle">
-          <button class="view-mode-btn active" id="btn-view-basic" onclick="setDashboardViewMode('basic')" title="Show core essentials: 2-column Inflow/Outflow and monthly category totals">
-            🔘 Basic Essentials
-          </button>
-          <button class="view-mode-btn" id="btn-view-advanced" onclick="setDashboardViewMode('advanced')" title="Show detailed metrics: Category comparisons, AR aging, cash runway, and KPI cards">
-            ⚪ Advanced Details
-          </button>
+        <div class="dash-header-controls">
+          <div class="view-mode-toggle">
+            <button class="view-mode-btn active" id="btn-view-basic" onclick="setDashboardViewMode('basic')" title="Show core essentials: Inflows/Outflows, Category Totals, and Project Profitability">
+              🔘 Basic Essentials
+            </button>
+            <button class="view-mode-btn" id="btn-view-advanced" onclick="setDashboardViewMode('advanced')" title="Show advanced metrics: AR aging, category breakdown, cash runway, and Safe Harbor tax sentinel">
+              ⚡ Advanced Details
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Core Executive KPI Cards (Prominent Top Status Strip for Both Modes) -->
+      <div class="core-kpi-grid" style="margin-bottom: 16px;">
+        <!-- Card 1: Money In -->
+        <div class="kpi-card-punchy green">
+          <div class="kpi-title-row">
+            <span>Cash In (Collected)</span>
+            <span style="font-size: 15px;">💵</span>
+          </div>
+          <div class="kpi-big-number" id="kpi-collected" style="color: #16a34a;">$0.00</div>
+          <div class="kpi-trend-pill" style="color: #16a34a;" id="kpi-collected-trend">
+            <span>⬆️ Real money in bank</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Money Out -->
+        <div class="kpi-card-punchy amber">
+          <div class="kpi-title-row">
+            <span>Cash Out (Total Spent)</span>
+            <span style="font-size: 15px;">💸</span>
+          </div>
+          <div class="kpi-big-number" id="kpi-expenses" style="color: #f59e0b;">$0.00</div>
+          <div class="kpi-trend-pill" style="color: #d97706;" id="kpi-expenses-trend">
+            <span>COGS + Operating Overhead</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Net Profit (Money In Hand) -->
+        <div class="kpi-card-punchy blue">
+          <div class="kpi-title-row">
+            <span>Net Profit (In Hand)</span>
+            <span style="font-size: 15px;">🏆</span>
+          </div>
+          <div class="kpi-big-number" id="kpi-net-income" style="color: #2563eb;">$0.00</div>
+          <div class="kpi-trend-pill" style="color: #2563eb;" id="kpi-net-margin">
+            <span>0.0% Net Margin</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Invoiced vs Realized -->
+        <div class="kpi-card-punchy purple">
+          <div class="kpi-title-row">
+            <span>Total Invoiced</span>
+            <span style="font-size: 15px;">📋</span>
+          </div>
+          <div class="kpi-big-number" id="kpi-revenue" style="color: #8b5cf6;">$0.00</div>
+          <div class="kpi-trend-pill" style="color: #7c3aed;" id="kpi-collection-rate">
+            <span>Pending AR: $0.00</span>
+          </div>
         </div>
       </div>
 
@@ -273,7 +316,7 @@
       </div>
 
       <!-- CURRENT MONTH CATEGORY TOTALS DECK (BASIC MODE INDICATORS) -->
-      <div class="category-totals-deck">
+      <div class="category-totals-deck" id="dash-category-totals-deck">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
           <div>
             <h3 style="font-size:13.5px; font-weight:800; display:flex; align-items:center; gap:6px;">
@@ -307,63 +350,15 @@
       </div>
 
       <!-- ==================================================================
-           ADVANCED DETAILS CONTAINER (SHOWN ONLY WHEN SWITCHED TO ADVANCED)
+           ADVANCED DETAILS CONTAINER (TRADING TERMINAL COMMAND CENTER)
            ================================================================== -->
       <div class="advanced-container" id="advanced-details-container">
         
-        <div style="margin-bottom:12px; padding:10px 14px; background:var(--bg-card-subtle); border:1px solid var(--border-light); border-radius:6px; font-size:12px;">
-          ℹ️ <strong>Advanced Management Deck:</strong> Detailed KPI trends, cash runway simulations, and month-over-month category variance comparisons.
-        </div>
-
-        <!-- 4 Core Punchy KPI Cards -->
-        <div class="core-kpi-grid">
-          <!-- Card 1: Money In -->
-          <div class="kpi-card-punchy green">
-            <div class="kpi-title-row">
-              <span>Cash In (Collected)</span>
-              <span style="font-size: 15px;">💵</span>
-            </div>
-            <div class="kpi-big-number" id="kpi-collected" style="color: #16a34a;">$0.00</div>
-            <div class="kpi-trend-pill" style="color: #16a34a;" id="kpi-collected-trend">
-              <span>⬆️ Real money in bank</span>
-            </div>
+        <div style="margin-bottom:12px; padding:10px 14px; background:var(--bg-card-subtle); border:1px solid var(--border-light); border-radius:6px; font-size:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            ⚡ <strong>Advanced Command Center:</strong> High-precision financial metrics, AR aging breakdown, cash runway velocity, and NJ Safe Harbor compliance sentinel.
           </div>
-
-          <!-- Card 2: Money Out -->
-          <div class="kpi-card-punchy amber">
-            <div class="kpi-title-row">
-              <span>Cash Out (Total Spent)</span>
-              <span style="font-size: 15px;">💸</span>
-            </div>
-            <div class="kpi-big-number" id="kpi-expenses" style="color: #f59e0b;">$0.00</div>
-            <div class="kpi-trend-pill" style="color: #d97706;" id="kpi-expenses-trend">
-              <span>COGS + Operating Overhead</span>
-            </div>
-          </div>
-
-          <!-- Card 3: Net Profit (Money In Hand) -->
-          <div class="kpi-card-punchy blue">
-            <div class="kpi-title-row">
-              <span>Net Profit (In Hand)</span>
-              <span style="font-size: 15px;">🏆</span>
-            </div>
-            <div class="kpi-big-number" id="kpi-net-income" style="color: #2563eb;">$0.00</div>
-            <div class="kpi-trend-pill" style="color: #2563eb;" id="kpi-net-margin">
-              <span>0.0% Net Margin</span>
-            </div>
-          </div>
-
-          <!-- Card 4: Invoiced vs Realized -->
-          <div class="kpi-card-punchy purple">
-            <div class="kpi-title-row">
-              <span>Total Invoiced</span>
-              <span style="font-size: 15px;">📋</span>
-            </div>
-            <div class="kpi-big-number" id="kpi-revenue" style="color: #8b5cf6;">$0.00</div>
-            <div class="kpi-trend-pill" style="color: #7c3aed;" id="kpi-collection-rate">
-              <span>Pending AR: $0.00</span>
-            </div>
-          </div>
+          <span style="font-size:11px; font-weight:700; color:#2563eb;">Trading Terminal Layout Active</span>
         </div>
 
         <!-- Advanced Metrics Graphical Command Center (Trading Exchange Precision Architecture) -->
@@ -539,6 +534,18 @@
           <input type="checkbox" id="toggle-discipline-revenue" checked onchange="toggleDiscipline('revenue', this.checked)">
           <span class="slider-switch"></span>
         </label>
+      </div>
+            <!-- Visual Legend & Status Banner -->
+      <div class="legend-banner" style="margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <span style="font-weight:700; font-size:11.5px;">Quick Guide:</span>
+          <span class="sample-cell-preview sample-fillable">Light Blue Cells = Editable</span>
+          <span style="font-size:11px; color:var(--text-muted);">(Click or pick from dropdown)</span>
+          <span class="sample-cell-preview sample-calculated">White Cells = Auto-Calculated</span>
+        </div>
+        <div style="font-size:11.5px; color:#0284c7; font-weight:600;">
+          <span>📍 NJ Operating Standards: Sales Tax 6.625% | CBT 6.5% | IRS Mileage $0.70/mi</span>
+        </div>
       </div>
       <div class="table-card" id="card-revenue">
         <div class="table-toolbar">
@@ -1135,10 +1142,11 @@
       </div>
       <form id="add-record-form">
         <input type="hidden" id="modal-tab-key" value="revenue">
+        <input type="hidden" id="modal-edit-index" value="-1">
         <div class="modal-body" id="modal-dynamic-fields"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-dark" id="modal-cancel-btn">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Entry</button>
+          <button type="submit" class="btn btn-primary" id="modal-submit-btn">Save Entry</button>
         </div>
       </form>
     </div>
@@ -1257,14 +1265,13 @@
         <button class="modal-close-btn" id="modal-whats-new-close">&times;</button>
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6;">
-        <ul style="padding-left: 18px;">
-          <li style="margin-bottom: 8px;"><strong>🤝 New "Accepted" Status in Sales:</strong> Invoicing now features an official <strong>"Accepted"</strong> status option for approved proposals pending deposit or kick-off.</li>
-          <li style="margin-bottom: 8px;"><strong>📈 Trading Exchange Precision Dashboard:</strong> Replaced loose data numbers with structured, high-precision metric tiles inspired by financial trading terminals.</li>
-          <li style="margin-bottom: 8px;"><strong>📐 Fixed Responsive Spacing & Min-Height:</strong> Empty tabs and fresh sheets maintain structured vertical height, preventing the footer from collapsing upward.</li>
-          <li style="margin-bottom: 8px;"><strong>🎮 Rock-Solid Welcome Dialog Dimensions:</strong> The onboarding welcome modal remains at a fixed, stable size without jumping or resizing between steps.</li>
-          <li style="margin-bottom: 8px;"><strong>💡 Smooth Chained "How to Start" Access:</strong> Opening "How to Start" from the welcome tour closes the tour smoothly first without overlapping windows.</li>
-          <li style="margin-bottom: 8px;"><strong>📚 Fully Separated Bilingual Manuals:</strong> Independent, complete documentation files: <strong>USER_GUIDE_EN.md</strong> (English) and <strong>MANUAL_DE_USUARIO_ES.md</strong> (Español).</li>
-          <li style="margin-bottom: 8px;"><strong>👤 Clean Developer Credits:</strong> Simplified footer attribution with direct clickable profile name.</li>
+                <ul style="padding-left: 18px;">
+          <li style="margin-bottom: 8px;"><strong>📈 Executive Dashboard Grand Header:</strong> Re-positioned and styled the dashboard title prominently at the top with live status pulse and mode selector.</li>
+          <li style="margin-bottom: 8px;"><strong>🧹 100% Zero Loose Numbers in Advanced Mode:</strong> Hidden basic category boxes in Advanced Mode so the dashboard remains strictly structured into high-precision trading exchange cards.</li>
+          <li style="margin-bottom: 8px;"><strong>📝 Project Description Field in Invoices:</strong> Added dedicated project scope &amp; work description field to Invoices &amp; Sales, automatically printed on PDF invoices and estimates.</li>
+          <li style="margin-bottom: 8px;"><strong>🏢 Company Profile &amp; Document Branding:</strong> New settings area to customize your business legal name, specialty, address, phone, email, and NJ contractor license across all generated documents.</li>
+          <li style="margin-bottom: 8px;"><strong>✏️ Edit Any Row in 1-Click:</strong> Added an Edit (✏️) button beside every row across all 8 disciplines so you can modify records without deleting and retyping.</li>
+          <li style="margin-bottom: 8px;"><strong>🤝 Smooth Chained "How to Start" Guide:</strong> Seamlessly opens right after completing the 5-step welcome tour without interrupting or closing your flow.</li>
         </ul>
       </div>
       <div class="modal-footer">
@@ -1447,6 +1454,79 @@
           <button type="button" class="btn btn-primary" id="btn-tour-next" onclick="navigateTour(1)">Next Step ➡️</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       COMPANY PROFILE & DOCUMENT BRANDING MODAL (#modal-company-profile)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-company-profile" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size: 20px;">🏢</span>
+          <span style="font-weight: 800; font-size: 14px; color:#fff;">Company Profile &amp; Document Branding</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeCompanyProfileModal()">&times;</button>
+      </div>
+      <form id="company-profile-form" onsubmit="saveCompanyProfileFromForm(event)">
+        <div class="modal-body" style="padding: 18px 22px;">
+          <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 14px;">
+            Customize your company profile below. These details will be automatically printed on all <strong>1-Click PDF Invoices, Estimates, Work Orders, and Excel Reports</strong>.
+          </p>
+
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label class="form-label">Business / Legal Trade Name</label>
+            <input type="text" class="form-control" id="profile-field-companyName" required placeholder="e.g. Garden State Premier Solutions LLC">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label class="form-label">Trade / Specialty Tagline</label>
+            <input type="text" class="form-control" id="profile-field-specialty" placeholder="e.g. Commercial &amp; Residential Contractor Services">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div class="form-group">
+              <label class="form-label">Business Street Address</label>
+              <input type="text" class="form-control" id="profile-field-address" placeholder="e.g. 120 Park Avenue, Suite 400">
+            </div>
+            <div class="form-group">
+              <label class="form-label">City, State, ZIP</label>
+              <input type="text" class="form-control" id="profile-field-cityStateZip" placeholder="e.g. Morristown, NJ 07960">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div class="form-group">
+              <label class="form-label">Business Phone Number</label>
+              <input type="text" class="form-control" id="profile-field-phone" placeholder="e.g. (973) 555-0199">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Business Email Address</label>
+              <input type="email" class="form-control" id="profile-field-email" placeholder="e.g. office@gardenstatesolutions.com">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div class="form-group">
+              <label class="form-label">Website URL (Optional)</label>
+              <input type="text" class="form-control" id="profile-field-website" placeholder="e.g. www.gardenstatesolutions.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">NJ License / HICPA Reg #</label>
+              <input type="text" class="form-control" id="profile-field-license" placeholder="e.g. NJ HIC# 13VH09876500">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="justify-content: space-between;">
+          <button type="button" class="btn btn-outline-dark" onclick="resetCompanyProfileToDefault()">↺ Reset to Default</button>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-outline-dark" onclick="closeCompanyProfileModal()">Cancel</button>
+            <button type="submit" class="btn btn-success" style="font-weight: 700;">💾 Save Profile</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 

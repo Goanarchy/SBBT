@@ -1,4 +1,4 @@
-# 📖 Master Business Dashboard — Official User Manual (v1.4.1)
+# 📖 Master Business Dashboard — Official User Manual (v1.4.2)
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
 *Official Release: Version 1.4.1*  
 *Author & Lead Engineer: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Support: `andres00787@gmail.com`*
@@ -11,7 +11,7 @@
 ---
 
 ## 🎯 Purpose of this Manual
-This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.4.1)** without accounting jargon or technical frustration.
+This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.4.2)** without accounting jargon or technical frustration.
 
 By following this guide, you will be able to:
 1. **Track Contracts, Retainers & Progress Billing**: Manage user accounts, down payment deposits, progress billings, and outstanding balances with the newly added `"Accepted"` status option for approved quotes.
@@ -21,12 +21,12 @@ By following this guide, you will be able to:
 5. **Apply NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)**: Legally exempt qualified capital installation and construction work under N.J.S.A. 54:32B-3 with an auditable compliance trail.
 6. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
 7. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
-8. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.4.1.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
+8. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.4.2.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
 
 ---
 
 ## 📦 What to Do With Your Files Upon Download or Email
-When you receive your official release package (`SBBT_v1.4.1_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
+When you receive your official release package (`SBBT_v1.4.2_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
 
 ```mermaid
 flowchart LR
@@ -34,9 +34,9 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Package**: Right-click `SBBT_v1.4.1_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
+1. **Extract the ZIP Package**: Right-click `SBBT_v1.4.2_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
 2. **Launch the Master Web Dashboard**: Double-click **`index.html`**. It opens immediately in Google Chrome, Microsoft Edge, Safari, Brave, or Mozilla Firefox.
-3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.4.1.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
+3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.4.2.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
 
 > [!IMPORTANT]
 > **Zero Installation & 100% Data Privacy**: You do **not** need a web server, cloud database, or active internet connection. All calculations, SheetJS imports, and exports run 100% locally in your browser. Your confidential business numbers never leave your computer.
@@ -153,6 +153,23 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
 * **Reset to Blank Template ($0.00)**: Clears all demo entries for live client delivery.
 
 ---
+
+
+### 3.10 Company Profile & Document Branding Settings (`🏢 Company Profile`)
+* **Personalized Document Header**: Click **"🏢 Company Profile"** in the top navigation bar or under **System Tools** to customize your business identity.
+* **Standard Business Fields (Non-Private)**:
+  - **Company / Trade Name**: Printed as the primary business header on all invoices and reports.
+  - **Specialty / Trade Tagline**: Displayed beneath your business name (e.g., *Licensed Commercial Electrical & Low-Voltage Contractor*).
+  - **Street Address, City, State, ZIP**: Fully formats formal address blocks.
+  - **Direct Business Phone & Email**: Instant contact references for billing inquiries.
+  - **Official Website**: Displayed on project proposals.
+  - **NJ License # / HICPA Reg**: Critical compliance requirement under N.J.A.C. 13:45A-16 printed directly on PDF customer estimates and invoices.
+* **Instant Persistence**: Saved directly into browser `localStorage` and automatically updates invoice printouts and Excel exports.
+
+### 3.11 In-Place Row Editing (`✏️ Edit Button`)
+* **Modify Any Record In-Place**: Every data table (Invoicing, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes) now features a dedicated **✏️ Edit** button alongside the delete button.
+* **Smart Synchronized Modal**: Clicking `✏️` opens the entry modal with all original values pre-filled, automatically selecting the matching Month, Day, and Year dropdowns.
+* **Zero Disruption**: Modify client names, amounts, tax classifications, or job descriptions and click **Save Changes** without having to delete the record or recalculate totals.
 
 ## 4. Troubleshooting Guide (Cause & Effect)
 

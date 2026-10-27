@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.4.1";
+    this.version = "1.4.2";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -625,20 +625,88 @@ window.closeHowToStartModal = function() {
 // ==========================================================================
 // Dashboard View Mode (Basic vs Advanced)
 // ==========================================================================
+
+// Company Profile & Document Branding Management
+store.companyProfile = (function() {
+  try {
+    const saved = localStorage.getItem("MBD_COMPANY_PROFILE");
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return typeof DEFAULT_COMPANY_PROFILE !== 'undefined' ? { ...DEFAULT_COMPANY_PROFILE } : {
+    companyName: "Garden State Premier Solutions LLC",
+    specialty: "Commercial & Residential Contractor Services",
+    address: "120 Park Avenue, Suite 400",
+    cityStateZip: "Morristown, NJ 07960",
+    phone: "(973) 555-0199",
+    email: "office@gardenstatesolutions.com",
+    website: "www.gardenstatesolutions.com",
+    license: "NJ HICPA Lic# 13VH09876500"
+  };
+})();
+
+window.openCompanyProfileModal = function() {
+  const modal = document.getElementById("modal-company-profile");
+  if (!modal) return;
+  const p = store.companyProfile || {};
+  document.getElementById("profile-field-companyName").value = p.companyName || "";
+  document.getElementById("profile-field-specialty").value = p.specialty || "";
+  document.getElementById("profile-field-address").value = p.address || "";
+  document.getElementById("profile-field-cityStateZip").value = p.cityStateZip || "";
+  document.getElementById("profile-field-phone").value = p.phone || "";
+  document.getElementById("profile-field-email").value = p.email || "";
+  document.getElementById("profile-field-website").value = p.website || "";
+  document.getElementById("profile-field-license").value = p.license || "";
+  modal.classList.add("open");
+};
+
+window.closeCompanyProfileModal = function() {
+  const modal = document.getElementById("modal-company-profile");
+  if (modal) modal.classList.remove("open");
+};
+
+window.saveCompanyProfileFromForm = function(e) {
+  if (e) e.preventDefault();
+  const profile = {
+    companyName: document.getElementById("profile-field-companyName").value.trim() || "My Business LLC",
+    specialty: document.getElementById("profile-field-specialty").value.trim() || "Contractor Services",
+    address: document.getElementById("profile-field-address").value.trim(),
+    cityStateZip: document.getElementById("profile-field-cityStateZip").value.trim(),
+    phone: document.getElementById("profile-field-phone").value.trim(),
+    email: document.getElementById("profile-field-email").value.trim(),
+    website: document.getElementById("profile-field-website").value.trim(),
+    license: document.getElementById("profile-field-license").value.trim()
+  };
+  store.companyProfile = profile;
+  localStorage.setItem("MBD_COMPANY_PROFILE", JSON.stringify(profile));
+  closeCompanyProfileModal();
+  alert("✅ Company Profile & Document Branding updated successfully!");
+};
+
+window.resetCompanyProfileToDefault = function() {
+  if (confirm("Reset company information to default NJ demo profile?")) {
+    store.companyProfile = typeof DEFAULT_COMPANY_PROFILE !== 'undefined' ? { ...DEFAULT_COMPANY_PROFILE } : {};
+    localStorage.removeItem("MBD_COMPANY_PROFILE");
+    openCompanyProfileModal();
+  }
+};
+
 window.setDashboardViewMode = function(mode) {
   store.dashboardViewMode = mode;
   const btnBasic = document.getElementById("btn-view-basic");
   const btnAdv = document.getElementById("btn-view-advanced");
   const advancedContainer = document.getElementById("advanced-details-container");
+  const categoryTotalsDeck = document.getElementById("dash-category-totals-deck");
 
   if (mode === "advanced") {
     btnBasic.classList.remove("active");
     btnAdv.classList.add("active");
     if (advancedContainer) advancedContainer.style.display = "block";
+    if (categoryTotalsDeck) categoryTotalsDeck.style.display = "none";
   } else {
     btnBasic.classList.add("active");
     btnAdv.classList.remove("active");
     if (advancedContainer) advancedContainer.style.display = "none";
+    if (categoryTotalsDeck) categoryTotalsDeck.style.display = "block";
   }
 };
 
@@ -1589,22 +1657,28 @@ function renderDisciplineTable(tabKey) {
         `;
       });
 
-      // Actions column (with 1-click printable invoice for revenue rows)
+      // Actions column (with Edit, 1-click printable PDF, and Delete)
       if (tabKey === "revenue") {
         tableHTML += `
           <td class="cell-center" style="white-space:nowrap;">
-            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; margin-right: 4px; color: #0284c7; border-color: #7dd3fc;" onclick="openPrintInvoiceModal(${originalIdx})" title="Generate & Print Professional Invoice / Estimate">
-              🖨️ PDF
+            <button class="btn btn-outline-primary" style="padding: 2px 6px; font-size: 10.5px; margin-right: 4px; color: #2563eb; border-color: #93c5fd;" onclick="openEditModal('${tabKey}', ${originalIdx})" title="Edit this invoice / contract">
+              ✏️
             </button>
-            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; margin-right: 4px; color: #0284c7; border-color: #7dd3fc;" onclick="openPrintInvoiceModal(${originalIdx})" title="Generate & Print Professional Invoice / Estimate">
+              🖨️
+            </button>
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626; border-color: #fca5a5;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
               ✕
             </button>
           </td>
         </tr>`;
       } else {
         tableHTML += `
-          <td class="cell-center">
-            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
+          <td class="cell-center" style="white-space:nowrap;">
+            <button class="btn btn-outline-primary" style="padding: 2px 6px; font-size: 10.5px; margin-right: 4px; color: #2563eb; border-color: #93c5fd;" onclick="openEditModal('${tabKey}', ${originalIdx})" title="Edit this entry">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline-dark" style="padding: 2px 6px; font-size: 10.5px; color: #dc2626; border-color: #fca5a5;" onclick="deleteRow('${tabKey}', ${originalIdx})" title="Delete entry">
               ✕
             </button>
           </td>
@@ -1884,11 +1958,69 @@ function setupModal() {
   });
 }
 
+
+window.openEditModal = function(tabKey, rowIdx) {
+  openAddModal(tabKey);
+  const row = (store.data[tabKey] || [])[rowIdx];
+  if (!row) return;
+
+  const editIndexInput = document.getElementById("modal-edit-index");
+  if (editIndexInput) editIndexInput.value = rowIdx;
+
+  const modalTitle = document.getElementById("modal-title");
+  if (modalTitle) modalTitle.textContent = `✏️ Edit Record: ${CATEGORY_GUIDES[tabKey]?.title || "Transaction"}`;
+
+  const submitBtn = document.getElementById("modal-submit-btn");
+  if (submitBtn) submitBtn.textContent = "💾 Update Entry";
+
+  const schema = SCHEMA_DEFINITIONS[tabKey];
+  if (!schema) return;
+
+  schema.forEach(col => {
+    if (!col.fillable && col.type === "formula") return;
+    const val = row[col.key];
+
+    if (col.type === "date") {
+      const dateVal = String(val || "");
+      if (dateVal.includes("-")) {
+        const [y, m, d] = dateVal.split("-");
+        const selMonth = document.getElementById(`modal-date-month-${col.key}`);
+        const selDay = document.getElementById(`modal-date-day-${col.key}`);
+        const selYear = document.getElementById(`modal-date-year-${col.key}`);
+        if (selMonth) selMonth.value = m;
+        if (selYear) selYear.value = y;
+        if (selDay) {
+          updateModalDateDays(col.key);
+          selDay.value = d;
+        }
+        const hiddenField = document.getElementById(`modal-field-${col.key}`);
+        if (hiddenField) hiddenField.value = dateVal;
+      }
+    } else if (col.type === "boolean") {
+      const field = document.getElementById(`modal-field-${col.key}`);
+      if (field) field.value = val ? "YES" : "NO";
+    } else {
+      const field = document.getElementById(`modal-field-${col.key}`);
+      if (field) {
+        field.value = (val !== undefined && val !== null) ? val : "";
+      }
+    }
+  });
+
+  if (tabKey === "revenue" && row.taxable) {
+    toggleCustomTaxField(row.taxable);
+  }
+};
+
 function openAddModal(tabKey) {
   const modalOverlay = document.getElementById("modal-add-record");
   const modalTitle = document.getElementById("modal-title");
   const fieldsContainer = document.getElementById("modal-dynamic-fields");
   document.getElementById("modal-tab-key").value = tabKey;
+  const editIndexInput = document.getElementById("modal-edit-index");
+  if (editIndexInput) editIndexInput.value = "-1";
+  const submitBtn = document.getElementById("modal-submit-btn");
+  if (submitBtn) submitBtn.textContent = "Save Entry";
 
   const schema = SCHEMA_DEFINITIONS[tabKey];
   if (!schema) return;
@@ -2546,15 +2678,22 @@ window.openPrintInvoiceModal = function(rowIdx) {
   container.innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #0f172a; padding-bottom:14px; margin-bottom:16px;">
       <div>
-        <div style="font-size:20px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
-          ${row.status?.includes("Quote") ? "CONTRACT ESTIMATE & PROPOSAL" : (row.status === "Accepted" ? "ACCEPTED WORK ORDER & CONTRACT" : "INVOICE / BILL OF WORK")}
+        <div style="font-size:19px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
+          ${escapeHtml(store.companyProfile?.companyName || "GARDEN STATE PREMIER SOLUTIONS LLC")}
         </div>
-        <div style="font-size:11px; color:#475569; margin-top:3px;">
-          Commercial & Residential Contractor Services • State of New Jersey
+        <div style="font-size:11.5px; font-weight:700; color:#2563eb; margin-top:2px;">
+          ${escapeHtml(store.companyProfile?.specialty || "Commercial & Residential Contractor Services")}
         </div>
+        <div style="font-size:11px; color:#475569; margin-top:2px;">
+          ${escapeHtml(store.companyProfile?.address || "")}${store.companyProfile?.address && store.companyProfile?.cityStateZip ? ', ' : ''}${escapeHtml(store.companyProfile?.cityStateZip || "")} • Tel: ${escapeHtml(store.companyProfile?.phone || "N/A")} • ${escapeHtml(store.companyProfile?.email || "")}
+        </div>
+        ${store.companyProfile?.license ? `<div style="font-size:10.5px; color:#64748b; font-weight:700; margin-top:2px;">📜 License: ${escapeHtml(store.companyProfile.license)}</div>` : ''}
       </div>
       <div style="text-align:right;">
-        <div style="font-size:14px; font-weight:800; color:#1e3a8a;"># ${escapeHtml(row.id || "INV-" + (rowIdx + 1))}</div>
+        <div style="font-size:15px; font-weight:900; color:#0f172a; text-transform:uppercase;">
+          ${row.status?.includes("Quote") ? "CONTRACT ESTIMATE & PROPOSAL" : (row.status === "Accepted" ? "ACCEPTED WORK ORDER & CONTRACT" : "INVOICE / BILL OF WORK")}
+        </div>
+        <div style="font-size:13px; font-weight:800; color:#1e3a8a; margin-top:2px;"># ${escapeHtml(row.id || "INV-" + (rowIdx + 1))}</div>
         <div style="font-size:11px; color:#475569; margin-top:2px;">Date: <strong>${escapeHtml(row.date || "N/A")}</strong></div>
         <div style="font-size:11px; color:#475569;">Due Date: <strong>${escapeHtml(row.dueDate || "Net 30")}</strong></div>
       </div>
@@ -2584,8 +2723,8 @@ window.openPrintInvoiceModal = function(rowIdx) {
       <tbody>
         <tr style="border-bottom:1px solid #cbd5e1;">
           <td style="padding:12px 10px;">
-            <strong>${escapeHtml(row.project || "Contract Scope")}</strong>
-            <div style="color:#64748b; font-size:11px; margin-top:3px;">Labor, materials, installation and standard commercial service delivery.</div>
+            <div style="font-size:13px; font-weight:800; color:#0f172a;">${escapeHtml(row.jobName || row.project || "General Contract Scope")}</div>
+            <div style="color:#475569; font-size:11.5px; margin-top:4px; line-height:1.45;">${escapeHtml(row.description || "Labor, direct materials, installation and standard commercial service delivery.")}</div>
           </td>
           <td style="padding:12px 10px; text-align:center; font-size:11px;">
             ${escapeHtml(row.taxable || "Exempt / Standard")}

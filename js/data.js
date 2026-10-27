@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.4.1)
+ * MASTER BUSINESS DASHBOARD (v1.4.2)
  * Executive Financial Control System for NJ Local Businesses & Contractors
  * 
  * Version 1.4.0 Upgrades:
@@ -12,9 +12,22 @@
  * - 📈 Enhanced High-Fidelity Excel Export & Formatted Companion Workbook
  */
 
+
+// Default Company Profile for Invoices & Document Branding
+const DEFAULT_COMPANY_PROFILE = {
+  companyName: "Garden State Premier Solutions LLC",
+  specialty: "Commercial & Residential Contractor Services",
+  address: "120 Park Avenue, Suite 400",
+  cityStateZip: "Morristown, NJ 07960",
+  phone: "(973) 555-0199",
+  email: "office@gardenstatesolutions.com",
+  website: "www.gardenstatesolutions.com",
+  license: "NJ HICPA Lic# 13VH09876500"
+};
+
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.4.1",
+  version: "1.4.2",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -77,6 +90,7 @@ const SCHEMA_DEFINITIONS = {
     { key: "date", label: "Date", fillable: true, type: "date", tooltip: "Quote or invoice date (Select via dropdown menus)." },
     { key: "client", label: "User Name", fillable: true, type: "autocomplete", tooltip: "User account or customer name (Smart memory suggests previous users)." },
     { key: "jobName", label: "Job Name (Optional)", fillable: true, type: "autocomplete", tooltip: "Optional job name, contract title, or project reference (Links directly to COGS for Job Costing)." },
+    { key: "description", label: "Project Description", fillable: true, type: "text", tooltip: "Detailed description of work scope, deliverables, or contract terms (Printed on PDF invoices & estimates)." },
     { key: "grossBilled", label: "Contract Value ($)", fillable: true, type: "currency", tooltip: "Pre-tax quoted proposal or total contract value (Click to edit)." },
     { key: "taxable", label: "Sales Tax Status", fillable: true, type: "select", options: ["NO (0% - Service Exempt)", "NJ ST-8 (0% - Capital Improvement)", "YES (6.625% - NJ Taxable)", "OTHER (Custom %)"], tooltip: "Select tax treatment: Exempt service, NJ Form ST-8 (Capital Improvement), Standard 6.625%, or Custom %." },
     { key: "customRate", label: "Tax %", fillable: true, type: "number", tooltip: "Custom tax rate percentage (Only applies if 'OTHER' is chosen above)." },
