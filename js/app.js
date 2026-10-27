@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.4.0";
+    this.version = "1.4.1";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -605,8 +605,19 @@ window.applyDateDropdownPicker = function() {
 // How to Start Modal Controllers
 // ==========================================================================
 window.openHowToStartModal = function() {
+  const tourModal = document.getElementById("modal-onboarding");
+  if (tourModal && tourModal.classList.contains("open")) {
+    closeOnboardingTour();
+  }
   const modal = document.getElementById("modal-how-to-start");
   if (modal) modal.classList.add("open");
+};
+
+window.openHowToStartFromTour = function() {
+  closeOnboardingTour();
+  setTimeout(() => {
+    openHowToStartModal();
+  }, 180);
 };
 
 window.closeHowToStartModal = function() {
@@ -1270,6 +1281,9 @@ function renderAdvancedCharts(kpis) {
 
     const elStatOpex = document.getElementById("adv-stat-opex");
     if (elStatOpex) elStatOpex.textContent = formatMoney(kpis.totalOpex);
+
+    const elOpexRatioVal = document.getElementById("adv-opex-ratio-val");
+    if (elOpexRatioVal) elOpexRatioVal.textContent = `${opexRatio}%`;
   }
 
   // 3. Cash Runway & Operating Liquidity Safety Meter
@@ -1548,6 +1562,7 @@ function renderDisciplineTable(tabKey) {
           const statusLower = String(displayVal).toLowerCase();
           let color = "#16a34a";
           if (statusLower.includes("quote")) color = "#0284c7"; // Sky Blue for sent quotes & estimates
+          else if (statusLower.includes("accepted")) color = "#0d9488"; // Teal for Accepted proposals
           else if (statusLower.includes("deposit")) color = "#6366f1"; // Indigo for Deposit / Active
           else if (["pending", "scheduled", "draft", "invoiced"].some(s => statusLower.includes(s))) color = "#f59e0b"; // Amber
           else if (statusLower.includes("overdue") || statusLower.includes("needed") || statusLower.includes("cancelled")) color = "#dc2626"; // Red
@@ -2056,7 +2071,7 @@ const TOUR_STEPS = [
     badge: "LEVEL 1 • WELCOME",
     title: "🎮 Welcome to Master Business Dashboard!",
     text: "Your executive financial control system designed for New Jersey small businesses and contractors. It gives you 100% clarity over your actual cash collections, project job costs, operating overhead, and safe-harbor NJ state taxes without confusing accounting jargon.<br><br>💡 <strong>Quick Action:</strong> We invite you to press <strong>'💡 How to Start'</strong> in the top header (or click below) for the 4-step roadmap to get up and running immediately!",
-    tip: "👉 <button type='button' class='btn btn-outline-dark' style='font-size:11px; padding:2px 8px; margin-left:4px; color:#1d4ed8; font-weight:700;' onclick='openHowToStartModal()'>Open 'How to Start' Guide Now 💡</button>"
+    tip: "👉 <button type='button' class='btn btn-outline-dark' style='font-size:11px; padding:2px 8px; margin-left:4px; color:#1d4ed8; font-weight:700;' onclick='openHowToStartFromTour()'>Open 'How to Start' Guide Now 💡</button>"
   },
   {
     badge: "LEVEL 2 • TOTAL CONTROL",
@@ -2199,7 +2214,8 @@ function calculateJobCosting() {
     projectsMap[pName].contractBilled += Number(r.grossBilled) || 0;
     projectsMap[pName].collected += Number(r.amountReceived) || 0;
     projectsMap[pName].deposit += Number(r.depositReceived) || 0;
-    if (r.status === "Overdue") projectsMap[pName].status = "Overdue ⚠️";
+    if (r.status === "Accepted") projectsMap[pName].status = "Accepted 🤝";
+    else if (r.status === "Overdue") projectsMap[pName].status = "Overdue ⚠️";
   });
 
   // Aggregate direct costs from COGS
@@ -2527,7 +2543,7 @@ window.openPrintInvoiceModal = function(rowIdx) {
     <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #0f172a; padding-bottom:14px; margin-bottom:16px;">
       <div>
         <div style="font-size:20px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
-          ${row.status?.includes("Quote") ? "CONTRACT ESTIMATE & PROPOSAL" : "INVOICE / BILL OF WORK"}
+          ${row.status?.includes("Quote") ? "CONTRACT ESTIMATE & PROPOSAL" : (row.status === "Accepted" ? "ACCEPTED WORK ORDER & CONTRACT" : "INVOICE / BILL OF WORK")}
         </div>
         <div style="font-size:11px; color:#475569; margin-top:3px;">
           Commercial & Residential Contractor Services • State of New Jersey

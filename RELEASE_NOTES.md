@@ -4,7 +4,7 @@
 
 ---
 
-## 🌟 Version 1.4.0 (Current Official Release)
+## 🏛️ Version 1.4.0 (Prior Release)
 * **Official Release Date**: October 27, 2026
 * **Status**: Available & Active
 * **Package Asset**: [`SBBT_v1.4.0_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.4.0/SBBT_v1.4.0_Ready_To_Use.zip)

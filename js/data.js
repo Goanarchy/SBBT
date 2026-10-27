@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.4.0)
+ * MASTER BUSINESS DASHBOARD (v1.4.1)
  * Executive Financial Control System for NJ Local Businesses & Contractors
  * 
  * Version 1.4.0 Upgrades:
@@ -14,7 +14,7 @@
 
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.4.0",
+  version: "1.4.1",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -83,7 +83,7 @@ const SCHEMA_DEFINITIONS = {
     { key: "totalDue", label: "Total Due ($)", fillable: false, type: "formula", tooltip: "Contract Amount + Applied Sales Tax (Auto-calculated)." },
     { key: "amountReceived", label: "Deposit / Paid ($)", fillable: true, type: "currency", tooltip: "Actual money collected to date (Down payment or full payment deposited in bank)." },
     { key: "outstanding", label: "Balance Due ($)", fillable: false, type: "formula", tooltip: "Remaining balance to be collected (Auto-calculated)." },
-    { key: "status", label: "Status", fillable: true, type: "select", options: ["Paid in Full", "Deposit / Active", "Pending Balance", "Quote / Sent", "Overdue"], tooltip: "Payment state: Paid in Full, Deposit / Active, Pending Balance, Quote / Sent, or Overdue." }
+    { key: "status", label: "Status", fillable: true, type: "select", options: ["Paid in Full", "Deposit / Active", "Pending Balance", "Accepted", "Quote / Sent", "Overdue"], tooltip: "Payment state: Paid in Full, Deposit / Active, Pending Balance, Accepted (Contract Approved), Quote / Sent, or Overdue." }
   ],
 
   cogs: [
@@ -162,7 +162,7 @@ const SAMPLE_DEMO_DATA = {
     { id: "INV-2025-02", date: "2025-10-08", client: "Rutgers Innovation Lab", jobName: "Cleanroom Wiring Phase 1", project: "Cleanroom Wiring Phase 1", grossBilled: 21800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 10900.00, status: "Deposit / Active" },
     { id: "INV-2025-03", date: "2025-10-14", client: "Bergen Logistics Center", jobName: "Warehouse LED Retrofit", project: "Warehouse LED Retrofit", grossBilled: 18200.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9100.00, status: "Deposit / Active" },
     { id: "INV-2025-04", date: "2025-10-19", client: "Hoboken Waterfront Retail", jobName: "Emergency Electrical Repair", project: "Emergency Electrical Repair", grossBilled: 3800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 3800.00, status: "Paid in Full" },
-    { id: "INV-2025-05", date: "2025-10-24", client: "Prudential Plaza Tenant Build", jobName: "Office Partition & Paint", project: "Office Partition & Paint", grossBilled: 26500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 0.00, status: "Quote / Sent" },
+    { id: "INV-2025-05", date: "2025-10-24", client: "Prudential Plaza Tenant Build", jobName: "Office Partition & Paint", project: "Office Partition & Paint", grossBilled: 26500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 0.00, status: "Accepted" },
     { id: "INV-2025-06", date: "2025-10-25", client: "Jersey Shore Hospitality", jobName: "Restaurant Hood Installation", project: "Restaurant Hood Installation", grossBilled: 9400.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9400.00, status: "Paid in Full" },
     { id: "INV-2025-07", date: "2025-09-12", client: "Princeton BioTech Labs", jobName: "Server Room Cooling", project: "Server Room Cooling", grossBilled: 16000.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 16000.00, status: "Paid in Full" },
     { id: "INV-2025-08", date: "2025-09-28", client: "Newark Gateway Towers", jobName: "Fire Damper Inspection & Fix", project: "Fire Damper Inspection & Fix", grossBilled: 22000.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 22000.00, status: "Paid in Full" },

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.4.0. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.4.0</title>
+  <meta name="description" content="Master Business Dashboard v1.4.1. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.4.1</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.4.0</span>
+          <span class="badge-version">v1.4.1</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
       </div>
@@ -73,15 +73,18 @@
         📥 Import Excel
       </button>
 
-      <a href="START_HERE_USER_GUIDE.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Open official bilingual user manual (English & Español)">
-        📖 Manual
+      <a href="USER_GUIDE_EN.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Open official English user manual">
+        📖 Manual (EN)
+      </a>
+      <a href="MANUAL_DE_USUARIO_ES.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Abrir manual oficial de usuario en Español">
+        📖 Manual (ES)
       </a>
 
       <button class="btn btn-outline-light" id="btn-theme-toggle" title="Switch between Dark Mode and Light Mode">
         🌙 Theme
       </button>
 
-      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.0">
+      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.1">
         🚀 What's New
       </button>
 
@@ -363,15 +366,15 @@
           </div>
         </div>
 
-        <!-- Advanced Metrics Graphical Command Center -->
+        <!-- Advanced Metrics Graphical Command Center (Trading Exchange Precision Architecture) -->
         <div class="adv-graphics-grid" id="advanced-graphics-grid">
           
           <!-- Graphic 1: AR Aging & Collection Efficiency Donut -->
           <div class="adv-chart-card">
             <div class="adv-chart-header">
               <div>
-                <div class="adv-chart-title"><span>🔍</span> AR Aging & Collection Efficiency</div>
-                <div class="adv-chart-subtitle">Cash collected vs active & overdue contractor receivables</div>
+                <div class="adv-chart-title"><span>🔍</span> AR Aging &amp; Collection Health</div>
+                <div class="adv-chart-subtitle">Liquid bank receipts vs current &amp; past-due receivables</div>
               </div>
               <span class="badge" id="adv-collection-rate-pill" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">0.0% Efficiency</span>
             </div>
@@ -379,13 +382,23 @@
               <canvas id="chart-adv-ar-donut"></canvas>
               <div class="adv-center-kpi">
                 <div class="adv-center-kpi-val" id="adv-ar-center-val" style="color:#10b981;">$0.00</div>
-                <div class="adv-center-kpi-sub">Collected In Bank</div>
+                <div class="adv-center-kpi-sub">Collected in Bank</div>
               </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
-              <div>Total Billed: <strong id="kpi-ar-billed" style="font-family:var(--font-mono);">$0.00</strong></div>
-              <div>Current Active AR: <strong id="kpi-ar-total" style="font-family:var(--font-mono); color:#f59e0b;">$0.00</strong></div>
-              <div style="grid-column:1 / -1; color:#dc2626;">Past-Due Overdue: <strong id="kpi-ar-overdue" style="font-family:var(--font-mono);">$0.00</strong></div>
+            <!-- Trading Exchange Stat Tiles -->
+            <div class="trading-tiles-row">
+              <div class="trading-tile">
+                <span class="trading-tile-label">TOTAL BILLED</span>
+                <span class="trading-tile-val" id="kpi-ar-billed">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">ACTIVE CURRENT AR</span>
+                <span class="trading-tile-val" id="kpi-ar-total" style="color:#f59e0b;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">PAST-DUE OVERDUE</span>
+                <span class="trading-tile-val" id="kpi-ar-overdue" style="color:#ef4444;">$0.00</span>
+              </div>
             </div>
           </div>
 
@@ -393,7 +406,7 @@
           <div class="adv-chart-card">
             <div class="adv-chart-header">
               <div>
-                <div class="adv-chart-title"><span>📊</span> Category Spending & OpEx Distribution</div>
+                <div class="adv-chart-title"><span>📊</span> Category Spending &amp; OpEx Distribution</div>
                 <div class="adv-chart-subtitle">Direct project costs (COGS) vs fixed operating overhead</div>
               </div>
               <span class="badge" id="adv-opex-ratio-pill" style="background:#eff6ff; color:#1d4ed8; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">0.0% OpEx Ratio</span>
@@ -401,9 +414,20 @@
             <div class="adv-canvas-container" style="height:180px;">
               <canvas id="chart-adv-spending-bar"></canvas>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
-              <div>Direct Job COGS: <strong id="adv-stat-cogs" style="font-family:var(--font-mono); color:#3b82f6;">$0.00</strong></div>
-              <div>Fixed Overhead: <strong id="adv-stat-opex" style="font-family:var(--font-mono); color:#8b5cf6;">$0.00</strong></div>
+            <!-- Trading Exchange Stat Tiles -->
+            <div class="trading-tiles-row">
+              <div class="trading-tile">
+                <span class="trading-tile-label">DIRECT JOB COGS</span>
+                <span class="trading-tile-val" id="adv-stat-cogs" style="color:#3b82f6;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">FIXED OVERHEAD (OPEX)</span>
+                <span class="trading-tile-val" id="adv-stat-opex" style="color:#8b5cf6;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">OPEX ALLOCATION</span>
+                <span class="trading-tile-val" id="adv-opex-ratio-val" style="color:#0f172a;">0.0%</span>
+              </div>
             </div>
           </div>
 
@@ -411,14 +435,14 @@
           <div class="adv-chart-card">
             <div class="adv-chart-header">
               <div>
-                <div class="adv-chart-title"><span>⏳</span> Cash Runway & Liquidity Safety Meter</div>
-                <div class="adv-chart-subtitle">Operating survival window based on liquid cash vs monthly burn rate</div>
+                <div class="adv-chart-title"><span>⏳</span> Cash Runway &amp; Liquidity Meter</div>
+                <div class="adv-chart-subtitle">Operating survival based on available cash vs monthly burn rate</div>
               </div>
               <span class="badge" id="kpi-runway-badge" style="background:#f3e8ff; color:#7e22ce; font-weight:800; font-size:11px; padding:3px 8px; border-radius:4px;">0.0 Months</span>
             </div>
             
             <div class="runway-gauge-wrap">
-              <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:800; margin-bottom:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; font-weight:800; margin-bottom:4px;">
                 <span>Liquidity Runway Meter:</span>
                 <span id="kpi-runway" style="color:#7e22ce; font-family:var(--font-mono); font-size:14px;">0.0 Months</span>
               </div>
@@ -433,10 +457,20 @@
               </div>
             </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
-              <div>Liquid Bank Reserves: <strong id="kpi-liquid-cash" style="font-family:var(--font-mono); color:#10b981;">$0.00</strong></div>
-              <div>Monthly Operating Burn: <strong id="adv-stat-burn" style="font-family:var(--font-mono); color:#ef4444;">$0.00</strong></div>
-              <div style="grid-column:1 / -1; color:var(--text-muted);">Working Capital Buffer: <strong id="adv-stat-working-cap" style="font-family:var(--font-mono); color:var(--text-main);">$0.00</strong></div>
+            <!-- Trading Exchange Stat Tiles -->
+            <div class="trading-tiles-row">
+              <div class="trading-tile">
+                <span class="trading-tile-label">LIQUID RESERVES</span>
+                <span class="trading-tile-val" id="kpi-liquid-cash" style="color:#10b981;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">MONTHLY OPERATING BURN</span>
+                <span class="trading-tile-val" id="adv-stat-burn" style="color:#ef4444;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">WORKING CAPITAL BUFFER</span>
+                <span class="trading-tile-val" id="adv-stat-working-cap" style="color:#10b981;">$0.00</span>
+              </div>
             </div>
           </div>
 
@@ -444,8 +478,8 @@
           <div class="adv-chart-card">
             <div class="adv-chart-header">
               <div>
-                <div class="adv-chart-title"><span>🛡️</span> NJ Tax Reserve Sentinel (CBT & Sales Tax)</div>
-                <div class="adv-chart-subtitle">Guarantees compliance and prevents surprise audit penalties</div>
+                <div class="adv-chart-title"><span>🛡️</span> NJ Tax Reserve Sentinel (CBT &amp; ST-50)</div>
+                <div class="adv-chart-subtitle">Guarantees state statutory compliance and prevents audit penalties</div>
               </div>
               <span class="badge" id="kpi-tax-status-pill" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">Safe Harbor Met</span>
             </div>
@@ -456,10 +490,20 @@
                 <div class="adv-center-kpi-sub" id="adv-tax-sub">Funded vs Due</div>
               </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
-              <div>Tax Reserve Funded: <strong id="kpi-tax-funded" style="font-family:var(--font-mono); color:#10b981;">$0.00</strong></div>
-              <div>Estimated Total Due: <strong id="kpi-tax-required" style="font-family:var(--font-mono); color:#ef4444;">$0.00</strong></div>
-              <div style="grid-column:1 / -1; color:#d97706;" id="adv-tax-gap-row">Reserve Shortfall Gap: <strong id="kpi-tax-gap-val" style="font-family:var(--font-mono);">$0.00</strong></div>
+            <!-- Trading Exchange Stat Tiles -->
+            <div class="trading-tiles-row">
+              <div class="trading-tile">
+                <span class="trading-tile-label">RESERVE FUNDED</span>
+                <span class="trading-tile-val" id="kpi-tax-funded" style="color:#10b981;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">ESTIMATED TOTAL DUE</span>
+                <span class="trading-tile-val" id="kpi-tax-required" style="color:#ef4444;">$0.00</span>
+              </div>
+              <div class="trading-tile">
+                <span class="trading-tile-label">RESERVE SHORTFALL GAP</span>
+                <span class="trading-tile-val" id="kpi-tax-gap-val" style="color:#10b981;">$0.00</span>
+              </div>
             </div>
           </div>
 
@@ -1006,19 +1050,36 @@
           </div>
         </div>
 
-        <!-- Tool 8: Official Bilingual User Manual -->
-        <div class="tool-action-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%); border-color: #86efac;">
+        <!-- Tool 8: Official English User Manual -->
+        <div class="tool-action-card" style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%); border-color: #86efac;">
           <div>
             <div class="tool-card-title" style="color: #166534; font-size: 14px;">
-              <span>📖</span> Official Bilingual User Manual (START_HERE_USER_GUIDE.md)
+              <span>🇺🇸</span> Official User Manual (English — USER_GUIDE_EN.md)
             </div>
             <p class="tool-card-desc" style="color: #334155; font-size: 11.5px; margin-bottom: 8px;">
-              Need comprehensive guidance or answers to specific scenarios? The complete user manual provides step-by-step instructions, New Jersey statutory tax explanations, accounting cell conventions, and cause-and-effect troubleshooting in both <strong>English</strong> and <strong>Español</strong>.
+              Complete step-by-step operational instructions in 100% English, featuring New Jersey tax statutes (ST-8, CBT), Job Costing, down payments, and cause-and-effect troubleshooting.
             </p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
-            <a href="START_HERE_USER_GUIDE.md" target="_blank" class="btn btn-success" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-              📖 Open User Manual (English & Español) ↗
+            <a href="USER_GUIDE_EN.md" target="_blank" class="btn btn-success" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+              📖 Open English Manual (USER_GUIDE_EN.md) ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Tool 9: Manual Oficial de Usuario en Español -->
+        <div class="tool-action-card" style="background: linear-gradient(135deg, #fefce8 0%, #fffbeb 100%); border-color: #fde047;">
+          <div>
+            <div class="tool-card-title" style="color: #854d0e; font-size: 14px;">
+              <span>🇪🇸</span> Manual Oficial de Usuario (Español — MANUAL_DE_USUARIO_ES.md)
+            </div>
+            <p class="tool-card-desc" style="color: #334155; font-size: 11.5px; margin-bottom: 8px;">
+              Manual completo paso a paso en perfecto idioma español, con instrucciones claras para contratistas y negocios en New Jersey, exenciones ST-8, costes de proyectos y resolución de dudas.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+            <a href="MANUAL_DE_USUARIO_ES.md" target="_blank" class="btn btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#d97706; border-color:#b45309;">
+              📖 Abrir Manual en Español (MANUAL_DE_USUARIO_ES.md) ↗
             </a>
           </div>
         </div>
@@ -1067,14 +1128,14 @@
         <span class="footer-logo">MBD</span>
         <div>
           <div class="footer-title">Master Business Dashboard</div>
-          <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.3.0</strong></div>
+          <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.4.1</strong></div>
         </div>
       </div>
       
       <div class="footer-credits">
         <span>Engineered & Developed by </span>
-        <a href="https://www.linkedin.com/in/victormontoyarojas/" target="_blank" rel="noopener noreferrer" class="footer-link-linkedin" title="Visit Victor Montoya Rojas's LinkedIn Profile">
-          <strong>@goanarchy</strong> (LinkedIn Profile ↗)
+        <a href="https://www.linkedin.com/in/victormontoyarojas/" target="_blank" rel="noopener noreferrer" class="footer-link-linkedin" title="Victor Montoya Rojas">
+          <strong>Victor Montoya Rojas</strong>
         </a>
       </div>
 
@@ -1233,13 +1294,13 @@
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6;">
         <ul style="padding-left: 18px;">
-          <li style="margin-bottom: 8px;"><strong>🎯 NJ Local Businesses & Contractors Focus:</strong> Fine-tuned terminology, calculations, and tax rules specifically for New Jersey trade contractors and local businesses.</li>
-          <li style="margin-bottom: 8px;"><strong>🧭 Dynamic Navigation Tabs:</strong> When categories are deactivated from the Module Wizard, their tabs immediately disappear from the navigation strip so you only see what you are working on.</li>
-          <li style="margin-bottom: 8px;"><strong>📊 Advanced Mode Graphical Indicators:</strong> Replaced static text with interactive Chart.js gauges, including AR Aging Donut, Category Spending Bar, Cash Runway Meter, and NJ Safe Harbor Tax Sentinel.</li>
-          <li style="margin-bottom: 8px;"><strong>📅 Trailing 12 Months (T12M) Rolling Period:</strong> View your financial health over a rolling 12-month period in addition to single month and YTD.</li>
-          <li style="margin-bottom: 8px;"><strong>🏷️ Optional Job Name in Invoices & COGS:</strong> Explicitly tag contracts and supply bills with an optional Job Name for effortless Job Costing matching.</li>
-          <li style="margin-bottom: 8px;"><strong>👤 100% User Terminology (English):</strong> Streamlined terminology referring consistently to 'User' and 'User Accounts' across all tables, forms, and exports.</li>
-          <li style="margin-bottom: 8px;"><strong>📈 Beautiful & Formatted Excel Companion:</strong> Enhanced Excel generation with clean column padding, summary formulas, and demarcated cell protections for CPA/bank reviews.</li>
+          <li style="margin-bottom: 8px;"><strong>🤝 New "Accepted" Status in Sales:</strong> Invoicing now features an official <strong>"Accepted"</strong> status option for approved proposals pending deposit or kick-off.</li>
+          <li style="margin-bottom: 8px;"><strong>📈 Trading Exchange Precision Dashboard:</strong> Replaced loose data numbers with structured, high-precision metric tiles inspired by financial trading terminals.</li>
+          <li style="margin-bottom: 8px;"><strong>📐 Fixed Responsive Spacing & Min-Height:</strong> Empty tabs and fresh sheets maintain structured vertical height, preventing the footer from collapsing upward.</li>
+          <li style="margin-bottom: 8px;"><strong>🎮 Rock-Solid Welcome Dialog Dimensions:</strong> The onboarding welcome modal remains at a fixed, stable size without jumping or resizing between steps.</li>
+          <li style="margin-bottom: 8px;"><strong>💡 Smooth Chained "How to Start" Access:</strong> Opening "How to Start" from the welcome tour closes the tour smoothly first without overlapping windows.</li>
+          <li style="margin-bottom: 8px;"><strong>📚 Fully Separated Bilingual Manuals:</strong> Independent, complete documentation files: <strong>USER_GUIDE_EN.md</strong> (English) and <strong>MANUAL_DE_USUARIO_ES.md</strong> (Español).</li>
+          <li style="margin-bottom: 8px;"><strong>👤 Clean Developer Credits:</strong> Simplified footer attribution with direct clickable profile name.</li>
         </ul>
       </div>
       <div class="modal-footer">

@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.4.0.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.4.1.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.4.0 | NJ Local Businesses &amp; Contractors</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.4.1 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -168,7 +168,7 @@ $xml = @"
    <Column ss:Width="160"/>
    <Column ss:Width="260"/>
    <Row ss:Height="26">
-    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.4.0)</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.4.1)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
@@ -345,8 +345,8 @@ $xml = @"
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
     <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R7C7)"><Data ss:Type="Number">4405.63</Data></Cell>
     <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R7C8)"><Data ss:Type="Number">103405.63</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R7C9)"><Data ss:Type="Number">64300.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R7C10)"><Data ss:Type="Number">39105.63</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R7C9)"><Data ss:Type="Number">59600.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R7C10)"><Data ss:Type="Number">43805.63</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>

@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.4.0)
+ * MASTER BUSINESS DASHBOARD (v1.4.1)
  * Executive Multi-Tab High-Fidelity Workbook Exporter using SheetJS
  * Tailored for New Jersey Local Businesses & Trade Contractors
  */
@@ -16,7 +16,7 @@ function exportBudgetToExcel(store) {
   // 1. Executive Summary Sheet
   const kpis = store.calculateKPIs();
   const summaryData = [
-    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.4.0)"],
+    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.4.1)"],
     ["Target Audience:", "NJ Local Businesses & Trade Contractors"],
     ["Company Name:", NJ_BUDGET_CONFIG.companyName],
     ["Location:", NJ_BUDGET_CONFIG.location],
@@ -300,6 +300,6 @@ function exportBudgetToExcel(store) {
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
   // Trigger Download
-  const filename = `Master_Business_Dashboard_v1.4.0_${new Date().toISOString().slice(0,10)}.xlsx`;
+  const filename = `Master_Business_Dashboard_v1.4.1_${new Date().toISOString().slice(0,10)}.xlsx`;
   XLSX.writeFile(wb, filename);
 }
