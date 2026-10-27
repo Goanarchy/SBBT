@@ -1,7 +1,7 @@
 # 📖 START HERE: Official User Manual & Quick-Start Guide
 # 📘 EMPIEZA AQUÍ: Manual Oficial de Usuario y Guía de Inicio Rápido
-**Master Business Dashboard (Executive Financial Control System) — Version 1.3.0**  
-*Official Release Date: October 26, 2026*  
+**Master Business Dashboard (Executive Financial Control System) — Version 1.4.0**  
+*Official Release Date: October 27, 2026*  
 *Author & Lead Engineer: Victor Montoya Rojas ([@goanarchy](https://www.linkedin.com/in/victormontoyarojas/)) | Direct Support: `andres00787@gmail.com`*
 
 ---
@@ -13,22 +13,22 @@
 ---
 
 <a name="-english-user-manual"></a>
-# 🇺🇸 Master Business Dashboard — User Manual (v1.3.0)
+# 🇺🇸 Master Business Dashboard — User Manual (v1.4.0)
 
 ## 🎯 Purpose of this Manual
-This manual gives small business owners, general contractors, trade specialists, and service firms in New Jersey a straightforward, step-by-step roadmap to master the **Master Business Dashboard (v1.3.0)** without financial guesswork or technical frustration. By following this guide, you will be able to:
-1. Track client contracts, progress billing, down payment deposits, and remaining balances.
-2. Link client invoices directly to material purchase orders and subcontractor bills to compute **real-time Job Costing & Project Profitability** ($ and % margins).
+This manual gives NJ local business owners, trade contractors, general contractors, and service companies in New Jersey a straightforward, step-by-step roadmap to master the **Master Business Dashboard (v1.4.0)** without financial guesswork or technical frustration. By following this guide, you will be able to:
+1. Track user contracts, progress billing, down payment deposits, and remaining balances.
+2. Link user invoices directly to material purchase orders and subcontractor bills to compute **real-time Job Costing & Project Profitability** ($ and % margins).
 3. Apply statutory **NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)** with complete compliance audit trails.
 4. Verify **1099 Subcontractor Certificates of Insurance (COI)** to protect your business from costly New Jersey Workers' Compensation annual audit penalties.
-5. Generate **1-Click Branded Printable Invoices & Estimates** formatted for client presentation and PDF saving.
+5. Generate **1-Click Branded Printable Invoices & Estimates** formatted for user presentation and PDF saving.
 6. Use the **Two-Way Excel Import Engine** to upload and sync modified `.xls`/`.xlsx` workbooks directly into your dashboard.
 7. Work seamlessly in **Microsoft Excel** with **Native Formula Protection** that safely locks calculation cells while leaving input fields open.
 
 ---
 
 ## 📦 What to Do With Your Files Upon Download or Email
-When you receive your package (`SBBT_v1.3.0_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 simple setup steps:
+When you receive your package (`SBBT_v1.4.0_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 simple setup steps:
 
 ```mermaid
 flowchart LR
@@ -36,9 +36,9 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Folder**: Right-click `SBBT_v1.3.0_Ready_To_Use.zip` and select **"Extract All..."** (or *Descomprimir*). Choose any folder on your computer (e.g., Desktop or Documents).
+1. **Extract the ZIP Folder**: Right-click `SBBT_v1.4.0_Ready_To_Use.zip` and select **"Extract All..."** (or *Descomprimir*). Choose any folder on your computer (e.g., Desktop or Documents).
 2. **Launch the Web Dashboard**: Double-click **`index.html`**. It opens immediately in Google Chrome, Microsoft Edge, Safari, or Mozilla Firefox.
-3. **Optional Native Excel**: If you prefer working inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.3.0.xls`**. Formula cells are locked and protected; light-blue cells are ready for your numbers.
+3. **Optional Native Excel**: If you prefer working inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.4.0.xls`**. Formula cells are locked and protected; light-blue cells are ready for your numbers.
 
 > [!IMPORTANT]
 > **Zero Installation & 100% Data Privacy**: You do **not** need a web server, cloud database, or active internet connection. All calculations, SheetJS imports, and exports run 100% locally in your browser. Your confidential business numbers never leave your personal computer.
@@ -50,7 +50,7 @@ flowchart LR
 If you don't have time to read the entire guide, do these 3 steps right now:
 
 1. **Step 1 — Set Your Month & Year**: At the top header, pick your active month (e.g., **October**) and fiscal year (**2025**). All tables and charts synchronize to this timeframe.
-2. **Step 2 — Record a Contract or Invoice**: Click the **💵 Invoicing & Sales** tab. Click **➕ Add Invoice / Contract**. Enter the client name, project name, select the date via dropdowns, and enter contract amount and deposit received:
+2. **Step 2 — Record a Contract or Invoice**: Click the **💵 Invoicing & Sales** tab. Click **➕ Add Invoice / Contract**. Enter the user name, project name, select the date via dropdowns, and enter contract amount and deposit received:
    * Select `"Deposit / Active"` if work is underway and you received an initial retainer.
    * Select `"Quote / Sent"` if it is an estimate pending customer approval.
    * Select `"Paid in Full"` once the entire balance is received.
@@ -193,22 +193,22 @@ To prevent formula corruption and provide immediate visual clarity, cells follow
 ---
 
 <a name="-manual-de-usuario-en-español"></a>
-# 🇪🇸 Master Business Dashboard — Manual de Usuario (v1.3.0)
+# 🇪🇸 Master Business Dashboard — Manual de Usuario (v1.4.0)
 
 ## 🎯 Propósito de este Manual
-Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa y directa para dominar el **Master Business Dashboard (v1.3.0)** sin enredos técnicos ni dolores de cabeza contables. Al seguir esta guía aprenderás a:
-1. Administrar contratos de clientes, facturación progresiva, anticipos (depósitos iniciales) y saldos pendientes.
-2. Enlazar tus facturas de clientes con tus órdenes de compra de materiales y facturas de subcontratistas para calcular la **Rentabilidad de Obra (Job Costing)** con margen en dólares ($) y porcentaje (%).
+Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa y directa para dominar el **Master Business Dashboard (v1.4.0)** sin enredos técnicos ni dolores de cabeza contables. Al seguir esta guía aprenderás a:
+1. Administrar contratos de usuarios, facturación progresiva, anticipos (depósitos iniciales) y saldos pendientes.
+2. Enlazar tus facturas de usuarios con tus órdenes de compra de materiales y facturas de subcontratistas para calcular la **Rentabilidad de Obra (Job Costing)** con margen en dólares ($) y porcentaje (%).
 3. Aplicar legalmente la **Exención de Mejora de Capital de NJ (Formulario ST-8 al 0% de Sales Tax)** con respaldo para auditorías.
 4. Auditar los **Certificados de Seguro (COI)** de tus subcontratistas 1099 para protegerte de penalidades severas en la auditoría anual de Workers' Comp de Nueva Jersey.
-5. Generar **Facturas y Presupuestos Imprimibles en 1 Clic**, con formato profesional listo para presentar a tu cliente o guardar en PDF.
+5. Generar **Facturas y Presupuestos Imprimibles en 1 Clic**, con formato profesional listo para presentar a tu usuario o guardar en PDF.
 6. Usar el **Motor de Importación Bidireccional de Excel** para subir y sincronizar hojas `.xls`/`.xlsx` directamente a tu tablero web.
 7. Trabajar en **Microsoft Excel** con **Protección Nativa de Fórmulas**, donde las celdas de cálculo están bloqueadas y solo las celdas celestes son editables.
 
 ---
 
 ## 📦 Qué Hacer con los Archivos al Recibirlos por Correo o Enlace
-Cuando descargues el paquete (`SBBT_v1.3.0_Ready_To_Use.zip`), sigue estos 3 pasos:
+Cuando descargues el paquete (`SBBT_v1.4.0_Ready_To_Use.zip`), sigue estos 3 pasos:
 
 ```mermaid
 flowchart LR
@@ -216,9 +216,9 @@ flowchart LR
     B --> C["3. Doble clic en index.html"]
 ```
 
-1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.3.0_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
+1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.4.0_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
 2. **Abrir el Tablero Web**: Haz doble clic en el archivo **`index.html`**. Se abrirá de inmediato en Google Chrome, Microsoft Edge, Safari o Firefox.
-3. **Archivo de Excel Opcional**: Si prefieres trabajar en Microsoft Excel tradicional, abre **`NJ_Small_Business_Budget_v1.3.0.xls`**. Las fórmulas están protegidas contra sobrescritura accidental; las celdas celestes están listas para tus números.
+3. **Archivo de Excel Opcional**: Si prefieres trabajar en Microsoft Excel tradicional, abre **`NJ_Small_Business_Budget_v1.4.0.xls`**. Las fórmulas están protegidas contra sobrescritura accidental; las celdas celestes están listas para tus números.
 
 > [!IMPORTANT]
 > **Cero Instalación y Privacidad Total**: No necesitas servidores, bases de datos ni conexión a internet. La aplicación corre 100% dentro de tu navegador de manera privada. Tus números financieros confidenciales jamás salen de tu computadora.
@@ -230,10 +230,10 @@ flowchart LR
 Si no tienes tiempo para leer todo el manual, haz estos 3 pasos ahora mismo:
 
 1. **Paso 1 — Elige Mes y Año**: En el encabezado superior, selecciona tu mes activo (ej. **October**) y año fiscal (**2025**). Todas las tablas y gráficos se sincronizarán con este período.
-2. **Paso 2 — Registra un Contrato o Factura**: Ve a la pestaña **💵 Invoicing & Sales**. Haz clic en **➕ Add Invoice / Contract**. Ingresa el cliente, nombre del proyecto, fecha mediante menús desplegables, valor del contrato y depósito recibido:
+2. **Paso 2 — Registra un Contrato o Factura**: Ve a la pestaña **💵 Invoicing & Sales**. Haz clic en **➕ Add Invoice / Contract**. Ingresa el usuario, nombre del proyecto, fecha mediante menús desplegables, valor del contrato y depósito recibido:
    * Elige `"Deposit / Active"` si el proyecto inició y recibiste un anticipo.
    * Elige `"Quote / Sent"` si es un presupuesto enviado pendiente de aprobación.
-   * Elige `"Paid in Full"` cuando el cliente haya liquidado la totalidad del trabajo.
+   * Elige `"Paid in Full"` cuando el usuario haya liquidado la totalidad del trabajo.
 3. **Paso 3 — Consulta tu Rentabilidad por Proyecto y Dinero en Caja**: Ve a **📈 Dashboard**. Observa la tabla de **Job Costing & Project Profitability** para ver el margen neto exacto de cada obra, y revisa tu **Ganancia Neta en Mano** y el gráfico comparativo de Ingresos vs Egresos.
 
 ---
@@ -305,11 +305,11 @@ Para evitar corrupción de fórmulas y brindar máxima claridad visual, las celd
   * `Cash Collected`: Total de abonos o pagos recibidos a la fecha.
   * `Balance Due`: Saldo pendiente calculado automáticamente (`Total Due - Cash Collected`).
 * **Exención de Mejora de Capital (NJ Form ST-8 al 0%)**:
-  * En Nueva Jersey, las obras de construcción y remodelación permanente a bienes raíces están **exentas del impuesto sobre ventas del 6.625%** bajo la ley N.J.S.A. 54:32B-3, siempre que el cliente firme el **Formulario ST-8**.
+  * En Nueva Jersey, las obras de construcción y remodelación permanente a bienes raíces están **exentas del impuesto sobre ventas del 6.625%** bajo la ley N.J.S.A. 54:32B-3, siempre que el usuario firme el **Formulario ST-8**.
   * Selecciona `"ST-8 (0% - NJ Capital Improvement)"` en la columna de impuestos para facturar al 0% con total respaldo legal.
 * **Generador de Facturas y Presupuestos en 1 Clic (`🖨️ PDF`)**:
   * Cada fila cuenta con un botón `🖨️ PDF`.
-  * Al presionarlo, genera una factura formal con los datos del cliente, alcance del proyecto, desglose de impuestos, anticipos aplicados y saldo pendiente, lista para imprimir o guardar como PDF.
+  * Al presionarlo, genera una factura formal con los datos del usuario, alcance del proyecto, desglose de impuestos, anticipos aplicados y saldo pendiente, lista para imprimir o guardar como PDF.
 
 <a name="es-tab3"></a>
 ### 3.4 Pestaña 3: Costos Directos (COGS) y Facturas de Materiales
@@ -344,7 +344,7 @@ Para evitar corrupción de fórmulas y brindar máxima claridad visual, las celd
 * **Motor de Importación de Excel**: Sube o arrastra tu archivo `.xls` o `.xlsx` modificado. Todos los registros se integran automáticamente en el tablero web.
 * **Descargar Respaldo Local (`.json`)**: Guarda una copia de seguridad íntegra de toda tu información en tu disco duro.
 * **Generar Hoja Oficial de Excel (`.xls`)**: Exporta tu libro de trabajo con protección nativa de fórmulas.
-* **Limpiar a Plantilla en Blanco ($0.00)**: Deja todas las hojas en $0.00 limpias para entregar al cliente.
+* **Limpiar a Plantilla en Blanco ($0.00)**: Deja todas las hojas en $0.00 limpias para entregar al usuario.
 
 ---
 
@@ -354,7 +354,7 @@ Para evitar corrupción de fórmulas y brindar máxima claridad visual, las celd
 | Problema Observado | Causa Raíz | Solución |
 |---|---|---|
 | Agrego una factura y no se ve en la tabla | El filtro de mes está configurado en otro período | Revisa el menú superior. La aplicación auto-sincroniza al mes de la factura, pero si cambiaste de mes manualmente, selecciona `All Months (YTD)` o el mes correspondiente. |
-| El gráfico de ingresos marca $0 aunque tengo facturas | Las facturas tienen estado `"Pending"` o `"Quote / Sent"` | El gráfico mide **dinero real en caja**. Cambia el estado a `"Deposit / Active"` o `"Paid in Full"` cuando el cliente realice el pago. |
+| El gráfico de ingresos marca $0 aunque tengo facturas | Las facturas tienen estado `"Pending"` o `"Quote / Sent"` | El gráfico mide **dinero real en caja**. Cambia el estado a `"Deposit / Active"` o `"Paid in Full"` cuando el usuario realice el pago. |
 | La tabla de Job Costing dice que no hay proyectos asignados | Las facturas y materiales no tienen nombre de proyecto | Asigna el mismo Nombre de Proyecto (ej. `Renovación Casa Morristown`) en las facturas y en la pestaña de COGS. |
 | Una fila de nómina muestra `⚠️ NO COI (Audit Risk)` | El subcontratista 1099 no tiene certificado de seguro | Solicita a tu subcontratista su Certificado de Seguro (COI) vigente con tu empresa como titular y cambia su estado a `COI Verified`. |
 | No puedo editar una celda de fórmula en el archivo Excel | La protección nativa de fórmulas está activa | Las celdas de fórmulas (`#F8FAFC`) están protegidas para evitar errores contables. Ingresa tus números en las celdas celestes (`#E0F2FE`). |

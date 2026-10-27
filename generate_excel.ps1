@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.3.0.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.4.0.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.3.0 BETA</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.4.0 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -168,7 +168,7 @@ $xml = @"
    <Column ss:Width="160"/>
    <Column ss:Width="260"/>
    <Row ss:Height="26">
-    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">GARDEN STATE FINANCIAL CONTROL SYSTEM - EXECUTIVE DASHBOARD</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.4.0)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
@@ -243,14 +243,14 @@ $xml = @"
    <Row ss:Height="24">
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Invoice #</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Client / Customer [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project Scope [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Billed Amount ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">User / Customer Account [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Job Name (Optional) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Contract Value ($) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">NJ Taxable? [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">NJ Sales Tax (6.625%) [fx]</Data></Cell>
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Due ($) [fx]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cash Collected ($) [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">AR Balance ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Deposit / Paid ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Balance Due ($) [fx]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Payment Method [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Status [INPUT]</Data></Cell>
    </Row>
@@ -370,7 +370,7 @@ $xml = @"
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Receipt / PO #</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Supplier / Vendor [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Allocated Project [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Job Name (Optional) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Category [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Amount ($) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Paid Via [INPUT]</Data></Cell>
@@ -518,7 +518,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-104</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-18</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Owner Personal SUV</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey City Client Meeting</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey City User Onsite Meeting</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">IRS Mileage Rate</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">84</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>

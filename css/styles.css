@@ -1163,4 +1163,115 @@ body[data-theme="dark"] .excel-dropzone {
   }
 }
 
+/* ==========================================================================
+   ADVANCED MODE GRAPHICAL COMMAND CENTER (v1.4.0)
+   ========================================================================== */
+.adv-graphics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+@media (max-width: 950px) {
+  .adv-graphics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.adv-chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-grid);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.adv-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.adv-chart-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+}
+
+.adv-chart-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.adv-canvas-container {
+  position: relative;
+  width: 100%;
+}
+
+.adv-center-kpi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.adv-center-kpi-val {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  line-height: 1.1;
+}
+
+.adv-center-kpi-sub {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Runway Tier Gauge */
+.runway-gauge-wrap {
+  margin: 12px 0 10px 0;
+  padding: 10px 12px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.runway-gauge-bar {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #ef4444 0%, #f59e0b 25%, #10b981 55%, #3b82f6 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.runway-gauge-fill {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.25);
+  transition: width 0.4s ease;
+}
+
+.runway-tiers-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+
 

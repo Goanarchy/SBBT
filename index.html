@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.2.4 BETA. Executive financial control system for small businesses featuring dynamic calendar days, 100% English interface, startup usage instructions, intuitive expense billing, quotes pipeline, and predictive autocomplete.">
-  <title>Master Business Dashboard | Version 1.2.4 BETA</title>
+  <meta name="description" content="Master Business Dashboard v1.4.0. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.4.0</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,9 +27,9 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.3.0</span>
+          <span class="badge-version">v1.4.0</span>
         </h1>
-        <p>Operational Budget & NJ Tax Reserve Engine | USD ($)</p>
+        <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
       </div>
     </div>
 
@@ -38,6 +38,7 @@
       <span class="period-label">📅 Period:</span>
       <select class="period-select" id="select-filter-month" onchange="handlePeriodFilterChange()" title="Filter all records and indicators by month">
         <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
         <option value="01">January</option>
         <option value="02">February</option>
         <option value="03">March</option>
@@ -80,7 +81,7 @@
         🌙 Theme
       </button>
 
-      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.2.4 BETA">
+      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.0">
         🚀 What's New
       </button>
 
@@ -133,9 +134,6 @@
     </button>
     <button class="tab-btn" data-tab="pnl" id="tab-btn-pnl">
       <span>📑</span> 12-Month P&L
-    </button>
-    <button class="tab-btn" data-tab="sandbox" id="tab-btn-sandbox" style="border-left: 2px solid #3b82f6;">
-      <span>🎯</span> What-If Sandbox
     </button>
     <button class="tab-btn" data-tab="tools" id="tab-btn-tools" style="border-left: 2px solid #8b5cf6;">
       <span>⚙️</span> System Tools
@@ -297,7 +295,7 @@
             <span>🏗️</span> Job Costing & Project Profitability (Net Margin per Contract)
           </div>
           <span style="font-size:11.5px; color:var(--text-muted);">
-            Directly matches client billings against material POs & subcontractor bills
+            Directly matches user billings against material POs & subcontractor bills
           </span>
         </div>
         <div id="job-costing-table-wrap" style="overflow-x: auto;">
@@ -365,15 +363,107 @@
           </div>
         </div>
 
-        <!-- Advanced Metrics Deck -->
-        <div class="advanced-metrics-deck" id="advanced-metrics-deck" style="display: grid; margin-top: 14px;">
-          <div class="adv-card">
-            <div style="font-size: 24px;">⏳</div>
-            <div>
-              <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Cash Runway</div>
-              <div style="font-size:18px; font-weight:800; font-family:var(--font-mono); color:#8b5cf6;" id="kpi-runway">0.0 Months</div>
-              <div style="font-size:10.5px; color:var(--text-muted);">Liquid Reserve: <strong id="kpi-liquid-cash">$0.00</strong></div>
+        <!-- Advanced Metrics Graphical Command Center -->
+        <div class="adv-graphics-grid" id="advanced-graphics-grid">
+          
+          <!-- Graphic 1: AR Aging & Collection Efficiency Donut -->
+          <div class="adv-chart-card">
+            <div class="adv-chart-header">
+              <div>
+                <div class="adv-chart-title"><span>🔍</span> AR Aging & Collection Efficiency</div>
+                <div class="adv-chart-subtitle">Cash collected vs active & overdue contractor receivables</div>
+              </div>
+              <span class="badge" id="adv-collection-rate-pill" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">0.0% Efficiency</span>
             </div>
+            <div class="adv-canvas-container" style="position:relative; height:180px;">
+              <canvas id="chart-adv-ar-donut"></canvas>
+              <div class="adv-center-kpi">
+                <div class="adv-center-kpi-val" id="adv-ar-center-val" style="color:#10b981;">$0.00</div>
+                <div class="adv-center-kpi-sub">Collected In Bank</div>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
+              <div>Total Billed: <strong id="kpi-ar-billed" style="font-family:var(--font-mono);">$0.00</strong></div>
+              <div>Current Active AR: <strong id="kpi-ar-total" style="font-family:var(--font-mono); color:#f59e0b;">$0.00</strong></div>
+              <div style="grid-column:1 / -1; color:#dc2626;">Past-Due Overdue: <strong id="kpi-ar-overdue" style="font-family:var(--font-mono);">$0.00</strong></div>
+            </div>
+          </div>
+
+          <!-- Graphic 2: Category Spending Allocation Bar -->
+          <div class="adv-chart-card">
+            <div class="adv-chart-header">
+              <div>
+                <div class="adv-chart-title"><span>📊</span> Category Spending & OpEx Distribution</div>
+                <div class="adv-chart-subtitle">Direct project costs (COGS) vs fixed operating overhead</div>
+              </div>
+              <span class="badge" id="adv-opex-ratio-pill" style="background:#eff6ff; color:#1d4ed8; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">0.0% OpEx Ratio</span>
+            </div>
+            <div class="adv-canvas-container" style="height:180px;">
+              <canvas id="chart-adv-spending-bar"></canvas>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
+              <div>Direct Job COGS: <strong id="adv-stat-cogs" style="font-family:var(--font-mono); color:#3b82f6;">$0.00</strong></div>
+              <div>Fixed Overhead: <strong id="adv-stat-opex" style="font-family:var(--font-mono); color:#8b5cf6;">$0.00</strong></div>
+            </div>
+          </div>
+
+          <!-- Graphic 3: Cash Runway & Operating Liquidity Meter -->
+          <div class="adv-chart-card">
+            <div class="adv-chart-header">
+              <div>
+                <div class="adv-chart-title"><span>⏳</span> Cash Runway & Liquidity Safety Meter</div>
+                <div class="adv-chart-subtitle">Operating survival window based on liquid cash vs monthly burn rate</div>
+              </div>
+              <span class="badge" id="kpi-runway-badge" style="background:#f3e8ff; color:#7e22ce; font-weight:800; font-size:11px; padding:3px 8px; border-radius:4px;">0.0 Months</span>
+            </div>
+            
+            <div class="runway-gauge-wrap">
+              <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:800; margin-bottom:4px;">
+                <span>Liquidity Runway Meter:</span>
+                <span id="kpi-runway" style="color:#7e22ce; font-family:var(--font-mono); font-size:14px;">0.0 Months</span>
+              </div>
+              <div class="runway-gauge-bar">
+                <div class="runway-gauge-fill" id="adv-runway-fill" style="width: 0%;"></div>
+              </div>
+              <div class="runway-tiers-legend">
+                <span style="color:#ef4444;">🔴 &lt;1 Mo (Danger)</span>
+                <span style="color:#f59e0b;">🟡 1-3 Mo (Caution)</span>
+                <span style="color:#10b981;">🟢 3-6 Mo (Healthy)</span>
+                <span style="color:#3b82f6;">🔵 6+ Mo (Strong)</span>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
+              <div>Liquid Bank Reserves: <strong id="kpi-liquid-cash" style="font-family:var(--font-mono); color:#10b981;">$0.00</strong></div>
+              <div>Monthly Operating Burn: <strong id="adv-stat-burn" style="font-family:var(--font-mono); color:#ef4444;">$0.00</strong></div>
+              <div style="grid-column:1 / -1; color:var(--text-muted);">Working Capital Buffer: <strong id="adv-stat-working-cap" style="font-family:var(--font-mono); color:var(--text-main);">$0.00</strong></div>
+            </div>
+          </div>
+
+          <!-- Graphic 4: NJ Safe Harbor Tax Reserve Sentinel -->
+          <div class="adv-chart-card">
+            <div class="adv-chart-header">
+              <div>
+                <div class="adv-chart-title"><span>🛡️</span> NJ Tax Reserve Sentinel (CBT & Sales Tax)</div>
+                <div class="adv-chart-subtitle">Guarantees compliance and prevents surprise audit penalties</div>
+              </div>
+              <span class="badge" id="kpi-tax-status-pill" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:10.5px; padding:3px 7px; border-radius:4px;">Safe Harbor Met</span>
+            </div>
+            <div class="adv-canvas-container" style="position:relative; height:180px;">
+              <canvas id="chart-adv-tax-donut"></canvas>
+              <div class="adv-center-kpi">
+                <div class="adv-center-kpi-val" id="kpi-tax-status" style="font-size:15px; color:#16a34a;">Safe Harbor</div>
+                <div class="adv-center-kpi-sub" id="adv-tax-sub">Funded vs Due</div>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; font-size:11px; padding-top:8px; border-top:1px solid var(--border-light);">
+              <div>Tax Reserve Funded: <strong id="kpi-tax-funded" style="font-family:var(--font-mono); color:#10b981;">$0.00</strong></div>
+              <div>Estimated Total Due: <strong id="kpi-tax-required" style="font-family:var(--font-mono); color:#ef4444;">$0.00</strong></div>
+              <div style="grid-column:1 / -1; color:#d97706;" id="adv-tax-gap-row">Reserve Shortfall Gap: <strong id="kpi-tax-gap-val" style="font-family:var(--font-mono);">$0.00</strong></div>
+            </div>
+          </div>
+
+        </div>
           </div>
 
           <div class="adv-card">
@@ -429,7 +519,7 @@
         <div style="flex: 1;">
           <strong style="color: var(--primary); font-size: 13px;">What is this area for? Quotes, Estimates & Invoices Tracking:</strong>
           <p style="font-size: 11.5px; color: var(--text-color); margin: 4px 0 0 0; line-height: 1.5;">
-            Use this section to record both <strong>quotes/estimates sent to clients</strong> and active billed invoices. 
+            Use this section to record both <strong>quotes/estimates sent to users</strong> and active billed invoices. 
             Select status <strong>"Quote / Sent"</strong> for new proposals so they are accounted for in pipeline projections. When officially billed or collected, mark them <strong>"Paid / Closed"</strong>. Every proposal entered here feeds directly into your Executive Dashboard indicators: <strong>Total Invoiced</strong> reflects your sales volume, and <strong>Cash In (Collected)</strong> tracks actual bank deposits.
           </p>
         </div>
@@ -437,7 +527,7 @@
 
       <div class="discipline-toggle-banner">
         <span style="font-size: 12px; font-weight:700;">Discipline Active Status:</span>
-        <label class="switch" title="Flip switch to deactivate this category if your business doesn't bill clients">
+        <label class="switch" title="Flip switch to deactivate this category if your business doesn't bill users">
           <input type="checkbox" id="toggle-discipline-revenue" checked onchange="toggleDiscipline('revenue', this.checked)">
           <span class="slider-switch"></span>
         </label>
@@ -448,6 +538,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-revenue" onchange="handleCategoryFilterChange('revenue', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -501,6 +592,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-cogs" onchange="handleCategoryFilterChange('cogs', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -542,6 +634,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-fleet" onchange="handleCategoryFilterChange('fleet', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -583,6 +676,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-facility" onchange="handleCategoryFilterChange('facility', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -624,6 +718,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-insurance" onchange="handleCategoryFilterChange('insurance', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -665,6 +760,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-payroll" onchange="handleCategoryFilterChange('payroll', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -706,6 +802,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-utilities" onchange="handleCategoryFilterChange('utilities', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -747,6 +844,7 @@
             <span class="cat-filter-label">📅 Filter:</span>
             <select class="cat-filter-select" id="cat-filter-month-taxes" onchange="handleCategoryFilterChange('taxes', this.value)">
               <option value="ALL">All Months (YTD)</option>
+        <option value="T12M">Trailing 12 Months (T12M)</option>
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -780,70 +878,6 @@
           <p style="font-size: 11.5px; color: var(--text-muted);">Consolidated monthly roll-up across all 12 months with true net cash margins</p>
         </div>
         <div class="table-responsive" id="pnl-container" style="padding: 10px;"></div>
-      </div>
-    </section>
-
-    <!-- TAB 11: WHAT-IF SANDBOX -->
-    <section class="tab-pane" id="tab-sandbox">
-      <div class="table-card" style="padding: 20px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-light); padding-bottom:12px; margin-bottom:16px;">
-          <div>
-            <h2 style="font-size: 15px; font-weight: 800;">🎯 "What-If" Projection Sandbox</h2>
-            <p style="font-size: 11.5px; color: var(--text-muted);">Simulate future business scenarios safely. Never alters your real records.</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:12px; font-weight:700;" id="label-toggle-sandbox">Sandbox Mode: OFF (Safe)</span>
-            <label class="switch">
-              <input type="checkbox" id="toggle-sandbox-active" onchange="toggleSandbox(this.checked)">
-              <span class="slider-switch"></span>
-            </label>
-          </div>
-        </div>
-
-        <div id="sandbox-disclaimer-box" style="background:var(--bg-card-subtle); border:1px solid var(--border-light); padding:10px 14px; border-radius:6px; font-size:12px; margin-bottom:16px;">
-          🔒 <strong>Sandbox is currently OFF:</strong> Sliders are locked to ensure you only see 100% real numbers. Flip switch ON to experiment.
-        </div>
-
-        <div id="sandbox-controls-wrap" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; opacity:0.5; pointer-events:none; margin-bottom:18px;">
-          <div style="background:var(--bg-card-subtle); padding:12px; border-radius:6px; border:1px solid var(--border-light);">
-            <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; margin-bottom:6px;">
-              <span>Sales Growth:</span>
-              <span id="sim-rev-val" style="color:#2563eb;">0%</span>
-            </div>
-            <input type="range" class="range-slider" id="sim-rev-slider" min="-30" max="30" value="0" step="5" style="width:100%;">
-          </div>
-
-          <div style="background:var(--bg-card-subtle); padding:12px; border-radius:6px; border:1px solid var(--border-light);">
-            <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; margin-bottom:6px;">
-              <span>COGS Inflation:</span>
-              <span id="sim-cogs-val" style="color:#d97706;">0%</span>
-            </div>
-            <input type="range" class="range-slider" id="sim-cogs-slider" min="-15" max="30" value="0" step="5" style="width:100%;">
-          </div>
-
-          <div style="background:var(--bg-card-subtle); padding:12px; border-radius:6px; border:1px solid var(--border-light);">
-            <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; margin-bottom:6px;">
-              <span>Overhead (OpEx):</span>
-              <span id="sim-opex-val" style="color:#7c3aed;">0%</span>
-            </div>
-            <input type="range" class="range-slider" id="sim-opex-slider" min="-20" max="25" value="0" step="5" style="width:100%;">
-          </div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; background:var(--bg-card-subtle); padding:14px; border-radius:8px; text-align:center;">
-          <div>
-            <div style="font-size:10.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Projected Profit</div>
-            <div style="font-size:18px; font-weight:800; font-family:var(--font-mono);" id="sim-result-net">$0.00</div>
-          </div>
-          <div>
-            <div style="font-size:10.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Projected Margin</div>
-            <div style="font-size:18px; font-weight:800; font-family:var(--font-mono);" id="sim-result-margin">0.0%</div>
-          </div>
-          <div>
-            <div style="font-size:10.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Simulated Runway</div>
-            <div style="font-size:18px; font-weight:800; font-family:var(--font-mono);" id="sim-result-runway">0.0 Mo</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -932,7 +966,7 @@
               <span>🔄</span> Restore Realistic Sample Data
             </div>
             <p class="tool-card-desc">
-              Loads complete sample records for a New Jersey business (clients, POs, Ford Transit fuel log, facility mortgage, payroll, utilities) so you can test features and view realistic charts.
+              Loads complete sample records for a New Jersey business (users, POs, Ford Transit fuel log, facility mortgage, payroll, utilities) so you can test features and view realistic charts.
             </p>
           </div>
           <button class="btn btn-outline-light" id="btn-reset-demo" style="width: 100%; justify-content: center; color: #2563eb; border-color: #93c5fd;">
@@ -940,14 +974,14 @@
           </button>
         </div>
 
-        <!-- Tool 6: Clean Blank Slate (Ready for Client Testing) -->
+        <!-- Tool 6: Clean Blank Slate (Ready for User Testing) -->
         <div class="tool-action-card">
           <div>
             <div class="tool-card-title" style="color: #dc2626;">
-              <span>🧹</span> Blank Slate (Clean Template for Client)
+              <span>🧹</span> Blank Slate (Clean Template for User)
             </div>
             <p class="tool-card-desc">
-              Clears all demo records and resets the tool to an empty, clean state ($0.00 everywhere). Ideal for handing over to your client so they can enter their genuine business numbers from scratch.
+              Clears all demo records and resets the tool to an empty, clean state ($0.00 everywhere). Ideal for handing over to the user so they can enter their genuine business numbers from scratch.
             </p>
           </div>
           <button class="btn btn-outline-light" id="btn-clear-blank" style="width: 100%; justify-content: center; color: #dc2626; border-color: #fca5a5;">
@@ -1056,7 +1090,7 @@
   <!-- ====================================================================
        PREDICTIVE AUTOCOMPLETE DATALISTS (GOOGLE-STYLE SMART MEMORY)
        ==================================================================== -->
-  <datalist id="list-autocomplete-clients"></datalist>
+  <datalist id="list-autocomplete-users"></datalist>
   <datalist id="list-autocomplete-vendors"></datalist>
   <datalist id="list-autocomplete-vehicles"></datalist>
   <datalist id="list-autocomplete-locations"></datalist>
@@ -1154,8 +1188,8 @@
           <div style="display:flex; gap:12px; align-items:flex-start;">
             <div style="background:#dbeafe; color:#1d4ed8; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
             <div>
-              <strong style="color:var(--text-color); font-size:13px;">Record Quotes & Client Invoices</strong>
-              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Head to <strong>💵 Invoicing & Sales</strong>. Enter quotes you have sent out (status "Quote / Sent") or active invoices. When the client pays, switch status to "Paid / Closed" to register cash.</p>
+              <strong style="color:var(--text-color); font-size:13px;">Record Quotes & User Invoices</strong>
+              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Head to <strong>💵 Invoicing & Sales</strong>. Enter quotes you have sent out (status "Quote / Sent") or active invoices. When the user pays, switch status to "Paid / Closed" to register cash.</p>
             </div>
           </div>
 
@@ -1192,21 +1226,20 @@
     <div class="modal-dialog" style="max-width: 650px;">
       <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);">
         <div>
-          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.3.0</h3>
-          <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 26, 2026</div>
+          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.4.0</h3>
+          <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 27, 2026</div>
         </div>
         <button class="modal-close-btn" id="modal-whats-new-close">&times;</button>
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6;">
         <ul style="padding-left: 18px;">
-          <li style="margin-bottom: 8px;"><strong>🏗️ Job Costing & Project Profitability:</strong> Direct link between Invoicing and Project COGS. View exact gross margin ($ and %) for every contract!</li>
-          <li style="margin-bottom: 8px;"><strong>💵 Progress Billing & Down Payments:</strong> Seamlessly track contract value, initial deposits received, and remaining balances.</li>
-          <li style="margin-bottom: 8px;"><strong>🏛️ NJ Form ST-8 Capital Improvement Exemption:</strong> Dedicated 0% sales tax classification for construction and capital remodeling jobs in New Jersey.</li>
-          <li style="margin-bottom: 8px;"><strong>🛡️ 1099 Subcontractor COI Audit Sentinel:</strong> Flag uninsured 1099 subs to prevent heavy surcharges in your annual NJ Workers' Comp audit.</li>
-          <li style="margin-bottom: 8px;"><strong>⚙️ First-Run Module Selection Wizard:</strong> Check only the categories your trade uses to keep the workspace clean, with full control in System Tools.</li>
-          <li style="margin-bottom: 8px;"><strong>📥 Two-Way Excel Import Engine:</strong> Upload or drag-and-drop modified .xls/.xlsx files to sync data back into the web dashboard immediately.</li>
-          <li style="margin-bottom: 8px;"><strong>🔒 Native Formula Protection in Excel:</strong> Formula cells are safely locked in generated Excel workbooks, preventing accidental formula overwrites.</li>
-          <li style="margin-bottom: 8px;"><strong>🖨️ Printable Client Invoice / Estimate:</strong> Generate clean, branded invoices and proposals with 1 click, ready to print or save to PDF.</li>
+          <li style="margin-bottom: 8px;"><strong>🎯 NJ Local Businesses & Contractors Focus:</strong> Fine-tuned terminology, calculations, and tax rules specifically for New Jersey trade contractors and local businesses.</li>
+          <li style="margin-bottom: 8px;"><strong>🧭 Dynamic Navigation Tabs:</strong> When categories are deactivated from the Module Wizard, their tabs immediately disappear from the navigation strip so you only see what you are working on.</li>
+          <li style="margin-bottom: 8px;"><strong>📊 Advanced Mode Graphical Indicators:</strong> Replaced static text with interactive Chart.js gauges, including AR Aging Donut, Category Spending Bar, Cash Runway Meter, and NJ Safe Harbor Tax Sentinel.</li>
+          <li style="margin-bottom: 8px;"><strong>📅 Trailing 12 Months (T12M) Rolling Period:</strong> View your financial health over a rolling 12-month period in addition to single month and YTD.</li>
+          <li style="margin-bottom: 8px;"><strong>🏷️ Optional Job Name in Invoices & COGS:</strong> Explicitly tag contracts and supply bills with an optional Job Name for effortless Job Costing matching.</li>
+          <li style="margin-bottom: 8px;"><strong>👤 100% User Terminology (English):</strong> Streamlined terminology referring consistently to 'User' and 'User Accounts' across all tables, forms, and exports.</li>
+          <li style="margin-bottom: 8px;"><strong>📈 Beautiful & Formatted Excel Companion:</strong> Enhanced Excel generation with clean column padding, summary formulas, and demarcated cell protections for CPA/bank reviews.</li>
         </ul>
       </div>
       <div class="modal-footer">
@@ -1223,7 +1256,7 @@
       <div class="modal-header" style="background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);">
         <div>
           <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">⚙️ Tailor Your Dashboard: Select Active Modules</h3>
-          <div style="font-size: 11px; color: #c7d2fe; margin-top: 3px;">Check only the categories your business uses. Unchecked tabs will be cleanly hidden.</div>
+          <div style="font-size: 11px; color: #c7d2fe; margin-top: 3px;">Check only the categories your business uses. Unchecked tabs will instantly be hidden from the navigation bar.</div>
         </div>
         <button class="modal-close-btn" onclick="closeModuleWizardModal()">&times;</button>
       </div>
@@ -1241,7 +1274,7 @@
             <input type="checkbox" id="mod-check-revenue" value="revenue" checked>
             <div>
               <strong style="font-size:12.5px;">💵 Invoicing & Quotes</strong>
-              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">Client proposals, deposits, sales tax & cash collections.</p>
+              <p style="margin:2px 0 0; font-size:11px; color:var(--text-muted);">User proposals, deposits, sales tax & cash collections.</p>
             </div>
           </label>
 
@@ -1346,8 +1379,8 @@
     <div class="modal-dialog" style="max-width: 780px;">
       <div class="modal-header invoice-modal-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
         <div>
-          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">🖨️ Client Invoice / Proposal Generator</h3>
-          <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Executive printable invoice formatted for client presentation & PDF</div>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">🖨️ User Invoice & Proposal Generator</h3>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Executive printable invoice formatted for user presentation & PDF</div>
         </div>
         <button class="modal-close-btn" onclick="closePrintInvoiceModal()">&times;</button>
       </div>

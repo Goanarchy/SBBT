@@ -4,7 +4,38 @@
 
 ---
 
-## 🌟 Version 1.3.0 (Current Official Release)
+## 🌟 Version 1.4.0 (Current Official Release)
+* **Official Release Date**: October 27, 2026
+* **Status**: Available & Active
+* **Package Asset**: [`SBBT_v1.4.0_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.4.0/SBBT_v1.4.0_Ready_To_Use.zip)
+* **Core Focus**: Dedicated Focus on NJ Local Businesses & Trade Contractors, Dynamic Navigation Tabs (Hiding Inactive Modules), Advanced Mode Interactive Graphical Indicators (AR Aging Donut, Category Spending Bar, Cash Runway Meter, Safe Harbor Tax Sentinel), Trailing 12 Months (T12M) Rolling Analytics, Optional Job Name Field for Invoices & COGS, Strict User Terminology (100% English), and Enhanced High-Fidelity Excel Companion Workbook.
+
+### 🌟 Key Upgrades in Version 1.4.0
+1. **🧭 Dynamic Navigation Tabs (Module Auto-Hiding)**:
+   * **Clean Clutter-Free Experience**: When categories or modules are turned OFF in the Module Selection Wizard or via discipline toggles, their respective tab buttons (`Invoicing`, `COGS`, `Fleet`, `Facility`, `Insurance`, `Payroll`, `Utilities`, `Taxes`) are instantly hidden from the top navigation strip.
+   * **Intelligent Auto-Redirect**: If the user is viewing a tab when it is deactivated, the dashboard automatically redirects safely back to the Executive Dashboard.
+2. **📊 Advanced Mode Graphical Indicators (Interactive Chart.js Gauges)**:
+   * **Replaced Plain Text Boxes with Visual Command Center**:
+     1. **AR Aging & Collection Efficiency Donut Chart**: Visualizes cash collected in bank (#10b981), active current receivables (#f59e0b), and overdue receivables (#ef4444) with dynamic Collection Efficiency % badge.
+     2. **Category Spending & OpEx Distribution Bar Chart**: Horizontal bar breakdown of direct job costs (COGS) vs fixed overhead (Payroll, Facility, Fleet, Insurance, Utilities) with OpEx ratio indicator.
+     3. **Cash Runway & Operating Liquidity Safety Meter**: Visual tiered progress meter with safety zones (🔴 <1 Mo Danger, 🟡 1-3 Mo Caution, 🟢 3-6 Mo Healthy, 🔵 6+ Mo Strong) plus working capital buffer.
+     4. **NJ Safe Harbor Tax Reserve Sentinel**: Interactive doughnut gauge measuring CBT (6.5%) and ST-50 Sales Tax reserve funding vs estimated tax gap.
+3. **📅 Trailing 12 Months (T12M) Rolling Period Filter**:
+   * **Beyond Monthly & YTD**: Added a `"Trailing 12 Months (T12M)"` option across the master header and all category-level period filters, providing a 12-month rolling window for smooth trend analysis and contractor seasonality evaluation.
+4. **🏷️ Optional Job Name Field for Invoices & COGS**:
+   * **Explicit Job Costing Identification**: Added dedicated `"Job Name (Optional)"` inputs to both Invoices & Sales and Project COGS, allowing business owners to easily link supply receipts and subcontractor bills to specific jobs or contracts.
+5. **👤 100% English User Terminology**:
+   * **Standardized Identity**: Completely removed references to "Client / Cliente", adopting uniform "User" and "User Account" terminology across all forms, tables, autocomplete lists, and printable statements.
+6. **🎯 Dedicated Focus on NJ Local Businesses & Contractors**:
+   * **Tailored Positioning**: Updated all headings, descriptions, and category guides to explicitly target New Jersey local businesses, trade contractors, and service companies.
+7. **📈 High-Fidelity Excel Exporter & Companion Workbook (`.xls` & `.xlsx`)**:
+   * **Visually Beautiful & Orderly**: Both the generated `.xlsx` export and companion `NJ_Small_Business_Budget_v1.4.0.xls` feature clean column widths, summary formulas, clear input vs formula demarcation (`#E0F2FE` soft light-blue inputs unlocked, `#F8FAFC` formulas locked), and double accounting underlines.
+8. **🧹 Removed What-If Sandbox**:
+   * **Streamlined Simplicity**: Removed the speculative What-If simulator tab, focusing 100% of the tool's power on actual money, cash flow, bills, and tax obligations.
+
+---
+
+## 🏛️ Version 1.3.0 (Milestone Release)
 * **Official Release Date**: October 26, 2026
 * **Status**: Available & Active
 * **Package Asset**: [`SBBT_v1.3.0_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.3.0/SBBT_v1.3.0_Ready_To_Use.zip)

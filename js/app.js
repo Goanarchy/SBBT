@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.3.0)
+ * MASTER BUSINESS DASHBOARD (v1.4.0)
  * Executive Financial Control System
  * 
  * New Upgrades in v1.3.0:
@@ -11,14 +11,14 @@
  * - ⚙️ First-Run Module Selection Wizard (Customizes active tabs on first load or via System Tools)
  * - 📥 Two-Way Excel Import Engine (Drag-and-drop or select .xls/.xlsx to sync data directly into web app)
  * - 🔒 Native Formula Protection in Excel (SpreadsheetML locks formula cells while keeping inputs open)
- * - 🖨️ Printable Client Invoice / Estimate (1-click generation formatted for client presentation & PDF)
+ * - 🖨️ Printable User Invoice & Statement (1-click generation formatted for client presentation & PDF)
  * - 📅 Dynamic Days per Month & Dropdown-only date pickers
- * - 🧹 100% Clean Client State ready for genuine business entries
+ * - 🧹 100% Clean User State ready for genuine business entries
  */
 
 class BudgetStore {
   constructor() {
-    this.version = "1.3.0";
+    this.version = "1.4.0";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -106,11 +106,28 @@ class BudgetStore {
     const year = explicitYear || this.selectedYear;
 
     if (month === "ALL") return true;
-    const targetPrefix = `${year}-${month}`;
+
     const dateField = row.date || row.dueDate || row.renewalDate || "";
-    if (dateField && dateField.startsWith(targetPrefix)) return true;
-    // For records without strict ISO date, allow display in ALL or current year
     if (!dateField) return true;
+
+    if (month === "T12M") {
+      const parts = dateField.split("-");
+      if (parts.length < 2) return true;
+      const rY = parseInt(parts[0], 10);
+      const rM = parseInt(parts[1], 10);
+      if (isNaN(rY) || isNaN(rM)) return true;
+
+      // Trailing 12 Months: rolling 12 months window up to selected year & October (or selected period)
+      const endYear = parseInt(year, 10) || 2025;
+      const endMonth = 10; // Standard fiscal reference anchor
+      const endScore = endYear * 12 + endMonth;
+      const startScore = endScore - 11;
+      const recScore = rY * 12 + rM;
+      return recScore >= startScore && recScore <= endScore;
+    }
+
+    const targetPrefix = `${year}-${month}`;
+    if (dateField && dateField.startsWith(targetPrefix)) return true;
     return false;
   }
 
@@ -407,7 +424,6 @@ function initUI() {
   setupDisciplineToggles();
   setupTooltipSystem();
   setupModal();
-  setupSimulator();
   setupWhatsNewModal();
   setupSystemToolsButtons();
   initQuickDatePickerDays();
@@ -456,6 +472,7 @@ window.handlePeriodFilterChange = function() {
 function syncAllPeriodSelects(monthVal, yearVal) {
   const monthNames = {
     "ALL": "All Months (YTD)",
+    "T12M": "Trailing 12 Months (T12M)",
     "01": "January", "02": "February", "03": "March", "04": "April",
     "05": "May", "06": "June", "07": "July", "08": "August",
     "09": "September", "10": "October", "11": "November", "12": "December"
@@ -477,7 +494,9 @@ function syncAllPeriodSelects(monthVal, yearVal) {
   });
 
   // 3. Sync subtitle labels
-  const currentLabel = `${monthNames[monthVal]} ${yearVal}`;
+  const currentLabel = monthVal === "T12M"
+    ? `Trailing 12 Months (T12M Ending ${yearVal})`
+    : (monthVal === "ALL" ? `All Months (YTD ${yearVal})` : `${monthNames[monthVal] || monthVal} ${yearVal}`);
   const periodSubtitle = document.getElementById("dashboard-period-subtitle");
   if (periodSubtitle) {
     periodSubtitle.innerHTML = `Showing performance for: <strong>${currentLabel}</strong>`;
@@ -651,7 +670,7 @@ function updateAutocompleteDatalists() {
     listEl.innerHTML = unique.map(item => `<option value="${escapeHtml(item)}"></option>`).join("");
   };
 
-  const clients = (store.data.revenue || []).map(r => r.client);
+  const users = (store.data.revenue || []).map(r => r.client);
   const vendors = (store.data.cogs || []).map(c => c.vendor);
   const vehicles = (store.data.fleet || []).map(f => f.vehicle);
   const locations = (store.data.facility || []).map(f => f.location);
@@ -659,11 +678,11 @@ function updateAutocompleteDatalists() {
   const personnel = (store.data.payroll || []).map(p => p.name);
   const utilities = (store.data.utilities || []).map(u => u.service);
   const projects = [
-    ...(store.data.revenue || []).map(r => r.project),
-    ...(store.data.cogs || []).map(c => c.project)
+    ...(store.data.revenue || []).map(r => r.jobName || r.project),
+    ...(store.data.cogs || []).map(c => c.jobName || c.project)
   ];
 
-  populateList("list-autocomplete-clients", clients);
+  populateList("list-autocomplete-users", users);
   populateList("list-autocomplete-vendors", vendors);
   populateList("list-autocomplete-vehicles", vehicles);
   populateList("list-autocomplete-locations", locations);
@@ -746,11 +765,11 @@ function setupSystemToolsButtons() {
     });
   }
 
-  // Clear Blank Template (Pristine 0 State for Clients)
+  // Clear Blank Template (Pristine 0 State for Users)
   const btnClearBlank = document.getElementById("btn-clear-blank");
   if (btnClearBlank) {
     btnClearBlank.addEventListener("click", () => {
-      if (confirm("Reset all sheets to a 100% clean, blank slate ($0.00 everywhere)? Ready for client testing.")) {
+      if (confirm("Reset all sheets to a 100% clean, blank slate ($0.00 everywhere)? Ready for user testing.")) {
         store.clearToBlank();
         setupDisciplineToggles();
         updateAutocompleteDatalists();
@@ -818,13 +837,25 @@ function setupDisciplineToggles() {
     const isChecked = store.data.disciplineStatus ? store.data.disciplineStatus[d] !== false : true;
     const input = document.getElementById(`toggle-discipline-${d}`);
     const card = document.getElementById(`card-${d}`);
+    const tabBtn = document.getElementById(`tab-btn-${d}`);
 
     if (input) input.checked = isChecked;
     if (card) {
       if (!isChecked) card.classList.add("discipline-disabled-container");
       else card.classList.remove("discipline-disabled-container");
     }
+    if (tabBtn) {
+      tabBtn.style.display = isChecked ? "" : "none";
+    }
   });
+
+  // If active tab was just hidden, switch back to dashboard
+  if (disciplines.includes(store.activeTab)) {
+    const isActive = store.data.disciplineStatus ? store.data.disciplineStatus[store.activeTab] !== false : true;
+    if (!isActive) {
+      setActiveTab("dashboard");
+    }
+  }
 }
 
 window.toggleDiscipline = function(tabKey, isChecked) {
@@ -832,12 +863,7 @@ window.toggleDiscipline = function(tabKey, isChecked) {
   store.data.disciplineStatus[tabKey] = isChecked;
   store.saveData();
 
-  const card = document.getElementById(`card-${tabKey}`);
-  if (card) {
-    if (!isChecked) card.classList.add("discipline-disabled-container");
-    else card.classList.remove("discipline-disabled-container");
-  }
-
+  setupDisciplineToggles();
   renderAll();
 };
 
@@ -868,7 +894,6 @@ function setActiveTab(tabKey) {
 
   if (tabKey === "dashboard") renderDashboard();
   else if (tabKey === "pnl") renderPnLSheet();
-  else if (tabKey === "sandbox") updateSimulatorResults();
   else if (tabKey === "tools") { /* Tools tab is static */ }
   else renderDisciplineTable(tabKey);
 }
@@ -877,7 +902,6 @@ function renderAll() {
   renderTabCounts();
   if (store.activeTab === "dashboard") renderDashboard();
   else if (store.activeTab === "pnl") renderPnLSheet();
-  else if (store.activeTab === "sandbox") updateSimulatorResults();
   else if (store.activeTab !== "tools") renderDisciplineTable(store.activeTab);
 }
 
@@ -1098,49 +1122,270 @@ function renderOutflowDonutChart(kpis) {
 // Advanced Details Deck & Month-over-Month Comparison
 function renderAdvancedMetrics(kpis) {
   // 4 Core Punchy Metrics
-  document.getElementById("kpi-collected").textContent = formatMoney(kpis.cashCollected);
-  document.getElementById("kpi-expenses").textContent = formatMoney(kpis.totalExpenses);
+  const elCollected = document.getElementById("kpi-collected");
+  if (elCollected) elCollected.textContent = formatMoney(kpis.cashCollected);
+  const elExpenses = document.getElementById("kpi-expenses");
+  if (elExpenses) elExpenses.textContent = formatMoney(kpis.totalExpenses);
 
   const elNet = document.getElementById("kpi-net-income");
-  elNet.textContent = formatMoney(kpis.netIncome);
-  elNet.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
+  if (elNet) {
+    elNet.textContent = formatMoney(kpis.netIncome);
+    elNet.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
+  }
 
   const elNetMargin = document.getElementById("kpi-net-margin");
-  elNetMargin.textContent = `${kpis.netMarginPercent}% Net Margin`;
-  elNetMargin.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
+  if (elNetMargin) {
+    elNetMargin.textContent = `${kpis.netMarginPercent}% Net Margin`;
+    elNetMargin.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
+  }
 
-  document.getElementById("kpi-revenue").textContent = formatMoney(kpis.grossRevenue);
+  const elRev = document.getElementById("kpi-revenue");
+  if (elRev) elRev.textContent = formatMoney(kpis.grossRevenue);
   const pendingAR = kpis.grossRevenue - kpis.cashCollected;
-  document.getElementById("kpi-collection-rate").textContent = `Pending AR: ${formatMoney(Math.max(0, pendingAR))}`;
+  const elColRate = document.getElementById("kpi-collection-rate");
+  if (elColRate) elColRate.textContent = `Pending AR: ${formatMoney(Math.max(0, pendingAR))}`;
 
-  // Advanced Deck Metrics
-  const elRunway = document.getElementById("kpi-runway");
-  if (elRunway) {
-    elRunway.textContent = `${kpis.runwayMonths} Months`;
-    document.getElementById("kpi-liquid-cash").textContent = formatMoney(kpis.liquidCash);
-  }
-
-  const elTaxStatus = document.getElementById("kpi-tax-status");
-  if (elTaxStatus) {
-    if (kpis.taxGap <= 0) {
-      elTaxStatus.textContent = "Safe Harbor Met";
-      elTaxStatus.style.color = "#16a34a";
-    } else {
-      elTaxStatus.textContent = `Gap: ${formatMoney(kpis.taxGap)}`;
-      elTaxStatus.style.color = "#dc2626";
-    }
-    document.getElementById("kpi-tax-funded").textContent = formatMoney(kpis.taxFunded);
-    document.getElementById("kpi-tax-required").textContent = formatMoney(kpis.taxRequired);
-  }
-
-  const elAr = document.getElementById("kpi-ar-total");
-  if (elAr) {
-    elAr.textContent = formatMoney(kpis.accountsReceivable);
-    document.getElementById("kpi-ar-overdue").textContent = formatMoney(kpis.overdueAR);
-  }
+  // Render 4 Interactive Advanced Mode Graphical Gauges
+  renderAdvancedCharts(kpis);
 
   // Render Category Breakdown & Comparison Widget
   renderCategoryComparisonWidget(kpis);
+}
+
+function renderAdvancedCharts(kpis) {
+  if (typeof Chart === 'undefined') return;
+
+  // 1. AR Aging & Collection Efficiency Donut Chart
+  const ctxAr = document.getElementById("chart-adv-ar-donut");
+  if (ctxAr) {
+    if (store.charts.advArDonut) store.charts.advArDonut.destroy();
+
+    const currentAR = Math.max(0, kpis.accountsReceivable - kpis.overdueAR);
+    const overdueAR = Number(kpis.overdueAR) || 0;
+    const collected = Number(kpis.cashCollected) || 0;
+    const hasData = (collected + currentAR + overdueAR) > 0;
+
+    store.charts.advArDonut = new Chart(ctxAr, {
+      type: 'doughnut',
+      data: {
+        labels: ['Cash Collected', 'Active Current AR', 'Past-Due Overdue'],
+        datasets: [{
+          data: hasData ? [collected, currentAR, overdueAR] : [1, 0, 0],
+          backgroundColor: hasData ? ['#10b981', '#f59e0b', '#ef4444'] : ['#e2e8f0', '#cbd5e1', '#94a3b8'],
+          borderWidth: 2,
+          borderColor: 'transparent'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '72%',
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9.5 } } },
+          tooltip: {
+            enabled: hasData,
+            callbacks: {
+              label: (ctx) => ` ${ctx.label}: ${formatMoney(ctx.raw)}`
+            }
+          }
+        }
+      }
+    });
+
+    const elArCenterVal = document.getElementById("adv-ar-center-val");
+    if (elArCenterVal) elArCenterVal.textContent = formatMoney(collected);
+
+    const effRate = kpis.grossRevenue > 0 ? ((collected / kpis.grossRevenue) * 100).toFixed(1) : "100.0";
+    const elEffPill = document.getElementById("adv-collection-rate-pill");
+    if (elEffPill) {
+      elEffPill.textContent = `${effRate}% Efficiency`;
+      elEffPill.style.background = parseFloat(effRate) >= 80 ? '#dcfce7' : (parseFloat(effRate) >= 50 ? '#fef3c7' : '#fee2e2');
+      elEffPill.style.color = parseFloat(effRate) >= 80 ? '#15803d' : (parseFloat(effRate) >= 50 ? '#b45309' : '#b91c1c');
+    }
+
+    const elArBilled = document.getElementById("kpi-ar-billed");
+    if (elArBilled) elArBilled.textContent = formatMoney(kpis.grossRevenue);
+
+    const elArTot = document.getElementById("kpi-ar-total");
+    if (elArTot) elArTot.textContent = formatMoney(currentAR);
+
+    const elArOver = document.getElementById("kpi-ar-overdue");
+    if (elArOver) elArOver.textContent = formatMoney(overdueAR);
+  }
+
+  // 2. Category Spending & OpEx Distribution Bar Chart
+  const ctxSpending = document.getElementById("chart-adv-spending-bar");
+  if (ctxSpending) {
+    if (store.charts.advSpendingBar) store.charts.advSpendingBar.destroy();
+
+    const spendCategories = [
+      { label: 'COGS', val: kpis.totalCogs, color: '#3b82f6' },
+      { label: 'Payroll', val: kpis.totalPayroll, color: '#10b981' },
+      { label: 'Facility', val: kpis.totalFacility, color: '#f59e0b' },
+      { label: 'Insurance', val: kpis.totalInsuranceMonthly, color: '#8b5cf6' },
+      { label: 'Fleet', val: kpis.totalFleet, color: '#ec4899' },
+      { label: 'Utilities', val: kpis.totalUtilities, color: '#06b6d4' }
+    ];
+
+    store.charts.advSpendingBar = new Chart(ctxSpending, {
+      type: 'bar',
+      data: {
+        labels: spendCategories.map(s => s.label),
+        datasets: [{
+          data: spendCategories.map(s => s.val),
+          backgroundColor: spendCategories.map(s => s.color),
+          borderRadius: 4,
+          barThickness: 16
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => ` ${ctx.label}: ${formatMoney(ctx.raw)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: { callback: (val) => '$' + Number(val).toLocaleString(), font: { size: 9 } },
+            grid: { color: 'rgba(148, 163, 184, 0.12)' }
+          },
+          y: { ticks: { font: { size: 9.5, weight: 'bold' } }, grid: { display: false } }
+        }
+      }
+    });
+
+    const opexRatio = kpis.totalExpenses > 0 ? ((kpis.totalOpex / kpis.totalExpenses) * 100).toFixed(1) : "0.0";
+    const elOpexPill = document.getElementById("adv-opex-ratio-pill");
+    if (elOpexPill) elOpexPill.textContent = `${opexRatio}% OpEx Ratio`;
+
+    const elStatCogs = document.getElementById("adv-stat-cogs");
+    if (elStatCogs) elStatCogs.textContent = formatMoney(kpis.totalCogs);
+
+    const elStatOpex = document.getElementById("adv-stat-opex");
+    if (elStatOpex) elStatOpex.textContent = formatMoney(kpis.totalOpex);
+  }
+
+  // 3. Cash Runway & Operating Liquidity Safety Meter
+  const runwayNum = parseFloat(kpis.runwayMonths) || 0;
+  const elRunwayFill = document.getElementById("adv-runway-fill");
+  if (elRunwayFill) {
+    const pct = Math.min(100, Math.max(0, (runwayNum / 6) * 100));
+    elRunwayFill.style.width = `${pct}%`;
+  }
+
+  const elRunwayBadge = document.getElementById("kpi-runway-badge");
+  if (elRunwayBadge) {
+    elRunwayBadge.textContent = `${runwayNum} Months`;
+    if (runwayNum < 1) {
+      elRunwayBadge.style.background = '#fee2e2';
+      elRunwayBadge.style.color = '#b91c1c';
+    } else if (runwayNum < 3) {
+      elRunwayBadge.style.background = '#fef3c7';
+      elRunwayBadge.style.color = '#b45309';
+    } else if (runwayNum < 6) {
+      elRunwayBadge.style.background = '#dcfce7';
+      elRunwayBadge.style.color = '#15803d';
+    } else {
+      elRunwayBadge.style.background = '#dbeafe';
+      elRunwayBadge.style.color = '#1d4ed8';
+    }
+  }
+
+  const elRunwayText = document.getElementById("kpi-runway");
+  if (elRunwayText) elRunwayText.textContent = `${runwayNum} Months`;
+
+  const elLiquid = document.getElementById("kpi-liquid-cash");
+  if (elLiquid) elLiquid.textContent = formatMoney(kpis.liquidCash);
+
+  const elBurn = document.getElementById("adv-stat-burn");
+  if (elBurn) elBurn.textContent = formatMoney(kpis.totalExpenses);
+
+  const elWorkingCap = document.getElementById("adv-stat-working-cap");
+  if (elWorkingCap) {
+    const wc = kpis.liquidCash - kpis.totalExpenses;
+    elWorkingCap.textContent = formatMoney(wc);
+    elWorkingCap.style.color = wc >= 0 ? '#16a34a' : '#dc2626';
+  }
+
+  // 4. NJ Safe Harbor Tax Reserve Sentinel
+  const ctxTax = document.getElementById("chart-adv-tax-donut");
+  if (ctxTax) {
+    if (store.charts.advTaxDonut) store.charts.advTaxDonut.destroy();
+
+    const funded = Number(kpis.taxFunded) || 0;
+    const gap = Number(kpis.taxGap) || 0;
+    const hasTaxData = (funded + gap) > 0;
+
+    store.charts.advTaxDonut = new Chart(ctxTax, {
+      type: 'doughnut',
+      data: {
+        labels: ['Tax Reserve Funded', 'Reserve Gap Shortfall'],
+        datasets: [{
+          data: hasTaxData ? [funded, gap] : [1, 0],
+          backgroundColor: hasTaxData ? ['#10b981', (gap > 0 ? '#ef4444' : '#e2e8f0')] : ['#e2e8f0', '#cbd5e1'],
+          borderWidth: 2,
+          borderColor: 'transparent'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '72%',
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9.5 } } },
+          tooltip: {
+            enabled: hasTaxData,
+            callbacks: {
+              label: (ctx) => ` ${ctx.label}: ${formatMoney(ctx.raw)}`
+            }
+          }
+        }
+      }
+    });
+
+    const elTaxStatus = document.getElementById("kpi-tax-status");
+    const elTaxStatusPill = document.getElementById("kpi-tax-status-pill");
+    if (gap <= 0) {
+      if (elTaxStatus) {
+        elTaxStatus.textContent = "Safe Harbor";
+        elTaxStatus.style.color = "#16a34a";
+      }
+      if (elTaxStatusPill) {
+        elTaxStatusPill.textContent = "Safe Harbor Met";
+        elTaxStatusPill.style.background = "#dcfce7";
+        elTaxStatusPill.style.color = "#15803d";
+      }
+    } else {
+      if (elTaxStatus) {
+        elTaxStatus.textContent = `Gap: ${formatMoney(gap)}`;
+        elTaxStatus.style.color = "#dc2626";
+      }
+      if (elTaxStatusPill) {
+        elTaxStatusPill.textContent = `Gap: ${formatMoney(gap)}`;
+        elTaxStatusPill.style.background = "#fee2e2";
+        elTaxStatusPill.style.color = "#b91c1c";
+      }
+    }
+
+    const elTaxFunded = document.getElementById("kpi-tax-funded");
+    if (elTaxFunded) elTaxFunded.textContent = formatMoney(funded);
+
+    const elTaxReq = document.getElementById("kpi-tax-required");
+    if (elTaxReq) elTaxReq.textContent = formatMoney(kpis.taxRequired);
+
+    const elTaxGapVal = document.getElementById("kpi-tax-gap-val");
+    if (elTaxGapVal) {
+      elTaxGapVal.textContent = formatMoney(gap);
+      elTaxGapVal.style.color = gap <= 0 ? '#16a34a' : '#dc2626';
+    }
+  }
 }
 
 function renderCategoryComparisonWidget(kpis) {
@@ -1536,75 +1781,6 @@ function renderPnLSheet() {
 }
 
 // ==========================================================================
-// Dedicated What-If Sandbox
-// ==========================================================================
-function setupSimulator() {
-  const revSlider = document.getElementById("sim-rev-slider");
-  const cogsSlider = document.getElementById("sim-cogs-slider");
-  const opexSlider = document.getElementById("sim-opex-slider");
-
-  [revSlider, cogsSlider, opexSlider].forEach(slider => {
-    if (slider) slider.addEventListener("input", () => updateSimulatorResults());
-  });
-}
-
-window.toggleSandbox = function(isChecked) {
-  const label = document.getElementById("label-toggle-sandbox");
-  const disclaimer = document.getElementById("sandbox-disclaimer-box");
-  const controls = document.getElementById("sandbox-controls-wrap");
-
-  if (isChecked) {
-    label.textContent = "Sandbox Mode: ON (Active)";
-    disclaimer.style.background = "#eff6ff";
-    disclaimer.style.borderColor = "#93c5fd";
-    disclaimer.style.color = "#1e40af";
-    disclaimer.innerHTML = "🧪 <strong>Sandbox Active:</strong> Sliders unlocked! Projections will NEVER alter your real books.";
-    controls.style.opacity = "1";
-    controls.style.pointerEvents = "auto";
-  } else {
-    label.textContent = "Sandbox Mode: OFF (Safe)";
-    disclaimer.style.background = "";
-    disclaimer.style.borderColor = "";
-    disclaimer.style.color = "";
-    disclaimer.innerHTML = "🔒 <strong>Sandbox is currently OFF:</strong> Sliders are locked to ensure you only see 100% real numbers.";
-    controls.style.opacity = "0.5";
-    controls.style.pointerEvents = "none";
-    document.getElementById("sim-rev-slider").value = 0;
-    document.getElementById("sim-cogs-slider").value = 0;
-    document.getElementById("sim-opex-slider").value = 0;
-  }
-  updateSimulatorResults();
-};
-
-function updateSimulatorResults() {
-  const revSlider = document.getElementById("sim-rev-slider");
-  const cogsSlider = document.getElementById("sim-cogs-slider");
-  const opexSlider = document.getElementById("sim-opex-slider");
-  if (!revSlider || !cogsSlider || !opexSlider) return;
-
-  const revDelta = Number(revSlider.value);
-  const cogsDelta = Number(cogsSlider.value);
-  const opexDelta = Number(opexSlider.value);
-
-  document.getElementById("sim-rev-val").textContent = `${revDelta >= 0 ? '+' : ''}${revDelta}%`;
-  document.getElementById("sim-cogs-val").textContent = `${cogsDelta >= 0 ? '+' : ''}${cogsDelta}%`;
-  document.getElementById("sim-opex-val").textContent = `${opexDelta >= 0 ? '+' : ''}${opexDelta}%`;
-
-  const kpis = store.calculateKPIs();
-  const simRevenue = kpis.grossRevenue * (1 + (revDelta / 100));
-  const simCogs = kpis.totalCogs * (1 + (cogsDelta / 100));
-  const simOpex = kpis.totalOpex * (1 + (opexDelta / 100));
-  const simTotalExp = simCogs + simOpex;
-  const simNetIncome = simRevenue - simTotalExp;
-  const simMargin = simRevenue > 0 ? ((simNetIncome / simRevenue) * 100).toFixed(1) : "0.0";
-  const simRunway = simTotalExp > 0 ? (kpis.liquidCash / simTotalExp).toFixed(1) : "0.0";
-
-  const elSimNet = document.getElementById("sim-result-net");
-  elSimNet.textContent = formatMoney(simNetIncome);
-  elSimNet.style.color = simNetIncome >= 0 ? "#16a34a" : "#dc2626";
-  document.getElementById("sim-result-margin").textContent = `${simMargin}%`;
-  document.getElementById("sim-result-runway").textContent = `${simRunway} Mo`;
-}
 
 // ==========================================================================
 // Tooltips & Modal Controllers
@@ -1709,7 +1885,8 @@ function openAddModal(tabKey) {
 
   // Mapping datalists for Google-style autocomplete inputs
   const datalistMap = {
-    client: "list-autocomplete-clients",
+    client: "list-autocomplete-users",
+    jobName: "list-autocomplete-projects",
     vendor: "list-autocomplete-vendors",
     vehicle: "list-autocomplete-vehicles",
     location: "list-autocomplete-locations",
@@ -1896,12 +2073,12 @@ const TOUR_STEPS = [
   {
     badge: "LEVEL 4 • SMART SPEED",
     title: "⚡ Dropdown Dates & Predictive Autocomplete",
-    text: "Zero typing for dates: select invoices and expenses directly with Month, Day, Year dropdowns. Plus, Google-style autocomplete suggests previous clients and vendors as you type, and you can enter custom tax rates like 3.3125% for NJ Urban Enterprise Zones.",
+    text: "Zero typing for dates: select invoices and expenses directly with Month, Day, Year dropdowns. Plus, Google-style autocomplete suggests previous users and vendors as you type, and you can enter custom tax rates like 3.3125% for NJ Urban Enterprise Zones.",
     tip: "🔍 <strong>Fast & Intuitive:</strong> Works on every browser without installing any software."
   },
   {
     badge: "LEVEL 5 • READY TO WIN",
-    title: "🏆 Clean Template Ready for Client Entries!",
+    title: "🏆 Clean Template Ready for User Entries!",
     text: "The tool initializes completely clean ($0.00 everywhere). Start entering your real business numbers! If you ever want to preview demo charts, visit <strong>⚙️ System Tools</strong> to load sample test data, backup your files, or export to Excel.",
     tip: "🛠️ <strong>Need Customization?</strong> Need custom columns, logos, or formulas? Custom modifications are available upon request!"
   }
@@ -1990,7 +2167,7 @@ function renderArAlertBanner(kpis) {
   if (kpis.overdueAR > 0) {
     banner.style.display = "flex";
     if (title) title.textContent = `Overdue Accounts Receivable Alert: ${formatMoney(kpis.overdueAR)}`;
-    if (desc) desc.textContent = `You have ${kpis.overdueCount || 1} past-due invoice(s). Immediate client follow-up is recommended to maintain positive cash flow and prevent contractor liquidity gaps.`;
+    if (desc) desc.textContent = `You have ${kpis.overdueCount || 1} past-due invoice(s). Immediate user follow-up is recommended to maintain positive cash flow and prevent contractor liquidity gaps.`;
   } else {
     banner.style.display = "none";
   }
@@ -2004,13 +2181,13 @@ function calculateJobCosting() {
 
   // Aggregate billings from revenue
   (store.data.revenue || []).forEach(r => {
-    const pName = (r.project || "").trim();
+    const pName = (r.jobName || r.project || "").trim();
     if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
 
     if (!projectsMap[pName]) {
       projectsMap[pName] = {
         project: pName,
-        client: r.client || "Client",
+        client: r.client || "User Account",
         contractBilled: 0,
         collected: 0,
         deposit: 0,
@@ -2027,13 +2204,13 @@ function calculateJobCosting() {
 
   // Aggregate direct costs from COGS
   (store.data.cogs || []).forEach(c => {
-    const pName = (c.project || "").trim();
+    const pName = (c.jobName || c.project || "").trim();
     if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
 
     if (!projectsMap[pName]) {
       projectsMap[pName] = {
         project: pName,
-        client: "Project Client",
+        client: "User Account",
         contractBilled: 0,
         collected: 0,
         deposit: 0,
@@ -2074,7 +2251,7 @@ function renderJobCostingAnalysis() {
       <thead>
         <tr>
           <th>Project / Contract</th>
-          <th>Client</th>
+          <th>User / Account</th>
           <th style="text-align: right;">Contract Value</th>
           <th style="text-align: right;">Collected</th>
           <th style="text-align: right;">Direct COGS</th>
@@ -2169,7 +2346,7 @@ window.saveModuleWizardPreferences = function() {
 };
 
 // ==========================================================================
-// Two-Way Excel Import Engine (Client-Side SheetJS Integration)
+// Two-Way Excel Import Engine (Browser SheetJS Integration)
 // ==========================================================================
 window.openExcelImportModal = function() {
   const modal = document.getElementById("modal-import-excel");
@@ -2330,7 +2507,7 @@ function parseExcelWorkbookData(workbook) {
 }
 
 // ==========================================================================
-// Printable Client Invoice / Estimate Modal
+// Printable User Invoice & Statement Modal
 // ==========================================================================
 window.openPrintInvoiceModal = function(rowIdx) {
   const row = (store.data.revenue || [])[rowIdx];
@@ -2365,9 +2542,9 @@ window.openPrintInvoiceModal = function(rowIdx) {
 
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; font-size:12px;">
       <div style="background:#f8fafc; padding:12px; border:1px solid #cbd5e1; border-radius:6px;">
-        <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:4px;">BILL TO CLIENT:</div>
-        <div style="font-size:14px; font-weight:800; color:#0f172a;">${escapeHtml(row.client || "Valued Client")}</div>
-        <div style="color:#475569; margin-top:2px;">Project: <strong>${escapeHtml(row.project || "General Contract Work")}</strong></div>
+        <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:4px;">BILL TO USER:</div>
+        <div style="font-size:14px; font-weight:800; color:#0f172a;">${escapeHtml(row.client || "User Account")}</div>
+        <div style="color:#475569; margin-top:2px;">Job Name: <strong>${escapeHtml(row.jobName || row.project || "General Contract Work")}</strong></div>
       </div>
       <div style="background:#f8fafc; padding:12px; border:1px solid #cbd5e1; border-radius:6px;">
         <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:4px;">STATUS & TERMS:</div>

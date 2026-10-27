@@ -1,21 +1,20 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.3.0)
- * Executive Financial Control System for Small Businesses & NJ Contractors
+ * MASTER BUSINESS DASHBOARD (v1.4.0)
+ * Executive Financial Control System for NJ Local Businesses & Contractors
  * 
- * Version 1.3.0 Upgrades:
- * - 📊 Job Costing & Project Profitability Analysis (Direct link between Invoices & COGS)
- * - 💵 Progress Billing & Down Payments (Deposit Received vs Balance Due)
- * - 🏛️ NJ Form ST-8 Capital Improvement Exemption Support (0% legal sales tax exempt)
- * - 🛡️ 1099 Subcontractor COI (Certificate of Insurance) Audit Sentinel for NJ Workers' Comp
- * - ⚙️ First-Run Module Selection Wizard (Custom workspace configuration with checkboxes)
- * - 📥 Two-Way Excel Import Engine (Upload or Drag-and-Drop .xls/.xlsx files)
- * - 🔒 Formula Cell Protection in generated Excel workbooks
- * - 🖨️ Professional Printable Client Invoice / Estimate Modal
+ * Version 1.4.0 Upgrades:
+ * - 🎯 Dedicated Focus on NJ Local Businesses & Contractors
+ * - 🧭 Dynamic Navigation Tabs (Deactivated modules are hidden from navigation strip)
+ * - 📊 Advanced Mode Graphical Indicators (Interactive AR Aging Donut, Category Spending Bar, Cash Runway Meter, Safe Harbor Tax Sentinel)
+ * - 📅 Trailing 12 Months (T12M) Rolling Period Filter across all categories and dashboard KPIs
+ * - 🏷️ Optional Job Name field for Invoices & COGS
+ * - 👤 Strict English "User" terminology throughout the platform
+ * - 📈 Enhanced High-Fidelity Excel Export & Formatted Companion Workbook
  */
 
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.3.0",
+  version: "1.4.0",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -27,17 +26,17 @@ const NJ_BUDGET_CONFIG = {
   initialCashReserve: 0.00       // Clean starting liquid cash
 };
 
-// Punchy, practical category guides tailored for business owners & contractors
+// Punchy, practical category guides tailored for NJ local businesses & contractors
 const CATEGORY_GUIDES = {
   revenue: {
-    title: "💵 Client Quotes, Progress Invoicing & Down Payments",
-    intro: "Track proposals, deposits, progress billings, and final payments. Links directly to Project COGS for real-time Job Profitability.",
+    title: "💵 User Quotes, Progress Invoicing & Down Payments",
+    intro: "Track proposals, deposits, progress billings, and user payments. Links directly to Project COGS for real-time Job Profitability.",
     tip: "✏️ For new contracts, record the total contract and enter the initial deposit in 'Deposit / Paid'. Select 'NJ ST-8' if the job is an exempt capital improvement!"
   },
   cogs: {
-    title: "📦 Project Materials, Supplier Bills & Direct Job COGS",
+    title: "📦 Job Materials, Supplier Bills & Direct Job COGS",
     intro: "Fast entry for material receipts, supply invoices, equipment rentals, and direct subcontractor costs tagged to specific jobs.",
-    tip: "✏️ Assign each bill to a 'Project / Job Scope'. The system automatically matches it with revenue to show your exact profit per job!"
+    tip: "✏️ Assign each bill to an optional 'Job Name'. The system automatically matches it with user revenue to show your exact profit per job!"
   },
   fleet: {
     title: "🚗 Fleet, Gas & Business Mileage Log",
@@ -76,8 +75,8 @@ const SCHEMA_DEFINITIONS = {
   revenue: [
     { key: "id", label: "Invoice / Quote #", fillable: false, type: "text", tooltip: "Invoice or estimate tracking reference number." },
     { key: "date", label: "Date", fillable: true, type: "date", tooltip: "Quote or invoice date (Select via dropdown menus)." },
-    { key: "client", label: "Client Name", fillable: true, type: "autocomplete", tooltip: "Client or customer legal name (Smart memory suggests previous clients)." },
-    { key: "project", label: "Project / Job Scope", fillable: true, type: "autocomplete", tooltip: "Job name or project address (Links directly to Project COGS for Job Costing)." },
+    { key: "client", label: "User Name", fillable: true, type: "autocomplete", tooltip: "User account or customer name (Smart memory suggests previous users)." },
+    { key: "jobName", label: "Job Name (Optional)", fillable: true, type: "autocomplete", tooltip: "Optional job name, contract title, or project reference (Links directly to COGS for Job Costing)." },
     { key: "grossBilled", label: "Contract Value ($)", fillable: true, type: "currency", tooltip: "Pre-tax quoted proposal or total contract value (Click to edit)." },
     { key: "taxable", label: "Sales Tax Status", fillable: true, type: "select", options: ["NO (0% - Service Exempt)", "NJ ST-8 (0% - Capital Improvement)", "YES (6.625% - NJ Taxable)", "OTHER (Custom %)"], tooltip: "Select tax treatment: Exempt service, NJ Form ST-8 (Capital Improvement), Standard 6.625%, or Custom %." },
     { key: "customRate", label: "Tax %", fillable: true, type: "number", tooltip: "Custom tax rate percentage (Only applies if 'OTHER' is chosen above)." },
@@ -90,7 +89,7 @@ const SCHEMA_DEFINITIONS = {
   cogs: [
     { key: "id", label: "Receipt / PO #", fillable: false, type: "text", tooltip: "Expense bill, receipt, or purchase order tracking number." },
     { key: "date", label: "Date", fillable: true, type: "date", tooltip: "Bill or purchase date (Select via dropdown menus)." },
-    { key: "project", label: "Project / Job Scope", fillable: true, type: "autocomplete", tooltip: "Project name or job address (Matches with Invoicing to compute exact Job Profitability)." },
+    { key: "jobName", label: "Job Name (Optional)", fillable: true, type: "autocomplete", tooltip: "Optional job name or project reference (Matches with User Invoicing to compute exact Job Profitability)." },
     { key: "vendor", label: "Supplier / Vendor", fillable: true, type: "autocomplete", tooltip: "Store, vendor, or subcontractor name (Smart memory suggests previous vendors)." },
     { key: "category", label: "Expense Category", fillable: true, type: "select", options: ["Raw Materials", "Hardware & Parts", "Direct Subcontractor (1099)", "Equipment Rental", "Freight & Delivery", "Job Supplies & Tools"], tooltip: "Direct project cost category." },
     { key: "amount", label: "Bill Cost ($)", fillable: true, type: "currency", tooltip: "Total cost incurred directly for project (Click to edit)." },
@@ -119,12 +118,10 @@ const SCHEMA_DEFINITIONS = {
   ],
 
   insurance: [
-    { key: "policyType", label: "Insurance Line", fillable: true, type: "select", options: ["NJ Workers' Compensation (Mandatory)", "Commercial General Liability (CGL)", "Commercial Auto Fleet", "Professional Liability (E&O)", "Inland Marine (Tools & Gear)", "Cyber & Data Breach"], tooltip: "Insurance policy line." },
-    { key: "carrier", label: "Carrier", fillable: true, type: "autocomplete", tooltip: "Insurance underwriter (NJM, Travelers, Progressive, etc.)." },
-    { key: "renewalDate", label: "Renewal Date", fillable: true, type: "date", tooltip: "Expiration/renewal date." },
-    { key: "annualPremium", label: "Annual Cost ($)", fillable: true, type: "currency", tooltip: "Total annual premium (Click to edit)." },
-    { key: "monthlyAllocation", label: "Monthly ($)", fillable: false, type: "formula", tooltip: "Annual Cost / 12 (Monthly amortization)." },
-    { key: "status", label: "Status", fillable: true, type: "select", options: ["Active", "Renewal Pending"], tooltip: "Policy standing." }
+    { policyType: "NJ Workers' Compensation (Mandatory)", carrier: "New Jersey Manufacturers (NJM)", renewalDate: "2026-03-31", annualPremium: 7800.00, status: "Active" },
+    { policyType: "Commercial General Liability (CGL)", carrier: "Travelers Property Casualty", renewalDate: "2026-05-15", annualPremium: 5400.00, status: "Active" },
+    { policyType: "Commercial Auto Fleet", carrier: "Progressive Commercial", renewalDate: "2026-06-30", annualPremium: 6600.00, status: "Active" },
+    { policyType: "Inland Marine (Tools & Gear)", carrier: "The Hartford", renewalDate: "2026-08-01", annualPremium: 2800.00, status: "Active" }
   ],
 
   payroll: [
@@ -161,26 +158,26 @@ const SCHEMA_DEFINITIONS = {
 // Realistic New Jersey Sample Data showcasing Contractor Job Costing & ST-8 Exemption
 const SAMPLE_DEMO_DATA = {
   revenue: [
-    { id: "INV-2025-01", date: "2025-10-02", client: "Horizon Healthcare NJ", project: "Facility HVAC Upgrade", grossBilled: 14500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 14500.00, status: "Paid in Full" },
-    { id: "INV-2025-02", date: "2025-10-08", client: "Rutgers Innovation Lab", project: "Cleanroom Wiring Phase 1", grossBilled: 21800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 10900.00, status: "Deposit / Active" },
-    { id: "INV-2025-03", date: "2025-10-14", client: "Bergen Logistics Center", project: "Warehouse LED Retrofit", grossBilled: 18200.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9100.00, status: "Deposit / Active" },
-    { id: "INV-2025-04", date: "2025-10-19", client: "Hoboken Waterfront Retail", project: "Emergency Electrical Repair", grossBilled: 3800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 3800.00, status: "Paid in Full" },
-    { id: "INV-2025-05", date: "2025-10-24", client: "Prudential Plaza Tenant Build", project: "Office Partition & Paint", grossBilled: 26500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 0.00, status: "Quote / Sent" },
-    { id: "INV-2025-06", date: "2025-10-25", client: "Jersey Shore Hospitality", project: "Restaurant Hood Installation", grossBilled: 9400.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9400.00, status: "Paid in Full" },
-    { id: "INV-2025-07", date: "2025-09-12", client: "Princeton BioTech Labs", project: "Server Room Cooling", grossBilled: 16000.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 16000.00, status: "Paid in Full" },
-    { id: "INV-2025-08", date: "2025-09-28", client: "Newark Gateway Towers", project: "Fire Damper Inspection & Fix", grossBilled: 22000.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 22000.00, status: "Paid in Full" },
-    { id: "INV-2025-09", date: "2025-08-15", client: "Edison Tech Hub", project: "Fiber Optic Backbone", grossBilled: 18500.00, taxable: "NO (0% - Service Exempt)", customRate: 0, amountReceived: 18500.00, status: "Paid in Full" }
+    { id: "INV-2025-01", date: "2025-10-02", client: "Horizon Healthcare NJ", jobName: "Facility HVAC Upgrade", project: "Facility HVAC Upgrade", grossBilled: 14500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 14500.00, status: "Paid in Full" },
+    { id: "INV-2025-02", date: "2025-10-08", client: "Rutgers Innovation Lab", jobName: "Cleanroom Wiring Phase 1", project: "Cleanroom Wiring Phase 1", grossBilled: 21800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 10900.00, status: "Deposit / Active" },
+    { id: "INV-2025-03", date: "2025-10-14", client: "Bergen Logistics Center", jobName: "Warehouse LED Retrofit", project: "Warehouse LED Retrofit", grossBilled: 18200.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9100.00, status: "Deposit / Active" },
+    { id: "INV-2025-04", date: "2025-10-19", client: "Hoboken Waterfront Retail", jobName: "Emergency Electrical Repair", project: "Emergency Electrical Repair", grossBilled: 3800.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 3800.00, status: "Paid in Full" },
+    { id: "INV-2025-05", date: "2025-10-24", client: "Prudential Plaza Tenant Build", jobName: "Office Partition & Paint", project: "Office Partition & Paint", grossBilled: 26500.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 0.00, status: "Quote / Sent" },
+    { id: "INV-2025-06", date: "2025-10-25", client: "Jersey Shore Hospitality", jobName: "Restaurant Hood Installation", project: "Restaurant Hood Installation", grossBilled: 9400.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 9400.00, status: "Paid in Full" },
+    { id: "INV-2025-07", date: "2025-09-12", client: "Princeton BioTech Labs", jobName: "Server Room Cooling", project: "Server Room Cooling", grossBilled: 16000.00, taxable: "NJ ST-8 (0% - Capital Improvement)", customRate: 0, amountReceived: 16000.00, status: "Paid in Full" },
+    { id: "INV-2025-08", date: "2025-09-28", client: "Newark Gateway Towers", jobName: "Fire Damper Inspection & Fix", project: "Fire Damper Inspection & Fix", grossBilled: 22000.00, taxable: "YES (6.625% - NJ Taxable)", customRate: 6.625, amountReceived: 22000.00, status: "Paid in Full" },
+    { id: "INV-2025-09", date: "2025-08-15", client: "Edison Tech Hub", jobName: "Fiber Optic Backbone", project: "Fiber Optic Backbone", grossBilled: 18500.00, taxable: "NO (0% - Service Exempt)", customRate: 0, amountReceived: 18500.00, status: "Paid in Full" }
   ],
 
   cogs: [
-    { id: "PO-2025-01", date: "2025-10-04", project: "Facility HVAC Upgrade", vendor: "Grainger Industrial NJ", category: "Hardware & Parts", amount: 3850.00, status: "Paid" },
-    { id: "PO-2025-02", date: "2025-10-09", project: "Cleanroom Wiring Phase 1", vendor: "Anixter Cabling Newark", category: "Raw Materials", amount: 5640.00, status: "Paid" },
-    { id: "PO-2025-03", date: "2025-10-12", project: "Warehouse LED Retrofit", vendor: "Sunbelt Rentals Fairfield", category: "Equipment Rental", amount: 1250.00, status: "Paid" },
-    { id: "PO-2025-04", date: "2025-10-16", project: "Cleanroom Wiring Phase 1", vendor: "ADI Global Distribution", category: "Hardware & Parts", amount: 4900.00, status: "Paid" },
-    { id: "PO-2025-05", date: "2025-10-20", project: "Warehouse LED Retrofit", vendor: "Jersey Supply Warehouse", category: "Raw Materials", amount: 4200.00, status: "Pending / Net 30" },
-    { id: "PO-2025-06", date: "2025-10-22", project: "Facility HVAC Upgrade", vendor: "Tri-State Crane & Freight", category: "Freight & Delivery", amount: 680.00, status: "Paid" },
-    { id: "PO-2025-07", date: "2025-09-18", project: "Server Room Cooling", vendor: "Jersey Supply Warehouse", category: "Raw Materials", amount: 6100.00, status: "Paid" },
-    { id: "PO-2025-08", date: "2025-08-20", project: "Fiber Optic Backbone", vendor: "Grainger Industrial NJ", category: "Hardware & Parts", amount: 4800.00, status: "Paid" }
+    { id: "PO-2025-01", date: "2025-10-04", jobName: "Facility HVAC Upgrade", project: "Facility HVAC Upgrade", vendor: "Grainger Industrial NJ", category: "Hardware & Parts", amount: 3850.00, status: "Paid" },
+    { id: "PO-2025-02", date: "2025-10-09", jobName: "Cleanroom Wiring Phase 1", project: "Cleanroom Wiring Phase 1", vendor: "Anixter Cabling Newark", category: "Raw Materials", amount: 5640.00, status: "Paid" },
+    { id: "PO-2025-03", date: "2025-10-12", jobName: "Warehouse LED Retrofit", project: "Warehouse LED Retrofit", vendor: "Sunbelt Rentals Fairfield", category: "Equipment Rental", amount: 1250.00, status: "Paid" },
+    { id: "PO-2025-04", date: "2025-10-16", jobName: "Cleanroom Wiring Phase 1", project: "Cleanroom Wiring Phase 1", vendor: "ADI Global Distribution", category: "Hardware & Parts", amount: 4900.00, status: "Paid" },
+    { id: "PO-2025-05", date: "2025-10-20", jobName: "Warehouse LED Retrofit", project: "Warehouse LED Retrofit", vendor: "Jersey Supply Warehouse", category: "Raw Materials", amount: 4200.00, status: "Pending / Net 30" },
+    { id: "PO-2025-06", date: "2025-10-22", jobName: "Facility HVAC Upgrade", project: "Facility HVAC Upgrade", vendor: "Tri-State Crane & Freight", category: "Freight & Delivery", amount: 680.00, status: "Paid" },
+    { id: "PO-2025-07", date: "2025-09-18", jobName: "Server Room Cooling", project: "Server Room Cooling", vendor: "Jersey Supply Warehouse", category: "Raw Materials", amount: 6100.00, status: "Paid" },
+    { id: "PO-2025-08", date: "2025-08-20", jobName: "Fiber Optic Backbone", project: "Fiber Optic Backbone", vendor: "Grainger Industrial NJ", category: "Hardware & Parts", amount: 4800.00, status: "Paid" }
   ],
 
   fleet: [
@@ -233,7 +230,7 @@ const SAMPLE_DEMO_DATA = {
   ]
 };
 
-// Clean zero-state seed data for client testing (strictly $0, no fake numbers)
+// Clean zero-state seed data for user testing (strictly $0, no fake numbers)
 const CLEAN_SEED_DATA = {
   revenue: [],
   cogs: [],
@@ -245,5 +242,5 @@ const CLEAN_SEED_DATA = {
   taxes: []
 };
 
-// Default seed is CLEAN for pristine client delivery
+// Default seed is CLEAN for pristine user delivery
 const SEED_DATA = CLEAN_SEED_DATA;
