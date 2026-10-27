@@ -614,10 +614,7 @@ window.openHowToStartModal = function() {
 };
 
 window.openHowToStartFromTour = function() {
-  closeOnboardingTour();
-  setTimeout(() => {
-    openHowToStartModal();
-  }, 180);
+  finishOnboardingTour();
 };
 
 window.closeHowToStartModal = function() {
@@ -2070,8 +2067,8 @@ const TOUR_STEPS = [
   {
     badge: "LEVEL 1 • WELCOME",
     title: "🎮 Welcome to Master Business Dashboard!",
-    text: "Your executive financial control system designed for New Jersey small businesses and contractors. It gives you 100% clarity over your actual cash collections, project job costs, operating overhead, and safe-harbor NJ state taxes without confusing accounting jargon.<br><br>💡 <strong>Quick Action:</strong> We invite you to press <strong>'💡 How to Start'</strong> in the top header (or click below) for the 4-step roadmap to get up and running immediately!",
-    tip: "👉 <button type='button' class='btn btn-outline-dark' style='font-size:11px; padding:2px 8px; margin-left:4px; color:#1d4ed8; font-weight:700;' onclick='openHowToStartFromTour()'>Open 'How to Start' Guide Now 💡</button>"
+    text: "Your executive financial control system designed for New Jersey small businesses and contractors. It gives you 100% clarity over your actual cash collections, project job costs, operating overhead, and safe-harbor NJ state taxes without confusing accounting jargon.<br><br>💡 <strong>Roadmap:</strong> The complete 4-step <strong>'How to Start'</strong> guide will appear automatically right after you finish this quick 5-level tour!",
+    tip: "💡 <strong>Next Step:</strong> Click <strong>'Next Step ➡️'</strong> below to explore your financial controls. Once you finish Level 5, the 'How to Start' guide opens immediately!"
   },
   {
     badge: "LEVEL 2 • TOTAL CONTROL",
@@ -2095,7 +2092,7 @@ const TOUR_STEPS = [
     badge: "LEVEL 5 • READY TO WIN",
     title: "🏆 Clean Template Ready for User Entries!",
     text: "The tool initializes completely clean ($0.00 everywhere). Start entering your real business numbers! If you ever want to preview demo charts, visit <strong>⚙️ System Tools</strong> to load sample test data, backup your files, or export to Excel.",
-    tip: "🛠️ <strong>Need Customization?</strong> Need custom columns, logos, or formulas? Custom modifications are available upon request!"
+    tip: "💡 <strong>Finishing Up:</strong> Click <strong>'🚀 Finish Tour & Open How to Start 💡'</strong> below to see your 4-step actionable setup roadmap!"
   }
 ];
 
@@ -2120,10 +2117,17 @@ window.navigateTour = function(delta) {
   tourCurrentStep += delta;
   if (tourCurrentStep < 0) tourCurrentStep = 0;
   if (tourCurrentStep >= TOUR_STEPS.length) {
-    closeOnboardingTour();
+    finishOnboardingTour();
     return;
   }
   renderTourStep();
+};
+
+window.finishOnboardingTour = function() {
+  closeOnboardingTour();
+  setTimeout(() => {
+    openHowToStartModal();
+  }, 220);
 };
 
 function renderTourStep() {
@@ -2153,7 +2157,7 @@ function renderTourStep() {
 
   // Buttons
   btnPrev.style.display = tourCurrentStep === 0 ? "none" : "block";
-  btnNext.innerHTML = tourCurrentStep === TOUR_STEPS.length - 1 ? "🚀 Let's Start!" : "Next Step ➡️";
+  btnNext.innerHTML = tourCurrentStep === TOUR_STEPS.length - 1 ? "🚀 Finish & Open 'How to Start' 💡" : "Next Step ➡️";
 }
 
 function escapeHtml(str) {
