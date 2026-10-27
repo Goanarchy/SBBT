@@ -1195,37 +1195,10 @@ function renderOutflowDonutChart(kpis) {
   }
 }
 
-// Advanced Details Deck & Month-over-Month Comparison
+// Advanced Details Deck & Graphical Command Center
 function renderAdvancedMetrics(kpis) {
-  // 4 Core Punchy Metrics
-  const elCollected = document.getElementById("kpi-collected");
-  if (elCollected) elCollected.textContent = formatMoney(kpis.cashCollected);
-  const elExpenses = document.getElementById("kpi-expenses");
-  if (elExpenses) elExpenses.textContent = formatMoney(kpis.totalExpenses);
-
-  const elNet = document.getElementById("kpi-net-income");
-  if (elNet) {
-    elNet.textContent = formatMoney(kpis.netIncome);
-    elNet.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
-  }
-
-  const elNetMargin = document.getElementById("kpi-net-margin");
-  if (elNetMargin) {
-    elNetMargin.textContent = `${kpis.netMarginPercent}% Net Margin`;
-    elNetMargin.style.color = kpis.netIncome >= 0 ? "#16a34a" : "#dc2626";
-  }
-
-  const elRev = document.getElementById("kpi-revenue");
-  if (elRev) elRev.textContent = formatMoney(kpis.grossRevenue);
-  const pendingAR = kpis.grossRevenue - kpis.cashCollected;
-  const elColRate = document.getElementById("kpi-collection-rate");
-  if (elColRate) elColRate.textContent = `Pending AR: ${formatMoney(Math.max(0, pendingAR))}`;
-
-  // Render 4 Interactive Advanced Mode Graphical Gauges
+  // Render 4 Interactive Advanced Mode Graphical Gauges (AR Aging, Category Spending, Cash Runway, Safe Harbor)
   renderAdvancedCharts(kpis);
-
-  // Render Category Breakdown & Comparison Widget
-  renderCategoryComparisonWidget(kpis);
 }
 
 function renderAdvancedCharts(kpis) {
