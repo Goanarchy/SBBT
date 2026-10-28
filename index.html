@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.5.0. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.5.0</title>
+  <meta name="description" content="Master Business Dashboard v1.5.1. Executive financial control system for NJ Local Businesses & Contractors featuring rolling 12-month analytics, project cost review audit reports, cloud tooltips, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.5.1</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.5.0</span>
+          <span class="badge-version">v1.5.1</span>
           <span class="badge-offline-tag" title="Software 100% Offline y Privado">🔒 100% OFFLINE</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
@@ -431,9 +431,8 @@
               <div class="adv-chart-subtitle">Select any registered contract to inspect its direct expenses, payments, and gross profit margin</div>
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
-              <label style="font-size:12px; font-weight:700; color:var(--text-main);">Contract / Job:</label>
-              <select id="adv-project-select" class="form-control" style="font-weight:700; min-width:240px; font-size:12px; height:32px;" onchange="renderAdvancedProjectDeepDive(this.value)">
-                <!-- populated dynamically -->
+              <select id="adv-project-select" class="form-control" style="font-weight:700; min-width:260px; font-size:12px; height:34px; border:1px solid var(--border-light); background:var(--bg-input); color:var(--text-main); border-radius:6px; cursor:pointer;" onchange="renderAdvancedProjectDeepDive(this.value)">
+                <!-- populated dynamically via renderAdvancedProjectDeepDive() -->
               </select>
             </div>
           </div>
@@ -626,6 +625,9 @@
           </select>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
+          <button class="btn btn-save-file" id="btn-print-cost-audit" style="font-size:11.5px; font-weight:800; display:flex; align-items:center; gap:6px; background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important; color:#fff !important; border:none; padding:7px 15px !important; border-radius:6px; cursor:pointer;" onclick="openProjectCostAuditReportModal()">
+            🖨️ Print Audit Report
+          </button>
           <button class="btn btn-outline-primary" style="font-size:11.5px; font-weight:700;" onclick="resetProjectCostCheckboxes()">
             🔄 Reset All Checks
           </button>
@@ -1360,19 +1362,19 @@
     <div class="modal-dialog" style="max-width: 650px;">
       <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);">
         <div>
-          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.5.0</h3>
-          <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 27, 2026</div>
+          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.5.1</h3>
+          <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 28, 2026</div>
         </div>
         <button class="modal-close-btn" id="modal-whats-new-close">&times;</button>
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6;">
-                <ul style="padding-left: 18px;">
-          <li style="margin-bottom: 8px;"><strong>📈 Executive Dashboard Grand Header:</strong> Re-positioned and styled the dashboard title prominently at the top with live status pulse and mode selector.</li>
-          <li style="margin-bottom: 8px;"><strong>🧹 100% Zero Loose Numbers in Advanced Mode:</strong> Hidden basic category boxes in Advanced Mode so the dashboard remains strictly structured into high-precision trading exchange cards.</li>
-          <li style="margin-bottom: 8px;"><strong>📝 Project Description Field in Invoices:</strong> Added dedicated project scope &amp; work description field to Invoices &amp; Sales, automatically printed on PDF invoices and estimates.</li>
-          <li style="margin-bottom: 8px;"><strong>🏢 Company Profile &amp; Document Branding:</strong> New settings area to customize your business legal name, specialty, address, phone, email, and NJ contractor license across all generated documents.</li>
-          <li style="margin-bottom: 8px;"><strong>✏️ Edit Any Row in 1-Click:</strong> Added an Edit (✏️) button beside every row across all 8 disciplines so you can modify records without deleting and retyping.</li>
-          <li style="margin-bottom: 8px;"><strong>🤝 Smooth Chained "How to Start" Guide:</strong> Seamlessly opens right after completing the 5-step welcome tour without interrupting or closing your flow.</li>
+        <ul style="padding-left: 18px;">
+          <li style="margin-bottom: 8px;"><strong>🎯 Project Financial Intelligence Auto-Wiring:</strong> Removed redundant label, dynamic project selector across all cost disciplines, computing Contract Selling Price, Cash Collected, Assigned Costs, Net Margin ($), and Gross Margin % in real time.</li>
+          <li style="margin-bottom: 8px;"><strong>📊 True 12-Month Rolling Trajectory (T12M):</strong> Inflows vs Outflows chart now displays the full 12 rolling months ending in the current/selected month.</li>
+          <li style="margin-bottom: 8px;"><strong>🍩 Centered Donut Indicators (Zero Text Collision):</strong> Fixed inner text and metric placement across all doughnut charts, guaranteeing numbers are never clipped or covered by the outer circle.</li>
+          <li style="margin-bottom: 8px;"><strong>🖨️ Internal Project Cost Audit Report:</strong> New dedicated printable audit document in Project Cost Review for internal cost control, review, and CPA handoff.</li>
+          <li style="margin-bottom: 8px;"><strong>☁️ Floating Cursor-Tracking Cloud Tooltips:</strong> Responsive, modern cloud tooltips appear smoothly right beside your cursor when hovering over help icons and question marks.</li>
+          <li style="margin-bottom: 8px;"><strong>🔒 Pristine Launch State &amp; Formula Integrity:</strong> 100% clean initial launch state with zero leftover ghost data, plus fully validated Excel formulas.</li>
         </ul>
       </div>
       <div class="modal-footer">
@@ -1525,6 +1527,39 @@
       <div class="modal-footer invoice-modal-footer" style="justify-content: space-between;">
         <button type="button" class="btn btn-outline-dark" onclick="closePrintInvoiceModal()">Close</button>
         <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ Print / Save to PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       PROJECT COST AUDIT REPORT MODAL (#modal-cost-audit-report)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-cost-audit-report" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 860px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0284c7 0%, #0f172a 100%); color:#fff;">
+        <div>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
+            <span>🖨️</span> Project Cost Review &amp; Contract Budget Audit Report
+          </h3>
+          <div style="font-size: 11px; color: #bae6fd; margin-top: 3px;">Formal internal company cost audit document • Formatted for management &amp; print</div>
+        </div>
+        <button class="modal-close-btn" onclick="closeProjectCostAuditReportModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px; background: #e2e8f0;">
+        <div class="audit-report-sheet" id="cost-audit-report-sheet">
+          <div id="cost-audit-report-content">
+            <!-- Rendered dynamically via openProjectCostAuditReportModal() -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between; align-items:center;">
+        <div style="font-size:11px; color:var(--text-muted);">
+          🔒 Internal Accounting Document • Clean 1-Page Layout
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn btn-outline-dark" onclick="closeProjectCostAuditReportModal()">Close</button>
+          <button type="button" class="btn btn-primary" onclick="window.print()" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">🖨️ Print / Save to PDF</button>
+        </div>
       </div>
     </div>
   </div>

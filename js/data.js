@@ -27,7 +27,7 @@ const DEFAULT_COMPANY_PROFILE = {
 
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.5.0",
+  version: "1.5.1",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -711,4 +711,4 @@ const CLEAN_SEED_DATA = {
 };
 
 // Default seed is CLEAN for pristine user delivery
-const SEED_DATA = SAMPLE_DEMO_DATA;
+const SEED_DATA = CLEAN_SEED_DATA;

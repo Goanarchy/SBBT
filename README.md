@@ -1,16 +1,16 @@
-# SBBT — Small Business Budget Tool (v1.5.0)
+# SBBT — Small Business Budget Tool (v1.5.1)
 **Master Business Dashboard | Executive Financial Control System (USD $)**
-*Official Release Date: October 27, 2026 | GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
+*Official Release Date: October 28, 2026 | GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
 
-### 📥 [Click Here to Download: SBBT_v1.5.0_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.5.0/SBBT_v1.5.0_Ready_To_Use.zip)
+### 📥 [Click Here to Download: SBBT_v1.5.1_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.5.1/SBBT_v1.5.1_Ready_To_Use.zip)
 > **🚀 Complete Ready-to-Use Package (Zero Setup)**:
-> 1. **Download**: Click the link above to get **`SBBT_v1.5.0_Ready_To_Use.zip`**.
+> 1. **Download**: Click the link above to get **`SBBT_v1.5.1_Ready_To_Use.zip`**.
 > 2. **Extract**: Unzip the folder anywhere on your computer.
 > 3. **Launch**: Double-click **`index.html`** in any web browser (Chrome, Edge, Safari, Firefox).
 > 4. **User Guide**: Read **[`START_HERE_USER_GUIDE.md`](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/START_HERE_USER_GUIDE.md)** for the complete English & Spanish step-by-step walkthrough.
-> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.5.0.xls`** if you prefer working in Microsoft Excel with native formula protection.  
+> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.5.1.xls`** if you prefer working in Microsoft Excel with native formula protection.  
 > *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
@@ -22,7 +22,8 @@
 
 | Version | Release Date | Status & Asset | Core Highlights & Upgrades |
 |---|---|---|---|
-| **v1.5.0** *(Latest)* | **October 27, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.5.0/SBBT_v1.5.0_Ready_To_Use.zip) | In-Place Row Editing Bugfix (Zero Duplication), 12-Month Unified Trajectory Comparison Chart, Universal Category Table Filtering (Instant Search & Dropdowns), Cross-Discipline Project Cost Allocation, Dedicated Project Cost Review & Interactive Inclusion Audit Tab, Advanced Mode Project Deep-Dive & Donut Breakdown, 100% OFFLINE Welcome Instructions & Privacy Banner, and Open / Save As New File with Auto-Consecutive Workbook Revisions. |
+| **v1.5.1** *(Latest)* | **October 28, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.5.1/SBBT_v1.5.1_Ready_To_Use.zip) | Dynamic Project Financial Intelligence auto-wiring (Contract Value, Cash Collected, Total Assigned Costs, Net Margin $, % Margin), True 12-Month Rolling Trajectory (ending at current month), Geometric Donut Ring text centering (zero label clipping), Printable Formal Project Cost Audit Report for internal sign-off, Dynamic Floating Cloud Tooltips (.tooltip-cloud) following mouse cursor with zero delay, and Pristine Clean Startup State for official launch. |
+| **v1.5.0** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.5.0/SBBT_v1.5.0_Ready_To_Use.zip) | In-Place Row Editing Bugfix (Zero Duplication), 12-Month Unified Trajectory Comparison Chart, Universal Category Table Filtering (Instant Search & Dropdowns), Cross-Discipline Project Cost Allocation, Dedicated Project Cost Review & Interactive Inclusion Audit Tab, Advanced Mode Project Deep-Dive & Donut Breakdown, 100% OFFLINE Welcome Instructions & Privacy Banner, and Open / Save As New File with Auto-Consecutive Workbook Revisions. |
 | **v1.4.2** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.4.2/SBBT_v1.4.2_Ready_To_Use.zip) | Executive Financial Dashboard Grand Presentation Header, Zero Loose Numbers/Metrics in Advanced Mode, Dedicated Project Description & Scope of Work in Invoices, Company Profile & Document Branding Settings, and In-Place Row Editing Across All Ledger Tables. |
 | **v1.4.1** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.4.1/SBBT_v1.4.1_Ready_To_Use.zip) | Official 'Accepted' Sales Status for Approved Proposals, High-Precision Trading Exchange Metric Tiles (.trading-tiles-row), Viewport Stability (Sticky Footer & Min-Height Tabs), Locked Modal Dimensions, Chained 'How to Start' Tour, and Dedicated Split Bilingual User Manuals. |
 | **v1.4.0** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.4.0/SBBT_v1.4.0_Ready_To_Use.zip) | Dedicated Focus on NJ Local Businesses & Trade Contractors, Dynamic Navigation Tabs (Hiding Inactive Modules), Advanced Mode Interactive Graphical Indicators (AR Aging Donut, Category Spending Bar, Cash Runway Meter, Safe Harbor Tax Sentinel), Trailing 12 Months (T12M) Rolling Analytics, Optional Job Name Field for Invoices & COGS, Strict User Terminology (100% English), and Formatted Excel Companion Workbook. |
@@ -39,7 +40,7 @@
 
 
 ## 📌 Executive Overview
-The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.5.0)** is an executive-grade financial management platform and spreadsheet model engineered specifically for contractors, trade specialists, and small businesses operating in the State of New Jersey and beyond.
+The **Small Business Budget Tool (SBBT / Master Business Dashboard v1.5.1)** is an executive-grade financial management platform and spreadsheet model engineered specifically for contractors, trade specialists, and small businesses operating in the State of New Jersey and beyond.
 
 It merges corporate financial accounting with an ultra-clean, intuitive, and modern interface. Featuring **dynamic calendar day calculations** (accurate 28/29, 30, and 31 days per month), a **100% English interface**, an **always-on startup usage guide**, **clarified quotes and estimates pipeline tracking**, **practical and intuitive expense billing**, a prominent **💡 How to Start** button, category-level period filters, 2-column Inflow vs Outflow comparisons, predictive Google-style autocomplete, custom tax rates, and a dedicated System Tools hub. It eliminates spreadsheet clutter and manual calculation errors while remaining 100% customizable with ON/OFF switches for every category.
 

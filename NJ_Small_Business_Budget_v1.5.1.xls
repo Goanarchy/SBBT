@@ -7,7 +7,7 @@
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.5.0 | NJ Local Businesses &amp; Contractors</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.5.1 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -164,7 +164,7 @@
    <Column ss:Width="160"/>
    <Column ss:Width="260"/>
    <Row ss:Height="26">
-    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.5.0)</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.5.1)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
@@ -177,43 +177,43 @@
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Gross Invoiced Revenue</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'Revenue &amp; Invoices\'!R8C5"><Data ss:Type="Number">99000.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accrual billings before sales tax</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Cash Collected</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Revenue &amp; Invoices'!R8C10"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'Revenue &amp; Invoices\'!R8C9"><Data ss:Type="Number">59600.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Realized cash in operating bank account</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Direct COGS &amp; Materials</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Direct COGS'!R8C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'Direct COGS\'!R8C6"><Data ss:Type="Number">23520.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Direct materials, equipment rental, freight</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Gross Profit</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="=R5C2-R7C2"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=R5C2-R7C2"><Data ss:Type="Number">75480.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Gross Margin = Gross Revenue - Direct COGS</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Total Operating Expenses (OpEx)</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='Fleet &amp; Fuel'!R7C10+'Facility &amp; Mortgage'!R7C7+'Insurance Policies'!R7C7+'Payroll &amp; Labor'!R7C8+'Utilities &amp; Overhead'!R8C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'Fleet &amp; Fuel\'!R7C10+\'Facility &amp; Mortgage\'!R7C7+\'Insurance Policies\'!R7C7+\'Payroll &amp; Labor\'!R7C8+\'Utilities &amp; Overhead\'!R8C6"><Data ss:Type="Number">36461.71</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Facility, Fleet, Payroll, Ins, Utilities</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String">NET OPERATING INCOME (EBIT)</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R8C2-R9C2"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R8C2-R9C2"><Data ss:Type="Number">39018.29</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">True bottom line before corporate income taxes</Data></Cell>
    </Row>
    <Row><Cell><Data ss:Type="String"></Data></Cell></Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Tax Reserve Required</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='NJ Taxes &amp; Compliance'!R7C5"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'NJ Taxes &amp; Compliance\'!R7C5"><Data ss:Type="Number">16435.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Safe harbor statutory requirement (CBT + Sales Tax)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Tax Reserve Funded</Data></Cell>
-    <Cell ss:StyleID="FormulaCell" ss:Formula="='NJ Taxes &amp; Compliance'!R7C6"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=\'NJ Taxes &amp; Compliance\'!R7C6"><Data ss:Type="Number">15735.00</Data></Cell>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Funds isolated in tax savings account</Data></Cell>
    </Row>
   </Table>
@@ -240,7 +240,7 @@
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Invoice #</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">User / Customer Account [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Job Name (Optional) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project [REQUIRED]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Contract Value ($) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">NJ Taxable? [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">NJ Sales Tax (6.625%) [fx]</Data></Cell>
@@ -366,7 +366,7 @@
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Receipt / PO #</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Supplier / Vendor [INPUT]</Data></Cell>
-    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Job Name (Optional) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Category [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cost Amount ($) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Paid Via [INPUT]</Data></Cell>

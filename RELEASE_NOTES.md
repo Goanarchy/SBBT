@@ -4,7 +4,44 @@
 
 ---
 
-## 🏛️ Version 1.5.0 (Latest Release)
+## 🏛️ Version 1.5.1 (Latest Release)
+* **Official Release Date**: October 28, 2026
+* **Status**: Available & Active
+* **Package Asset**: `SBBT_v1.5.1_Ready_To_Use.zip` (Desktop Build)
+* **Core Focus**: Dynamic Project Financial Intelligence Auto-Wiring, True 12-Month Rolling Trajectory Comparison, Geometric Donut Ring Center Alignment (Zero Label Clipping), Printable Formal Project Cost Audit Report, Real-Time Floating Cloud Tooltips (.tooltip-cloud), and Pristine Clean Launch State.
+
+### 🌟 Key Upgrades in Version 1.5.1
+
+1. **🎯 Project Financial Intelligence & Cost Breakdown Auto-Wiring**:
+   - Cleaned up the layout by removing the obsolete static label `Contract / Job:`.
+   - Fully wired up `#adv-project-select` to compute real-time financial metrics across all active disciplines (Revenue, COGS, Payroll, Fleet, Facility, Utilities).
+   - Dynamically updates all 5 executive tiles: **CONTRACT SELLING PRICE**, **TOTAL CASH COLLECTED**, **TOTAL ASSIGNED COSTS**, **NET PROFIT MARGIN ($)**, and **GROSS MARGIN %** (with adaptive color badge: 🟢 Healthy >20%, 🟡 Moderate, 🔴 Low/Negative).
+   - Renders a reactive donut breakdown chart with a 76% cutout showing expense proportions and profit margin.
+
+2. **📊 Trailing 12-Month Rolling Comparative Trajectory Chart**:
+   - The *Inflows vs. Outflows Trajectory* now computes a true rolling 12-month calendar window ending directly at the currently selected fiscal month and year.
+   - Shows side-by-side comparative bars for Cash In (Collected) and Cash Out (Expenses) for all 12 rolling months, allowing contractors to analyze true fiscal seasonality.
+
+3. **🍩 Geometric Donut Ring Centering & Outer Ring Clearance**:
+   - Enlarged donut chart cutouts to `78%` across all executive donut charts (Accounts Receivable Aging, Category Spending Breakdown, Project Deep-Dive).
+   - Replaced fixed CSS percentages with dynamic geometric centering based on exact Chart.js chart area coordinates `(top + bottom) / 2` and `(left + right) / 2`.
+   - Eliminates text overlapping or clipping by the outer doughnut ring regardless of screen dimensions or chart legend positioning.
+
+4. **🖨️ Printable Formal Project Cost Audit Report**:
+   - Added a dedicated **🖨️ Print Audit Report** button inside *Project Cost Review & Contract Budget Audit*.
+   - Generates a company-branded, formal internal audit document featuring company details, project description, contract financials, budget consumption meter, itemized direct costs breakdown (excluding simulated exclusions), and manager sign-off lines formatted for high-definition printing or PDF generation.
+
+5. **☁️ Dynamic Floating Cloud Tooltips (.tooltip-cloud)**:
+   - Replaced static, delayed browser tooltips with a modern glassmorphism floating cloud tooltip.
+   - Follows the mouse cursor with zero delay (+14px offset), displays formatted titles and statutory definitions, and automatically flips positioning at viewport edges to prevent clipping.
+
+6. **🧹 Pristine Clean Launch State & Companion Excel Formula Fixes**:
+   - Configured official production launch to initialize in a 100% clean blank state (`CLEAN_SEED_DATA = { ... empty arrays }`, $0.00 everywhere), with realistic demo data available on demand via the *Load Sample Demo Data* button in System Tools.
+   - Fixed cross-sheet formulas in `Executive Summary` of `NJ_Small_Business_Budget_v1.5.1.xls` (`R8C5` for Gross Revenue and `R8C9` for Cash Collected).
+
+---
+
+## 🏛️ Version 1.5.0 (Prior Release)
 * **Official Release Date**: October 27, 2026
 * **Status**: Available & Active
 * **Package Asset**: `SBBT_v1.5.0_Ready_To_Use.zip` (Desktop Build)

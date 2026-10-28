@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.5.0";
+    this.version = "1.5.1";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -41,25 +41,6 @@ class BudgetStore {
   }
 
   loadData() {
-    // Check if rich sample testing suite has been initialized
-    const testSuiteKey = "MBD_TEST_SAMPLE_SUITE_V142";
-    const hasInitialized = localStorage.getItem(testSuiteKey);
-
-    if (!hasInitialized) {
-      localStorage.setItem(testSuiteKey, "true");
-      const demo = JSON.parse(JSON.stringify(typeof SAMPLE_DEMO_DATA !== 'undefined' ? SAMPLE_DEMO_DATA : CLEAN_SEED_DATA));
-      demo.disciplineStatus = {
-        revenue: true, cogs: true, fleet: true, facility: true,
-        insurance: true, payroll: true, utilities: true, taxes: true
-      };
-      localStorage.setItem(this.storageKey, JSON.stringify(demo));
-      // Also pre-seed company profile
-      if (typeof DEFAULT_COMPANY_PROFILE !== 'undefined') {
-        localStorage.setItem("MBD_COMPANY_PROFILE", JSON.stringify(DEFAULT_COMPANY_PROFILE));
-      }
-      return demo;
-    }
-
     const saved = localStorage.getItem(this.storageKey);
     if (saved) {
       try {
@@ -72,18 +53,20 @@ class BudgetStore {
         }
         return parsed;
       } catch (e) {
-        console.error("Failed to parse local storage, reverting to demo data", e);
+        console.error("Failed to parse local storage, reverting to clean data", e);
       }
     }
 
-    const demo = JSON.parse(JSON.stringify(typeof SAMPLE_DEMO_DATA !== 'undefined' ? SAMPLE_DEMO_DATA : CLEAN_SEED_DATA));
-    demo.disciplineStatus = {
+    // Pristine clean seed state for official release
+    const clean = JSON.parse(JSON.stringify(typeof CLEAN_SEED_DATA !== 'undefined' ? CLEAN_SEED_DATA : {
+      revenue: [], cogs: [], fleet: [], facility: [], insurance: [], payroll: [], utilities: [], taxes: []
+    }));
+    clean.disciplineStatus = {
       revenue: true, cogs: true, fleet: true, facility: true,
       insurance: true, payroll: true, utilities: true, taxes: true
     };
-    return demo;
+    return clean;
   }
-
   saveData() {
     localStorage.setItem(this.storageKey, JSON.stringify(this.data));
   }
@@ -736,6 +719,7 @@ window.setDashboardViewMode = function(mode) {
     btnAdv.classList.add("active");
     if (advancedContainer) advancedContainer.style.display = "block";
     if (categoryTotalsDeck) categoryTotalsDeck.style.display = "none";
+    renderAdvancedMetrics(store.calculateKPIs());
   } else {
     btnBasic.classList.add("active");
     btnAdv.classList.remove("active");
@@ -1103,40 +1087,33 @@ function renderInflowOutflowCharts(kpis) {
   }
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const year = store.selectedYear || "2025";
+  const curM = parseInt(store.selectedMonth, 10) || 10;
+  const curY = parseInt(store.selectedYear, 10) || 2025;
 
-  // Gather cash flows for all 12 months of the year
-  const rawMonthsData = [];
-  for (let m = 1; m <= 12; m++) {
-    const mStr = String(m).padStart(2, '0');
-    const cf = store.getMonthCashFlow(year, mStr);
-    rawMonthsData.push({
+  // Gather exactly the last 12 rolling months ending in the currently selected month
+  const rolling12Months = [];
+  for (let offset = 11; offset >= 0; offset--) {
+    let targetM = curM - offset;
+    let targetY = curY;
+    while (targetM <= 0) {
+      targetM += 12;
+      targetY -= 1;
+    }
+    const mStr = String(targetM).padStart(2, '0');
+    const yStr = String(targetY);
+    const cf = store.getMonthCashFlow(yStr, mStr);
+    rolling12Months.push({
+      year: yStr,
       monthNum: mStr,
-      label: `${monthNames[m - 1]} ${year}`,
-      shortLabel: monthNames[m - 1],
+      label: `${monthNames[targetM - 1]} '${yStr.slice(-2)}`,
       inflows: cf.inflows || 0,
       outflows: cf.outflows || 0
     });
   }
 
-  // Filter to available months (months with activity, max 12 months)
-  let activeMonths = rawMonthsData.filter(d => (d.inflows > 0 || d.outflows > 0));
-
-  // If no activity yet or clean slate, show selected month and 2 surrounding months
-  if (activeMonths.length === 0) {
-    const curM = parseInt(store.selectedMonth, 10) || 10;
-    const startM = Math.max(0, curM - 3);
-    activeMonths = rawMonthsData.slice(startM, Math.min(12, startM + 3));
-  }
-
-  // Cap at maximum of the last 12 available months
-  if (activeMonths.length > 12) {
-    activeMonths = activeMonths.slice(-12);
-  }
-
-  const labels = activeMonths.map(d => d.label);
-  const inflowsData = activeMonths.map(d => d.inflows);
-  const outflowsData = activeMonths.map(d => d.outflows);
+  const labels = rolling12Months.map(d => d.label);
+  const inflowsData = rolling12Months.map(d => d.inflows);
+  const outflowsData = rolling12Months.map(d => d.outflows);
 
   store.charts.trajectoryChart = new Chart(canvas, {
     type: 'bar',
@@ -1241,9 +1218,9 @@ function renderOutflowDonutChart(kpis) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '66%',
+        cutout: '76%',
         plugins: {
-          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9.5 } } },
+          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9 }, padding: 6 } },
           tooltip: {
             callbacks: {
               label: (ctx) => ` ${ctx.label}: $${Number(ctx.raw).toLocaleString('en-US', { minimumFractionDigits: 2 })} (Visual Reference Only)`
@@ -1259,6 +1236,8 @@ function renderOutflowDonutChart(kpis) {
 function renderAdvancedMetrics(kpis) {
   // Render 4 Interactive Advanced Mode Graphical Gauges (AR Aging, Category Spending, Cash Runway, Safe Harbor)
   renderAdvancedCharts(kpis);
+  // Render Project Financial Intelligence & Cost Breakdown Deep-Dive
+  renderAdvancedProjectDeepDive();
 }
 
 function renderAdvancedCharts(kpis) {
@@ -1288,9 +1267,9 @@ function renderAdvancedCharts(kpis) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '72%',
+        cutout: '78%',
         plugins: {
-          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9.5 } } },
+          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9 }, padding: 6 } },
           tooltip: {
             enabled: hasData,
             callbacks: {
@@ -1303,6 +1282,14 @@ function renderAdvancedCharts(kpis) {
 
     const elArCenterVal = document.getElementById("adv-ar-center-val");
     if (elArCenterVal) elArCenterVal.textContent = formatMoney(collected);
+
+    // Exact geometric centering so inner text is never covered by doughnut ring
+    const centerEl = ctxAr.parentElement ? ctxAr.parentElement.querySelector(".adv-center-kpi") : null;
+    if (centerEl && store.charts.advArDonut.chartArea) {
+      const ca = store.charts.advArDonut.chartArea;
+      centerEl.style.top = `${(ca.top + ca.bottom) / 2}px`;
+      centerEl.style.left = `${(ca.left + ca.right) / 2}px`;
+    }
 
     const effRate = kpis.grossRevenue > 0 ? ((collected / kpis.grossRevenue) * 100).toFixed(1) : "100.0";
     const elEffPill = document.getElementById("adv-collection-rate-pill");
@@ -1449,9 +1436,9 @@ function renderAdvancedCharts(kpis) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '72%',
+        cutout: '78%',
         plugins: {
-          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9.5 } } },
+          legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9 }, padding: 6 } },
           tooltip: {
             enabled: hasTaxData,
             callbacks: {
@@ -1461,6 +1448,14 @@ function renderAdvancedCharts(kpis) {
         }
       }
     });
+
+    // Exact geometric centering so inner text is never covered by doughnut ring
+    const taxCenterEl = ctxTax.parentElement ? ctxTax.parentElement.querySelector(".adv-center-kpi") : null;
+    if (taxCenterEl && store.charts.advTaxDonut.chartArea) {
+      const ca = store.charts.advTaxDonut.chartArea;
+      taxCenterEl.style.top = `${(ca.top + ca.bottom) / 2}px`;
+      taxCenterEl.style.left = `${(ca.left + ca.right) / 2}px`;
+    }
 
     const elTaxStatus = document.getElementById("kpi-tax-status");
     const elTaxStatusPill = document.getElementById("kpi-tax-status-pill");
@@ -2033,34 +2028,86 @@ function renderPnLSheet() {
 // Tooltips & Modal Controllers
 // ==========================================================================
 function setupTooltipSystem() {
-  const tooltipEl = document.createElement("div");
-  tooltipEl.className = "tooltip-custom";
-  tooltipEl.id = "app-tooltip";
-  document.body.appendChild(tooltipEl);
+  const existing = document.getElementById("app-tooltip");
+  if (existing) existing.remove();
+
+  const cloudEl = document.createElement("div");
+  cloudEl.className = "tooltip-cloud";
+  cloudEl.id = "app-tooltip";
+  document.body.appendChild(cloudEl);
+
+  let currentTarget = null;
+
+  function updatePosition(e) {
+    if (!cloudEl.classList.contains("show")) return;
+    const offset = 14;
+    const tw = cloudEl.offsetWidth || 230;
+    const th = cloudEl.offsetHeight || 60;
+    
+    let x = e.clientX + offset;
+    let y = e.clientY + offset;
+
+    // Flip to left of cursor if near right edge
+    if (x + tw > window.innerWidth - 12) {
+      x = Math.max(10, e.clientX - tw - 10);
+    }
+    // Flip above cursor if near bottom edge
+    if (y + th > window.innerHeight - 12) {
+      y = Math.max(10, e.clientY - th - 10);
+    }
+
+    cloudEl.style.left = `${x}px`;
+    cloudEl.style.top = `${y}px`;
+  }
 
   document.addEventListener("mouseover", (e) => {
-    const target = e.target.closest("[data-tooltip]");
+    const target = e.target.closest("[data-tooltip], [data-help], [title], .chart-badge-disclaimer, .btn-help-corner, th[title]");
     if (!target) return;
-    const title = target.getAttribute("data-tooltip-title") || "Help & Context";
-    const tip = target.getAttribute("data-tooltip");
+
+    let title = target.getAttribute("data-tooltip-title") || target.getAttribute("data-help-title") || "";
+    let tip = target.getAttribute("data-tooltip") || target.getAttribute("data-help") || "";
+
+    // Convert standard title attribute so native delayed browser tooltip never appears
+    if (!tip && target.hasAttribute("title")) {
+      tip = target.getAttribute("title");
+      target.setAttribute("data-original-title", tip);
+      target.removeAttribute("title");
+    } else if (target.hasAttribute("data-original-title") && !tip) {
+      tip = target.getAttribute("data-original-title");
+    }
+
+    if (!tip || tip.trim() === "") return;
+
+    currentTarget = target;
     const isFillable = target.getAttribute("data-fillable") === "true";
 
-    tooltipEl.innerHTML = `
-      <div style="font-weight:700; color:#38bdf8; margin-bottom:3px; display:flex; align-items:center; gap:4px;">
-        <span>💡</span> ${escapeHtml(title)}
-        ${isFillable ? '<span style="font-size:9px; background:#0284c7; color:#fff; padding:1px 4px; border-radius:3px; margin-left:auto;">Input</span>' : ''}
-      </div>
-      <div>${escapeHtml(tip)}</div>
+    cloudEl.innerHTML = `
+      ${title ? `
+        <div class="tooltip-cloud-header">
+          <span>💡</span> <span>${escapeHtml(title)}</span>
+          ${isFillable ? '<span style="font-size:9px; background:#0284c7; color:#fff; padding:1px 5px; border-radius:3px; margin-left:auto;">Input</span>' : ''}
+        </div>
+      ` : ''}
+      <div class="tooltip-cloud-body">${escapeHtml(tip)}</div>
     `;
-    tooltipEl.classList.add("show");
-    const rect = target.getBoundingClientRect();
-    tooltipEl.style.left = `${Math.min(window.innerWidth - 280, Math.max(10, rect.left))}px`;
-    tooltipEl.style.top = `${rect.bottom + window.scrollY + 5}px`;
+
+    cloudEl.classList.add("show");
+    updatePosition(e);
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (currentTarget) {
+      updatePosition(e);
+    }
   });
 
   document.addEventListener("mouseout", (e) => {
-    const target = e.target.closest("[data-tooltip]");
-    if (target) tooltipEl.classList.remove("show");
+    if (!currentTarget) return;
+    const related = e.relatedTarget;
+    if (!related || !currentTarget.contains(related)) {
+      cloudEl.classList.remove("show");
+      currentTarget = null;
+    }
   });
 }
 
@@ -3315,21 +3362,64 @@ window.renderProjectCostReview = function(selectedProject) {
 };
 
 // ==========================================================================
-// ADVANCED MODE PROJECT DEEP-DIVE & DONUT BREAKDOWN (V1.5.0)
+// ADVANCED MODE PROJECT DEEP-DIVE & DONUT BREAKDOWN (V1.5.1)
 // ==========================================================================
 window.renderAdvancedProjectDeepDive = function(selectedProject) {
   const selectEl = document.getElementById("adv-project-select");
   const canvas = document.getElementById("chart-adv-project-donut");
   if (!selectEl || !canvas || typeof Chart === 'undefined') return;
 
-  const allProjects = Array.from(new Set(
-    (store.data.revenue || [])
-      .map(r => (r.jobName || r.project || "").trim())
-      .filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project"))
-  ));
+  const elContract = document.getElementById("adv-proj-contract");
+  const elCollected = document.getElementById("adv-proj-collected");
+  const elCosts = document.getElementById("adv-proj-costs");
+  const elNet = document.getElementById("adv-proj-net");
+  const elMarginPill = document.getElementById("adv-proj-margin-pill");
+
+  // Collect all projects across all disciplines
+  const allProjects = Array.from(new Set([
+    ...(store.data.revenue || []).map(r => (r.jobName || r.project || "").trim()),
+    ...(store.data.cogs || []).map(c => (c.jobName || c.project || "").trim()),
+    ...(store.data.payroll || []).map(p => (p.jobName || p.project || "").trim()),
+    ...(store.data.fleet || []).map(f => (f.jobName || f.project || "").trim()),
+    ...(store.data.facility || []).map(fac => (fac.jobName || fac.project || "").trim()),
+    ...(store.data.utilities || []).map(u => (u.jobName || u.project || "").trim())
+  ])).filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project") && p !== "— None / General Overhead —");
 
   if (allProjects.length === 0) {
-    selectEl.innerHTML = `<option value="">No projects registered</option>`;
+    selectEl.innerHTML = `<option value="">No projects registered yet</option>`;
+    if (elContract) elContract.textContent = "$0.00";
+    if (elCollected) elCollected.textContent = "$0.00";
+    if (elCosts) elCosts.textContent = "$0.00";
+    if (elNet) { elNet.textContent = "$0.00"; elNet.style.color = "#16a34a"; }
+    if (elMarginPill) {
+      elMarginPill.textContent = "0.0% Margin";
+      elMarginPill.style.background = "#dcfce7";
+      elMarginPill.style.color = "#15803d";
+    }
+    if (store.charts.advProjectDonut) {
+      store.charts.advProjectDonut.destroy();
+    }
+    store.charts.advProjectDonut = new Chart(canvas, {
+      type: 'doughnut',
+      data: {
+        labels: ['No Project Data'],
+        datasets: [{
+          data: [1],
+          backgroundColor: ['#e2e8f0'],
+          borderWidth: 2,
+          borderColor: 'transparent'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '76%',
+        plugins: {
+          legend: { position: 'right', labels: { boxWidth: 9, font: { size: 9.5 } } },
+          tooltip: { enabled: false }
+        }
+      }
+    });
     return;
   }
 
@@ -3346,7 +3436,8 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
   let cogsCost = 0;
   let laborCost = 0;
   let fleetCost = 0;
-  let otherCost = 0;
+  let facilityCost = 0;
+  let utilityCost = 0;
 
   (store.data.revenue || []).forEach(r => {
     if ((r.jobName || r.project || "").trim() === projName) {
@@ -3371,31 +3462,35 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
   (store.data.fleet || []).forEach(f => {
     if ((f.jobName || f.project || "").trim() === projName) {
       const form = store.calculateFormulas("fleet", f);
-      fleetCost += form.totalCost || (Number(f.gasExpense) + Number(f.tollsParking)) || 0;
+      fleetCost += form.totalCost || (Number(f.gasExpense || 0) + Number(f.tollsParking || 0));
     }
   });
 
-  const totalCosts = cogsCost + laborCost + fleetCost + otherCost;
+  (store.data.facility || []).forEach(fac => {
+    if ((fac.jobName || fac.project || "").trim() === projName) {
+      facilityCost += Number(fac.actualPaid) || Number(fac.budgeted) || 0;
+    }
+  });
+
+  (store.data.utilities || []).forEach(u => {
+    if ((u.jobName || u.project || "").trim() === projName) {
+      utilityCost += Number(u.actualAmount) || Number(u.budgeted) || 0;
+    }
+  });
+
+  const totalCosts = cogsCost + laborCost + fleetCost + facilityCost + utilityCost;
   const netProfit = contractVal - totalCosts;
   const marginPct = contractVal > 0 ? ((netProfit / contractVal) * 100).toFixed(1) : "0.0";
 
   // Update tiles
-  const elContract = document.getElementById("adv-proj-contract");
   if (elContract) elContract.textContent = formatMoney(contractVal);
-
-  const elCollected = document.getElementById("adv-proj-collected");
   if (elCollected) elCollected.textContent = formatMoney(collectedVal);
-
-  const elCosts = document.getElementById("adv-proj-costs");
   if (elCosts) elCosts.textContent = formatMoney(totalCosts);
-
-  const elNet = document.getElementById("adv-proj-net");
   if (elNet) {
     elNet.textContent = formatMoney(netProfit);
     elNet.style.color = netProfit >= 0 ? "#16a34a" : "#dc2626";
   }
 
-  const elMarginPill = document.getElementById("adv-proj-margin-pill");
   if (elMarginPill) {
     elMarginPill.textContent = `${marginPct}% Margin`;
     if (netProfit < 0) {
@@ -3416,9 +3511,9 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
   }
 
   const hasData = (totalCosts + Math.max(0, netProfit)) > 0;
-  const chartLabels = ['Materials (COGS)', 'Labor & Subs', 'Fleet & Travel', 'Net Profit Margin'];
-  const chartData = hasData ? [cogsCost, laborCost, fleetCost, Math.max(0, netProfit)] : [1, 0, 0, 0];
-  const chartColors = hasData ? ['#3b82f6', '#10b981', '#ec4899', '#059669'] : ['#e2e8f0', '#cbd5e1', '#cbd5e1', '#cbd5e1'];
+  const chartLabels = ['Materials (COGS)', 'Labor & Subs', 'Fleet & Travel', 'Facility/Utilities', 'Net Profit Margin'];
+  const chartData = hasData ? [cogsCost, laborCost, fleetCost, facilityCost + utilityCost, Math.max(0, netProfit)] : [1, 0, 0, 0, 0];
+  const chartColors = hasData ? ['#3b82f6', '#10b981', '#ec4899', '#f59e0b', '#059669'] : ['#e2e8f0', '#cbd5e1', '#cbd5e1', '#cbd5e1', '#cbd5e1'];
 
   store.charts.advProjectDonut = new Chart(canvas, {
     type: 'doughnut',
@@ -3434,11 +3529,11 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: '70%',
+      cutout: '76%',
       plugins: {
         legend: {
           position: 'right',
-          labels: { boxWidth: 9, font: { size: 9.5 } }
+          labels: { boxWidth: 9, font: { size: 9 }, padding: 6 }
         },
         tooltip: {
           enabled: hasData,
@@ -3449,6 +3544,253 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
       }
     }
   });
+};
+
+// ==========================================================================
+// PROJECT COST AUDIT REPORT MODAL CONTROLLER (V1.5.1)
+// ==========================================================================
+window.openProjectCostAuditReportModal = function(selectedProject) {
+  const selectEl = document.getElementById("cost-review-project-select");
+  const projName = selectedProject || (selectEl ? selectEl.value : "") || "";
+  
+  if (!projName) {
+    alert("Please select a registered project first to generate the audit report.");
+    return;
+  }
+
+  // Gather revenue / contract info
+  const matchingRevenue = (store.data.revenue || []).filter(r => (r.jobName || r.project || "").trim() === projName);
+  const contractVal = matchingRevenue.reduce((s, r) => s + (Number(r.grossBilled) || 0), 0);
+  const collectedVal = matchingRevenue.reduce((s, r) => s + (Number(r.amountReceived) || 0), 0);
+  const clientName = matchingRevenue.map(r => r.client).filter(Boolean)[0] || "Client Account";
+  const projectDesc = matchingRevenue.map(r => r.description).filter(Boolean)[0] || "Contract project deliverables & trade services";
+
+  // Gather all itemized costs across all disciplines
+  const itemizedCosts = [];
+
+  (store.data.cogs || []).forEach((c, idx) => {
+    if ((c.jobName || c.project || "").trim() === projName) {
+      const rowId = `cogs_${c.id || idx}`;
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "📦 Direct Materials (COGS)",
+        date: c.date || "N/A",
+        payee: c.vendor || "Supplier",
+        category: c.category || "Materials",
+        memo: c.id ? `PO #${c.id}` : "Supply Purchase",
+        amount: Number(c.amount) || 0,
+        active: !isExcluded
+      });
+    }
+  });
+
+  (store.data.payroll || []).forEach((p, idx) => {
+    if ((p.jobName || p.project || "").trim() === projName) {
+      const rowId = `payroll_${p.id || idx}`;
+      const f = store.calculateFormulas("payroll", p);
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "👥 Labor & Subcontractors",
+        date: p.date || "N/A",
+        payee: p.name || "Personnel",
+        category: p.type || p.role || "Labor",
+        memo: p.role ? `${p.role} (${p.coiStatus || ""})` : "Payroll Allocation",
+        amount: f.totalCost || Number(p.grossPay) || 0,
+        active: !isExcluded
+      });
+    }
+  });
+
+  (store.data.fleet || []).forEach((f, idx) => {
+    if ((f.jobName || f.project || "").trim() === projName) {
+      const rowId = `fleet_${f.id || idx}`;
+      const form = store.calculateFormulas("fleet", f);
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "🚗 Fleet & Mileage",
+        date: f.date || "N/A",
+        payee: f.vehicle || "Company Vehicle",
+        category: f.trackingMethod || "Travel",
+        memo: `Miles: ${f.milesLogged || 0} mi`,
+        amount: form.totalCost || (Number(f.gasExpense || 0) + Number(f.tollsParking || 0)),
+        active: !isExcluded
+      });
+    }
+  });
+
+  (store.data.facility || []).forEach((fac, idx) => {
+    if ((fac.jobName || fac.project || "").trim() === projName) {
+      const rowId = `facility_${fac.id || idx}`;
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "🏢 Dedicated Facility/Shop",
+        date: fac.dueDate || "N/A",
+        payee: fac.location || "Facility Location",
+        category: fac.expenseType || "Rent/CAM",
+        memo: "Dedicated Facility Allocation",
+        amount: Number(fac.actualPaid) || Number(fac.budgeted) || 0,
+        active: !isExcluded
+      });
+    }
+  });
+
+  (store.data.utilities || []).forEach((u, idx) => {
+    if ((u.jobName || u.project || "").trim() === projName) {
+      const rowId = `utilities_${u.id || idx}`;
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "⚡ Utilities & Software",
+        date: u.date || "N/A",
+        payee: u.service || "Utility Provider",
+        category: u.category || "Service",
+        memo: "Dedicated SaaS / Project Utility",
+        amount: Number(u.actualAmount) || Number(u.budgeted) || 0,
+        active: !isExcluded
+      });
+    }
+  });
+
+  const totalAssignedCosts = itemizedCosts.filter(c => c.active).reduce((sum, c) => sum + c.amount, 0);
+  const netProfit = contractVal - totalAssignedCosts;
+  const marginPct = contractVal > 0 ? ((netProfit / contractVal) * 100).toFixed(1) : "0.0";
+  const costRatio = contractVal > 0 ? ((totalAssignedCosts / contractVal) * 100).toFixed(1) : "0.0";
+
+  const container = document.getElementById("cost-audit-report-content");
+  if (!container) return;
+
+  const profile = store.companyProfile || DEFAULT_COMPANY_PROFILE;
+
+  container.innerHTML = `
+    <!-- Header with Company Profile -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #0f172a; padding-bottom:16px; margin-bottom:18px;">
+      <div>
+        <div style="font-size:18px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
+          ${escapeHtml(profile.companyName || "GARDEN STATE PREMIER SOLUTIONS LLC")}
+        </div>
+        <div style="font-size:11.5px; font-weight:700; color:#0284c7; margin-top:2px;">
+          ${escapeHtml(profile.specialty || "Commercial & Residential Contractor Services")}
+        </div>
+        <div style="font-size:11px; color:#475569; margin-top:3px;">
+          ${escapeHtml(profile.address || "")}${profile.address && profile.cityStateZip ? ', ' : ''}${escapeHtml(profile.cityStateZip || "")} • Tel: ${escapeHtml(profile.phone || "N/A")} • ${escapeHtml(profile.email || "")}
+        </div>
+        ${profile.license ? `<div style="font-size:10.5px; color:#64748b; font-weight:700; margin-top:2px;">📜 License: ${escapeHtml(profile.license)}</div>` : ''}
+      </div>
+      <div style="text-align:right;">
+        <span style="background:#0f172a; color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px;">INTERNAL AUDIT DOCUMENT</span>
+        <div style="font-size:16px; font-weight:900; color:#0369a1; margin-top:6px;">PROJECT COST AUDIT REPORT</div>
+        <div style="font-size:11px; color:#475569; margin-top:2px;">Audit Date: <strong>${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</strong></div>
+      </div>
+    </div>
+
+    <!-- Project Overview Bar -->
+    <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:16px; margin-bottom:18px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 16px;">
+      <div>
+        <div style="font-size:10.5px; font-weight:800; text-transform:uppercase; color:#64748b;">PROJECT / CONTRACT:</div>
+        <div style="font-size:15px; font-weight:900; color:#0f172a; margin-top:2px;">${escapeHtml(projName)}</div>
+        <div style="font-size:11.5px; color:#334155; margin-top:3px;">Client / User: <strong>${escapeHtml(clientName)}</strong></div>
+        <div style="font-size:11px; color:#64748b; margin-top:3px;">Scope: <em>${escapeHtml(projectDesc)}</em></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px;">
+          <div style="font-size:9.5px; font-weight:800; color:#64748b;">CONTRACT VALUE</div>
+          <div style="font-size:14px; font-weight:900; color:#1e3a8a; font-family:monospace;">${formatMoney(contractVal)}</div>
+        </div>
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px;">
+          <div style="font-size:9.5px; font-weight:800; color:#64748b;">CASH COLLECTED</div>
+          <div style="font-size:14px; font-weight:900; color:#10b981; font-family:monospace;">${formatMoney(collectedVal)}</div>
+        </div>
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px;">
+          <div style="font-size:9.5px; font-weight:800; color:#64748b;">ASSIGNED COSTS</div>
+          <div style="font-size:14px; font-weight:900; color:#b91c1c; font-family:monospace;">${formatMoney(totalAssignedCosts)}</div>
+        </div>
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px;">
+          <div style="font-size:9.5px; font-weight:800; color:#64748b;">NET MARGIN (${marginPct}%)</div>
+          <div style="font-size:14px; font-weight:900; color:${netProfit >= 0 ? '#15803d' : '#b91c1c'}; font-family:monospace;">${formatMoney(netProfit)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Consumption Indicator -->
+    <div style="margin-bottom:18px; background:#f1f5f9; padding:8px 12px; border-radius:6px; border:1px solid #e2e8f0;">
+      <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; margin-bottom:4px;">
+        <span>BUDGET CONSUMPTION: ${costRatio}% of Contract Value</span>
+        <span style="color:${Number(costRatio) > 85 ? '#b91c1c' : (Number(costRatio) > 65 ? '#b45309' : '#15803d')}">
+          ${Number(costRatio) > 85 ? '⚠️ HIGH OVERRUN RISK' : (Number(costRatio) > 65 ? '🟡 MODERATE' : '🟢 HEALTHY MARGIN')}
+        </span>
+      </div>
+      <div style="height:8px; background:#e2e8f0; border-radius:4px; overflow:hidden;">
+        <div style="height:100%; width:${Math.min(100, Math.max(0, costRatio))}%; background:${Number(costRatio) > 85 ? '#ef4444' : (Number(costRatio) > 65 ? '#f59e0b' : '#10b981')};"></div>
+      </div>
+    </div>
+
+    <!-- Itemized Cost Table -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:12px; font-weight:800; color:#0f172a; margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span>ITEMIZED DIRECT COSTS BREAKDOWN (${itemizedCosts.length} Entries)</span>
+        <span style="font-size:10.5px; color:#64748b;">(Excludes simulated cost lines)</span>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:11px;">
+        <thead>
+          <tr style="background:#0f172a; color:#fff; text-align:left;">
+            <th style="padding:6px 8px; width:30px;">#</th>
+            <th style="padding:6px 8px; width:80px;">Date</th>
+            <th style="padding:6px 8px; width:160px;">Discipline / Source</th>
+            <th style="padding:6px 8px;">Vendor / Payee / Trade</th>
+            <th style="padding:6px 8px;">Scope / Details</th>
+            <th style="padding:6px 8px; text-align:center; width:70px;">Status</th>
+            <th style="padding:6px 8px; text-align:right; width:95px;">Cost ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemizedCosts.length === 0 ? `
+            <tr><td colspan="7" style="text-align:center; padding:16px; color:#64748b;">No direct costs assigned to this project yet.</td></tr>
+          ` : itemizedCosts.map((c, i) => `
+            <tr style="border-bottom:1px solid #e2e8f0; ${!c.active ? 'opacity:0.4; text-decoration:line-through; background:#fef2f2;' : (i % 2 === 0 ? 'background:#fff;' : 'background:#f8fafc;')}">
+              <td style="padding:6px 8px; font-weight:700; color:#64748b;">${i + 1}</td>
+              <td style="padding:6px 8px;">${escapeHtml(c.date)}</td>
+              <td style="padding:6px 8px; font-weight:700; color:#0369a1;">${escapeHtml(c.discipline)}</td>
+              <td style="padding:6px 8px; font-weight:700; color:#0f172a;">${escapeHtml(c.payee)}</td>
+              <td style="padding:6px 8px; color:#475569;">${escapeHtml(c.memo)}</td>
+              <td style="padding:6px 8px; text-align:center;">
+                <span style="font-size:9.5px; font-weight:800; padding:2px 6px; border-radius:3px; ${c.active ? 'background:#dcfce7; color:#15803d;' : 'background:#fee2e2; color:#b91c1c;'}">
+                  ${c.active ? 'INCLUDED' : 'EXCLUDED'}
+                </span>
+              </td>
+              <td style="padding:6px 8px; text-align:right; font-weight:800; font-family:monospace; color:${c.active ? '#b91c1c' : '#64748b'};">
+                ${formatMoney(c.amount)}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+        <tfoot>
+          <tr style="background:#f1f5f9; border-top:2px solid #0f172a; font-weight:900;">
+            <td colspan="6" style="padding:8px 10px; text-align:right; font-size:11.5px;">TOTAL ACTIVE PROJECT COSTS:</td>
+            <td style="padding:8px 10px; text-align:right; font-size:13px; color:#b91c1c; font-family:monospace;">${formatMoney(totalAssignedCosts)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Sign-off & Internal Audit Footer -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; border-top:1px dashed #94a3b8; padding-top:16px; margin-top:20px; font-size:11px; color:#475569;">
+      <div>
+        <div>Prepared by: _____________________________</div>
+        <div style="margin-top:6px;">Internal Project Manager / Estimator</div>
+      </div>
+      <div style="text-align:right;">
+        <div>Approved by: _____________________________</div>
+        <div style="margin-top:6px;">Managing Director / CPA Review</div>
+      </div>
+    </div>
+  `;
+
+  const modal = document.getElementById("modal-cost-audit-report");
+  if (modal) modal.classList.add("open");
+};
+
+window.closeProjectCostAuditReportModal = function() {
+  const modal = document.getElementById("modal-cost-audit-report");
+  if (modal) modal.classList.remove("open");
 };
 
 
