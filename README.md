@@ -10,7 +10,7 @@
 > 2. **Extract**: Unzip the folder anywhere on your computer.
 > 3. **Launch**: Double-click **`index.html`** in any web browser (Chrome, Edge, Safari, Firefox).
 > 4. **User Guide**: Read **[`START_HERE_USER_GUIDE.md`](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/START_HERE_USER_GUIDE.md)** for the complete English & Spanish step-by-step walkthrough.
-> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.5.0.xls`** if you prefer working in Microsoft Excel with native formula protection. *(All historical companion workbooks `v1.2.4.xls` through `v1.5.0.xls` are permanently preserved in the repository root).*  
+> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.5.0.xls`** if you prefer working in Microsoft Excel with native formula protection.  
 > *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
