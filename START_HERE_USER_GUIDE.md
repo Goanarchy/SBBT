@@ -2,7 +2,7 @@
 # 📘 Portal Oficial de Manuales de Usuario (v1.5.0)
 
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
-*Official Release: Version 1.4.1*  
+*Official Release: Version 1.5.0*  
 *Author & Lead Engineer: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Support: `andres00787@gmail.com`*
 
 ---

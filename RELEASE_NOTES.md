@@ -59,7 +59,7 @@
 
 ---
 
-## 🏛️ Version 1.4.2 (Latest Release)
+## 🏛️ Version 1.4.2 (Prior Release)
 * **Official Release Date**: October 27, 2026
 * **Status**: Available & Active
 * **Package Asset**: [`SBBT_v1.4.2_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.4.2/SBBT_v1.4.2_Ready_To_Use.zip)
@@ -92,6 +92,33 @@
    * Clicking Edit opens the entry modal pre-populated with that row's exact data, synchronizing dropdown date pickers and calculation fields so users can correct typos or modify amounts in-place without having to delete and re-enter.
 
 ---
+
+## 🏛️ Version 1.4.1 (Prior Release)
+* **Official Release Date**: October 27, 2026
+* **Status**: Historical Stable Release
+* **Package Asset**: [`SBBT_v1.4.1_Ready_To_Use.zip`](https://github.com/Goanarchy/SBBT/releases/download/v1.4.1/SBBT_v1.4.1_Ready_To_Use.zip)
+* **Core Focus**: Accepted Sales Status for Proposals, High-Precision Trading Exchange Metric Tiles, Viewport Stability & Sticky Footer, Locked Modal Dimensions, Chained 'How to Start' Tour, and Dedicated Split Bilingual User Manuals.
+
+### 🌟 Key Upgrades in Version 1.4.1
+1. **📋 Official 'Accepted' Status in Invoicing & Sales**:
+   * Added an official `"Accepted"` status option for approved proposals/contracts confirmed by clients before deposit or project kick-off, bridging the gap between quotes and active billing.
+2. **📈 High-Precision Trading Exchange Dashboard Metric Tiles**:
+   * Redesigned Advanced Mode indicators into high-precision trading exchange metric tiles (`.trading-tiles-row`, `.trading-tile`), completely eliminating loose floating text/numbers.
+3. **📐 Viewport Stability & Sticky Footer**:
+   * Flexbox sticky footer and 560px min-height for tab containers to prevent the footer from jumping upward on empty tables or single-line views.
+4. **🪟 Locked Welcome Modal Dimensions**:
+   * Locked modal dimensions (580px width, 290px body) preventing jumpy resizing across onboarding walkthrough steps.
+5. **🔗 Chained 'How to Start' Roadmap**:
+   * Clicking 'How to Start' closes the welcome tour smoothly before opening the guide to avoid overlapping modal backdrops.
+6. **📚 Independent Split Bilingual User Manuals**:
+   * Completely split the user manual into independent `USER_GUIDE_EN.md` (100% English) and `MANUAL_DE_USUARIO_ES.md` (100% Spanish) with `START_HERE_USER_GUIDE.md` serving as the central portal.
+7. **👤 Developer Attribution & Links**:
+   * Clean, direct attribution credit to Victor Montoya Rojas (`@goanarchy`).
+8. **📊 Formatted Excel Companion Workbook**:
+   * Generated companion `NJ_Small_Business_Budget_v1.4.1.xls` and packaged `SBBT_v1.4.1_Ready_To_Use.zip`.
+
+---
+
 
 ## 🏛️ Version 1.4.0 (Prior Release)
 * **Official Release Date**: October 27, 2026

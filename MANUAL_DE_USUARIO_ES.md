@@ -1,6 +1,6 @@
 # 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.5.0)
 **Sistema de Control Financiero Ejecutivo para Pequeñas Empresas y Contratistas de New Jersey**  
-*Versión Oficial: 1.4.1*  
+*Versión Oficial: 1.5.0*  
 *Autor e Ingeniero Principal: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Soporte Directo: `andres00787@gmail.com`*
 
 ---
