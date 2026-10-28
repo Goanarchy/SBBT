@@ -1,4 +1,4 @@
-# 📖 Master Business Dashboard — Official User Manual (v1.4.2)
+# 📖 Master Business Dashboard — Official User Manual (v1.5.0)
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
 *Official Release: Version 1.4.1*  
 *Author & Lead Engineer: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Support: `andres00787@gmail.com`*
@@ -11,22 +11,22 @@
 ---
 
 ## 🎯 Purpose of this Manual
-This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.4.2)** without accounting jargon or technical frustration.
+This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.5.0)** without accounting jargon or technical frustration.
 
 By following this guide, you will be able to:
 1. **Track Contracts, Retainers & Progress Billing**: Manage user accounts, down payment deposits, progress billings, and outstanding balances with the newly added `"Accepted"` status option for approved quotes.
-2. **Execute Real-Time Job Costing & Profit Margins**: Correlate user billings directly with material bills and subcontractor invoices matching the same **Job Name / Project Name** to compute net profit ($) and gross margin (%) instantly.
+2. **Execute Real-Time Job Costing & Profit Margins**: Correlate user billings directly with material bills and subcontractor invoices matching the same **PROJECT / Project Name** to compute net profit ($) and gross margin (%) instantly.
 3. **Navigate Trading Exchange-Precision Financial Dashboards**: View your financial vitals in structured, compact trading exchange-style tiles that eliminate loose numbers and cluttered layouts.
 4. **Leverage Dynamic Navigation Tabs**: Enable only the business modules you actively use; unneeded tabs disappear immediately from the navigation strip so you only see what you are working on.
 5. **Apply NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)**: Legally exempt qualified capital installation and construction work under N.J.S.A. 54:32B-3 with an auditable compliance trail.
 6. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
 7. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
-8. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.4.2.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
+8. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.5.0.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
 
 ---
 
 ## 📦 What to Do With Your Files Upon Download or Email
-When you receive your official release package (`SBBT_v1.4.2_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
+When you receive your official release package (`SBBT_v1.5.0_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
 
 ```mermaid
 flowchart LR
@@ -34,9 +34,9 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Package**: Right-click `SBBT_v1.4.2_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
+1. **Extract the ZIP Package**: Right-click `SBBT_v1.5.0_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
 2. **Launch the Master Web Dashboard**: Double-click **`index.html`**. It opens immediately in Google Chrome, Microsoft Edge, Safari, Brave, or Mozilla Firefox.
-3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.4.2.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
+3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.5.0.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
 
 > [!IMPORTANT]
 > **Zero Installation & 100% Data Privacy**: You do **not** need a web server, cloud database, or active internet connection. All calculations, SheetJS imports, and exports run 100% locally in your browser. Your confidential business numbers never leave your computer.
@@ -113,19 +113,19 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
   * **Category Spending & OpEx Distribution**: Displays Direct Job COGS, Fixed Overhead (OpEx), and OpEx Allocation Ratio in compact side-by-side tiles.
   * **Cash Runway & Operating Liquidity**: Displays Liquid Reserves, Monthly Operating Burn, and Working Capital Buffer.
   * **NJ Safe Harbor Tax Sentinel**: Displays Reserve Funded, Estimated Total Due, and Reserve Shortfall Gap.
-* **Job Costing & Project Profitability Card**: Matches revenue rows with COGS material bills sharing the same **Job Name**. It shows Contract Billed, Cash Collected, Direct Costs, Net Margin ($), Gross Margin (%), and visual health status badges.
+* **Job Costing & Project Profitability Card**: Matches revenue rows with COGS material bills sharing the same **PROJECT**. It shows Contract Billed, Cash Collected, Direct Costs, Net Margin ($), Gross Margin (%), and visual health status badges.
 * **Overdue Accounts Receivable Banner**: Automatically alerts you with total dollars past due whenever an invoice is overdue.
 
 ### 3.3 Tab 2: Invoicing & Sales, "Accepted" Status & Printable Invoices (NJ ST-8)
 * **New "Accepted" Status Option**: The status dropdown now includes `"Accepted"` for approved proposals and contracts that have been confirmed by the user before deposit or mobilization.
   * Status options: `"Paid in Full"`, `"Deposit / Active"`, `"Pending Balance"`, `"Accepted"`, `"Quote / Sent"`, `"Overdue"`.
-* **Optional Job Name Field**: Tag each invoice with an optional Job Name (e.g., `Hoboken Brownstone Electrical Upgrade`) to match with project expenses.
+* **Optional PROJECT Field**: Tag each invoice with an optional PROJECT (e.g., `Hoboken Brownstone Electrical Upgrade`) to match with project expenses.
 * **NJ Form ST-8 Capital Improvement Exemption**: Under N.J.S.A. 54:32B-3, permanent capital improvement construction in New Jersey is exempt from 6.625% sales tax when supported by Form ST-8. Select `"ST-8 (0% - NJ Capital Improvement)"` in the tax dropdown to apply 0% sales tax with full audit compliance.
 * **1-Click Printable PDF Invoices (`🖨️ PDF`)**: Click `🖨️ PDF` on any invoice row to open a formatted invoice sheet. For `"Accepted"` jobs, it displays **"ACCEPTED WORK ORDER & CONTRACT"**; for quotes, **"CONTRACT ESTIMATE & PROPOSAL"**; and for invoices, **"INVOICE / BILL OF WORK"**.
 
 ### 3.4 Tab 3: Project COGS & Job Material Bills
 * Track job site materials, lumber, electrical supplies, dumpsters, equipment rentals, and direct subcontractor labor.
-* Enter the **Job Name (Optional)** with predictive autocomplete to link expenses directly to your Job Costing analysis on the dashboard.
+* Enter the **PROJECT (Required)** with predictive autocomplete to link expenses directly to your Job Costing analysis on the dashboard.
 
 ### 3.5 Tabs 4 to 8: Operating Expenses & 1099 COI Audit Sentinel
 * **Fleet & Travel (IRS $0.70/mi)**: Switch between actual fuel/repair receipts or IRS standard mileage tracking.
@@ -166,6 +166,31 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
   - **NJ License # / HICPA Reg**: Critical compliance requirement under N.J.A.C. 13:45A-16 printed directly on PDF customer estimates and invoices.
 * **Instant Persistence**: Saved directly into browser `localStorage` and automatically updates invoice printouts and Excel exports.
 
+### 3.12 Dedicated "Project Cost Review" Tab & Interactive Inclusion Audit
+* **Comprehensive Project Job Costing**: Access the dedicated **🏗️ Project Cost Review** tab from the top navigation.
+* **Master Project Dropdown**: Select any customer contract created in *Invoicing & Sales* to inspect all direct costs assigned across all business disciplines (COGS Materials, Subcontractors, Dedicated Payroll, Vehicle Fuel/Tolls, and Facilities).
+* **Progressive Budget Consumption Meter**: Displays real-time cost consumption percentage against contract value with color alerts (🟢 <65% Healthy, 🟡 65-85% Caution, 🔴 >85% Overrun Risk).
+* **Interactive Inclusion Checkboxes (`[x]`)**: Every cost line features a checkbox. Unchecking any line instantly excludes it from the project sum and recalculates net profit and budget progress in real time.
+
+### 3.14 Reorganized Header Controls & 100% OFFLINE Operations
+* **100% OFFLINE Architecture**: The system operates completely offline in your local browser. No data is transmitted to external servers, ensuring maximum privacy and security.
+* **Streamlined Header Clusters**:
+  - **Setup Group**: `💡 How to Start`, `🏢 Company Profile`, and `⚙️ Modules`.
+  - **File Operations (Side-by-Side)**: `📂 OPEN` (import existing spreadsheets) and `💾 SAVE AS NEW FILE` (export new consecutive Excel workbooks without overwriting previous versions).
+  - **Utility & Help (Right Corner)**: `🌙 Theme`, `🚀 What's New`, and `❓ Help` (opens the Help Center modal to choose English or Spanish manuals).
+* **Decoupled Period Selectors**: The master header period selector was removed. You can set the time period on the Executive Dashboard directly and within each category toolbar.
+
+### 3.15 Mandatory PROJECT Creation & Auto-Consecutive Numbering
+* **Mandatory Project Assignment**: When entering sales, estimates, or contracts in **💵 Invoicing & Sales**, entering the **PROJECT** is mandatory.
+* **Automated Consecutive ID**: The system automatically prefixes a date/document consecutive number (e.g. `INV-2025-01 - Kitchen Remodel`).
+* **Cross-Discipline Memory**: Projects created in Invoices & Sales are automatically remembered across the entire tool (COGS, Payroll, Fleet, Facility, Utilities) for job costing and profit review.
+
+### 3.13 Universal Category Table Filtering & Search Strip
+* **Instant Filter Strip**: Every category table (Invoices, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes) features a built-in search box and dynamic dropdowns.
+* **Instant Search Box**: Filter rows by customer, vendor, payee, job name, or notes without losing typing focus.
+* **Status & Project Dropdowns**: Isolate entries by status (e.g., Paid, Pending, Quote) or by specific customer contract.
+* **1-Click Reset**: Click `✖ Clear Filters` to instantly reset to the full period view.
+
 ### 3.11 In-Place Row Editing (`✏️ Edit Button`)
 * **Modify Any Record In-Place**: Every data table (Invoicing, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes) now features a dedicated **✏️ Edit** button alongside the delete button.
 * **Smart Synchronized Modal**: Clicking `✏️` opens the entry modal with all original values pre-filled, automatically selecting the matching Month, Day, and Year dropdowns.
@@ -177,7 +202,7 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
 |---|---|---|
 | A newly added invoice doesn't appear in the table | Filter dropdown is set to a different month | Check the top filter. The app auto-syncs to the invoice date, but if set to a different month, select `All Months (YTD)` or the invoice's month. |
 | Inflow chart shows $0 even with invoices entered | Invoices have status `"Pending"` or `"Quote / Sent"` | The Inflow chart measures **actual cash in bank**. Change status to `"Deposit / Active"` or `"Paid in Full"` once payment is received. |
-| Job Costing table says "No active projects assigned yet" | Invoices and COGS lack matching job names | Enter the same Job Name (e.g. `Morristown Commercial Fitout`) in both Invoicing and COGS. |
+| Job Costing table says "No active projects assigned yet" | Invoices and COGS lack matching job names | Enter the same PROJECT (e.g. `Morristown Commercial Fitout`) in both Invoicing and COGS. |
 | Payroll row displays red `⚠️ NO COI (Audit Risk)` badge | 1099 subcontractor has no insurance certificate | Collect a current Certificate of Insurance (COI) naming your company as certificate holder and switch status to `COI Verified`. |
 | Formula cell cannot be edited in Excel companion file | Native formula protection is active | Formula cells (`#F8FAFC`) are intentionally protected to prevent accidental calculation errors. Enter your numbers in the light-blue (`#E0F2FE`) cells. |
 | Navigation tab is missing from the top bar | Module was turned off in Module Wizard | Click `⚙️ Modules` in the header or in System Tools and check the module to restore its tab immediately. |

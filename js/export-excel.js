@@ -1,10 +1,10 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.4.2)
+ * MASTER BUSINESS DASHBOARD (v1.5.0)
  * Executive Multi-Tab High-Fidelity Workbook Exporter using SheetJS
  * Tailored for New Jersey Local Businesses & Trade Contractors
  */
 
-function exportBudgetToExcel(store) {
+function exportBudgetToExcel(store, customFilename = null) {
   if (typeof XLSX === 'undefined') {
     alert("SheetJS library is loading or unavailable. Please check your internet connection.");
     return;
@@ -16,7 +16,7 @@ function exportBudgetToExcel(store) {
   // 1. Executive Summary Sheet
   const kpis = store.calculateKPIs();
   const summaryData = [
-    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.4.2)"],
+    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.5.0)"],
     ["Target Audience:", "NJ Local Businesses & Trade Contractors"],
     ["Company Name:", (store.companyProfile && store.companyProfile.companyName) || NJ_BUDGET_CONFIG.companyName],
     ["Location:", NJ_BUDGET_CONFIG.location],
@@ -301,7 +301,40 @@ function exportBudgetToExcel(store) {
   ];
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
-  // Trigger Download
-  const filename = `Master_Business_Dashboard_v1.4.2_${new Date().toISOString().slice(0,10)}.xlsx`;
+  // Trigger Download with Consecutive Naming
+  let filename = customFilename;
+  if (!filename) {
+    let seq = parseInt(localStorage.getItem("MBD_EXCEL_CONSECUTIVE") || "0", 10) + 1;
+    localStorage.setItem("MBD_EXCEL_CONSECUTIVE", seq.toString());
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const seqStr = String(seq).padStart(3, '0');
+    const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
+    filename = `${company}_Budget_${yyyy}${mm}${dd}_v1.5.0_Rev${seqStr}.xlsx`;
+  }
   XLSX.writeFile(wb, filename);
 }
+
+window.triggerSaveAsNewExcelFile = function() {
+  if (typeof store === 'undefined') return;
+  let seq = parseInt(localStorage.getItem("MBD_EXCEL_CONSECUTIVE") || "0", 10) + 1;
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const seqStr = String(seq).padStart(3, '0');
+  const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
+  const defaultFilename = `${company}_Budget_${yyyy}${mm}${dd}_v1.5.0_Rev${seqStr}.xlsx`;
+
+  const chosenName = prompt("💾 SAVE AS NEW FILE (Excel):\n\nEnter a new consecutive filename to save your workbook without overwriting previous versions:", defaultFilename);
+  if (chosenName === null) return; // User cancelled
+  
+  let finalName = chosenName.trim() || defaultFilename;
+  if (!finalName.toLowerCase().endsWith(".xlsx")) {
+    finalName += ".xlsx";
+  }
+  localStorage.setItem("MBD_EXCEL_CONSECUTIVE", seq.toString());
+  exportBudgetToExcel(store, finalName);
+};

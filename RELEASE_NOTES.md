@@ -4,6 +4,61 @@
 
 ---
 
+## 🏛️ Version 1.5.0 (Latest Release)
+* **Official Release Date**: October 27, 2026
+* **Status**: Available & Active
+* **Package Asset**: `SBBT_v1.5.0_Ready_To_Use.zip` (Desktop Build)
+* **Core Focus**: In-Place Row Editing Bugfix (Zero Duplication), 12-Month Unified Trajectory Comparison Chart, Universal Category Table Filtering, Cross-Discipline Project Cost Allocation, Dedicated Project Cost Review & Interactive Inclusion Audit Tab, Advanced Mode Project Deep-Dive & Donut Breakdown, and Prominent Header Company Profile Onboarding.
+
+### 🌟 Key Upgrades in Version 1.5.0
+8. **🔒 100% OFFLINE Welcome Instructions & Native Help Center**:
+   * Initial startup automatically displays the intuitive instructions guide with a prominent 100% OFFLINE & Privacy Guarantee banner.
+   * Converted standalone manual links into a single, elegant `❓ Help` button in the top-right corner, opening a dedicated modal to choose English or Spanish manuals.
+   * Replaced bottom link in *How to Start* with an interactive `📖 View Official Manuals (EN / ES)` button.
+9. **🏷️ Mandatory PROJECT Requirement & Auto-Consecutive Formatter**:
+   * Renamed *Job Name* to **PROJECT** across all disciplines.
+   * In *Invoicing & Sales*, PROJECT is mandatory and automatically prefixed with a structured date/document consecutive (e.g. `INV-2025-01 - Name`), remembered system-wide.
+10. **📂 OPEN & 💾 SAVE AS NEW FILE with Consecutive File Revision Tracking**:
+   * Reorganized top header into 3 clean clusters with paired file actions.
+   * *SAVE AS NEW FILE* automatically generates consecutive workbook revisions (`[Company]_Budget_YYYYMMDD_v1.5.0_Rev001.xlsx`), never overwriting previous files.
+1. **✏️ In-Place Row Editing Bugfix (Zero Duplication)**:
+   * Fixed modal submission so editing any row via the pencil button (`✏️`) updates the existing record directly in place inside `store.data[tabKey]` without creating duplicates or appending new lines.
+   * Modal clearly shows `✏️ Edit Record: [Discipline]` and button reads `💾 Update Entry`. Preserves record IDs and original positions.
+
+2. **📊 12-Month Grouped Inflow vs Outflow Trajectory Chart**:
+   * Consolidated dual trajectory views into a single, unified chart on the Executive Dashboard.
+   * Displays side-by-side grouped bars for **Cash In (Collected)** (`#10b981`) and **Cash Out (Total Spent)** (`#ef4444`) for each month.
+   * Automatically presents only available active months with activity (capped at a maximum of the last 12 months), with net cash flow hover tooltips.
+
+3. **🔍 Universal Category Table Filtering (Instant Search & Dropdowns)**:
+   * Added a modern, intuitive filter strip to every discipline ledger table (Invoices, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes).
+   * **Instant Search**: Type queries matching any field (payee, client, vendor, job, notes, amounts) with real-time row filtering that preserves typing focus.
+   * **Dynamic Status Filter**: Dropdown populated from active statuses in the current fiscal period.
+   * **Dynamic Project Filter**: Dropdown to isolate rows assigned to specific customer contracts.
+   * **Type / Category Filter**: Filter by expense categories, vehicle tracking methods, or policy types.
+   * **Quick Reset**: One-click `✖ Clear Filters` button and live counter (`Showing X of Y entries`).
+
+4. **🔗 Cross-Discipline Project Assignment**:
+   * Any contract created in **💵 Invoicing & Sales** with a Job Name is automatically recognized by the predictive autocomplete engine.
+   * Selectable across **all expense lines**: Direct Materials (COGS), Labor & Subcontractors (Payroll), Vehicle & Fuel (Fleet), Facilities & Storage (Facility), and Utilities/Software (Utilities).
+
+5. **🏗️ Dedicated "Project Cost Review" & Budget Audit Tab**:
+   * Introduced a dedicated navigation tab: **🏗️ Project Cost Review**.
+   * Features a master project dropdown selector listing all active customer contracts.
+   * **Contract Overview Card**: Displays Contract Selling Price, Cash Collected in Bank, Total Assigned Costs, Net Operating Profit, and Gross Profit Margin %.
+   * **Progressive Budget Consumption Bar**: Visual meter that fills proportionally vs the total contract value with color-coded safety tiers (🟢 <65% Healthy, 🟡 65-85% Caution, 🔴 >85% Overrun Risk).
+   * **Interactive Cost Line Checkboxes**: Every assigned expense has an active toggle checkbox (`[x]`). Unchecking a cost line instantly excludes it from the project total and progress bar, enabling live profit simulations. Struck-through styling clearly indicates simulated exclusions.
+
+6. **🎯 Advanced Mode: Project Deep-Dive & Donut Breakdown**:
+   * Added a new command card inside **⚡ Advanced Details**: *Project Financial Intelligence & Cost Breakdown*.
+   * Features a quick project selector, trading-style financial metrics (Contract Price, Cash Collected, Assigned Costs, Net Margin $ and %), and an interactive Chart.js donut chart showing the exact percentage division of Materials, Labor, Fleet, and Retained Net Profit.
+
+7. **🏢 Prominent Header Company Profile Button & Onboarding Instructions**:
+   * Added an eye-catching blue gradient button **🏢 Company Profile** to the top navigation header right beside `💡 How to Start`.
+   * Updated the startup guide (`modal-how-to-start`) with an explicit Step 1 notice explaining that company profile setup is required to brand generated PDF invoices, estimates, and Excel sheets, complete with a direct action button: `🏢 Set Up Company Profile Now ➡️`.
+
+---
+
 ## 🏛️ Version 1.4.2 (Latest Release)
 * **Official Release Date**: October 27, 2026
 * **Status**: Available & Active

@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.4.2";
+    this.version = "1.5.0";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -29,6 +29,8 @@ class BudgetStore {
     this.selectedMonth = "10"; // October default
     this.selectedYear = "2025";
     this.charts = {};
+    this.tableFilters = {};
+    this.excludedProjectCosts = {};
 
     if (!this.data.disciplineStatus) {
       this.data.disciplineStatus = {
@@ -39,17 +41,23 @@ class BudgetStore {
   }
 
   loadData() {
-    // If not yet migrated to v1.2.3 clean state, default to pristine clean $0 data
-    const isCleanMigrated = localStorage.getItem(this.cleanFlagKey);
-    if (!isCleanMigrated) {
-      localStorage.setItem(this.cleanFlagKey, "true");
-      const clean = JSON.parse(JSON.stringify(CLEAN_SEED_DATA));
-      clean.disciplineStatus = {
+    // Check if rich sample testing suite has been initialized
+    const testSuiteKey = "MBD_TEST_SAMPLE_SUITE_V142";
+    const hasInitialized = localStorage.getItem(testSuiteKey);
+
+    if (!hasInitialized) {
+      localStorage.setItem(testSuiteKey, "true");
+      const demo = JSON.parse(JSON.stringify(typeof SAMPLE_DEMO_DATA !== 'undefined' ? SAMPLE_DEMO_DATA : CLEAN_SEED_DATA));
+      demo.disciplineStatus = {
         revenue: true, cogs: true, fleet: true, facility: true,
         insurance: true, payroll: true, utilities: true, taxes: true
       };
-      localStorage.setItem(this.storageKey, JSON.stringify(clean));
-      return clean;
+      localStorage.setItem(this.storageKey, JSON.stringify(demo));
+      // Also pre-seed company profile
+      if (typeof DEFAULT_COMPANY_PROFILE !== 'undefined') {
+        localStorage.setItem("MBD_COMPANY_PROFILE", JSON.stringify(DEFAULT_COMPANY_PROFILE));
+      }
+      return demo;
     }
 
     const saved = localStorage.getItem(this.storageKey);
@@ -64,16 +72,16 @@ class BudgetStore {
         }
         return parsed;
       } catch (e) {
-        console.error("Failed to parse local storage, reverting to clean template", e);
+        console.error("Failed to parse local storage, reverting to demo data", e);
       }
     }
 
-    const clean = JSON.parse(JSON.stringify(CLEAN_SEED_DATA));
-    clean.disciplineStatus = {
+    const demo = JSON.parse(JSON.stringify(typeof SAMPLE_DEMO_DATA !== 'undefined' ? SAMPLE_DEMO_DATA : CLEAN_SEED_DATA));
+    demo.disciplineStatus = {
       revenue: true, cogs: true, fleet: true, facility: true,
       insurance: true, payroll: true, utilities: true, taxes: true
     };
-    return clean;
+    return demo;
   }
 
   saveData() {
@@ -380,6 +388,30 @@ class BudgetStore {
   }
 
   // --- RECORD MUTATIONS (UNSHIFT TO TOP FOR INSTANT VISUAL CLARITY) ---
+  generateNextDocumentId(tabKey, dateStr) {
+    const prefix = tabKey === "revenue" ? "INV" : (tabKey === "cogs" ? "PO" : tabKey.slice(0, 3).toUpperCase());
+    let y = "2025";
+    if (dateStr && dateStr.length >= 4) {
+      y = dateStr.slice(0, 4);
+    } else if (this.selectedYear && this.selectedYear !== "ALL") {
+      y = this.selectedYear;
+    }
+
+    const existing = (this.data[tabKey] || []).map(r => String(r.id || ""));
+    const pattern = new RegExp(`^${prefix}-${y}-(\\d+)`, "i");
+    let maxNum = 0;
+    existing.forEach(id => {
+      const m = id.match(pattern);
+      if (m && m[1]) {
+        const num = parseInt(m[1], 10);
+        if (!isNaN(num) && num > maxNum) maxNum = num;
+      }
+    });
+
+    const nextNum = maxNum + 1;
+    return `${prefix}-${y}-${String(nextNum).padStart(2, '0')}`;
+  }
+
   addRecord(tabKey, record) {
     if (!this.data[tabKey]) this.data[tabKey] = [];
     this.data[tabKey].unshift(record); // Prepend to top so it is immediately row #1
@@ -433,14 +465,10 @@ function initUI() {
   syncAllPeriodSelects(store.selectedMonth, store.selectedYear);
   renderAll();
 
-  // First-run experience: Check if user has configured their modules wizard
+  // Welcome experience: Directly open the intuitive 100% Offline instructions guide (box #2)
   setTimeout(() => {
-    if (!localStorage.getItem("MBD_WIZARD_COMPLETED_V130")) {
-      openModuleWizardModal();
-    } else {
-      startOnboardingTour();
-    }
-  }, 450);
+    openHowToStartModal();
+  }, 350);
 }
 
 // ==========================================================================
@@ -478,11 +506,17 @@ function syncAllPeriodSelects(monthVal, yearVal) {
     "09": "September", "10": "October", "11": "November", "12": "December"
   };
 
-  // 1. Sync header dropdowns
+  // 1. Sync header dropdowns (if present)
   const mSelect = document.getElementById("select-filter-month");
   const ySelect = document.getElementById("select-filter-year");
   if (mSelect) mSelect.value = monthVal;
   if (ySelect) ySelect.value = yearVal;
+
+  // 1b. Sync Dashboard controls dropdowns
+  const mDash = document.getElementById("dash-filter-month");
+  const yDash = document.getElementById("dash-filter-year");
+  if (mDash) mDash.value = monthVal;
+  if (yDash) yDash.value = yearVal;
 
   // 2. Sync category toolbar dropdowns
   const disciplines = ["revenue", "cogs", "fleet", "facility", "insurance", "payroll", "utilities", "taxes"];
@@ -755,7 +789,11 @@ function updateAutocompleteDatalists() {
   const utilities = (store.data.utilities || []).map(u => u.service);
   const projects = [
     ...(store.data.revenue || []).map(r => r.jobName || r.project),
-    ...(store.data.cogs || []).map(c => c.jobName || c.project)
+    ...(store.data.cogs || []).map(c => c.jobName || c.project),
+    ...(store.data.payroll || []).map(p => p.jobName || p.project),
+    ...(store.data.fleet || []).map(f => f.jobName || f.project),
+    ...(store.data.facility || []).map(f => f.jobName || f.project),
+    ...(store.data.utilities || []).map(u => u.jobName || u.project)
   ];
 
   populateList("list-autocomplete-users", users);
@@ -969,6 +1007,7 @@ function setActiveTab(tabKey) {
   });
 
   if (tabKey === "dashboard") renderDashboard();
+  else if (tabKey === "cost-review") renderProjectCostReview();
   else if (tabKey === "pnl") renderPnLSheet();
   else if (tabKey === "tools") { /* Tools tab is static */ }
   else renderDisciplineTable(tabKey);
@@ -977,6 +1016,7 @@ function setActiveTab(tabKey) {
 function renderAll() {
   renderTabCounts();
   if (store.activeTab === "dashboard") renderDashboard();
+  else if (store.activeTab === "cost-review") renderProjectCostReview();
   else if (store.activeTab === "pnl") renderPnLSheet();
   else if (store.activeTab !== "tools") renderDisciplineTable(store.activeTab);
 }
@@ -1051,109 +1091,129 @@ function renderCategoryTotalsDeck(kpis) {
   container.innerHTML = html;
 }
 
-// Inflows vs Outflows Chart: 2 Columns (Annual) or 3 Mini-Charts (Monthly)
+// Inflows vs Outflows Trajectory: 12-Month Grouped Comparative Bars
 function renderInflowOutflowCharts(kpis) {
   if (typeof Chart === 'undefined') return;
 
-  if (store.inflowChartMode === "annual") {
-    // 2-COLUMN ANNUAL CHART
-    const ctxAnnual = document.getElementById("chart-inflows-outflows-annual");
-    if (ctxAnnual) {
-      if (store.charts.annualInflow) store.charts.annualInflow.destroy();
+  const canvas = document.getElementById("chart-inflows-outflows-trajectory");
+  if (!canvas) return;
 
-      store.charts.annualInflow = new Chart(ctxAnnual, {
-        type: 'bar',
-        data: {
-          labels: ['Total Inflows', 'Total Outflows'],
-          datasets: [{
-            data: [kpis.cashCollected, kpis.totalExpenses],
-            backgroundColor: ['#16a34a', '#ef4444'],
-            borderRadius: 6,
-            barThickness: 54
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => ` ${ctx.label}: $${Number(ctx.raw).toLocaleString('en-US', { minimumFractionDigits: 2 })} (Visual Reference Only)`
-              }
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { callback: (val) => '$' + Number(val).toLocaleString(), font: { size: 10 } },
-              grid: { color: 'rgba(148, 163, 184, 0.15)' }
-            },
-            x: { ticks: { font: { size: 11, weight: 'bold' } }, grid: { display: false } }
-          }
-        }
-      });
-    }
-  } else {
-    // 3 MINI-CHARTS SIDE-BY-SIDE (LAST 3 MONTHS)
-    const fullMonthMap = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  if (store.charts.trajectoryChart) {
+    store.charts.trajectoryChart.destroy();
+  }
 
-    let curIdx = parseInt(store.selectedMonth, 10) - 1;
-    if (isNaN(curIdx) || curIdx < 0) curIdx = 9; // Default to October
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const year = store.selectedYear || "2025";
 
-    const m3Idx = curIdx;
-    const m2Idx = (curIdx - 1 + 12) % 12;
-    const m1Idx = (curIdx - 2 + 12) % 12;
-
-    const indices = [m1Idx, m2Idx, m3Idx];
-
-    indices.forEach((mIdx, i) => {
-      const monthNumStr = String(mIdx + 1).padStart(2, '0');
-      const cf = store.getMonthCashFlow(store.selectedYear, monthNumStr);
-
-      const titleEl = document.getElementById(`title-mini-m${i + 1}`);
-      if (titleEl) titleEl.textContent = `${fullMonthMap[mIdx]} (Cash Flow)`;
-
-      const canvasEl = document.getElementById(`chart-mini-m${i + 1}`);
-      if (canvasEl) {
-        const chartKey = `miniMonth${i + 1}`;
-        if (store.charts[chartKey]) store.charts[chartKey].destroy();
-
-        store.charts[chartKey] = new Chart(canvasEl, {
-          type: 'bar',
-          data: {
-            labels: ['Inflows', 'Outflows'],
-            datasets: [{
-              data: [cf.inflows, cf.outflows],
-              backgroundColor: ['#16a34a', '#ef4444'],
-              borderRadius: 4,
-              barThickness: 24
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: {
-                  label: (ctx) => ` ${ctx.label}: $${Number(ctx.raw).toLocaleString('en-US', { minimumFractionDigits: 2 })} (Visual Reference Only)`
-                }
-              }
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: { callback: (val) => '$' + Number(val).toLocaleString(), font: { size: 9 } },
-                grid: { color: 'rgba(148, 163, 184, 0.12)' }
-              },
-              x: { ticks: { font: { size: 9.5, weight: 'bold' } }, grid: { display: false } }
-            }
-          }
-        });
-      }
+  // Gather cash flows for all 12 months of the year
+  const rawMonthsData = [];
+  for (let m = 1; m <= 12; m++) {
+    const mStr = String(m).padStart(2, '0');
+    const cf = store.getMonthCashFlow(year, mStr);
+    rawMonthsData.push({
+      monthNum: mStr,
+      label: `${monthNames[m - 1]} ${year}`,
+      shortLabel: monthNames[m - 1],
+      inflows: cf.inflows || 0,
+      outflows: cf.outflows || 0
     });
   }
+
+  // Filter to available months (months with activity, max 12 months)
+  let activeMonths = rawMonthsData.filter(d => (d.inflows > 0 || d.outflows > 0));
+
+  // If no activity yet or clean slate, show selected month and 2 surrounding months
+  if (activeMonths.length === 0) {
+    const curM = parseInt(store.selectedMonth, 10) || 10;
+    const startM = Math.max(0, curM - 3);
+    activeMonths = rawMonthsData.slice(startM, Math.min(12, startM + 3));
+  }
+
+  // Cap at maximum of the last 12 available months
+  if (activeMonths.length > 12) {
+    activeMonths = activeMonths.slice(-12);
+  }
+
+  const labels = activeMonths.map(d => d.label);
+  const inflowsData = activeMonths.map(d => d.inflows);
+  const outflowsData = activeMonths.map(d => d.outflows);
+
+  store.charts.trajectoryChart = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Cash In (Collected)',
+          data: inflowsData,
+          backgroundColor: '#10b981',
+          borderColor: '#059669',
+          borderWidth: 1,
+          borderRadius: 4,
+          barPercentage: 0.8,
+          categoryPercentage: 0.7
+        },
+        {
+          label: 'Cash Out (Total Spent)',
+          data: outflowsData,
+          backgroundColor: '#ef4444',
+          borderColor: '#dc2626',
+          borderWidth: 1,
+          borderRadius: 4,
+          barPercentage: 0.8,
+          categoryPercentage: 0.7
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            boxWidth: 12,
+            font: { size: 10.5, weight: 'bold' },
+            padding: 10
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.dataset.label}: $${Number(ctx.raw).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+            afterBody: (items) => {
+              if (items.length >= 2) {
+                const inVal = Number(items[0].raw) || 0;
+                const outVal = Number(items[1].raw) || 0;
+                const diff = inVal - outVal;
+                return ` ───────────────
+ Net Cash Flow: ${diff >= 0 ? '+' : '-'}$${Math.abs(diff).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+              }
+              return '';
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: (val) => '$' + Number(val).toLocaleString(),
+            font: { size: 9.5 }
+          },
+          grid: { color: 'rgba(148, 163, 184, 0.15)' }
+        },
+        x: {
+          ticks: { font: { size: 10, weight: 'bold' } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
 }
 
 // Outflow Allocation Donut Chart
@@ -1481,7 +1541,40 @@ function renderCategoryComparisonWidget(kpis) {
 // ==========================================================================
 // Discipline Table Rendering (With Dropdown-Only Dates & Autocomplete)
 // ==========================================================================
-function renderDisciplineTable(tabKey) {
+
+// ==========================================================================
+// Category Table Filtering Controller (Instant Search, Status & Project Filter)
+// ==========================================================================
+window.handleTableSearch = function(tabKey, query) {
+  if (!store.tableFilters[tabKey]) store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  store.tableFilters[tabKey].search = (query || "");
+  renderDisciplineTable(tabKey, true);
+};
+
+window.handleTableStatusFilter = function(tabKey, status) {
+  if (!store.tableFilters[tabKey]) store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  store.tableFilters[tabKey].status = status;
+  renderDisciplineTable(tabKey);
+};
+
+window.handleTableProjectFilter = function(tabKey, project) {
+  if (!store.tableFilters[tabKey]) store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  store.tableFilters[tabKey].project = project;
+  renderDisciplineTable(tabKey);
+};
+
+window.handleTableTypeFilter = function(tabKey, type) {
+  if (!store.tableFilters[tabKey]) store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  store.tableFilters[tabKey].type = type;
+  renderDisciplineTable(tabKey);
+};
+
+window.clearTableFilters = function(tabKey) {
+  store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  renderDisciplineTable(tabKey);
+};
+
+function renderDisciplineTable(tabKey, keepSearchFocus = false) {
   const schema = SCHEMA_DEFINITIONS[tabKey];
   if (!schema) return;
 
@@ -1490,9 +1583,95 @@ function renderDisciplineTable(tabKey) {
 
   // Filter records based on selected month & year
   const rawRecords = store.data[tabKey] || [];
-  const records = rawRecords.filter(r => store.matchesPeriod(r));
+  const periodRecords = rawRecords.filter(r => store.matchesPeriod(r));
+
+  // Initialize filters if missing
+  if (!store.tableFilters) store.tableFilters = {};
+  if (!store.tableFilters[tabKey]) {
+    store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
+  }
+  const currentFilters = store.tableFilters[tabKey];
+
+  // Distinct values for category filters
+  const distinctStatuses = Array.from(new Set(periodRecords.map(r => r.status).filter(Boolean)));
+  const distinctProjects = Array.from(new Set(periodRecords.map(r => r.jobName || r.project).filter(Boolean)));
+  const hasProjectField = schema.some(c => c.key === "jobName" || c.key === "project");
+
+  const typeField = schema.find(c => ["category", "expenseType", "trackingMethod", "policyType"].includes(c.key));
+  const distinctTypes = typeField ? Array.from(new Set(periodRecords.map(r => r[typeField.key]).filter(Boolean))) : [];
+
+  // Filter records
+  const filteredRecords = periodRecords.filter(row => {
+    // 1. Instant search query
+    if (currentFilters.search) {
+      const q = currentFilters.search.toLowerCase();
+      const match = Object.values(row).some(v => String(v || "").toLowerCase().includes(q));
+      if (!match) return false;
+    }
+    // 2. Status filter
+    if (currentFilters.status && currentFilters.status !== "ALL") {
+      if (String(row.status || "").toLowerCase() !== currentFilters.status.toLowerCase()) return false;
+    }
+    // 3. Project filter
+    if (currentFilters.project && currentFilters.project !== "ALL") {
+      const proj = (row.jobName || row.project || "").trim();
+      if (proj !== currentFilters.project) return false;
+    }
+    // 4. Type filter
+    if (typeField && currentFilters.type && currentFilters.type !== "ALL") {
+      const tVal = (row[typeField.key] || "").trim();
+      if (tVal !== currentFilters.type) return false;
+    }
+    return true;
+  });
+
+  const isFiltered = Boolean(currentFilters.search || currentFilters.status !== "ALL" || currentFilters.project !== "ALL" || (currentFilters.type && currentFilters.type !== "ALL"));
+  const categoryTitle = CATEGORY_GUIDES[tabKey]?.title || tabKey.toUpperCase();
+
+  const filterStripHTML = `
+    <div class="table-filter-strip" id="filter-strip-${tabKey}">
+      <div class="table-filter-controls">
+        <div class="table-search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="filter-search-${tabKey}" class="form-control" placeholder="Search ${escapeHtml(categoryTitle)}..." value="${escapeHtml(currentFilters.search || '')}" oninput="handleTableSearch('${tabKey}', this.value)">
+        </div>
+
+        ${distinctStatuses.length > 0 ? `
+        <select class="table-filter-select" onchange="handleTableStatusFilter('${tabKey}', this.value)" title="Filter by status">
+          <option value="ALL" ${currentFilters.status === 'ALL' ? 'selected' : ''}>All Statuses (${distinctStatuses.length})</option>
+          ${distinctStatuses.map(s => `<option value="${escapeHtml(s)}" ${currentFilters.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
+        </select>
+        ` : ''}
+
+        ${hasProjectField && distinctProjects.length > 0 ? `
+        <select class="table-filter-select" onchange="handleTableProjectFilter('${tabKey}', this.value)" title="Filter by project / job">
+          <option value="ALL" ${currentFilters.project === 'ALL' ? 'selected' : ''}>All Projects (${distinctProjects.length})</option>
+          ${distinctProjects.map(p => `<option value="${escapeHtml(p)}" ${currentFilters.project === p ? 'selected' : ''}>Job: ${escapeHtml(p)}</option>`).join('')}
+        </select>
+        ` : ''}
+
+        ${distinctTypes.length > 0 ? `
+        <select class="table-filter-select" onchange="handleTableTypeFilter('${tabKey}', this.value)" title="Filter by ${escapeHtml(typeField.label)}">
+          <option value="ALL" ${currentFilters.type === 'ALL' ? 'selected' : ''}>All ${escapeHtml(typeField.label)} (${distinctTypes.length})</option>
+          ${distinctTypes.map(t => `<option value="${escapeHtml(t)}" ${currentFilters.type === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('')}
+        </select>
+        ` : ''}
+
+        ${isFiltered ? `
+        <button class="btn btn-outline-dark" style="font-size:11px; padding:2px 8px; height:31px; border-color:#cbd5e1;" onclick="clearTableFilters('${tabKey}')" title="Reset all filters">
+          ✖ Clear Filters
+        </button>
+        ` : ''}
+      </div>
+
+      <div class="filter-results-badge">
+        Showing <strong>${filteredRecords.length}</strong> of <strong>${periodRecords.length}</strong> entries
+      </div>
+    </div>
+  `;
 
   let tableHTML = `
+    ${filterStripHTML}
     <table class="spreadsheet-grid" id="grid-${tabKey}">
       <thead>
         <tr>
@@ -1518,11 +1697,11 @@ function renderDisciplineTable(tabKey) {
       <tbody>
   `;
 
-  if (records.length === 0) {
+  if (filteredRecords.length === 0) {
     tableHTML += `
       <tr>
         <td colspan="${schema.length + 2}" style="text-align: center; padding: 22px; color: var(--text-muted);">
-          No records found for the selected period. Click <strong>"+ Add Entry"</strong> above to enter data.
+          ${isFiltered ? `No entries match your filter criteria. <button class="btn btn-outline-dark" style="font-size:11px; padding:2px 6px; margin-left:6px;" onclick="clearTableFilters('${tabKey}')">Clear Filters</button>` : `No records found for the selected period. Click <strong>"+ Add Entry"</strong> above to enter data.`}
         </td>
       </tr>
     `;
@@ -1530,7 +1709,7 @@ function renderDisciplineTable(tabKey) {
     const totals = {};
     schema.forEach(col => { totals[col.key] = 0; });
 
-    records.forEach((row, rowIdx) => {
+    filteredRecords.forEach((row, rowIdx) => {
       const computed = store.calculateFormulas(tabKey, row);
       const mergedRow = { ...row, ...computed };
       const originalIdx = rawRecords.indexOf(row);
@@ -1682,6 +1861,15 @@ function renderDisciplineTable(tabKey) {
 
   tableHTML += `</table>`;
   container.innerHTML = tableHTML;
+
+  if (keepSearchFocus) {
+    const searchInput = document.getElementById(`filter-search-${tabKey}`);
+    if (searchInput) {
+      searchInput.focus();
+      const len = searchInput.value.length;
+      searchInput.setSelectionRange(len, len);
+    }
+  }
 
   bindInlineEditEvents(container, tabKey);
 }
@@ -1904,14 +2092,49 @@ function setupModal() {
         } else {
           newRecord[col.key] = input.value;
         }
-      } else if (!col.fillable && col.key === "id") {
-        newRecord[col.key] = `${tabKey.substring(0,3).toUpperCase()}-${Date.now().toString().slice(-4)}`;
       }
     });
 
-    // INSTANT VISUAL SYNCHRONIZATION:
-    // Check record's date and sync filter so it appears immediately!
+    const editIdxInput = document.getElementById("modal-edit-index");
+    const editIdx = editIdxInput ? parseInt(editIdxInput.value, 10) : -1;
+
+    // 1. MANDATORY PROJECT VALIDATION FOR REVENUE:
+    if (tabKey === "revenue") {
+      const rawProject = (newRecord.jobName || "").trim();
+      if (!rawProject) {
+        alert("⚠️ Mandatory Requirement:\n\nThe 'PROJECT' field cannot be left blank.\nEvery quote or invoice must be assigned a Project name to track costs across all disciplines.");
+        const projInput = document.getElementById("modal-field-jobName");
+        if (projInput) projInput.focus();
+        return;
+      }
+    }
+
+    // 2. CONSECUTIVE DOCUMENT NUMBER & PROJECT CONSECUTIVE PREFIX:
     const recordDate = newRecord.date || newRecord.dueDate || newRecord.renewalDate || "";
+    if (editIdx < 0) {
+      // New record: calculate next consecutive structured ID
+      const docId = store.generateNextDocumentId(tabKey, recordDate);
+      newRecord.id = docId;
+
+      if (tabKey === "revenue") {
+        // Auto-join consecutive document number with user project name
+        if (!newRecord.jobName.startsWith(docId) && !newRecord.jobName.startsWith("INV-")) {
+          newRecord.jobName = `${docId} - ${newRecord.jobName}`;
+        }
+        newRecord.project = newRecord.jobName;
+      }
+    } else {
+      // Editing existing record: preserve original document ID
+      const originalRecord = store.data[tabKey][editIdx];
+      if (originalRecord && originalRecord.id) {
+        newRecord.id = originalRecord.id;
+      }
+      if (tabKey === "revenue") {
+        newRecord.project = newRecord.jobName;
+      }
+    }
+
+    // INSTANT VISUAL SYNCHRONIZATION:
     if (recordDate && recordDate.length >= 7) {
       const [recYear, recMonth] = recordDate.split("-");
       if (store.selectedMonth !== "ALL" && store.selectedMonth !== recMonth) {
@@ -1921,8 +2144,21 @@ function setupModal() {
       }
     }
 
-    // Add to top of the table
-    store.addRecord(tabKey, newRecord);
+    if (editIdx >= 0 && store.data[tabKey] && store.data[tabKey][editIdx]) {
+      // Modify existing record in-place without duplicating
+      delete newRecord._justAdded;
+      const originalRecord = store.data[tabKey][editIdx];
+      store.data[tabKey][editIdx] = Object.assign({}, originalRecord, newRecord);
+      store.saveData();
+    } else {
+      // Add new record to top of the table
+      store.addRecord(tabKey, newRecord);
+    }
+
+    if (editIdxInput) editIdxInput.value = "-1";
+    const submitBtn = document.getElementById("modal-submit-btn");
+    if (submitBtn) submitBtn.textContent = "Save Entry";
+
     updateAutocompleteDatalists();
     modalOverlay.classList.remove("open");
     
@@ -2018,7 +2254,9 @@ function openAddModal(tabKey) {
     if (!col.fillable && col.type === "formula") return;
 
     fieldsHTML += `<div class="form-group" id="group-modal-${col.key}">`;
-    fieldsHTML += `<label class="form-label">${col.label}</label>`;
+    const isRequiredProject = (tabKey === "revenue" && col.key === "jobName");
+    const requiredBadge = isRequiredProject ? ` <span style="color:#ef4444; font-weight:900;">* (Required)</span>` : "";
+    fieldsHTML += `<label class="form-label">${col.label}${requiredBadge}</label>`;
 
     // 1. DATE DROPDOWN GROUP: MONTH, DAY, YEAR (ACCURATE CALENDAR DAYS)
     if (col.type === "date") {
@@ -2757,3 +2995,469 @@ window.closePrintInvoiceModal = function() {
 };
 
 document.addEventListener("DOMContentLoaded", initUI);
+
+
+// ==========================================================================
+// PROJECT COST REVIEW & BUDGET AUDIT CONTROLLER (V1.5.0 KILLER FEATURE)
+// ==========================================================================
+window.toggleProjectCostInclusion = function(costId, isChecked) {
+  if (!store.excludedProjectCosts) store.excludedProjectCosts = {};
+  store.excludedProjectCosts[costId] = !isChecked;
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.resetProjectCostCheckboxes = function() {
+  store.excludedProjectCosts = {};
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.renderProjectCostReview = function(selectedProject) {
+  const container = document.getElementById("cost-review-content");
+  const selectEl = document.getElementById("cost-review-project-select");
+  if (!container) return;
+
+  // 1. Gather all unique project names from Revenue
+  const allProjects = Array.from(new Set(
+    (store.data.revenue || [])
+      .map(r => (r.jobName || r.project || "").trim())
+      .filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project"))
+  ));
+
+  if (allProjects.length === 0) {
+    container.innerHTML = `
+      <div style="background:var(--bg-card); border:1px dashed var(--border-light); border-radius:8px; padding:32px; text-align:center;">
+        <span style="font-size:36px;">🏗️</span>
+        <h4 style="margin:10px 0 4px; font-size:15px; color:#1e3a8a;">No Active Projects Registered Yet</h4>
+        <p style="font-size:12px; color:var(--text-muted); max-width:480px; margin:0 auto 16px;">
+          To begin tracking project costs and profit margins, create a contract in <strong>💵 Invoicing & Sales</strong> and assign an optional <strong>Job Name</strong>!
+        </p>
+        <button class="btn btn-primary" onclick="switchToTab('revenue'); openAddModal('revenue');">➕ Create First Project / Invoice</button>
+      </div>
+    `;
+    if (selectEl) selectEl.innerHTML = `<option value="">No projects available</option>`;
+    return;
+  }
+
+  // Populate dropdown if not already populated or selection changed
+  const currentVal = selectedProject || (selectEl ? selectEl.value : null) || allProjects[0];
+  if (selectEl) {
+    selectEl.innerHTML = allProjects.map(p => `
+      <option value="${escapeHtml(p)}" ${p === currentVal ? 'selected' : ''}>
+        🏗️ ${escapeHtml(p)}
+      </option>
+    `).join('');
+  }
+
+  const projectToAudit = allProjects.includes(currentVal) ? currentVal : allProjects[0];
+
+  // 2. Find Revenue details for this project
+  const revRecords = (store.data.revenue || []).filter(r => (r.jobName || r.project || "").trim() === projectToAudit);
+  let totalContract = 0;
+  let totalCollected = 0;
+  let clientName = "Client Account";
+  let projectDesc = "";
+  let taxStatus = "Exempt / Standard";
+  let statusBadge = "Active";
+
+  revRecords.forEach(r => {
+    totalContract += Number(r.grossBilled) || 0;
+    totalCollected += Number(r.amountReceived) || 0;
+    if (r.client) clientName = r.client;
+    if (r.description) projectDesc = r.description;
+    if (r.taxable) taxStatus = r.taxable;
+    if (r.status) statusBadge = r.status;
+  });
+
+  // 3. Find ALL costs across all disciplines matching this project
+  const costLines = [];
+
+  // Direct COGS
+  (store.data.cogs || []).forEach((c, idx) => {
+    if ((c.jobName || c.project || "").trim() === projectToAudit) {
+      costLines.push({
+        id: `cogs-${c.id || idx}`,
+        discipline: "Direct COGS (Materials)",
+        badgeColor: "#3b82f6",
+        badgeBg: "#eff6ff",
+        date: c.date || "N/A",
+        detail: `${c.vendor || "Vendor"} • ${c.category || "Supplies"}`,
+        amount: Number(c.amount) || 0,
+        status: c.status || "Paid"
+      });
+    }
+  });
+
+  // Payroll
+  (store.data.payroll || []).forEach((p, idx) => {
+    if ((p.jobName || p.project || "").trim() === projectToAudit) {
+      const f = store.calculateFormulas("payroll", p);
+      costLines.push({
+        id: `pay-${idx}`,
+        discipline: "Labor & Subcontractor",
+        badgeColor: "#10b981",
+        badgeBg: "#dcfce7",
+        date: "Current Month",
+        detail: `${p.name || "Personnel"} (${p.role || "Trade"})`,
+        amount: f.totalCost || Number(p.grossPay) || 0,
+        status: p.status || "Disbursed"
+      });
+    }
+  });
+
+  // Fleet
+  (store.data.fleet || []).forEach((f, idx) => {
+    if ((f.jobName || f.project || "").trim() === projectToAudit) {
+      const form = store.calculateFormulas("fleet", f);
+      costLines.push({
+        id: `fleet-${idx}`,
+        discipline: "Fleet & Travel",
+        badgeColor: "#ec4899",
+        badgeBg: "#fdf2f8",
+        date: f.date || "N/A",
+        detail: `${f.vehicle || "Vehicle"} (${f.trackingMethod || "Travel"})`,
+        amount: form.totalCost || (Number(f.gasExpense) + Number(f.tollsParking)) || 0,
+        status: f.status || "Paid"
+      });
+    }
+  });
+
+  // Facility & Utilities
+  (store.data.facility || []).forEach((fac, idx) => {
+    if ((fac.jobName || fac.project || "").trim() === projectToAudit) {
+      costLines.push({
+        id: `fac-${idx}`,
+        discipline: "Facility & Yard",
+        badgeColor: "#f59e0b",
+        badgeBg: "#fffbeb",
+        date: fac.dueDate || "N/A",
+        detail: `${fac.location || "Location"} (${fac.expenseType || "Overhead"})`,
+        amount: Number(fac.actualPaid) || Number(fac.budgeted) || 0,
+        status: fac.status || "Paid"
+      });
+    }
+  });
+
+  (store.data.utilities || []).forEach((u, idx) => {
+    if ((u.jobName || u.project || "").trim() === projectToAudit) {
+      costLines.push({
+        id: `util-${idx}`,
+        discipline: "Utilities & SaaS",
+        badgeColor: "#8b5cf6",
+        badgeBg: "#f3e8ff",
+        date: "Monthly",
+        detail: `${u.service || "Provider"} (${u.category || "Utility"})`,
+        amount: Number(u.actualAmount) || Number(u.budgeted) || 0,
+        status: u.status || "Paid"
+      });
+    }
+  });
+
+  // 4. Calculate Active vs Excluded Costs
+  if (!store.excludedProjectCosts) store.excludedProjectCosts = {};
+
+  let activeCostsSum = 0;
+  let excludedCostsSum = 0;
+
+  costLines.forEach(item => {
+    const isExcluded = Boolean(store.excludedProjectCosts[item.id]);
+    if (isExcluded) {
+      excludedCostsSum += item.amount;
+    } else {
+      activeCostsSum += item.amount;
+    }
+  });
+
+  const netProfit = totalContract - activeCostsSum;
+  const marginPct = totalContract > 0 ? ((netProfit / totalContract) * 100).toFixed(1) : "0.0";
+  const costPct = totalContract > 0 ? Math.min(100, (activeCostsSum / totalContract) * 100).toFixed(1) : "0.0";
+
+  let progressColor = "#10b981"; // Green healthy
+  if (costPct > 85) progressColor = "#ef4444"; // Red danger
+  else if (costPct > 65) progressColor = "#f59e0b"; // Amber warning
+
+  // 5. Render HTML View
+  container.innerHTML = `
+    <!-- Project Financial Overview Card -->
+    <div class="cost-review-overview-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+        <div>
+          <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:#2563eb; letter-spacing:0.5px;">CONTRACT OVERVIEW</span>
+          <h2 style="font-size:18px; font-weight:900; color:var(--text-main); margin:2px 0 4px;">${escapeHtml(projectToAudit)}</h2>
+          <div style="font-size:12px; color:var(--text-muted);">
+            Customer Account: <strong style="color:var(--text-main);">${escapeHtml(clientName)}</strong> • Tax Status: <strong>${escapeHtml(taxStatus)}</strong>
+          </div>
+          ${projectDesc ? `<div style="font-size:11.5px; color:#475569; margin-top:6px; background:var(--bg-card-subtle); padding:6px 10px; border-radius:4px; border:1px solid var(--border-light); line-height:1.4;">📝 <strong>Scope:</strong> ${escapeHtml(projectDesc)}</div>` : ''}
+        </div>
+        <div>
+          <span class="badge" style="font-size:12px; font-weight:800; padding:6px 12px; border-radius:6px; background:#eff6ff; color:#1d4ed8; border:1px solid #93c5fd;">
+            ${escapeHtml(statusBadge)}
+          </span>
+        </div>
+      </div>
+
+      <div class="cost-review-metrics-grid">
+        <div class="cost-review-metric-box">
+          <div class="cost-review-metric-label">Contract Selling Price</div>
+          <div class="cost-review-metric-val" style="color:#1e3a8a;">${formatMoney(totalContract)}</div>
+        </div>
+        <div class="cost-review-metric-box">
+          <div class="cost-review-metric-label">Cash Collected in Bank</div>
+          <div class="cost-review-metric-val" style="color:#10b981;">${formatMoney(totalCollected)}</div>
+        </div>
+        <div class="cost-review-metric-box">
+          <div class="cost-review-metric-label">Active Assigned Costs</div>
+          <div class="cost-review-metric-val" style="color:#ef4444;">${formatMoney(activeCostsSum)}</div>
+        </div>
+        <div class="cost-review-metric-box">
+          <div class="cost-review-metric-label">Net Operating Profit ($)</div>
+          <div class="cost-review-metric-val" style="color:${netProfit >= 0 ? '#16a34a' : '#dc2626'};">${formatMoney(netProfit)}</div>
+        </div>
+        <div class="cost-review-metric-box">
+          <div class="cost-review-metric-label">Gross Profit Margin %</div>
+          <div class="cost-review-metric-val" style="color:${netProfit >= 0 ? '#16a34a' : '#dc2626'};">${marginPct}%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progressive Contract Cost Consumption Bar -->
+    <div class="project-progress-container">
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:800;">
+        <span>Contract Budget Consumption Meter:</span>
+        <span style="color:${progressColor}; font-family:var(--font-mono); font-size:13.5px;">
+          ${costPct}% consumed (${formatMoney(activeCostsSum)} of ${formatMoney(totalContract)})
+        </span>
+      </div>
+
+      <div class="project-progress-bar-track">
+        <div class="project-progress-bar-fill" style="width: ${Math.min(100, costPct)}%; background: ${progressColor};"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px;">
+        <span>🟢 Healthy Profit Tier (&lt;65%)</span>
+        <span>🟡 Caution Tier (65-85%)</span>
+        <span>🔴 Budget Overrun Risk (&gt;85%)</span>
+        ${excludedCostsSum > 0 ? `<span style="color:#7c3aed; font-weight:700;">Simulated Excluded Costs: ${formatMoney(excludedCostsSum)}</span>` : ''}
+      </div>
+    </div>
+
+    <!-- Cost Lines Table with Interactive Checkboxes -->
+    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+        <div>
+          <h3 style="font-size:14px; font-weight:800; color:#0f172a; margin:0;">
+            📋 Detailed Assigned Cost Breakdown (${costLines.length} Entries)
+          </h3>
+          <p style="font-size:11.5px; color:var(--text-muted); margin:2px 0 0;">
+            Check or uncheck individual cost lines to simulate contract profitability in real time
+          </p>
+        </div>
+        <div style="font-size:11px; font-weight:700; color:#2563eb;">
+          Active Subtotal: ${formatMoney(activeCostsSum)}
+        </div>
+      </div>
+
+      ${costLines.length === 0 ? `
+        <div style="padding:24px; text-align:center; color:var(--text-muted); font-size:12px; border:1px dashed var(--border-light); border-radius:6px;">
+          ℹ️ No expense bills assigned to <strong>${escapeHtml(projectToAudit)}</strong> yet.<br>
+          Assign receipts in <strong>Project COGS</strong>, <strong>Payroll</strong>, or <strong>Fleet</strong> by entering this Job Name!
+        </div>
+      ` : `
+        <div style="overflow-x:auto;">
+          <table class="discipline-table">
+            <thead>
+              <tr>
+                <th style="width:46px; text-align:center;" title="Include in cost sum">Active?</th>
+                <th style="width:40px; text-align:center;">#</th>
+                <th style="width:160px;">Discipline / Bucket</th>
+                <th style="width:110px;">Date</th>
+                <th>Payee / Vendor / Description</th>
+                <th style="width:110px; text-align:center;">Status</th>
+                <th style="width:130px; text-align:right;">Cost Amount ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${costLines.map((item, idx) => {
+                const isExcluded = Boolean(store.excludedProjectCosts[item.id]);
+                return `
+                  <tr class="${isExcluded ? 'row-cost-excluded' : ''}">
+                    <td style="text-align:center;">
+                      <input type="checkbox" class="cost-check-input" ${isExcluded ? '' : 'checked'} onchange="toggleProjectCostInclusion('${item.id}', this.checked)" title="Check to include in project costs, uncheck to exclude">
+                    </td>
+                    <td class="cell-center" style="font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+                    <td>
+                      <span class="badge" style="font-size:10.5px; font-weight:700; padding:3px 7px; border-radius:4px; color:${item.badgeColor}; background:${item.badgeBg}; border:1px solid ${item.badgeColor}33;">
+                        ${item.discipline}
+                      </span>
+                    </td>
+                    <td class="cell-center" style="font-size:11px;">${escapeHtml(item.date)}</td>
+                    <td style="font-weight:600; font-size:12px;">${escapeHtml(item.detail)}</td>
+                    <td class="cell-center" style="font-size:11px; font-weight:700; color:#16a34a;">${escapeHtml(item.status)}</td>
+                    <td style="text-align:right; font-weight:800; font-family:monospace; font-size:12.5px; color:${isExcluded ? 'var(--text-muted)' : '#b91c1c'};">
+                      ${formatMoney(item.amount)}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+            <tfoot>
+              <tr style="background:var(--bg-card-subtle); font-weight:800;">
+                <td colspan="6" style="text-align:right; padding:10px 14px; font-size:12px;">ACTIVE PROJECT TOTAL:</td>
+                <td style="text-align:right; padding:10px 14px; font-size:14px; color:#b91c1c; font-family:monospace;">${formatMoney(activeCostsSum)}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      `}
+    </div>
+  `;
+};
+
+// ==========================================================================
+// ADVANCED MODE PROJECT DEEP-DIVE & DONUT BREAKDOWN (V1.5.0)
+// ==========================================================================
+window.renderAdvancedProjectDeepDive = function(selectedProject) {
+  const selectEl = document.getElementById("adv-project-select");
+  const canvas = document.getElementById("chart-adv-project-donut");
+  if (!selectEl || !canvas || typeof Chart === 'undefined') return;
+
+  const allProjects = Array.from(new Set(
+    (store.data.revenue || [])
+      .map(r => (r.jobName || r.project || "").trim())
+      .filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project"))
+  ));
+
+  if (allProjects.length === 0) {
+    selectEl.innerHTML = `<option value="">No projects registered</option>`;
+    return;
+  }
+
+  const currentVal = selectedProject || selectEl.value || allProjects[0];
+  selectEl.innerHTML = allProjects.map(p => `
+    <option value="${escapeHtml(p)}" ${p === currentVal ? 'selected' : ''}>${escapeHtml(p)}</option>
+  `).join('');
+
+  const projName = allProjects.includes(currentVal) ? currentVal : allProjects[0];
+
+  // Compute metrics for this project
+  let contractVal = 0;
+  let collectedVal = 0;
+  let cogsCost = 0;
+  let laborCost = 0;
+  let fleetCost = 0;
+  let otherCost = 0;
+
+  (store.data.revenue || []).forEach(r => {
+    if ((r.jobName || r.project || "").trim() === projName) {
+      contractVal += Number(r.grossBilled) || 0;
+      collectedVal += Number(r.amountReceived) || 0;
+    }
+  });
+
+  (store.data.cogs || []).forEach(c => {
+    if ((c.jobName || c.project || "").trim() === projName) {
+      cogsCost += Number(c.amount) || 0;
+    }
+  });
+
+  (store.data.payroll || []).forEach(p => {
+    if ((p.jobName || p.project || "").trim() === projName) {
+      const f = store.calculateFormulas("payroll", p);
+      laborCost += f.totalCost || Number(p.grossPay) || 0;
+    }
+  });
+
+  (store.data.fleet || []).forEach(f => {
+    if ((f.jobName || f.project || "").trim() === projName) {
+      const form = store.calculateFormulas("fleet", f);
+      fleetCost += form.totalCost || (Number(f.gasExpense) + Number(f.tollsParking)) || 0;
+    }
+  });
+
+  const totalCosts = cogsCost + laborCost + fleetCost + otherCost;
+  const netProfit = contractVal - totalCosts;
+  const marginPct = contractVal > 0 ? ((netProfit / contractVal) * 100).toFixed(1) : "0.0";
+
+  // Update tiles
+  const elContract = document.getElementById("adv-proj-contract");
+  if (elContract) elContract.textContent = formatMoney(contractVal);
+
+  const elCollected = document.getElementById("adv-proj-collected");
+  if (elCollected) elCollected.textContent = formatMoney(collectedVal);
+
+  const elCosts = document.getElementById("adv-proj-costs");
+  if (elCosts) elCosts.textContent = formatMoney(totalCosts);
+
+  const elNet = document.getElementById("adv-proj-net");
+  if (elNet) {
+    elNet.textContent = formatMoney(netProfit);
+    elNet.style.color = netProfit >= 0 ? "#16a34a" : "#dc2626";
+  }
+
+  const elMarginPill = document.getElementById("adv-proj-margin-pill");
+  if (elMarginPill) {
+    elMarginPill.textContent = `${marginPct}% Margin`;
+    if (netProfit < 0) {
+      elMarginPill.style.background = "#fee2e2";
+      elMarginPill.style.color = "#b91c1c";
+    } else if (Number(marginPct) < 20) {
+      elMarginPill.style.background = "#fef3c7";
+      elMarginPill.style.color = "#b45309";
+    } else {
+      elMarginPill.style.background = "#dcfce7";
+      elMarginPill.style.color = "#15803d";
+    }
+  }
+
+  // Render Donut Chart
+  if (store.charts.advProjectDonut) {
+    store.charts.advProjectDonut.destroy();
+  }
+
+  const hasData = (totalCosts + Math.max(0, netProfit)) > 0;
+  const chartLabels = ['Materials (COGS)', 'Labor & Subs', 'Fleet & Travel', 'Net Profit Margin'];
+  const chartData = hasData ? [cogsCost, laborCost, fleetCost, Math.max(0, netProfit)] : [1, 0, 0, 0];
+  const chartColors = hasData ? ['#3b82f6', '#10b981', '#ec4899', '#059669'] : ['#e2e8f0', '#cbd5e1', '#cbd5e1', '#cbd5e1'];
+
+  store.charts.advProjectDonut = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        data: chartData,
+        backgroundColor: chartColors,
+        borderWidth: 2,
+        borderColor: 'transparent'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '70%',
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: { boxWidth: 9, font: { size: 9.5 } }
+        },
+        tooltip: {
+          enabled: hasData,
+          callbacks: {
+            label: (ctx) => ` ${ctx.label}: ${formatMoney(ctx.raw)}`
+          }
+        }
+      }
+    }
+  });
+};
+
+
+window.openHelpManualsModal = function() {
+  const modal = document.getElementById("modal-help-manuals");
+  if (modal) modal.classList.add("open");
+};
+
+window.closeHelpManualsModal = function() {
+  const modal = document.getElementById("modal-help-manuals");
+  if (modal) modal.classList.remove("open");
+};

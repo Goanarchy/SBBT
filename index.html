@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.4.2. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.4.2</title>
+  <meta name="description" content="Master Business Dashboard v1.5.0. Executive financial control system for NJ Local Businesses & Contractors featuring Trailing 12 Months (T12M) rolling analytics, modular tabs, Job Costing, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.5.0</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,73 +27,46 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.4.2</span>
+          <span class="badge-version">v1.5.0</span>
+          <span class="badge-offline-tag" title="Software 100% Offline y Privado">🔒 100% OFFLINE</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
       </div>
     </div>
 
-    <!-- Month & Year Period Selector (Clean Single Month Names) -->
-    <div class="period-selector-wrap">
-      <span class="period-label">📅 Period:</span>
-      <select class="period-select" id="select-filter-month" onchange="handlePeriodFilterChange()" title="Filter all records and indicators by month">
-        <option value="ALL">All Months (YTD)</option>
-        <option value="T12M">Trailing 12 Months (T12M)</option>
-        <option value="01">January</option>
-        <option value="02">February</option>
-        <option value="03">March</option>
-        <option value="04">April</option>
-        <option value="05">May</option>
-        <option value="06">June</option>
-        <option value="07">July</option>
-        <option value="08">August</option>
-        <option value="09">September</option>
-        <option value="10" selected>October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
-      </select>
-      <select class="period-select" id="select-filter-year" onchange="handlePeriodFilterChange()" title="Fiscal Year">
-        <option value="2024">2024</option>
-        <option value="2025" selected>2025</option>
-        <option value="2026">2026</option>
-      </select>
-    </div>
-
-    <!-- Streamlined Header Action Buttons -->
-    <div class="header-actions">
+    <!-- Group 1: Setup & Management Actions -->
+    <div class="header-action-group header-group-setup">
       <button class="btn btn-how-to-start" id="btn-how-to-start" onclick="openHowToStartModal()" title="Quick start guide: First steps to master your dashboard">
         💡 How to Start
       </button>
-
+      <button class="btn btn-company-profile-highlight" id="btn-header-company-profile" onclick="openCompanyProfileModal()" title="Set up your company name, address, phone, and NJ license for printable invoices and documents">
+        🏢 Company Profile
+      </button>
       <button class="btn btn-outline-light" id="btn-header-modules" onclick="openModuleWizardModal()" title="Choose which categories to display or hide">
         ⚙️ Modules
       </button>
+    </div>
 
-      <button class="btn btn-outline-light" id="btn-header-import-excel" onclick="openExcelImportModal()" title="Upload or drag-and-drop modified Excel spreadsheet to synchronize data">
-        📥 Import Excel
+    <!-- Group 2: File Operations (OPEN and SAVE AS NEW FILE side-by-side) -->
+    <div class="header-action-group header-group-files">
+      <button class="btn btn-open-file" id="btn-header-import-excel" onclick="openExcelImportModal()" title="Open / Import Excel spreadsheet (.xlsx or .xls) to synchronize data">
+        📂 OPEN
       </button>
+      <button class="btn btn-save-file" id="btn-export-excel" onclick="triggerSaveAsNewExcelFile()" title="Save budget data into a new consecutive Excel workbook (.xlsx)">
+        💾 SAVE AS NEW FILE
+      </button>
+    </div>
 
-      <a href="USER_GUIDE_EN.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Open official English user manual">
-        📖 Manual (EN)
-      </a>
-      <a href="MANUAL_DE_USUARIO_ES.md" target="_blank" class="btn btn-outline-light" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Abrir manual oficial de usuario en Español">
-        📖 Manual (ES)
-      </a>
-
+    <!-- Group 3: Utility & Help Actions (Right Corner) -->
+    <div class="header-action-group header-group-utils">
       <button class="btn btn-outline-light" id="btn-theme-toggle" title="Switch between Dark Mode and Light Mode">
         🌙 Theme
       </button>
-
-      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.4.2">
+      <button class="btn btn-outline-light" id="btn-whats-new" title="See what is new in version 1.5.0">
         🚀 What's New
       </button>
-
-      <button class="btn btn-success" id="btn-export-excel" title="Download executive Excel spreadsheet (.xls) with live formulas and pre-formatted tables for your CPA or bank">
-        📊 Excel Export
-      </button>
-
-      <button class="btn btn-primary" id="btn-open-tour" title="Interactive step-by-step guide on how to use every feature and category" onclick="startOnboardingTour()">
-        🎮 Usage Guide
+      <button class="btn btn-help-corner" id="btn-open-help-modal" onclick="openHelpManualsModal()" title="Help Center, User Manuals & 100% Offline Guide">
+        ❓ Help
       </button>
     </div>
   </header>
@@ -110,6 +83,10 @@
     <button class="tab-btn" data-tab="cogs" id="tab-btn-cogs">
       <span>📦</span> Project COGS
       <span class="tab-badge" id="count-cogs">0</span>
+    </button>
+    <button class="tab-btn" data-tab="cost-review" id="tab-btn-cost-review">
+      <span>🏗️</span> Project Cost Review
+      <span class="tab-badge" id="count-cost-review" style="background:#0284c7; color:#fff;">Active</span>
     </button>
     <button class="tab-btn" data-tab="fleet" id="tab-btn-fleet">
       <span>🚗</span> Fleet & Gas
@@ -166,7 +143,32 @@
           </p>
         </div>
 
-        <div class="dash-header-controls">
+        <div class="dash-header-controls" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div class="dashboard-period-picker" style="display:flex; align-items:center; gap:6px; background:var(--bg-card); padding:4px 10px; border-radius:6px; border:1px solid var(--border-light);">
+            <label style="font-size:11.5px; font-weight:800; color:var(--text-main); white-space:nowrap;">📅 Dashboard Period:</label>
+            <select class="cat-filter-select" id="dash-filter-month" onchange="handleCategoryFilterChange('dashboard', this.value)" style="height:28px; font-size:11.5px; font-weight:700; padding:2px 8px;">
+              <option value="ALL">All Months (YTD)</option>
+              <option value="T12M">Trailing 12 Months (T12M)</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10" selected>October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select class="cat-filter-select" id="dash-filter-year" onchange="handleCategoryYearChange('dashboard', this.value)" style="height:28px; font-size:11.5px; font-weight:700; padding:2px 8px;">
+              <option value="2024">2024</option>
+              <option value="2025" selected>2025</option>
+              <option value="2026">2026</option>
+            </select>
+          </div>
+
           <div class="view-mode-toggle">
             <button class="view-mode-btn active" id="btn-view-basic" onclick="setDashboardViewMode('basic')" title="Show core essentials: Inflows/Outflows, Category Totals, and Project Profitability">
               🔘 Basic Essentials
@@ -196,55 +198,23 @@
       <!-- PRIMARY DASHBOARD GRID (CHARTS: INFLOWS VS OUTFLOWS & OUTFLOW ALLOCATION) -->
       <div class="dash-primary-grid">
         
-        <!-- Chart 1: Inflows vs Outflows (2 Columns / 3 Mini-Charts Toggle) -->
+        <!-- Chart 1: Inflows vs Outflows Trajectory (12-Month Grouped Comparative Bars) -->
         <div class="chart-card-compact">
           <div class="chart-header-compact">
             <div class="chart-title-compact">
-              <span>📊</span> Inflows vs. Outflows Trajectory
+              <span>📊</span> Inflows vs. Outflows Trajectory (12-Month Comparative)
             </div>
             
             <div style="display:flex; align-items:center; gap:8px;">
-              <!-- Annual vs Monthly Switcher -->
-              <div class="flow-chart-mode-toggle">
-                <button class="flow-mode-btn active" id="btn-flow-annual" onclick="setInflowChartMode('annual')" title="Show single chart comparing Total Inflows vs Total Outflows">
-                  📅 Annual (2 Cols)
-                </button>
-                <button class="flow-mode-btn" id="btn-flow-monthly" onclick="setInflowChartMode('monthly')" title="Show 3 side-by-side mini charts comparing the last 3 months">
-                  📊 Last 3 Months
-                </button>
-              </div>
-
-              <span class="chart-badge-disclaimer" title="This chart is a visual representation only and does not alter your ledger.">
+              <span class="chart-badge-disclaimer" title="Month-by-month comparative analysis of realized cash in vs total expenses paid">
                 Visual Reference Only
               </span>
             </div>
           </div>
 
-          <!-- Container for Annual 2-Column Chart -->
-          <div class="chart-container-compact" id="wrap-chart-annual">
-            <canvas id="chart-inflows-outflows-annual"></canvas>
-          </div>
-
-          <!-- Container for Monthly 3 Mini-Charts (Last 3 Months) -->
-          <div class="three-month-grid" id="wrap-chart-monthly" style="display: none;">
-            <div class="mini-month-box">
-              <div class="mini-month-title" id="title-mini-m1">August</div>
-              <div style="flex:1; position:relative; min-height:130px;">
-                <canvas id="chart-mini-m1"></canvas>
-              </div>
-            </div>
-            <div class="mini-month-box">
-              <div class="mini-month-title" id="title-mini-m2">September</div>
-              <div style="flex:1; position:relative; min-height:130px;">
-                <canvas id="chart-mini-m2"></canvas>
-              </div>
-            </div>
-            <div class="mini-month-box">
-              <div class="mini-month-title" id="title-mini-m3">October</div>
-              <div style="flex:1; position:relative; min-height:130px;">
-                <canvas id="chart-mini-m3"></canvas>
-              </div>
-            </div>
+          <!-- Single Unified 12-Month Comparative Canvas -->
+          <div class="chart-container-compact" style="height: 235px; position: relative;">
+            <canvas id="chart-inflows-outflows-trajectory"></canvas>
           </div>
         </div>
 
@@ -452,6 +422,54 @@
             </div>
           </div>
 
+
+        <!-- Graphic 5: Project Financial Intelligence & Margin Breakdown Deep-Dive -->
+        <div class="adv-chart-card project-deep-dive-card" style="margin-top: 14px;">
+          <div class="adv-chart-header" style="flex-wrap:wrap; gap:10px;">
+            <div>
+              <div class="adv-chart-title"><span>🎯</span> Project Financial Intelligence &amp; Cost Breakdown</div>
+              <div class="adv-chart-subtitle">Select any registered contract to inspect its direct expenses, payments, and gross profit margin</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <label style="font-size:12px; font-weight:700; color:var(--text-main);">Contract / Job:</label>
+              <select id="adv-project-select" class="form-control" style="font-weight:700; min-width:240px; font-size:12px; height:32px;" onchange="renderAdvancedProjectDeepDive(this.value)">
+                <!-- populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="project-deep-dive-grid" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:16px; align-items:center; padding:10px 4px;">
+            <!-- Left: Trading Tiles -->
+            <div class="trading-tiles-vertical" style="display:flex; flex-direction:column; gap:7px;">
+              <div class="trading-tile" style="display:flex; justify-content:space-between; align-items:center; padding:7px 12px;">
+                <span class="trading-tile-label">CONTRACT SELLING PRICE</span>
+                <span class="trading-tile-val" id="adv-proj-contract" style="font-size:13.5px; color:#1e3a8a;">$0.00</span>
+              </div>
+              <div class="trading-tile" style="display:flex; justify-content:space-between; align-items:center; padding:7px 12px;">
+                <span class="trading-tile-label">TOTAL CASH COLLECTED</span>
+                <span class="trading-tile-val" id="adv-proj-collected" style="font-size:13.5px; color:#10b981;">$0.00</span>
+              </div>
+              <div class="trading-tile" style="display:flex; justify-content:space-between; align-items:center; padding:7px 12px;">
+                <span class="trading-tile-label">TOTAL ASSIGNED COSTS</span>
+                <span class="trading-tile-val" id="adv-proj-costs" style="font-size:13.5px; color:#ef4444;">$0.00</span>
+              </div>
+              <div class="trading-tile" style="display:flex; justify-content:space-between; align-items:center; padding:7px 12px;">
+                <span class="trading-tile-label">NET PROFIT MARGIN ($)</span>
+                <span class="trading-tile-val" id="adv-proj-net" style="font-size:13.5px; color:#16a34a;">$0.00</span>
+              </div>
+              <div class="trading-tile" style="display:flex; justify-content:space-between; align-items:center; padding:7px 12px;">
+                <span class="trading-tile-label">GROSS MARGIN %</span>
+                <span class="badge" id="adv-proj-margin-pill" style="font-size:12px; font-weight:800; padding:4px 10px; border-radius:4px; background:#dcfce7; color:#15803d;">0.0% Margin</span>
+              </div>
+            </div>
+
+            <!-- Right: Pie / Donut Chart -->
+            <div style="position:relative; height:185px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              <canvas id="chart-adv-project-donut"></canvas>
+            </div>
+          </div>
+        </div>
+
         </div>
 
       </div>
@@ -580,6 +598,43 @@
           <button class="btn btn-primary" onclick="openAddModal('cogs')" title="Record a new material bill, subcontractor invoice, or expense receipt">+ Add Expense Bill / PO</button>
         </div>
         <div class="table-responsive" id="table-container-cogs"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB: PROJECT COST REVIEW & BUDGET AUDIT
+         ==================================================================== -->
+    <section class="tab-pane" id="tab-cost-review">
+      <div class="category-guide-card">
+        <div class="category-guide-header">
+          <div style="font-size:15px; font-weight:800; color:#1e3a8a; display:flex; align-items:center; gap:8px;">
+            <span>🏗️</span> Project Cost Review &amp; Contract Budget Audit
+          </div>
+          <span style="font-size:11.5px; font-weight:700; color:#0284c7;">Interactive Cost Inclusion Simulator</span>
+        </div>
+        <p style="margin:4px 0 8px 0; font-size:12px; color:var(--text-muted); line-height:1.5;">
+          Select any registered contract below to inspect all direct costs (job materials, subcontractor bills, dedicated labor, and fleet expenses) assigned to this project. Uncheck any cost line to simulate how profit margin changes without it!
+        </p>
+      </div>
+
+      <!-- Project Selector Strip -->
+      <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:14px 18px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:280px;">
+          <label style="font-size:13px; font-weight:800; color:#0f172a; white-space:nowrap;">Select Project to Audit:</label>
+          <select id="cost-review-project-select" class="form-control" style="font-weight:800; font-size:13.5px; color:#1e3a8a; height:36px; flex:1; max-width:480px;" onchange="renderProjectCostReview(this.value)">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="btn btn-outline-primary" style="font-size:11.5px; font-weight:700;" onclick="resetProjectCostCheckboxes()">
+            🔄 Reset All Checks
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Project Review Container (Rendered dynamically) -->
+      <div id="cost-review-content">
+        <!-- Rendered by renderProjectCostReview() -->
       </div>
     </section>
 
@@ -1159,45 +1214,141 @@
         <button class="modal-close-btn" onclick="closeHowToStartModal()">&times;</button>
       </div>
       <div class="modal-body" style="font-size: 12.5px; line-height: 1.6; padding: 20px;">
+        <!-- 100% OFFLINE BADGE BANNER -->
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; padding: 12px 16px; border-radius: 8px; border: 1px solid #334155; display: flex; align-items: center; gap: 12px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <div style="font-size: 26px;">🔒</div>
+          <div style="flex: 1;">
+            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #38bdf8;">100% OFFLINE &amp; MAXIMUM PRIVACY GUARANTEED</div>
+            <div style="font-size: 11.5px; color: #cbd5e1; margin-top: 2px; line-height: 1.4;">
+              This system operates <strong>100% OFFLINE</strong> in your local browser. None of your confidential financials, quotes, client data, or numbers are transmitted to external servers. No internet connection required!
+            </div>
+          </div>
+        </div>
+
         <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div style="display:flex; gap:12px; align-items:flex-start;">
-            <div style="background:#fef3c7; color:#b45309; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
-            <div>
-              <strong style="color:var(--text-color); font-size:13px;">Pick Your Fiscal Period</strong>
-              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">At the top header, choose your active month (e.g. October) and year (2025). All dashboard numbers, graphs, and category tables immediately sync to this timeframe.</p>
+          <!-- Step 1: Company Profile -->
+          <div style="display:flex; gap:12px; align-items:flex-start; background: #eff6ff; padding: 12px; border: 1px solid #bfdbfe; border-radius: 8px;">
+            <div style="background:#1d4ed8; color:#fff; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
+            <div style="flex:1;">
+              <strong style="color:#1e3a8a; font-size:13px;">Personalize Your Company Profile</strong>
+              <p style="margin:2px 0 8px 0; color:#334155; font-size:11.5px;">To generate invoices, estimates, work orders, and Excel sheets with your official business branding (Company Name, Address, Phone, NJ License #), click the blue <strong>🏢 Company Profile</strong> button in the header or click below right now:</p>
+              <button type="button" class="btn btn-primary" onclick="closeHowToStartModal(); openCompanyProfileModal();" style="font-weight:800; font-size:12px; padding:6px 14px; background:linear-gradient(135deg, #2563eb, #1d4ed8);">
+                🏢 Set Up Company Profile Now ➡️
+              </button>
             </div>
           </div>
 
+          <!-- Step 2: Mandatory PROJECT Creation -->
           <div style="display:flex; gap:12px; align-items:flex-start;">
             <div style="background:#dbeafe; color:#1d4ed8; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
             <div>
-              <strong style="color:var(--text-color); font-size:13px;">Record Quotes & User Invoices</strong>
-              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Head to <strong>💵 Invoicing & Sales</strong>. Enter quotes you have sent out (status "Quote / Sent") or active invoices. When the user pays, switch status to "Paid / Closed" to register cash.</p>
+              <strong style="color:var(--text-color); font-size:13px;">Create Projects &amp; Record Sales (PROJECT is Mandatory)</strong>
+              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">In <strong>💵 Invoicing &amp; Sales</strong>, the <strong>PROJECT</strong> field is mandatory. The system automatically prefixes a date/document consecutive number (e.g. <code>INV-2025-01 - Kitchen Remodel</code>) and remembers it across the entire tool.</p>
             </div>
           </div>
 
+          <!-- Step 3: Assign Costs to Projects -->
           <div style="display:flex; gap:12px; align-items:flex-start;">
             <div style="background:#fed7aa; color:#c2410c; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
             <div>
-              <strong style="color:var(--text-color); font-size:13px;">Feed Your Expense Bills & Operational Costs</strong>
-              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Click on <strong>📦 Project COGS</strong> for job materials or subcontractor bills. Use the other tabs for Fleet, Facility, Insurance, Payroll, and Utilities. All dates are selected via dropdown with exact calendar days!</p>
+              <strong style="color:var(--text-color); font-size:13px;">Assign Costs to Projects Across All Disciplines</strong>
+              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">When entering bills in <strong>📦 Project COGS</strong>, <strong>Payroll</strong>, <strong>Fleet</strong>, <strong>Facility</strong>, or <strong>Utilities</strong>, select the project from the dropdown. Costs are automatically accumulated into that project's budget.</p>
             </div>
           </div>
 
+          <!-- Step 4: Project Cost Review -->
           <div style="display:flex; gap:12px; align-items:flex-start;">
-            <div style="background:#dcfce7; color:#15803d; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</div>
+            <div style="background:#fef3c7; color:#b45309; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</div>
             <div>
-              <strong style="color:var(--text-color); font-size:13px;">Monitor Your Executive Dashboard & Export to Excel</strong>
-              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Return to <strong>📈 Dashboard</strong> to see your live Inflow vs Outflow comparison, net profit in hand, and NJ tax reserves. When ready, click <strong>📊 Excel Export</strong> to download a formatted spreadsheet for your CPA or bank.</p>
+              <strong style="color:var(--text-color); font-size:13px;">Audit Margins in "Project Cost Review"</strong>
+              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Visit the <strong>🏗️ Project Cost Review</strong> tab. Select any project to see all assigned cost lines, check/uncheck lines to simulate margins in real time, and view the progress bar vs contract price.</p>
+            </div>
+          </div>
+
+          <!-- Step 5: Save As New File & Open -->
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="background:#dcfce7; color:#15803d; font-weight:900; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">5</div>
+            <div>
+              <strong style="color:var(--text-color); font-size:13px;">Save Consecutive Workbooks &amp; Open Files</strong>
+              <p style="margin:2px 0 0 0; color:var(--text-muted); font-size:11.5px;">Click <strong>💾 SAVE AS NEW FILE</strong> to generate a formatted Excel workbook with automatic consecutive naming (never overwriting old files). Use <strong>📂 OPEN</strong> to load spreadsheets at any time.</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer" style="justify-content: space-between; align-items: center;">
-        <a href="START_HERE_USER_GUIDE.md" target="_blank" style="font-size: 11.5px; color: #b45309; text-decoration: underline; font-weight: 700;">
-          📖 Open Full User Manual (START_HERE_USER_GUIDE.md) ↗
-        </a>
+      <div class="modal-footer" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <button type="button" class="btn btn-outline-primary" onclick="openHelpManualsModal()" style="font-weight:700; font-size:12px; padding:6px 14px; display:inline-flex; align-items:center; gap:6px;">
+          📖 View Official Manuals (EN / ES) ↗
+        </button>
         <button type="button" class="btn btn-primary" onclick="closeHowToStartModal()">Let's Get Started! 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       HELP & USER MANUALS MODAL (#modal-help-manuals)
+       ==================================================================== -->
+  <div class="modal-overlay" id="modal-help-manuals" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size: 22px;">❓</span>
+          <h3 style="margin:0; font-size:15px; font-weight:800; color:#fff;">Documentation &amp; Help Center (100% Offline)</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeHelpManualsModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px; font-size: 12.5px; line-height: 1.6;">
+        <p style="margin-top:0; color:var(--text-muted); font-size:12px;">
+          Choose your preferred documentation manual or explore offline interactive guides:
+        </p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+          <!-- English Manual Card -->
+          <div class="help-manual-card" style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--shadow-sm);">
+            <div>
+              <div style="font-size:24px; margin-bottom:6px;">🇺🇸</div>
+              <strong style="font-size:13px; color:#1e3a8a; display:block;">English User Manual</strong>
+              <p style="font-size:11.5px; color:var(--text-muted); margin:4px 0 12px 0;">
+                Comprehensive guide covering all 8 disciplines, project cost tracking, New Jersey tax safe harbor rules, and Excel exports.
+              </p>
+            </div>
+            <a href="USER_GUIDE_EN.md" target="_blank" class="btn btn-primary" style="text-decoration:none; text-align:center; font-size:11.5px; font-weight:700;">
+              📖 Open Manual (EN) ↗
+            </a>
+          </div>
+
+          <!-- Spanish Manual Card -->
+          <div class="help-manual-card" style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--shadow-sm);">
+            <div>
+              <div style="font-size:24px; margin-bottom:6px;">🇪🇸</div>
+              <strong style="font-size:13px; color:#1e3a8a; display:block;">Manual de Usuario (Español)</strong>
+              <p style="font-size:11.5px; color:var(--text-muted); margin:4px 0 12px 0;">
+                Manual completo en español: gestión de cotizaciones, proyectos con consecutivo automático, auditoría de costos y 100% offline.
+              </p>
+            </div>
+            <a href="MANUAL_DE_USUARIO_ES.md" target="_blank" class="btn btn-primary" style="text-decoration:none; text-align:center; font-size:11.5px; font-weight:700; background:linear-gradient(135deg, #0284c7, #0369a1);">
+              📖 Abrir Manual (ES) ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- 100% Offline Notice in Help Modal -->
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start;">
+          <span style="font-size:20px;">🔒</span>
+          <div style="font-size:11.5px; color:#166534; line-height:1.4;">
+            <strong>100% Offline &amp; Private Security:</strong><br>
+            All budget data, project files, and company profiles remain securely inside your computer browser (LocalStorage). No external server, no data leaks, no internet connection required.
+          </div>
+        </div>
+
+        <!-- System Tour Link -->
+        <div style="margin-top:14px; text-align:center;">
+          <button type="button" class="btn btn-outline-dark" style="font-size:11.5px; font-weight:700;" onclick="closeHelpManualsModal(); startOnboardingTour();">
+            🎮 Launch Interactive Step-by-Step System Tour
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" onclick="closeHelpManualsModal()">Close</button>
       </div>
     </div>
   </div>
@@ -1209,7 +1360,7 @@
     <div class="modal-dialog" style="max-width: 650px;">
       <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);">
         <div>
-          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.4.0</h3>
+          <h3 style="margin:0;">🚀 What's New in Master Business Dashboard v1.5.0</h3>
           <div style="font-size: 11px; color: #93c5fd; margin-top: 3px;">Official Release Date: October 27, 2026</div>
         </div>
         <button class="modal-close-btn" id="modal-whats-new-close">&times;</button>

@@ -1,4 +1,4 @@
-# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.4.2)
+# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.5.0)
 **Sistema de Control Financiero Ejecutivo para Pequeñas Empresas y Contratistas de New Jersey**  
 *Versión Oficial: 1.4.1*  
 *Autor e Ingeniero Principal: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Soporte Directo: `andres00787@gmail.com`*
@@ -11,22 +11,22 @@
 ---
 
 ## 🎯 Propósito de este Manual
-Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.4.2)** sin enredos técnicos ni dolores de cabeza contables.
+Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.5.0)** sin enredos técnicos ni dolores de cabeza contables.
 
 Al seguir esta guía aprenderás a:
 1. **Administrar Contratos, Anticipos y Facturación Progresiva**: Controlar cuentas de usuarios, depósitos iniciales, pagos progresivos y saldos pendientes, con la nueva opción de estado `"Accepted"` para contratos o propuestas aprobadas.
-2. **Calcular la Rentabilidad Real de Obra (Job Costing)**: Vincular tus facturas de usuarios con tus órdenes de compra de materiales y facturas de subcontratistas que tengan el mismo **Nombre de Proyecto (Job Name)** para calcular el margen neto en dólares ($) y porcentaje (%) al instante.
+2. **Calcular la Rentabilidad Real de Obra (Job Costing)**: Vincular tus facturas de usuarios con tus órdenes de compra de materiales y facturas de subcontratistas que tengan el mismo **Nombre de Proyecto (PROJECT)** para calcular el margen neto en dólares ($) y porcentaje (%) al instante.
 3. **Monitorear Indicadores con Precisión de Exchange de Trading**: Visualizar tus signos vitales financieros en cuadros compactos tipo terminal bursátil que eliminan números y textos sueltos o desordenados.
 4. **Utilizar Pestañas de Navegación Dinámicas**: Habilitar únicamente los módulos que tu negocio realmente utiliza; las pestañas inactivas desaparecen inmediatamente de la barra superior para mantener tu espacio de trabajo enfocado y limpio.
 5. **Aplicar la Exención de Mejora de Capital de NJ (Formulario ST-8 al 0% de Sales Tax)**: Eximir legalmente del 6.625% de impuesto sobre ventas las obras de construcción y remodelación permanente bajo la ley N.J.S.A. 54:32B-3 con total respaldo ante auditorías.
 6. **Activar el Centinela de Seguros de Subcontratistas 1099**: Detectar subcontratistas sin seguro vigente (COI) en color rojo antes de que la auditoría anual de Workers' Comp de Nueva Jersey te aplique multas y recargos patronales.
 7. **Generar Facturas y Presupuestos Imprimibles en 1 Clic**: Producir documentos PDF profesionales con formato formal listos para entregar al usuario o imprimir.
-8. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro de cálculo complementario `NJ_Small_Business_Budget_v1.4.2.xls` con protección nativa que bloquea fórmulas y deja libres las celdas de entrada.
+8. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro de cálculo complementario `NJ_Small_Business_Budget_v1.5.0.xls` con protección nativa que bloquea fórmulas y deja libres las celdas de entrada.
 
 ---
 
 ## 📦 Qué Hacer con los Archivos al Recibirlos por Correo o Enlace
-Cuando descargues el paquete oficial (`SBBT_v1.4.2_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
+Cuando descargues el paquete oficial (`SBBT_v1.5.0_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
 
 ```mermaid
 flowchart LR
@@ -34,9 +34,9 @@ flowchart LR
     B --> C["3. Doble clic en index.html"]
 ```
 
-1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.4.2_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
+1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.5.0_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
 2. **Abrir el Tablero Web**: Haz doble clic en el archivo **`index.html`**. Se abrirá de inmediato en Google Chrome, Microsoft Edge, Safari, Brave o Mozilla Firefox.
-3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.4.2.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
+3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.5.0.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
 
 > [!IMPORTANT]
 > **Cero Instalación y Privacidad Total**: No necesitas servidores, bases de datos ni conexión a internet. La aplicación corre 100% dentro de tu navegador de manera privada y segura. Tus números financieros confidenciales jamás salen de tu computadora.
@@ -113,19 +113,19 @@ Para prevenir errores contables y brindar claridad visual inmediata, las celdas 
   * **Category Spending & OpEx Distribution**: Muestra los Costos Directos de Obra (COGS), Gastos Fijos Operativos (OpEx) y Porcentaje de Asignación en cuadros ordenados.
   * **Cash Runway & Operating Liquidity**: Expone las Reservas Líquidas en Banco, Consumo Mensual (Burn Rate) y Margen de Capital de Trabajo.
   * **NJ Safe Harbor Tax Sentinel**: Detalla los Fondos Reservados, Estimado por Pagar y la Brecha o Faltante Fiscal.
-* **Tarjeta de Rentabilidad por Proyecto (Job Costing)**: Vincula automáticamente tus ingresos con las compras de materiales y subcontratistas que comparten el mismo **Nombre de Proyecto (Job Name)**. Muestra el Contrato Facturado, Cobrado, Costos Directos, Margen Neto ($), Margen (%) y estado de salud financiera.
+* **Tarjeta de Rentabilidad por Proyecto (Job Costing)**: Vincula automáticamente tus ingresos con las compras de materiales y subcontratistas que comparten el mismo **Nombre de Proyecto (PROJECT)**. Muestra el Contrato Facturado, Cobrado, Costos Directos, Margen Neto ($), Margen (%) y estado de salud financiera.
 * **Banner de Alerta de Cobranzas Vencidas**: Aparece automáticamente informando el monto exacto en mora cuando existen facturas vencidas con saldo pendiente.
 
 ### 3.3 Pestaña 2: Facturación y Ventas, Estado "Accepted" y Facturas PDF (NJ ST-8)
 * **Nueva Opción de Estado "Accepted"**: El menú desplegable de estados incluye la opción `"Accepted"` para aquellos presupuestos o contratos que han sido aprobados por el usuario y están confirmados antes de iniciar obra o recibir el depósito.
   * Opciones disponibles: `"Paid in Full"`, `"Deposit / Active"`, `"Pending Balance"`, `"Accepted"`, `"Quote / Sent"`, `"Overdue"`.
-* **Campo Opcional de Nombre de Proyecto (Job Name)**: Permite etiquetar cada factura con el nombre de la obra (ej. `Renovación Casa Morristown`) para vincularla automáticamente con los gastos de materiales.
+* **Campo Opcional de Nombre de Proyecto (PROJECT)**: Permite etiquetar cada factura con el nombre de la obra (ej. `Renovación Casa Morristown`) para vincularla automáticamente con los gastos de materiales.
 * **Exención de Mejora de Capital (NJ Form ST-8 al 0%)**: Bajo la ley N.J.S.A. 54:32B-3, los trabajos de construcción permanente o remodelación en Nueva Jersey están exentos del 6.625% de impuesto sobre ventas si se cuenta con el Formulario ST-8 firmado. Elige `"ST-8 (0% - NJ Capital Improvement)"` en la columna de impuestos para facturar al 0% con total respaldo legal.
 * **Generador de Facturas y Presupuestos en PDF (`🖨️ PDF`)**: Al hacer clic en el botón `🖨️ PDF`, se abre una factura formal. Para trabajos con estado `"Accepted"`, el encabezado muestra **"ACCEPTED WORK ORDER & CONTRACT"**; para presupuestos, **"CONTRACT ESTIMATE & PROPOSAL"**; y para facturas regulares, **"INVOICE / BILL OF WORK"**.
 
 ### 3.4 Pestaña 3: Costos Directos (COGS) y Facturas de Materiales
 * Registra compras de materiales, madera, cables, suministros, alquiler de contenedores (dumpsters) y facturas de subcontratistas directos.
-* Ingresa el **Nombre del Proyecto (Job Name)** con autocompletado inteligente para que alimente de inmediato la tabla de **Job Costing** en el Dashboard.
+* Ingresa el **Nombre del Proyecto (PROJECT)** con autocompletado inteligente para que alimente de inmediato la tabla de **Job Costing** en el Dashboard.
 
 ### 3.5 Pestañas 4 a 8: Gastos Operativos y Centinela de Seguros 1099
 * **Flota y Vehículos (Tarifa IRS $0.70/milla)**: Permite elegir entre registro de gastos reales de combustible o deducción estándar por millaje del IRS.

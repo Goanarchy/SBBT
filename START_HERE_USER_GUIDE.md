@@ -1,5 +1,5 @@
 # 📖 Master Business Dashboard — Official User Guides Portal
-# 📘 Portal Oficial de Manuales de Usuario (v1.4.2)
+# 📘 Portal Oficial de Manuales de Usuario (v1.5.0)
 
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
 *Official Release: Version 1.4.1*  
@@ -33,14 +33,14 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Package**: Right-click `SBBT_v1.4.2_Ready_To_Use.zip` and select **"Extract All..."**.
+1. **Extract the ZIP Package**: Right-click `SBBT_v1.5.0_Ready_To_Use.zip` and select **"Extract All..."**.
 2. **Launch the Master Web Dashboard**: Double-click **`index.html`** in any web browser.
-3. **Optional Native Excel Companion**: Double-click **`NJ_Small_Business_Budget_v1.4.2.xls`** to work directly in Microsoft Excel with built-in formula protection.
+3. **Optional Native Excel Companion**: Double-click **`NJ_Small_Business_Budget_v1.5.0.xls`** to work directly in Microsoft Excel with built-in formula protection.
 
 ---
 
 ## ⚡ Quick Links / Enlaces Rápidos
 * 🇺🇸 **[Full English User Guide](USER_GUIDE_EN.md)**
 * 🇪🇸 **[Manual Completo en Español](MANUAL_DE_USUARIO_ES.md)**
-* 🚀 **[Release Notes (v1.4.2)](RELEASE_NOTES.md)**
+* 🚀 **[Release Notes (v1.5.0)](RELEASE_NOTES.md)**
 * 📑 **[Project Overview (README.md)](README.md)**
