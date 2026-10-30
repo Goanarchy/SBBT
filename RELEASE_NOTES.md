@@ -4,7 +4,58 @@
 
 ---
 
-## 🏛️ Version 1.6.0 (Latest Release)
+## 🏗️ Version 1.6.1 (Latest Release)
+* **Official Release Date**: October 30, 2026
+* **Status**: Available & Active
+* **Package Asset**: `SBBT_v1.6.1_Ready_To_Use.zip` (Desktop Build)
+* **Core Focus**: Universal Cross-Discipline Project Costing (Every expense, toll, fuel receipt, insurance policy/bond, equipment fee, or dumpster/utility can now be assigned to a specific Project/Job), Reordered Navigation Workflow Tailored to NJ Contractors (Invoicing ➔ COGS ➔ Payroll ➔ Fleet ➔ Facility ➔ Insurance ➔ Utilities ➔ Project Cost Review ➔ 12M P&L ➔ Balance Sheet ➔ NJ Taxes), Fluid Micro-Transitions & Smooth Animations (0.18s cubic-bezier UI pane transitions), Dedicated 9th Worksheet (`Project Job Costing`) in the Excel Companion Workbook with native formulas, 100% Parity between Web Dashboard and Companion SpreadsheetML (`NJ_Small_Business_Budget_v1.6.1.xls`), and Enriched Demo Data.
+
+### 🌟 Key Upgrades in Version 1.6.1
+
+1. **🔗 Universal Cross-Discipline Project Costing**:
+   - **Full Disciplinary Coverage**: Project assignment (`PROJECT / Job Name`) is now available across **ALL 6 cost disciplines**:
+     * **Direct COGS**: Job materials, parts, supplies, rental equipment, and direct trade subcontractors.
+     * **Payroll & Labor**: Direct labor hours, master technicians, project engineers, and 1099 independent trade subs.
+     * **Fleet & Travel**: E-ZPass tolls (NJ Turnpike, GSP), trip fuel receipts, and mileage logs allocated to specific project sites.
+     * **Facility & Storage**: Project-dedicated staging yards, temporary trailers, container rentals, and warehouse bays.
+     * **Insurance & Bonds**: Project surety performance/payment bonds, job-specific Builder's Risk policies, and OCIP/CCIP riders.
+     * **Utilities & Overhead**: On-site temporary power drops (PSE&G temporary service poles), site water meters, and 30-yard construction dumpsters (Waste Management).
+   - **Automated Multi-Source Aggregation**: `calculateJobCosting()` dynamically scans all 6 tables, grouping expenses by project name with exact real-time cost breakdown.
+   - **One-Click Audit Drill-Down**: Clicking any project on the Dashboard Job Costing table triggers `openProjectCostReviewAudit(projectName)`, instantly jumping directly into the Project Cost Review tab pre-filtered for that contract.
+
+2. **🧭 Reordered Contractor Workflow Flow**:
+   - Navigation strip restructured to mirror real-world business operations and leading contractor software (QuickBooks Contractor Edition, Buildertrend, Jobber, Xero):
+     $$\text{Dashboard} \longrightarrow \text{Invoicing} \longrightarrow \text{COGS} \longrightarrow \text{Payroll} \longrightarrow \text{Fleet} \longrightarrow \text{Facility} \longrightarrow \text{Insurance} \longrightarrow \text{Utilities} \longrightarrow \text{Cost Review} \longrightarrow \text{P\&L} \longrightarrow \text{Balance Sheet} \longrightarrow \text{NJ Taxes}$$
+   - Logical operational flow: Billed contracts first, direct job costs second, labor and travel third, overhead fourth, and executive financial reports (P&L, Balance Sheet, Taxes) consolidated at the end.
+
+3. **✨ Fluid UI Micro-Transitions & Rapid Reactivity**:
+   - Enhanced tab switching animation with `tabFadeSlideIn 0.18s cubic-bezier(0.16, 1, 0.3, 1)` and hardware-accelerated transform rendering.
+   - Eliminates layout shifting, provides buttery-smooth pane transitions, and delivers immediate visual feedback.
+
+4. **📊 Dedicated "Project Job Costing" Worksheet in Excel Companion**:
+   - Both `export-excel.js` and `generate_excel.ps1` now feature a dedicated, standalone **`Project Job Costing`** worksheet.
+   - Summarizes every active project with:
+     * Contract Billed Value ($)
+     * Cash Collected in Bank ($)
+     * Materials COGS ($)
+     * Labor & Subs ($)
+     * Fleet & Tolls ($)
+     * Facility & Yard ($)
+     * Insurance & Bonds ($)
+     * Site Utilities ($)
+     * Total Project Costs ($) `[=SUM(...)]`
+     * Net Profit ($) `[=Contract - Costs]`
+     * Margin % `[=Profit / Contract * 100]`
+     * Health Status badge (`🟢 Healthy ≥35%`, `🟡 Moderate 15-34%`, `🔴 Low Margin <15%`)
+   - 100% mathematical and architectural parity between the browser application and the Excel companion workbook (`NJ_Small_Business_Budget_v1.6.1.xls`).
+
+5. **📈 Enriched Demonstration & Testing Dataset**:
+   - Includes real-world New Jersey commercial project tags (e.g., *Facility HVAC Upgrade*, *Cleanroom Wiring Phase 1*, *Warehouse LED Retrofit*, *Emergency Electrical Repair*) with Travelers surety bonds, Hanover builder's risk riders, PSE&G temporary meters, and Waste Management dumpsters.
+   - Zero-variance balance sheet calibration ($136,413.46 Owner Capital, $0.00 GAAP equilibrium difference).
+
+---
+
+## 🏛️ Version 1.6.0
 * **Official Release Date**: October 30, 2026
 * **Status**: Available & Active
 * **Package Asset**: `SBBT_v1.6.0_Ready_To_Use.zip` (Desktop Build)

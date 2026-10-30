@@ -1,6 +1,6 @@
-# 📖 Master Business Dashboard — Official User Manual (v1.6.0)
+# 📖 Master Business Dashboard — Official User Manual (v1.6.1)
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
-*Official Release: Version 1.6.0*  
+*Official Release: Version 1.6.1*  
 *Author & Lead Engineer: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Support: `andres00787@gmail.com`*
 
 ---
@@ -11,23 +11,23 @@
 ---
 
 ## 🎯 Purpose of this Manual
-This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.6.0)** without accounting jargon or technical frustration.
+This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.6.1)** without accounting jargon or technical frustration.
 
 By following this guide, you will be able to:
 1. **Track Contracts, Retainers & Progress Billing**: Manage user accounts, down payment deposits, progress billings, and outstanding balances with the newly added `"Accepted"` status option for approved quotes.
-2. **Execute Real-Time Job Costing & Profit Margins**: Correlate user billings directly with material bills and subcontractor invoices matching the same **PROJECT / Project Name** to compute net profit ($) and gross margin (%) instantly.
+2. **Execute Universal Cross-Discipline Job Costing & Profit Margins**: Correlate client billings directly with expenses across ALL 6 disciplines (materials COGS, payroll & 1099 trade subs, fleet tolls & fuel, facility & staging yards, surety bonds & builder's risk insurance, site utilities & dumpsters) matching the same **PROJECT** name to compute true project net profit ($) and profit margin (%) instantly.
 3. **Master the Executive Balance Sheet (HBS GAAP Standard)**: Maintain a formal Statement of Financial Position enforcing $\text{Assets} = \text{Liabilities} + \text{Owners' Equity}$, monitor working capital, track the Current Ratio ($\ge 1.5x$), and export formal bank statements.
 4. **Navigate Trading Exchange-Precision Financial Dashboards**: View your financial vitals in structured, compact trading exchange-style tiles that eliminate loose numbers and cluttered layouts.
 5. **Leverage Dynamic Navigation Tabs**: Enable only the business modules you actively use; unneeded tabs disappear immediately from the navigation strip so you only see what you are working on.
 6. **Apply NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)**: Legally exempt qualified capital installation and construction work under N.J.S.A. 54:32B-3 with an auditable compliance trail.
 7. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
 8. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
-9. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.6.0.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
+9. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.6.1.xls` workbook with built-in cell protection that locks formulas while leaving input cells open, featuring a dedicated **Project Job Costing** worksheet aggregating project profitability.
 
 ---
 
 ## 📦 What to Do With Your Files Upon Download or Email
-When you receive your official release package (`SBBT_v1.6.0_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
+When you receive your official release package (`SBBT_v1.6.1_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
 
 ```mermaid
 flowchart LR
@@ -35,9 +35,9 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Package**: Right-click `SBBT_v1.6.0_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
+1. **Extract the ZIP Package**: Right-click `SBBT_v1.6.1_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
 2. **Launch the Master Web Dashboard**: Double-click **`index.html`**. It opens immediately in Google Chrome, Microsoft Edge, Safari, Brave, or Mozilla Firefox.
-3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.6.0.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
+3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.6.1.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
 
 > [!IMPORTANT]
 > **Zero Installation & 100% Data Privacy**: You do **not** need a web server, cloud database, or active internet connection. All calculations, SheetJS imports, and exports run 100% locally in your browser. Your confidential business numbers never leave your computer.

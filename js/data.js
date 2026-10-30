@@ -27,7 +27,7 @@ const DEFAULT_COMPANY_PROFILE = {
 
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.6.0",
+  version: "1.6.1",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -144,11 +144,21 @@ const SCHEMA_DEFINITIONS = {
   ],
 
   insurance: [
-    { key: "policyType", label: "Policy Type", fillable: true, type: "select", options: ["NJ Workers' Compensation (Mandatory)", "Commercial General Liability (CGL)", "Commercial Auto Fleet", "Inland Marine (Tools & Gear)", "Umbrella Excess Liability", "Surety Bond"], tooltip: "Insurance policy coverage type." },
-    { key: "carrier", label: "Insurance Carrier", fillable: true, type: "autocomplete", tooltip: "Insurance company or brokerage (Smart memory suggests previous carriers)." },
-    { key: "renewalDate", label: "Renewal Date", fillable: true, type: "date", tooltip: "Policy renewal or expiration date (Select via dropdowns)." },
-    { key: "annualPremium", label: "Annual Premium ($)", fillable: true, type: "currency", tooltip: "Full annual policy cost (Click to edit)." },
-    { key: "monthlyAllocation", label: "Monthly Cost ($)", fillable: false, type: "formula", tooltip: "Annual Premium / 12 months (Auto-calculated monthly reserve)." },
+    { key: "jobName", label: "PROJECT", fillable: true, type: "autocomplete", tooltip: "Assign policy, project surety bond, or insurance rider directly to an active project (e.g. Performance & Payment Bond, Builder's Risk, Specific Liability Rider)." },
+    { key: "policyType", label: "Policy / Bond Type", fillable: true, type: "select", options: [
+      "Project Surety Bond (Performance & Payment)",
+      "Builder's Risk Policy (Project-Specific)",
+      "Job-Specific OCIP / CCIP Rider",
+      "NJ Workers' Compensation (Mandatory)",
+      "Commercial General Liability (CGL)",
+      "Commercial Auto Fleet",
+      "Inland Marine (Tools & Gear)",
+      "Umbrella Excess Liability"
+    ], tooltip: "Insurance coverage or project bond type." },
+    { key: "carrier", label: "Insurance Carrier / Broker", fillable: true, type: "autocomplete", tooltip: "Insurance company, surety agency, or brokerage (Smart memory suggests previous carriers)." },
+    { key: "renewalDate", label: "Renewal Date", fillable: true, type: "date", tooltip: "Policy renewal or bond expiration date (Select via dropdowns)." },
+    { key: "annualPremium", label: "Premium / Cost ($)", fillable: true, type: "currency", tooltip: "Full annual policy premium or direct project bond cost (Click to edit)." },
+    { key: "monthlyAllocation", label: "Monthly Reserve ($)", fillable: false, type: "formula", tooltip: "Monthly cost reserve (Annual / 12 for annual policies, or direct cost for project bonds)." },
     { key: "status", label: "Status", fillable: true, type: "select", options: ["Active", "Renewal Pending", "Cancelled"], tooltip: "Policy active status." }
   ],
 
@@ -478,6 +488,7 @@ const SAMPLE_DEMO_DATA = {
   "fleet": [
     {
       "date": "2025-10-03",
+      "jobName": "Facility HVAC Upgrade",
       "vehicle": "Ford Transit Van #1 (Marcus)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 95,
@@ -487,6 +498,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-10-07",
+      "jobName": "Cleanroom Wiring Phase 1",
       "vehicle": "Chevy Silverado #2 (David)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 120,
@@ -496,6 +508,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-10-13",
+      "jobName": "Emergency Electrical Repair",
       "vehicle": "Ford Transit Van #1 (Marcus)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 40,
@@ -505,6 +518,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-10-18",
+      "jobName": "Cleanroom Wiring Phase 1",
       "vehicle": "Owner Personal Truck (Andres)",
       "trackingMethod": "IRS Mileage Rate",
       "milesLogged": 84,
@@ -514,6 +528,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-10-23",
+      "jobName": "Warehouse LED Retrofit",
       "vehicle": "Chevy Silverado #2 (David)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 70,
@@ -523,6 +538,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-09-15",
+      "jobName": "Facility HVAC Upgrade",
       "vehicle": "Ford Transit Van #1 (Marcus)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 110,
@@ -532,6 +548,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "date": "2025-08-14",
+      "jobName": "Warehouse LED Retrofit",
       "vehicle": "Chevy Silverado #2 (David)",
       "trackingMethod": "Actual Fuel Receipt",
       "milesLogged": 90,
@@ -543,6 +560,7 @@ const SAMPLE_DEMO_DATA = {
   "facility": [
     {
       "location": "HQ Office & Shop - Hanover NJ",
+      "jobName": "",
       "expenseType": "Mortgage P&I",
       "dueDate": "2025-10-01",
       "budgeted": 4200.0,
@@ -551,6 +569,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "location": "HQ Office & Shop - Hanover NJ",
+      "jobName": "",
       "expenseType": "Property Tax Escrow",
       "dueDate": "2025-10-01",
       "budgeted": 1350.0,
@@ -559,6 +578,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "location": "HQ Office & Shop - Hanover NJ",
+      "jobName": "",
       "expenseType": "CAM & Maintenance",
       "dueDate": "2025-10-01",
       "budgeted": 650.0,
@@ -567,6 +587,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "location": "Equipment Storage Yard - Kenilworth",
+      "jobName": "Warehouse LED Retrofit",
       "expenseType": "Commercial Lease",
       "dueDate": "2025-10-05",
       "budgeted": 950.0,
@@ -575,6 +596,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "location": "HQ Office & Shop - Hanover NJ",
+      "jobName": "",
       "expenseType": "Mortgage P&I",
       "dueDate": "2025-09-01",
       "budgeted": 4200.0,
@@ -584,7 +606,24 @@ const SAMPLE_DEMO_DATA = {
   ],
   "insurance": [
     {
+      "policyType": "Project Surety Bond (Performance & Payment)",
+      "jobName": "Cleanroom Wiring Phase 1",
+      "carrier": "Travelers Bond & Specialty",
+      "renewalDate": "2025-12-31",
+      "annualPremium": 1850.0,
+      "status": "Active"
+    },
+    {
+      "policyType": "Builder's Risk Policy (Project-Specific)",
+      "jobName": "Warehouse LED Retrofit",
+      "carrier": "The Hanover Insurance Group",
+      "renewalDate": "2025-11-30",
+      "annualPremium": 950.0,
+      "status": "Active"
+    },
+    {
       "policyType": "NJ Workers' Compensation (Mandatory)",
+      "jobName": "",
       "carrier": "New Jersey Manufacturers (NJM)",
       "renewalDate": "2026-03-31",
       "annualPremium": 7800.0,
@@ -592,6 +631,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "policyType": "Commercial General Liability (CGL)",
+      "jobName": "",
       "carrier": "Travelers Property Casualty",
       "renewalDate": "2026-05-15",
       "annualPremium": 5400.0,
@@ -599,6 +639,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "policyType": "Commercial Auto Fleet",
+      "jobName": "",
       "carrier": "Progressive Commercial",
       "renewalDate": "2026-06-30",
       "annualPremium": 6600.0,
@@ -606,6 +647,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "policyType": "Inland Marine (Tools & Gear)",
+      "jobName": "",
       "carrier": "The Hartford",
       "renewalDate": "2026-08-01",
       "annualPremium": 2800.0,
@@ -615,6 +657,7 @@ const SAMPLE_DEMO_DATA = {
   "payroll": [
     {
       "name": "Elena Rostova",
+      "jobName": "Cleanroom Wiring Phase 1",
       "role": "Senior Project Engineer",
       "type": "W-2 Full Time",
       "coiStatus": "N/A (W-2 Employee)",
@@ -623,6 +666,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "name": "Carlos Mendez",
+      "jobName": "Facility HVAC Upgrade",
       "role": "Lead Systems Technician",
       "type": "W-2 Full Time",
       "coiStatus": "N/A (W-2 Employee)",
@@ -631,6 +675,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "name": "David Kim",
+      "jobName": "Cleanroom Wiring Phase 1",
       "role": "Field Installer",
       "type": "W-2 Full Time",
       "coiStatus": "N/A (W-2 Employee)",
@@ -639,6 +684,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "name": "Apex Fiber Optics NJ LLC",
+      "jobName": "Cleanroom Wiring Phase 1",
       "role": "Specialized Splicer",
       "type": "1099-NEC Contractor",
       "coiStatus": "COI Verified (Active)",
@@ -647,14 +693,16 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "name": "Jersey Masonry Pros LLC",
+      "jobName": "Warehouse LED Retrofit",
       "role": "Foundation Subcontractor",
       "type": "1099-NEC Contractor",
-      "coiStatus": "NO COI (Audit Risk \u26a0\ufe0f)",
+      "coiStatus": "NO COI (Audit Risk ⚠️)",
       "grossPay": 2500.0,
       "status": "Disbursed"
     },
     {
       "name": "Andres M.",
+      "jobName": "",
       "role": "Managing Member",
       "type": "Owner Draw",
       "coiStatus": "N/A (W-2 Employee)",
@@ -664,14 +712,16 @@ const SAMPLE_DEMO_DATA = {
   ],
   "utilities": [
     {
-      "service": "PSE&G Electric & Gas",
+      "service": "PSE&G Electric & Gas (HQ Shop)",
+      "jobName": "",
       "category": "Power & Gas (PSE&G)",
       "budgeted": 680.0,
       "actualAmount": 715.0,
       "status": "Paid"
     },
     {
-      "service": "NJ American Water",
+      "service": "NJ American Water (HQ Shop)",
+      "jobName": "",
       "category": "Water & Sewer",
       "budgeted": 110.0,
       "actualAmount": 98.0,
@@ -679,13 +729,31 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "service": "Verizon Fios Gigabit Commercial",
+      "jobName": "",
       "category": "High-Speed Internet / Telecom",
       "budgeted": 240.0,
       "actualAmount": 239.99,
       "status": "Paid"
     },
     {
+      "service": "Waste Management - Jobsite 30-Yd Dumpster",
+      "jobName": "Facility HVAC Upgrade",
+      "category": "Waste & Dumpster",
+      "budgeted": 450.0,
+      "actualAmount": 480.0,
+      "status": "Paid"
+    },
+    {
+      "service": "PSE&G Temporary Electric Meter Pole",
+      "jobName": "Cleanroom Wiring Phase 1",
+      "category": "Power & Gas (PSE&G)",
+      "budgeted": 350.0,
+      "actualAmount": 340.0,
+      "status": "Paid"
+    },
+    {
       "service": "QuickBooks Online Advanced + Payroll",
+      "jobName": "",
       "category": "Software & IT Subscriptions",
       "budgeted": 260.0,
       "actualAmount": 260.0,
@@ -693,6 +761,7 @@ const SAMPLE_DEMO_DATA = {
     },
     {
       "service": "Google Workspace & Microsoft 365",
+      "jobName": "",
       "category": "Software & IT Subscriptions",
       "budgeted": 180.0,
       "actualAmount": 180.0,
@@ -838,7 +907,7 @@ const SAMPLE_DEMO_DATA = {
       "asOfDate": "2025-10-31",
       "accountName": "Owner Initial Capital Investment (Paid-in Equity)",
       "classification": "Owner's Equity - Owner Capital Contributions",
-      "amount": 135360.12,
+      "amount": 136413.46,
       "syncMode": "Manual Ledger Adjustment",
       "notes": "Initial founder equity and LLC capital contribution balancing Assets = Liabilities + Equity"
     },

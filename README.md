@@ -1,16 +1,16 @@
-# SBBT — Small Business Budget Tool (v1.6.0)
+# SBBT — Small Business Budget Tool (v1.6.1)
 **Master Business Dashboard | Executive Financial Control System (USD $)**
 *Official Release Date: October 30, 2026 | GitHub Repository: [github.com/Goanarchy/SBBT](https://github.com/Goanarchy/SBBT)*
 
 ---
 
-### 📥 [Click Here to Download: SBBT_v1.6.0_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.6.0/SBBT_v1.6.0_Ready_To_Use.zip)
+### 📥 [Click Here to Download: SBBT_v1.6.1_Ready_To_Use.zip](https://github.com/Goanarchy/SBBT/releases/download/v1.6.1/SBBT_v1.6.1_Ready_To_Use.zip)
 > **🚀 Complete Ready-to-Use Package (Zero Setup)**:
-> 1. **Download**: Click the link above to get **`SBBT_v1.6.0_Ready_To_Use.zip`**.
+> 1. **Download**: Click the link above to get **`SBBT_v1.6.1_Ready_To_Use.zip`**.
 > 2. **Extract**: Unzip the folder anywhere on your computer.
 > 3. **Launch**: Double-click **`index.html`** in any web browser (Chrome, Edge, Safari, Firefox).
 > 4. **User Guide**: Read **[`START_HERE_USER_GUIDE.md`](file:///c:/Users/Andrés%20Montoya/.gemini/antigravity-ide/scratch/nj-business-budget-v1/START_HERE_USER_GUIDE.md)** for the complete English & Spanish step-by-step walkthrough.
-> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.6.0.xls`** if you prefer working in Microsoft Excel with native formula protection.  
+> *(Optional)*: Open **`NJ_Small_Business_Budget_v1.6.1.xls`** if you prefer working in Microsoft Excel with native formula protection.  
 > *No server, installation, or internet connection required! Everything runs locally with 100% data privacy.*
 
 ---
@@ -22,7 +22,8 @@
 
 | Version | Release Date | Status & Asset | Core Highlights & Upgrades |
 |---|---|---|---|
-| **v1.6.0** *(Latest)* | **October 30, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.6.0/SBBT_v1.6.0_Ready_To_Use.zip) | **Executive Balance Sheet (Harvard Business School GAAP Standard)**: Assets = Liabilities + Owners' Equity. Dynamic Auto-Wiring from active Invoicing (A/R), COGS (A/P), NJ Taxes (ST-50 & CBT), Payroll (Owner Draws), and 12-Month P&L (Current Year Net Income). Real-time **Financial Health Sentinel** with live Equation Equilibrium Badge (100% Balanced), Net Working Capital buffer, Current Ratio (HBS Std ≥1.5x), Acid-Test Quick Ratio (≥1.0x), and Debt-to-Equity solvency. One-click **"⚡ Auto-Reconcile Owner Equity"**, 2-column GAAP financial table, and **Formal Bank-Ready Statement of Financial Position** with corporate letterhead, CPA signature lines, and printable audit export. Companion Excel model updated with native formula balance sheets. |
+| **v1.6.1** *(Latest)* | **October 30, 2026** | [📦 Download Ready-to-Use ZIP](https://github.com/Goanarchy/SBBT/releases/download/v1.6.1/SBBT_v1.6.1_Ready_To_Use.zip) | **Universal Cross-Discipline Project Costing & Professional NJ Contractor Workflow**: Full aggregation of all expenditures (Materials COGS, Payroll & 1099 Trades, Fleet Tolls & Fuel, Facility & Staging Yards, Insurance Policies & Surety Bonds, Site Utilities & Dumpsters) linked directly to Contracts & Projects. Reordered navigation flow tailored to New Jersey contractor operations (Dashboard ➔ Invoicing ➔ COGS ➔ Payroll ➔ Fleet ➔ Facility ➔ Insurance ➔ Utilities ➔ Project Cost Review ➔ 12M P&L ➔ Balance Sheet ➔ NJ Taxes). Fluid UI micro-transitions and animations. Dedicated 9th Worksheet (`Project Job Costing`) in the Excel Companion Workbook with native formulas and 100% web-to-spreadsheet parity. |
+| **v1.6.0** | **October 30, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.6.0/SBBT_v1.6.0_Ready_To_Use.zip) | **Executive Balance Sheet (Harvard Business School GAAP Standard)**: Assets = Liabilities + Owners' Equity. Dynamic Auto-Wiring from active Invoicing (A/R), COGS (A/P), NJ Taxes (ST-50 & CBT), Payroll (Owner Draws), and 12-Month P&L (Current Year Net Income). Real-time **Financial Health Sentinel** with live Equation Equilibrium Badge (100% Balanced), Net Working Capital buffer, Current Ratio (HBS Std ≥1.5x), Acid-Test Quick Ratio (≥1.0x), and Debt-to-Equity solvency. One-click **"⚡ Auto-Reconcile Owner Equity"**, 2-column GAAP financial table, and **Formal Bank-Ready Statement of Financial Position** with corporate letterhead, CPA signature lines, and printable audit export. Companion Excel model updated with native formula balance sheets. |
 | **v1.5.1** | **October 28, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.5.1/SBBT_v1.5.1_Ready_To_Use.zip) | Dynamic Project Financial Intelligence auto-wiring (Contract Value, Cash Collected, Total Assigned Costs, Net Margin $, % Margin), True 12-Month Rolling Trajectory (ending at current month), Geometric Donut Ring text centering (zero label clipping), Printable Formal Project Cost Audit Report for internal sign-off, Dynamic Floating Cloud Tooltips (.tooltip-cloud) following mouse cursor with zero delay, and Pristine Clean Startup State for official launch. |
 | **v1.5.0** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.5.0/SBBT_v1.5.0_Ready_To_Use.zip) | In-Place Row Editing Bugfix (Zero Duplication), 12-Month Unified Trajectory Comparison Chart, Universal Category Table Filtering (Instant Search & Dropdowns), Cross-Discipline Project Cost Allocation, Dedicated Project Cost Review & Interactive Inclusion Audit Tab, Advanced Mode Project Deep-Dive & Donut Breakdown, 100% OFFLINE Welcome Instructions & Privacy Banner, and Open / Save As New File with Auto-Consecutive Workbook Revisions. |
 | **v1.4.2** | **October 27, 2026** | [📦 Download Archive](https://github.com/Goanarchy/SBBT/releases/download/v1.4.2/SBBT_v1.4.2_Ready_To_Use.zip) | Executive Financial Dashboard Grand Presentation Header, Zero Loose Numbers/Metrics in Advanced Mode, Dedicated Project Description & Scope of Work in Invoices, Company Profile & Document Branding Settings, and In-Place Row Editing Across All Ledger Tables. |
@@ -97,22 +98,22 @@ Hovering your cursor over **any table header or data cell** displays a floating 
 
 ---
 
-## 📑 Workbook & Dashboard Architecture (11 Disciplines)
+## 📑 Workbook & Dashboard Architecture (Contractor Workflow Flow)
 
-| Tab # | Discipline / Sheet | Purpose & Formulas |
+| Step / Tab # | Discipline / Sheet | Purpose & Formulas |
 |---|---|---|
-| **1** | **Executive Dashboard** | Real-time command center: KPI cards (Gross Revenue, Total Expenses, Net Operating Income, Cash Runway, NJ Tax Reserve Sentinel, AR), Chart.js interactive visualizations, and "What-If" Scenario Simulator. |
-| **2** | **Revenue & Invoices** | Tracks client invoicing, project deliverable scopes, NJ Sales Tax (6.625% formula), cash collected, payment methods, and aging AR. |
-| **3** | **Project COGS & Materials** | Direct job costs: raw materials, hardware, equipment rental, freight, and project subcontractors. Offsets Gross Revenue to derive Gross Profit. |
-| **4** | **Project Cost Review** | Cross-discipline contract budget auditing with interactive cost checkboxes to simulate profit margins in real time, plus 1-Click Printable Cost Audit Reports. |
-| **5** | **Fleet, Fuel & Mileage** | Vehicle logs with dual methodology: direct gasoline receipts vs. IRS standard business mileage rate ($0.70/mi) + NJ tolls & parking. |
-| **6** | **Facility, Rent & Mortgage** | Commercial office/warehouse leases, mortgage principal & interest, NJ property tax escrow, and CAM maintenance with budget vs. actual variance tracking. |
-| **7** | **Insurance Policies** | Mandatory NJ Workers' Comp, Commercial General Liability (CGL), Commercial Auto Fleet, Professional Liability (E&O), and Cyber risk coverage with monthly accrual amortization. |
-| **8** | **Payroll & Contractors** | Team compensation: W-2 full-time, part-time, 1099-NEC contractors, and Owner Draws. Auto-computes employer tax burdens (10.9%) and benefits. |
-| **9** | **Utilities & Overhead** | Recurring operational overhead: PSE&G (electric/gas), water, telecom/fiber, and SaaS subscriptions (QuickBooks, Google Workspace). |
-| **10** | **NJ Taxes & Compliance** | Dedicated tax reserve schedule: CBT quarterly estimates, Sales tax ST-50 remittances, Federal 1040-ES, and NJ Annual Report filing. Identifies tax reserve gaps before penalty dates. |
-| **11** | **12-Month P&L Rollup** | Consolidated monthly Profit & Loss statement mapping monthly revenue, direct COGS, gross margin, categorized OpEx overhead, and bottom-line Net Operating Income (EBIT). |
-| **12** | **Balance Sheet (HBS)** | Formal Statement of Financial Position: Current & Fixed Assets, Current & Long-Term Liabilities, Owners' Equity, live equation balance sentinel, executive liquidity ratios, and Bank-Ready statement printer. |
+| **1** | **Executive Dashboard** | Real-time command center: KPI cards (Gross Revenue, Total Expenses, Net Operating Income, Cash Runway, NJ Tax Reserve Sentinel, AR), Universal Job Costing table with 1-click drilldowns, Chart.js interactive visualizations, and "What-If" Scenario Simulator. |
+| **2** | **Invoicing & Sales** | Tracks client invoicing, project deliverable scopes, NJ Sales Tax (6.625% formula), Form ST-8 0% capital improvements, cash collected, payment methods, and aging AR. |
+| **3** | **Project COGS & Materials** | Direct job costs: raw materials, hardware, equipment rental, freight, and project subcontractors linked to active projects. |
+| **4** | **Payroll & Labor** | Team compensation: W-2 full-time, part-time, 1099-NEC contractors, and Owner Draws with PROJECT allocation, 1099 COI verification, and 10.9% employer tax burden. |
+| **5** | **Fleet, Gas & Tolls** | Vehicle logs with PROJECT allocation, dual methodology (actual gas receipts vs. IRS $0.70/mi rate) + NJ Turnpike & Garden State Parkway E-ZPass tolls. |
+| **6** | **Facility & Yard** | Commercial office/shop leases, storage/staging yards with PROJECT allocation, mortgage principal & interest, NJ property tax escrow, and CAM maintenance. |
+| **7** | **Insurance & Bonds** | Mandatory NJ Workers' Comp, CGL, Auto Fleet, plus PROJECT-specific Performance/Surety Bonds and Builder's Risk policies with monthly amortization. |
+| **8** | **Utilities & SaaS** | Recurring operational overhead and PROJECT jobsite utilities (PSE&G temporary power drops, 30-yd construction dumpsters, internet, software SaaS). |
+| **9** | **Project Cost Review** | Universal cross-discipline contract budget auditing across all 6 cost categories with interactive cost checkboxes to simulate profit margins in real time, plus 1-Click Printable Cost Audit Reports. |
+| **10** | **12-Month P&L Rollup** | Consolidated monthly Profit & Loss statement mapping monthly revenue, direct COGS, gross margin, categorized OpEx overhead, and bottom-line Net Operating Income (EBIT). |
+| **11** | **Balance Sheet (HBS)** | Formal Statement of Financial Position: Current & Fixed Assets, Current & Long-Term Liabilities, Owners' Equity, live equation balance sentinel, executive liquidity ratios, and Bank-Ready statement printer. |
+| **12** | **NJ Taxes & Compliance** | Dedicated tax reserve schedule: CBT quarterly estimates (6.5%), Sales tax ST-50 remittances, Federal 1040-ES, and NJ Annual Report filing. Identifies tax reserve gaps before penalty dates. |
 
 ---
 
@@ -126,9 +127,9 @@ index.html
 in Google Chrome, Microsoft Edge, Mozilla Firefox, or Safari.
 
 ### Option B: Open the Native Excel Workbook
-A pre-formatted Microsoft Excel file (`.xls` SpreadsheetML) has been generated with all 10 worksheets, live formulas (`=SUM()`, `=IF()`), and color-coded input cells:
+A pre-formatted Microsoft Excel file (`.xls` SpreadsheetML) has been generated with all 11 worksheets, dedicated **Project Job Costing** analysis, live formulas (`=SUM()`, `=IF()`), and color-coded input cells:
 ```
-NJ_Small_Business_Budget_v1.6.0.xls
+NJ_Small_Business_Budget_v1.6.1.xls
 ```
 *Note: In the web application, clicking **"💾 SAVE AS NEW FILE"** or **"📥 Export Excel Workbook"** will also instantly generate a fresh `.xlsx` file containing all your latest live edits.*
 

@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.6.0)
+ * MASTER BUSINESS DASHBOARD (v1.6.1)
  * Executive Multi-Tab High-Fidelity Workbook Exporter using SheetJS
  * Tailored for New Jersey Local Businesses & Trade Contractors
  */
@@ -16,7 +16,7 @@ function exportBudgetToExcel(store, customFilename = null) {
   // 1. Executive Summary Sheet
   const kpis = store.calculateKPIs();
   const summaryData = [
-    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.6.0)"],
+    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.6.1)"],
     ["Target Audience:", "NJ Local Businesses & Trade Contractors"],
     ["Company Name:", (store.companyProfile && store.companyProfile.companyName) || NJ_BUDGET_CONFIG.companyName],
     ["Location:", NJ_BUDGET_CONFIG.location],
@@ -70,7 +70,6 @@ function exportBudgetToExcel(store, customFilename = null) {
       r.status || "Active"
     ]);
   });
-  // Total Row
   const totalRevRow = store.data.revenue.length + 2;
   revRows.push([
     "TOTALS", "", "", "", "",
@@ -84,23 +83,23 @@ function exportBudgetToExcel(store, customFilename = null) {
   ]);
   const wsRev = XLSX.utils.aoa_to_sheet(revRows);
   wsRev['!cols'] = [
-    { wch: 14 }, // Invoice #
-    { wch: 13 }, // Date
-    { wch: 28 }, // User Name
-    { wch: 28 }, // Job Name (Optional)
-    { wch: 34 }, // Description / Scope
-    { wch: 20 }, // Contract Value
-    { wch: 16 }, // Taxable
-    { wch: 20 }, // Sales Tax
-    { wch: 18 }, // Total Due
-    { wch: 20 }, // Deposit / Paid
-    { wch: 18 }, // Balance Due
-    { wch: 16 }  // Status
+    { wch: 14 },
+    { wch: 13 },
+    { wch: 28 },
+    { wch: 28 },
+    { wch: 34 },
+    { wch: 20 },
+    { wch: 16 },
+    { wch: 20 },
+    { wch: 18 },
+    { wch: 20 },
+    { wch: 18 },
+    { wch: 16 }
   ];
   XLSX.utils.book_append_sheet(wb, wsRev, "Revenue & Invoices");
 
   // 3. Direct COGS Sheet
-  const cogsHeader = ["Receipt/PO #", "Purchase Date", "Job Name (Optional)", "Supplier / Vendor", "Cost Category", "Cost Amount ($) [INPUT]", "Status"];
+  const cogsHeader = ["Receipt/PO #", "Purchase Date", "Project / Job", "Supplier / Vendor", "Cost Category", "Cost Amount ($) [INPUT]", "Status"];
   const cogsRows = [cogsHeader];
   store.data.cogs.forEach((c) => {
     cogsRows.push([
@@ -127,113 +126,28 @@ function exportBudgetToExcel(store, customFilename = null) {
   ];
   XLSX.utils.book_append_sheet(wb, wsCogs, "Direct COGS");
 
-  // 4. Fleet & Mileage Sheet
-  const fleetHeader = ["Trip Date", "Vehicle & Driver", "Log Method", "Business Miles", "Fuel Cost ($) [INPUT]", "NJ Tolls & Parking ($) [INPUT]", "Total Fleet Cost ($) [FORMULA]", "Status"];
-  const fleetRows = [fleetHeader];
-  store.data.fleet.forEach((f, idx) => {
-    const rowNum = idx + 2;
-    fleetRows.push([
-      f.date || "",
-      f.vehicle || "",
-      f.trackingMethod || "Actual Fuel Receipt",
-      Number(f.milesLogged || 0),
-      Number(f.gasExpense || 0),
-      Number(f.tollsParking || 0),
-      { f: `IF(C${rowNum}="IRS Mileage Rate", (D${rowNum}*${NJ_BUDGET_CONFIG.irsMileageRate})+F${rowNum}, E${rowNum}+F${rowNum})` },
-      f.status || "Paid"
-    ]);
-  });
-  const totalFleetRow = store.data.fleet.length + 2;
-  fleetRows.push(["TOTAL FLEET", "", "", "", { f: `SUM(E2:E${totalFleetRow-1})` }, { f: `SUM(F2:F${totalFleetRow-1})` }, { f: `SUM(G2:G${totalFleetRow-1})` }, ""]);
-  const wsFleet = XLSX.utils.aoa_to_sheet(fleetRows);
-  wsFleet['!cols'] = [
-    { wch: 14 },
-    { wch: 32 },
-    { wch: 22 },
-    { wch: 16 },
-    { wch: 18 },
-    { wch: 24 },
-    { wch: 24 },
-    { wch: 14 }
-  ];
-  XLSX.utils.book_append_sheet(wb, wsFleet, "Fleet & Fuel");
-
-  // 5. Facility & Mortgage Sheet
-  const facHeader = ["Location / Premises", "Expense Category", "Due Date", "Budgeted ($) [INPUT]", "Actual Paid ($) [INPUT]", "Variance ($) [FORMULA]", "Status"];
-  const facRows = [facHeader];
-  store.data.facility.forEach((f, idx) => {
-    const rowNum = idx + 2;
-    facRows.push([
-      f.location || "",
-      f.expenseType || "",
-      f.dueDate || "",
-      Number(f.budgeted) || 0,
-      Number(f.actualPaid) || 0,
-      { f: `E${rowNum}-D${rowNum}` },
-      f.status || "Paid"
-    ]);
-  });
-  const totalFacRow = store.data.facility.length + 2;
-  facRows.push(["TOTAL FACILITY", "", "", { f: `SUM(D2:D${totalFacRow-1})` }, { f: `SUM(E2:E${totalFacRow-1})` }, { f: `SUM(F2:F${totalFacRow-1})` }, ""]);
-  const wsFac = XLSX.utils.aoa_to_sheet(facRows);
-  wsFac['!cols'] = [
-    { wch: 34 },
-    { wch: 24 },
-    { wch: 14 },
-    { wch: 18 },
-    { wch: 18 },
-    { wch: 18 },
-    { wch: 14 }
-  ];
-  XLSX.utils.book_append_sheet(wb, wsFac, "Facility & Mortgage");
-
-  // 6. Insurance Policies Sheet
-  const insHeader = ["Insurance Line", "Insurance Carrier", "Renewal Date", "Annual Premium ($) [INPUT]", "Monthly Allocation ($) [FORMULA]", "Status"];
-  const insRows = [insHeader];
-  store.data.insurance.forEach((i, idx) => {
-    const rowNum = idx + 2;
-    insRows.push([
-      i.policyType || "",
-      i.carrier || "",
-      i.renewalDate || "",
-      Number(i.annualPremium) || 0,
-      { f: `D${rowNum}/12` },
-      i.status || "Active"
-    ]);
-  });
-  const totalInsRow = store.data.insurance.length + 2;
-  insRows.push(["TOTAL INSURANCE", "", "", { f: `SUM(D2:D${totalInsRow-1})` }, { f: `SUM(E2:E${totalInsRow-1})` }, ""]);
-  const wsIns = XLSX.utils.aoa_to_sheet(insRows);
-  wsIns['!cols'] = [
-    { wch: 38 },
-    { wch: 30 },
-    { wch: 14 },
-    { wch: 22 },
-    { wch: 24 },
-    { wch: 14 }
-  ];
-  XLSX.utils.book_append_sheet(wb, wsIns, "Insurance Policies");
-
-  // 7. Payroll & Contractors Sheet
-  const payHeader = ["Personnel / Payee", "Role / Trade", "Classification", "1099 COI Verified?", "Gross Pay ($) [INPUT]", "Employer Taxes ($) [FORMULA]", "Total Cost ($) [FORMULA]", "Status"];
+  // 4. Payroll & Contractors Sheet
+  const payHeader = ["Personnel / Payee", "Project / Job", "Role / Trade", "Classification", "1099 COI Verified?", "Gross Pay ($) [INPUT]", "Employer Taxes ($) [FORMULA]", "Total Cost ($) [FORMULA]", "Status"];
   const payRows = [payHeader];
   store.data.payroll.forEach((p, idx) => {
     const rowNum = idx + 2;
     payRows.push([
       p.name || "",
+      p.jobName || p.project || "",
       p.role || "",
       p.type || "W-2 Full Time",
       p.coiStatus || "N/A",
       Number(p.grossPay) || 0,
-      { f: `IF(C${rowNum}="W-2 Full Time", E${rowNum}*0.109, IF(C${rowNum}="W-2 Part Time", E${rowNum}*0.109, 0))` },
-      { f: `E${rowNum}+F${rowNum}` },
+      { f: `IF(D${rowNum}="W-2 Full Time", F${rowNum}*0.109, IF(D${rowNum}="W-2 Part Time", F${rowNum}*0.109, 0))` },
+      { f: `F${rowNum}+G${rowNum}` },
       p.status || "Disbursed"
     ]);
   });
   const totalPayRow = store.data.payroll.length + 2;
-  payRows.push(["TOTAL PAYROLL", "", "", "", { f: `SUM(E2:E${totalPayRow-1})` }, { f: `SUM(F2:F${totalPayRow-1})` }, { f: `SUM(G2:G${totalPayRow-1})` }, ""]);
+  payRows.push(["TOTAL PAYROLL", "", "", "", "", { f: `SUM(F2:F${totalPayRow-1})` }, { f: `SUM(G2:G${totalPayRow-1})` }, { f: `SUM(H2:H${totalPayRow-1})` }, ""]);
   const wsPay = XLSX.utils.aoa_to_sheet(payRows);
   wsPay['!cols'] = [
+    { wch: 28 },
     { wch: 28 },
     { wch: 26 },
     { wch: 22 },
@@ -245,25 +159,120 @@ function exportBudgetToExcel(store, customFilename = null) {
   ];
   XLSX.utils.book_append_sheet(wb, wsPay, "Payroll & Contractors");
 
+  // 5. Fleet & Mileage Sheet
+  const fleetHeader = ["Trip Date", "Vehicle & Driver", "Project / Job", "Log Method", "Business Miles", "Fuel Cost ($) [INPUT]", "NJ Tolls & Parking ($) [INPUT]", "Total Fleet Cost ($) [FORMULA]", "Status"];
+  const fleetRows = [fleetHeader];
+  store.data.fleet.forEach((f, idx) => {
+    const rowNum = idx + 2;
+    fleetRows.push([
+      f.date || "",
+      f.vehicle || "",
+      f.jobName || f.project || "",
+      f.trackingMethod || "Actual Fuel Receipt",
+      Number(f.milesLogged || 0),
+      Number(f.gasExpense || 0),
+      Number(f.tollsParking || 0),
+      { f: `IF(D${rowNum}="IRS Mileage Rate", (E${rowNum}*${NJ_BUDGET_CONFIG.irsMileageRate})+G${rowNum}, F${rowNum}+G${rowNum})` },
+      f.status || "Paid"
+    ]);
+  });
+  const totalFleetRow = store.data.fleet.length + 2;
+  fleetRows.push(["TOTAL FLEET", "", "", "", "", { f: `SUM(F2:F${totalFleetRow-1})` }, { f: `SUM(G2:G${totalFleetRow-1})` }, { f: `SUM(H2:H${totalFleetRow-1})` }, ""]);
+  const wsFleet = XLSX.utils.aoa_to_sheet(fleetRows);
+  wsFleet['!cols'] = [
+    { wch: 14 },
+    { wch: 32 },
+    { wch: 28 },
+    { wch: 22 },
+    { wch: 16 },
+    { wch: 18 },
+    { wch: 24 },
+    { wch: 24 },
+    { wch: 14 }
+  ];
+  XLSX.utils.book_append_sheet(wb, wsFleet, "Fleet & Fuel");
+
+  // 6. Facility & Mortgage Sheet
+  const facHeader = ["Location / Premises", "Project / Job", "Expense Category", "Due Date", "Budgeted ($) [INPUT]", "Actual Paid ($) [INPUT]", "Variance ($) [FORMULA]", "Status"];
+  const facRows = [facHeader];
+  store.data.facility.forEach((f, idx) => {
+    const rowNum = idx + 2;
+    facRows.push([
+      f.location || "",
+      f.jobName || f.project || "",
+      f.expenseType || "",
+      f.dueDate || "",
+      Number(f.budgeted) || 0,
+      Number(f.actualPaid) || 0,
+      { f: `F${rowNum}-E${rowNum}` },
+      f.status || "Paid"
+    ]);
+  });
+  const totalFacRow = store.data.facility.length + 2;
+  facRows.push(["TOTAL FACILITY", "", "", "", { f: `SUM(E2:E${totalFacRow-1})` }, { f: `SUM(F2:F${totalFacRow-1})` }, { f: `SUM(G2:G${totalFacRow-1})` }, ""]);
+  const wsFac = XLSX.utils.aoa_to_sheet(facRows);
+  wsFac['!cols'] = [
+    { wch: 34 },
+    { wch: 28 },
+    { wch: 24 },
+    { wch: 14 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 14 }
+  ];
+  XLSX.utils.book_append_sheet(wb, wsFac, "Facility & Mortgage");
+
+  // 7. Insurance Policies & Bonds Sheet
+  const insHeader = ["Insurance / Bond Line", "Project / Job", "Insurance Carrier / Broker", "Renewal Date", "Annual / Bond Premium ($) [INPUT]", "Monthly Reserve ($) [FORMULA]", "Status"];
+  const insRows = [insHeader];
+  store.data.insurance.forEach((i, idx) => {
+    const rowNum = idx + 2;
+    insRows.push([
+      i.policyType || "",
+      i.jobName || i.project || "",
+      i.carrier || "",
+      i.renewalDate || "",
+      Number(i.annualPremium) || 0,
+      { f: `E${rowNum}/12` },
+      i.status || "Active"
+    ]);
+  });
+  const totalInsRow = store.data.insurance.length + 2;
+  insRows.push(["TOTAL INSURANCE", "", "", "", { f: `SUM(E2:E${totalInsRow-1})` }, { f: `SUM(F2:F${totalInsRow-1})` }, ""]);
+  const wsIns = XLSX.utils.aoa_to_sheet(insRows);
+  wsIns['!cols'] = [
+    { wch: 38 },
+    { wch: 28 },
+    { wch: 30 },
+    { wch: 14 },
+    { wch: 24 },
+    { wch: 24 },
+    { wch: 14 }
+  ];
+  XLSX.utils.book_append_sheet(wb, wsIns, "Insurance Policies");
+
   // 8. Utilities & Overhead Sheet
-  const utlHeader = ["Service Provider", "Category", "Budget ($) [INPUT]", "Actual Bill ($) [INPUT]", "Variance ($) [FORMULA]", "Status"];
+  const utlHeader = ["Service Provider", "Project / Job", "Category", "Budget ($) [INPUT]", "Actual Bill ($) [INPUT]", "Variance ($) [FORMULA]", "Status"];
   const utlRows = [utlHeader];
   store.data.utilities.forEach((u, idx) => {
     const rowNum = idx + 2;
     utlRows.push([
       u.service || "",
+      u.jobName || u.project || "",
       u.category || "",
       Number(u.budgeted) || 0,
       Number(u.actualAmount) || 0,
-      { f: `D${rowNum}-C${rowNum}` },
+      { f: `E${rowNum}-D${rowNum}` },
       u.status || "Paid"
     ]);
   });
   const totalUtlRow = store.data.utilities.length + 2;
-  utlRows.push(["TOTAL UTILITIES", "", { f: `SUM(C2:C${totalUtlRow-1})` }, { f: `SUM(D2:D${totalUtlRow-1})` }, { f: `SUM(E2:E${totalUtlRow-1})` }, ""]);
+  utlRows.push(["TOTAL UTILITIES", "", "", { f: `SUM(D2:D${totalUtlRow-1})` }, { f: `SUM(E2:E${totalUtlRow-1})` }, { f: `SUM(F2:F${totalUtlRow-1})` }, ""]);
   const wsUtl = XLSX.utils.aoa_to_sheet(utlRows);
   wsUtl['!cols'] = [
     { wch: 34 },
+    { wch: 28 },
     { wch: 30 },
     { wch: 18 },
     { wch: 18 },
@@ -272,7 +281,66 @@ function exportBudgetToExcel(store, customFilename = null) {
   ];
   XLSX.utils.book_append_sheet(wb, wsUtl, "Utilities & Overhead");
 
-  // 9. NJ Taxes & Compliance Sheet
+  // 9. Dedicated Universal Project Job Costing Worksheet (V1.6.1)
+  const jcProjects = calculateJobCosting();
+  const jcHeader = ["Project / Contract", "Customer Account", "Contract Value ($) [INPUT]", "Collected in Bank ($) [INPUT]", "Materials COGS ($)", "Labor & Subs ($)", "Fleet & Tolls ($)", "Facility & Yard ($)", "Insurance & Bonds ($)", "Site Utilities ($)", "Total Project Costs ($) [FORMULA]", "Net Profit ($) [FORMULA]", "Margin % [FORMULA]", "Health Status"];
+  const jcRows = [jcHeader];
+  jcProjects.forEach((p, idx) => {
+    const rowNum = idx + 2;
+    const b = p.costBreakdown || {};
+    jcRows.push([
+      p.project || "",
+      p.client || "",
+      Number(p.contractBilled) || 0,
+      Number(p.collected) || 0,
+      Number(b.cogs || 0),
+      Number(b.payroll || 0),
+      Number(b.fleet || 0),
+      Number(b.facility || 0),
+      Number(b.insurance || 0),
+      Number(b.utilities || 0),
+      { f: `SUM(E${rowNum}:J${rowNum})` },
+      { f: `C${rowNum}-K${rowNum}` },
+      { f: `IF(C${rowNum}>0, (L${rowNum}/C${rowNum})*100, 0)` },
+      p.marginPct >= 35 ? "🟢 Healthy (≥35%)" : (p.marginPct >= 15 ? "🟡 Moderate (15-34%)" : "🔴 Low Margin (<15%)")
+    ]);
+  });
+  const totalJcRow = jcProjects.length + 2;
+  jcRows.push([
+    "TOTALS", "",
+    { f: `SUM(C2:C${totalJcRow-1})` },
+    { f: `SUM(D2:D${totalJcRow-1})` },
+    { f: `SUM(E2:E${totalJcRow-1})` },
+    { f: `SUM(F2:F${totalJcRow-1})` },
+    { f: `SUM(G2:G${totalJcRow-1})` },
+    { f: `SUM(H2:H${totalJcRow-1})` },
+    { f: `SUM(I2:I${totalJcRow-1})` },
+    { f: `SUM(J2:J${totalJcRow-1})` },
+    { f: `SUM(K2:K${totalJcRow-1})` },
+    { f: `SUM(L2:L${totalJcRow-1})` },
+    { f: `IF(C${totalJcRow}>0, (L${totalJcRow}/C${totalJcRow})*100, 0)` },
+    ""
+  ]);
+  const wsJC = XLSX.utils.aoa_to_sheet(jcRows);
+  wsJC['!cols'] = [
+    { wch: 32 },
+    { wch: 28 },
+    { wch: 22 },
+    { wch: 22 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 24 },
+    { wch: 20 },
+    { wch: 16 },
+    { wch: 20 }
+  ];
+  XLSX.utils.book_append_sheet(wb, wsJC, "Project Job Costing");
+
+  // 10. NJ Taxes & Compliance Sheet
   const taxHeader = ["Tax Period", "Obligation / Agency", "Estimated Due ($) [INPUT]", "Tax Reserve Funded ($) [INPUT]", "Reserve Gap ($) [FORMULA]", "Deadline", "Status"];
   const taxRows = [taxHeader];
   store.data.taxes.forEach((t, idx) => {
@@ -301,7 +369,7 @@ function exportBudgetToExcel(store, customFilename = null) {
   ];
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
-  // 10. Balance Sheet Worksheet (HBS Standard)
+  // 11. Balance Sheet Worksheet (HBS Standard)
   const bs = store.calculateBalanceSheet();
   const bsRows = [
     ["STATEMENT OF FINANCIAL POSITION (BALANCE SHEET) — GAAP DOUBLE-ENTRY"],
@@ -367,7 +435,7 @@ function exportBudgetToExcel(store, customFilename = null) {
     const dd = String(d.getDate()).padStart(2, '0');
     const seqStr = String(seq).padStart(3, '0');
     const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
-    filename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.0_Rev${seqStr}.xlsx`;
+    filename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.1_Rev${seqStr}.xlsx`;
   }
   XLSX.writeFile(wb, filename);
 }
@@ -381,7 +449,7 @@ window.triggerSaveAsNewExcelFile = function() {
   const dd = String(d.getDate()).padStart(2, '0');
   const seqStr = String(seq).padStart(3, '0');
   const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
-  const defaultFilename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.0_Rev${seqStr}.xlsx`;
+  const defaultFilename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.1_Rev${seqStr}.xlsx`;
 
   const chosenName = prompt("💾 SAVE AS NEW FILE (Excel):\n\nEnter a new consecutive filename to save your workbook without overwriting previous versions:", defaultFilename);
   if (chosenName === null) return; // User cancelled

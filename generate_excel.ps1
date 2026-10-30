@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.6.0.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.6.1.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.6.0 | NJ Local Businesses &amp; Contractors</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.6.1 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -168,7 +168,7 @@ $xml = @"
    <Column ss:Width="160"/>
    <Column ss:Width="260"/>
    <Row ss:Height="26">
-    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.5.1)</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="TitleStyle"><Data ss:Type="String">NJ LOCAL BUSINESSES &amp; CONTRACTORS FINANCIAL CONTROL SYSTEM (v1.6.1)</Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="2" ss:StyleID="SubtitleStyle"><Data ss:Type="String">Operating in New Jersey, USA | Fiscal Year 2025 | Currency: USD ($)</Data></Cell>
@@ -455,6 +455,7 @@ $xml = @"
    <Column ss:Width="85"/>
    <Column ss:Width="160"/>
    <Column ss:Width="180"/>
+   <Column ss:Width="180"/>
    <Column ss:Width="120"/>
    <Column ss:Width="90"/>
    <Column ss:Width="95"/>
@@ -466,6 +467,7 @@ $xml = @"
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Log ID</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Date [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Vehicle &amp; Driver [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project / Job [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Business Purpose [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Log Method [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Miles [INPUT]</Data></Cell>
@@ -479,6 +481,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-101</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-03</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Ford Transit Van #1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Facility HVAC Upgrade</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Delivery &amp; Install - Rutgers</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">95</Data></Cell>
@@ -492,6 +495,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-102</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-07</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chevy Silverado #2</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cleanroom Wiring Phase 1</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Bergen Site Assessment</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">120</Data></Cell>
@@ -505,6 +509,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-103</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-13</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Ford Transit Van #1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Warehouse LED Retrofit</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">30,000mi Service &amp; Tires</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">40</Data></Cell>
@@ -518,6 +523,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-104</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-18</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Owner Personal SUV</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Emergency Electrical Repair</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey City User Onsite Meeting</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">IRS Mileage Rate</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">84</Data></Cell>
@@ -531,6 +537,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FLT-105</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-23</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chevy Silverado #2</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hoboken Retail Emergency</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Actual Fuel Receipt</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="Number">70</Data></Cell>
@@ -542,12 +549,12 @@ $xml = @"
    </Row>
    <!-- TOTALS -->
    <Row ss:Height="22">
-    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FLEET COST</Data></Cell>
-    <Cell ss:StyleID="TotalsLabel" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">409</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">480.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">137.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">480.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R6C10)"><Data ss:Type="Number">1155.80</Data></Cell>
+    <Cell ss:MergeAcross="5" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FLEET COST</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">409</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">137.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R6C10)"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C11:R6C11)"><Data ss:Type="Number">1155.80</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>
   </Table>
@@ -560,6 +567,7 @@ $xml = @"
   <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
    <Column ss:Width="90"/>
    <Column ss:Width="200"/>
+   <Column ss:Width="180"/>
    <Column ss:Width="140"/>
    <Column ss:Width="180"/>
    <Column ss:Width="85"/>
@@ -570,6 +578,7 @@ $xml = @"
    <Row ss:Height="24">
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Facility ID</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Premises / Location [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project / Job [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Expense Category [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Landlord / Bank Payee [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Due Date [INPUT]</Data></Cell>
@@ -581,6 +590,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-01</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Lease</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Properties Inc</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
@@ -592,6 +602,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-02</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Property Tax Escrow</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Twp Tax Collector</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
@@ -603,6 +614,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-03</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CAM &amp; Maintenance</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hanover Properties Inc</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-01</Data></Cell>
@@ -614,6 +626,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-04</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Storage Yard - Kenilworth NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Warehouse LED Retrofit</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Storage Yard Lease</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Kenilworth Storage LLC</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-05</Data></Cell>
@@ -625,6 +638,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">FAC-05</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HQ Office &amp; Shop - Hanover NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CAM &amp; Maintenance</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HVAC Filter Tuneup</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2025-10-15</Data></Cell>
@@ -635,10 +649,10 @@ $xml = @"
    </Row>
    <!-- TOTALS -->
    <Row ss:Height="22">
-    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FACILITY COST</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">7550.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">7570.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">20.00</Data></Cell>
+    <Cell ss:MergeAcross="5" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL FACILITY COST</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">7550.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">7570.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">20.00</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>
   </Table>
@@ -652,6 +666,7 @@ $xml = @"
    <Column ss:Width="90"/>
    <Column ss:Width="220"/>
    <Column ss:Width="180"/>
+   <Column ss:Width="180"/>
    <Column ss:Width="130"/>
    <Column ss:Width="90"/>
    <Column ss:Width="120"/>
@@ -660,6 +675,7 @@ $xml = @"
    <Row ss:Height="24">
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Policy ID</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Insurance Line [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project / Job [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Carrier [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Policy # [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Renewal Date [INPUT]</Data></Cell>
@@ -670,6 +686,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-01</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Workers' Compensation (Mandatory)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">All Active Projects / Trades</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ Manufacturers (NJM)</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJM-WC-49821</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-03-31</Data></Cell>
@@ -680,6 +697,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-02</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial General Liability (CGL)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Operations</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Travelers Insurance</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">TRV-GL-88219</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-05-15</Data></Cell>
@@ -690,6 +708,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-03</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Commercial Auto Fleet</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Fleet Vehicles</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Progressive Commercial</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">PRG-CA-33910</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-06-30</Data></Cell>
@@ -699,8 +718,9 @@ $xml = @"
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-04</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Professional Liability (E&amp;O)</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">The Hartford</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Project Surety Bond (Performance &amp; Payment)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cleanroom Wiring Phase 1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Travelers Bond &amp; Specialty</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">HTF-EO-19044</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-08-01</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3200.00</Data></Cell>
@@ -709,8 +729,9 @@ $xml = @"
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">INS-05</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cyber &amp; Data Breach</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Chubb Insurance</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Builder's Risk Policy (Project-Specific)</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Warehouse LED Retrofit</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">The Hanover Insurance Group</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">CHB-CY-99411</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">2026-09-30</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2100.00</Data></Cell>
@@ -719,9 +740,9 @@ $xml = @"
    </Row>
    <!-- TOTALS -->
    <Row ss:Height="22">
-    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL INSURANCE</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">25100.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">2091.67</Data></Cell>
+    <Cell ss:MergeAcross="5" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL INSURANCE</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">25100.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">2091.67</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>
   </Table>
@@ -735,6 +756,7 @@ $xml = @"
    <Column ss:Width="80"/>
    <Column ss:Width="140"/>
    <Column ss:Width="160"/>
+   <Column ss:Width="180"/>
    <Column ss:Width="120"/>
    <Column ss:Width="110"/>
    <Column ss:Width="120"/>
@@ -746,6 +768,7 @@ $xml = @"
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Pay ID</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Personnel Name [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Role [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project / Job [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Classification [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Gross Pay ($) [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Employer Taxes [fx]</Data></Cell>
@@ -758,6 +781,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-101</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Elena Rostova</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Senior Project Engineer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cleanroom Wiring Phase 1</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4600.00</Data></Cell>
     <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">501.40</Data></Cell>
@@ -770,6 +794,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-102</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Carlos Mendez</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Lead Systems Technician</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Facility HVAC Upgrade</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3750.00</Data></Cell>
     <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">408.75</Data></Cell>
@@ -782,6 +807,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-103</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">David Kim</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Field Installer</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Warehouse LED Retrofit</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">W-2 Full Time</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2900.00</Data></Cell>
     <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">316.10</Data></Cell>
@@ -794,6 +820,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-104</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Apex Fiber Optics NJ LLC</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Splicing Subcontractor</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Cleanroom Wiring Phase 1</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">1099-NEC Contractor</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3800.00</Data></Cell>
     <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">0.00</Data></Cell>
@@ -806,6 +833,7 @@ $xml = @"
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">PAY-105</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Andres M.</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Managing Member</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Owner Draw</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6000.00</Data></Cell>
     <Cell ss:StyleID="FormulaCell" ss:Formula="=IF(LEFT(RC[-2],3)=&quot;W-2&quot;, RC[-1]*0.109, 0)"><Data ss:Type="Number">0.00</Data></Cell>
@@ -816,12 +844,12 @@ $xml = @"
    </Row>
    <!-- TOTALS -->
    <Row ss:Height="22">
-    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL PAYROLL BURDEN</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R6C5)"><Data ss:Type="Number">21050.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">1226.25</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">1650.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">23926.25</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">18300.00</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL PAYROLL BURDEN</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R6C6)"><Data ss:Type="Number">21050.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">1226.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R6C8)"><Data ss:Type="Number">1650.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R6C9)"><Data ss:Type="Number">23926.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R6C10)"><Data ss:Type="Number">18300.00</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>
   </Table>
@@ -834,6 +862,7 @@ $xml = @"
   <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
    <Column ss:Width="90"/>
    <Column ss:Width="200"/>
+   <Column ss:Width="180"/>
    <Column ss:Width="160"/>
    <Column ss:Width="85"/>
    <Column ss:Width="110"/>
@@ -843,6 +872,7 @@ $xml = @"
    <Row ss:Height="24">
     <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Account ID</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Provider / Service [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Project / Job [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Category [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Cycle [INPUT]</Data></Cell>
     <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Budgeted ($) [INPUT]</Data></Cell>
@@ -853,6 +883,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-01</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">PSE&amp;G Electric &amp; Gas</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Power &amp; Gas</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">680.00</Data></Cell>
@@ -863,6 +894,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-02</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">NJ American Water</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Water &amp; Sewer</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">110.00</Data></Cell>
@@ -873,6 +905,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-03</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Verizon Fios Gigabit Commercial</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Internet / Telecom</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">240.00</Data></Cell>
@@ -883,6 +916,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-04</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">QuickBooks Online Advanced</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Software SaaS</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">260.00</Data></Cell>
@@ -893,6 +927,7 @@ $xml = @"
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-05</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Google Workspace &amp; M365</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">General Overhead</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Software SaaS</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">180.00</Data></Cell>
@@ -902,7 +937,8 @@ $xml = @"
    </Row>
    <Row>
     <Cell ss:StyleID="StandardCell"><Data ss:Type="String">UTL-06</Data></Cell>
-    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Waste Management Commercial</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Waste Management 30-Yd Dumpster</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Facility HVAC Upgrade</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Waste &amp; Recycling</Data></Cell>
     <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Oct 2025</Data></Cell>
     <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">220.00</Data></Cell>
@@ -912,17 +948,248 @@ $xml = @"
    </Row>
    <!-- TOTALS -->
    <Row ss:Height="22">
-    <Cell ss:MergeAcross="3" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL UTILITIES</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R7C5)"><Data ss:Type="Number">1690.00</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R7C6)"><Data ss:Type="Number">1717.99</Data></Cell>
-    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R7C7)"><Data ss:Type="Number">27.99</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL UTILITIES</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R7C6)"><Data ss:Type="Number">1690.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R7C7)"><Data ss:Type="Number">1717.99</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R7C8)"><Data ss:Type="Number">27.99</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+
+ <!-- ========================================== -->
+ <!-- TAB 9: PROJECT JOB COSTING (V1.6.1)       -->
+ <!-- ========================================== -->
+ <Worksheet ss:Name="Project Job Costing">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="200"/>
+   <Column ss:Width="180"/>
+   <Column ss:Width="125"/>
+   <Column ss:Width="125"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="135"/>
+   <Column ss:Width="125"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="140"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Project / Contract</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Customer Account [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Contract Value ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Collected in Bank ($) [INPUT]</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Materials COGS ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Labor &amp; Subs ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Fleet &amp; Tolls ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Facility &amp; Yard ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Insurance &amp; Bonds ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderFillable"><Data ss:Type="String">Site Utilities ($)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Project Costs ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Net Profit ($) [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Margin % [fx]</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Health Status</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Facility HVAC Upgrade</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Horizon Healthcare NJ</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">14500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">14500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4530.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4158.75</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">358.50</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">480.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">9527.25</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">4972.75</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">34.30</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟡 Moderate (34.3%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Cleanroom Wiring Phase 1</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Rutgers Innovation Lab</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">21800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">10900.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">10540.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">12117.50</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">230.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1850.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">340.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">25077.50</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">-3277.50</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">-15.03</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🔴 Low Margin (&lt;15%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Warehouse LED Retrofit</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Bergen Logistics Center</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18200.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9100.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5450.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">291.50</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">950.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">950.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">10141.50</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">8058.50</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">44.28</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Emergency Electrical Repair</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Hoboken Waterfront Retail</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">890.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">77.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">967.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">2833.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">74.55</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Office Partition &amp; Paint</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Prudential Plaza Tenant Build</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">26500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">26500.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">100.00</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Restaurant Hood Installation</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Jersey Shore Hospitality</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2100.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">2100.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">7300.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">77.66</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Nurse Station Signaling</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Morristown Medical Pavilion</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">12400.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">12400.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">100.00</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Subpanel Power Expansion</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Metropolitan Retail Properties</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1850.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">1850.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">4650.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">71.54</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Server Room Cooling</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Princeton BioTech Labs</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">16000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">16000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">6100.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">6100.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">9900.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">61.88</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Fire Damper Inspection &amp; Fix</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Newark Gateway Towers</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">22000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">22000.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">22000.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">100.00</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Fiber Optic Backbone</Data></Cell>
+    <Cell ss:StyleID="InputCellText"><Data ss:Type="String">Edison Tech Hub</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18500.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4800.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=SUM(RC[-6]:RC[-1])"><Data ss:Type="Number">4800.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=RC[-9]-RC[-1]"><Data ss:Type="Number">13700.00</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=IF(RC[-10]&gt;0, (RC[-1]/RC[-10])*100, 0)"><Data ss:Type="Number">74.05</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">🟢 Healthy (≥35%)</Data></Cell>
+   </Row>
+   <!-- TOTALS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTALS</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C3:R12C3)"><Data ss:Type="Number">169600.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C4:R12C4)"><Data ss:Type="Number">104200.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C5:R12C5)"><Data ss:Type="Number">36260.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C6:R12C6)"><Data ss:Type="Number">18776.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R12C7)"><Data ss:Type="Number">957.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C8:R12C8)"><Data ss:Type="Number">950.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C9:R12C9)"><Data ss:Type="Number">2800.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C10:R12C10)"><Data ss:Type="Number">820.00</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C11:R12C11)"><Data ss:Type="Number">60563.25</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C12:R12C12)"><Data ss:Type="Number">109036.75</Data></Cell>
+    <Cell ss:StyleID="TotalsLabel" ss:Formula="=IF(R13C3&gt;0, (R13C12/R13C3)*100, 0)"><Data ss:Type="Number">64.29</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
    </Row>
   </Table>
  </Worksheet>
 
  <!-- ========================================== -->
- <!-- TAB 9: NJ TAXES & COMPLIANCE               -->
+ <!-- TAB 10: NJ TAXES & COMPLIANCE               -->
  <!-- ========================================== -->
  <Worksheet ss:Name="NJ Taxes &amp; Compliance">
   <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">

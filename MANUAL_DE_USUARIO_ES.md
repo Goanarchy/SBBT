@@ -1,6 +1,6 @@
-# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.6.0)
+# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.6.1)
 **Sistema de Control Financiero Ejecutivo para Pequeñas Empresas y Contratistas de New Jersey**  
-*Versión Oficial: 1.6.0*  
+*Versión Oficial: 1.6.1*  
 *Autor e Ingeniero Principal: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Soporte Directo: `andres00787@gmail.com`*
 
 ---
@@ -11,23 +11,23 @@
 ---
 
 ## 🎯 Propósito de este Manual
-Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.6.0)** sin enredos técnicos ni dolores de cabeza contables.
+Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.6.1)** sin enredos técnicos ni dolores de cabeza contables.
 
 Al seguir esta guía aprenderás a:
 1. **Administrar Contratos, Anticipos y Facturación Progresiva**: Controlar cuentas de usuarios, depósitos iniciales, pagos progresivos y saldos pendientes, con la nueva opción de estado `"Accepted"` para contratos o propuestas aprobadas.
-2. **Calcular la Rentabilidad Real de Obra (Job Costing)**: Vincular tus facturas de usuarios con tus órdenes de compra de materiales y facturas de subcontratistas que tengan el mismo **Nombre de Proyecto (PROJECT)** para calcular el margen neto en dólares ($) y porcentaje (%) al instante.
+2. **Calcular el Costeo Universal de Obra por Proyectos (Job Costing)**: Vincular tus contratos y facturas con los gastos de las 6 disciplinas (materiales y compras directas, nómina y subcontratistas 1099, peajes E-ZPass y gasolina, patios de acopio y almacén de obra, fianzas de cumplimiento y pólizas de seguro de proyecto, y servicios de obra como luz provisional y contenedores de escombros) que compartan el mismo **PROJECT** para calcular la rentabilidad neta real ($) y el margen (%) al instante.
 3. **Dominar el Balance General Ejecutivo (Estándar Harvard Business School)**: Controlar tus Activos, Pasivos y Patrimonio bajo la ecuación $\text{Activos} = \text{Pasivos} + \text{Patrimonio}$, supervisar tu capital de trabajo, ratio circulante ($\ge 1.5x$) y generar estados formales para bancos.
 4. **Monitorear Indicadores con Precisión de Exchange de Trading**: Visualizar tus signos vitales financieros en cuadros compactos tipo terminal bursátil que eliminan números y textos sueltos o desordenados.
 5. **Utilizar Pestañas de Navegación Dinámicas**: Habilitar únicamente los módulos que tu negocio realmente utiliza; las pestañas inactivas desaparecen inmediatamente de la barra superior para mantener tu espacio de trabajo enfocado y limpio.
 6. **Aplicar la Exención de Mejora de Capital de NJ (Formulario ST-8 al 0% de Sales Tax)**: Eximir legalmente del 6.625% de impuesto sobre ventas las obras de construcción y remodelación permanente bajo la ley N.J.S.A. 54:32B-3 con total respaldo ante auditorías.
 7. **Activar el Centinela de Seguros de Subcontratistas 1099**: Detectar subcontratistas sin seguro vigente (COI) en color rojo antes de que la auditoría anual de Workers' Comp de Nueva Jersey te aplique multas y recargos patronales.
 8. **Generar Facturas y Presupuestos Imprimibles en 1 Clic**: Producir documentos PDF profesionales con formato formal listos para entregar al usuario o imprimir.
-9. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro de cálculo complementario `NJ_Small_Business_Budget_v1.6.0.xls` con protección nativa que bloquea fórmulas y deja libres las celdas de entrada.
+9. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro complementario `NJ_Small_Business_Budget_v1.6.1.xls` con protección de fórmulas, celdas celestes de entrada y una hoja dedicada exclusiva de **Project Job Costing** que consolida el análisis de cada proyecto.
 
 ---
 
 ## 📦 Qué Hacer con los Archivos al Recibirlos por Correo o Enlace
-Cuando descargues el paquete oficial (`SBBT_v1.6.0_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
+Cuando descargues el paquete oficial (`SBBT_v1.6.1_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
 
 ```mermaid
 flowchart LR
@@ -35,9 +35,9 @@ flowchart LR
     B --> C["3. Doble clic en index.html"]
 ```
 
-1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.6.0_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
+1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.6.1_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
 2. **Abrir el Tablero Web**: Haz doble clic en el archivo **`index.html`**. Se abrirá de inmediato en Google Chrome, Microsoft Edge, Safari, Brave o Mozilla Firefox.
-3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.6.0.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
+3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.6.1.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
 
 > [!IMPORTANT]
 > **Cero Instalación y Privacidad Total**: No necesitas servidores, bases de datos ni conexión a internet. La aplicación corre 100% dentro de tu navegador de manera privada y segura. Tus números financieros confidenciales jamás salen de tu computadora.

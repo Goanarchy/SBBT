@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.6.0";
+    this.version = "1.6.1";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -985,6 +985,7 @@ function updateAutocompleteDatalists() {
     ...(store.data.payroll || []).map(p => p.jobName || p.project),
     ...(store.data.fleet || []).map(f => f.jobName || f.project),
     ...(store.data.facility || []).map(f => f.jobName || f.project),
+    ...(store.data.insurance || []).map(i => i.jobName || i.project),
     ...(store.data.utilities || []).map(u => u.jobName || u.project)
   ];
 
@@ -3521,50 +3522,111 @@ function renderArAlertBanner(kpis) {
 // ==========================================================================
 // Job Costing & Project Profitability Analysis (Direct Invoicing to COGS Link)
 // ==========================================================================
+// UNIVERSAL CROSS-DISCIPLINE JOB COSTING ENGINE (V1.6.1)
+// Aggregates ALL 6 cost disciplines: Materials, Labor/Subs, Fleet/Tolls,
+// Dedicated Facility, Insurance/Bonds, and Site Utilities.
+// ==========================================================================
 function calculateJobCosting() {
   const projectsMap = {};
 
-  // Aggregate billings from revenue
-  (store.data.revenue || []).forEach(r => {
-    const pName = (r.jobName || r.project || "").trim();
-    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
-
+  // Helper to ensure project entry exists
+  const ensureProject = (pName, fallbackClient = "Client Account") => {
     if (!projectsMap[pName]) {
       projectsMap[pName] = {
         project: pName,
-        client: r.client || "User Account",
+        client: fallbackClient,
         contractBilled: 0,
         collected: 0,
         deposit: 0,
         directCosts: 0,
-        status: r.status || "Active"
+        costBreakdown: {
+          cogs: 0,
+          payroll: 0,
+          fleet: 0,
+          facility: 0,
+          insurance: 0,
+          utilities: 0
+        },
+        status: "Active"
       };
     }
-    const f = store.calculateFormulas("revenue", r);
+  };
+
+  // 1. Invoiced Billings from Revenue
+  (store.data.revenue || []).forEach(r => {
+    const pName = (r.jobName || r.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName, r.client || "Client Account");
+    if (r.client) projectsMap[pName].client = r.client;
     projectsMap[pName].contractBilled += Number(r.grossBilled) || 0;
     projectsMap[pName].collected += Number(r.amountReceived) || 0;
     projectsMap[pName].deposit += Number(r.depositReceived) || 0;
     if (r.status === "Accepted") projectsMap[pName].status = "Accepted 🤝";
     else if (r.status === "Overdue") projectsMap[pName].status = "Overdue ⚠️";
+    else if (r.status) projectsMap[pName].status = r.status;
   });
 
-  // Aggregate direct costs from COGS
+  // 2. Direct Materials (COGS)
   (store.data.cogs || []).forEach(c => {
     const pName = (c.jobName || c.project || "").trim();
-    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project")) return;
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const cost = Number(c.amount) || 0;
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.cogs += cost;
+  });
 
-    if (!projectsMap[pName]) {
-      projectsMap[pName] = {
-        project: pName,
-        client: "User Account",
-        contractBilled: 0,
-        collected: 0,
-        deposit: 0,
-        directCosts: 0,
-        status: "In Progress"
-      };
-    }
-    projectsMap[pName].directCosts += Number(c.amount) || 0;
+  // 3. Labor & Subcontractors (Payroll)
+  (store.data.payroll || []).forEach(p => {
+    const pName = (p.jobName || p.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const f = store.calculateFormulas("payroll", p);
+    const cost = f.totalCost || Number(p.grossPay) || 0;
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.payroll += cost;
+  });
+
+  // 4. Fleet, Fuel & NJ Tolls
+  (store.data.fleet || []).forEach(f => {
+    const pName = (f.jobName || f.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const form = store.calculateFormulas("fleet", f);
+    const cost = form.totalCost || (Number(f.gasExpense || 0) + Number(f.tollsParking || 0));
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.fleet += cost;
+  });
+
+  // 5. Facility, Shop & Yard Staging
+  (store.data.facility || []).forEach(fac => {
+    const pName = (fac.jobName || fac.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const cost = Number(fac.actualPaid) || Number(fac.budgeted) || 0;
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.facility += cost;
+  });
+
+  // 6. Insurance & Project Surety Bonds
+  (store.data.insurance || []).forEach(ins => {
+    const pName = (ins.jobName || ins.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const f = store.calculateFormulas("insurance", ins);
+    const cost = Number(ins.annualPremium) || f.monthlyAllocation || 0;
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.insurance += cost;
+  });
+
+  // 7. Site Utilities, Dumpsters & Dedicated Software
+  (store.data.utilities || []).forEach(u => {
+    const pName = (u.jobName || u.project || "").trim();
+    if (!pName || pName.toLowerCase().includes("general") || pName.toLowerCase().includes("non-project") || pName === "— None / General Overhead —") return;
+    ensureProject(pName);
+    const cost = Number(u.actualAmount) || Number(u.budgeted) || 0;
+    projectsMap[pName].directCosts += cost;
+    projectsMap[pName].costBreakdown.utilities += cost;
   });
 
   return Object.values(projectsMap).map(p => {
@@ -3578,6 +3640,17 @@ function calculateJobCosting() {
   });
 }
 
+window.openProjectCostReviewAudit = function(projectName) {
+  setActiveTab('cost-review');
+  setTimeout(() => {
+    const sel = document.getElementById("cost-review-project-select");
+    if (sel) {
+      sel.value = projectName;
+      renderProjectCostReview(projectName);
+    }
+  }, 20);
+};
+
 function renderJobCostingAnalysis() {
   const wrap = document.getElementById("job-costing-table-wrap");
   if (!wrap) return;
@@ -3585,8 +3658,11 @@ function renderJobCostingAnalysis() {
   const projects = calculateJobCosting();
   if (projects.length === 0) {
     wrap.innerHTML = `
-      <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 12px;">
-        No active projects assigned yet. Assign a <strong>Project Name</strong> to your Invoices and Material COGS entries to automatically track contract profitability and gross margins here!
+      <div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; background:var(--bg-card); border:1px dashed var(--border-light); border-radius:8px;">
+        <span style="font-size:24px;">🏗️</span>
+        <div style="margin-top:6px; font-weight:700; color:var(--text-main);">No active projects assigned yet.</div>
+        <p style="margin:4px auto 12px; max-width:440px; font-size:11.5px;">Assign a <strong>Project / Job Name</strong> to your Invoices and any expense (Materials, Labor, Fleet/Tolls, Bonds, Staging) to automatically track complete job profitability here!</p>
+        <button class="btn btn-primary" style="font-size:11px; padding:5px 12px;" onclick="switchToTab('revenue'); openAddModal('revenue');">➕ Create First Project</button>
       </div>
     `;
     return;
@@ -3597,13 +3673,14 @@ function renderJobCostingAnalysis() {
       <thead>
         <tr>
           <th>Project / Contract</th>
-          <th>User / Account</th>
+          <th>Customer Account</th>
           <th style="text-align: right;">Contract Value</th>
           <th style="text-align: right;">Collected</th>
-          <th style="text-align: right;">Direct COGS</th>
+          <th style="text-align: right;">Total Costs (All Disciplines)</th>
           <th style="text-align: right;">Net Margin ($)</th>
           <th style="text-align: right;">Margin %</th>
           <th style="text-align: center;">Profitability Health</th>
+          <th style="text-align: center; width:80px;">Audit</th>
         </tr>
       </thead>
       <tbody>
@@ -3619,16 +3696,28 @@ function renderJobCostingAnalysis() {
       healthBadge = `<span style="background:#fee2e2; color:#b91c1c; font-weight:800; font-size:10.5px; padding:3px 8px; border-radius:12px; border:1px solid #fca5a5;">🔴 Low Margin (${p.marginPct}%)</span>`;
     }
 
+    const b = p.costBreakdown || {};
+    const tooltipText = `Materials: ${formatMoney(b.cogs || 0)} | Labor/Subs: ${formatMoney(b.payroll || 0)} | Fleet/Tolls: ${formatMoney(b.fleet || 0)} | Facility: ${formatMoney(b.facility || 0)} | Insurance: ${formatMoney(b.insurance || 0)} | Utilities: ${formatMoney(b.utilities || 0)}`;
+
     html += `
-      <tr>
-        <td style="font-weight: 700; color: #1e3a8a;">🏗️ ${escapeHtml(p.project)}</td>
+      <tr style="cursor:pointer;" onclick="openProjectCostReviewAudit('${escapeHtml(p.project)}')" title="Click to view detailed itemized audit in Project Cost Review">
+        <td style="font-weight: 700; color: #1e3a8a;">
+          🏗️ <strong>${escapeHtml(p.project)}</strong>
+        </td>
         <td>${escapeHtml(p.client)}</td>
         <td class="cell-number" style="font-weight: 700;">${formatMoney(p.contractBilled)}</td>
         <td class="cell-number" style="color: #16a34a;">${formatMoney(p.collected)}</td>
-        <td class="cell-number" style="color: #d97706;">${formatMoney(p.directCosts)}</td>
+        <td class="cell-number" style="color: #d97706; font-weight:700;" title="${tooltipText}">
+          ${formatMoney(p.directCosts)}
+        </td>
         <td class="cell-number" style="font-weight: 800; color: ${p.netProfit >= 0 ? '#16a34a' : '#dc2626'};">${formatMoney(p.netProfit)}</td>
         <td class="cell-number" style="font-weight: 800;">${p.marginPct}%</td>
         <td class="cell-center">${healthBadge}</td>
+        <td class="cell-center">
+          <button class="btn btn-outline-primary" style="padding:2px 8px; font-size:10px; font-weight:700;" onclick="event.stopPropagation(); openProjectCostReviewAudit('${escapeHtml(p.project)}');">
+            🔍 Audit
+          </button>
+        </td>
       </tr>
     `;
   });
@@ -4001,12 +4090,16 @@ window.renderProjectCostReview = function(selectedProject) {
   const selectEl = document.getElementById("cost-review-project-select");
   if (!container) return;
 
-  // 1. Gather all unique project names from Revenue
-  const allProjects = Array.from(new Set(
-    (store.data.revenue || [])
-      .map(r => (r.jobName || r.project || "").trim())
-      .filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project"))
-  ));
+  // 1. Gather all unique project names across all disciplines
+  const allProjects = Array.from(new Set([
+    ...(store.data.revenue || []).map(r => (r.jobName || r.project || "").trim()),
+    ...(store.data.cogs || []).map(c => (c.jobName || c.project || "").trim()),
+    ...(store.data.payroll || []).map(p => (p.jobName || p.project || "").trim()),
+    ...(store.data.fleet || []).map(f => (f.jobName || f.project || "").trim()),
+    ...(store.data.facility || []).map(fac => (fac.jobName || fac.project || "").trim()),
+    ...(store.data.insurance || []).map(ins => (ins.jobName || ins.project || "").trim()),
+    ...(store.data.utilities || []).map(u => (u.jobName || u.project || "").trim())
+  ])).filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project") && p !== "— None / General Overhead —");
 
   if (allProjects.length === 0) {
     container.innerHTML = `
@@ -4133,6 +4226,23 @@ window.renderProjectCostReview = function(selectedProject) {
         detail: `${u.service || "Provider"} (${u.category || "Utility"})`,
         amount: Number(u.actualAmount) || Number(u.budgeted) || 0,
         status: u.status || "Paid"
+      });
+    }
+  });
+
+  // Insurance & Bonding
+  (store.data.insurance || []).forEach((ins, idx) => {
+    if ((ins.jobName || ins.project || "").trim() === projectToAudit) {
+      const f = store.calculateFormulas("insurance", ins);
+      costLines.push({
+        id: `ins-${ins.id || idx}`,
+        discipline: "Insurance & Bonding",
+        badgeColor: "#0284c7",
+        badgeBg: "#e0f2fe",
+        date: ins.renewalDate || "N/A",
+        detail: `${ins.carrier || "Carrier / Surety"} • ${ins.policyType || "Policy/Bond"}`,
+        amount: Number(ins.annualPremium) || f.monthlyAllocation || 0,
+        status: ins.status || "Active"
       });
     }
   });
@@ -4318,6 +4428,7 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
     ...(store.data.payroll || []).map(p => (p.jobName || p.project || "").trim()),
     ...(store.data.fleet || []).map(f => (f.jobName || f.project || "").trim()),
     ...(store.data.facility || []).map(fac => (fac.jobName || fac.project || "").trim()),
+    ...(store.data.insurance || []).map(ins => (ins.jobName || ins.project || "").trim()),
     ...(store.data.utilities || []).map(u => (u.jobName || u.project || "").trim())
   ])).filter(p => p && !p.toLowerCase().includes("general") && !p.toLowerCase().includes("non-project") && p !== "— None / General Overhead —");
 
@@ -4373,6 +4484,7 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
   let laborCost = 0;
   let fleetCost = 0;
   let facilityCost = 0;
+  let insuranceCost = 0;
   let utilityCost = 0;
 
   (store.data.revenue || []).forEach(r => {
@@ -4408,13 +4520,20 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
     }
   });
 
+  (store.data.insurance || []).forEach(ins => {
+    if ((ins.jobName || ins.project || "").trim() === projName) {
+      const f = store.calculateFormulas("insurance", ins);
+      insuranceCost += Number(ins.annualPremium) || f.monthlyAllocation || 0;
+    }
+  });
+
   (store.data.utilities || []).forEach(u => {
     if ((u.jobName || u.project || "").trim() === projName) {
       utilityCost += Number(u.actualAmount) || Number(u.budgeted) || 0;
     }
   });
 
-  const totalCosts = cogsCost + laborCost + fleetCost + facilityCost + utilityCost;
+  const totalCosts = cogsCost + laborCost + fleetCost + facilityCost + insuranceCost + utilityCost;
   const netProfit = contractVal - totalCosts;
   const marginPct = contractVal > 0 ? ((netProfit / contractVal) * 100).toFixed(1) : "0.0";
 
@@ -4447,9 +4566,9 @@ window.renderAdvancedProjectDeepDive = function(selectedProject) {
   }
 
   const hasData = (totalCosts + Math.max(0, netProfit)) > 0;
-  const chartLabels = ['Materials (COGS)', 'Labor & Subs', 'Fleet & Travel', 'Facility/Utilities', 'Net Profit Margin'];
-  const chartData = hasData ? [cogsCost, laborCost, fleetCost, facilityCost + utilityCost, Math.max(0, netProfit)] : [1, 0, 0, 0, 0];
-  const chartColors = hasData ? ['#3b82f6', '#10b981', '#ec4899', '#f59e0b', '#059669'] : ['#e2e8f0', '#cbd5e1', '#cbd5e1', '#cbd5e1', '#cbd5e1'];
+  const chartLabels = ['Materials (COGS)', 'Labor & Subs', 'Fleet & Tolls', 'Insurance & Bonds', 'Facility & Utilities', 'Net Profit Margin'];
+  const chartData = hasData ? [cogsCost, laborCost, fleetCost, insuranceCost, facilityCost + utilityCost, Math.max(0, netProfit)] : [1, 0, 0, 0, 0, 0];
+  const chartColors = hasData ? ['#3b82f6', '#10b981', '#ec4899', '#0284c7', '#f59e0b', '#059669'] : ['#e2e8f0', '#cbd5e1', '#cbd5e1', '#cbd5e1', '#cbd5e1', '#cbd5e1'];
 
   store.charts.advProjectDonut = new Chart(canvas, {
     type: 'doughnut',
@@ -4581,6 +4700,23 @@ window.openProjectCostAuditReportModal = function(selectedProject) {
         category: u.category || "Service",
         memo: "Dedicated SaaS / Project Utility",
         amount: Number(u.actualAmount) || Number(u.budgeted) || 0,
+        active: !isExcluded
+      });
+    }
+  });
+
+  (store.data.insurance || []).forEach((ins, idx) => {
+    if ((ins.jobName || ins.project || "").trim() === projName) {
+      const rowId = `insurance_${ins.id || idx}`;
+      const f = store.calculateFormulas("insurance", ins);
+      const isExcluded = store.excludedProjectCosts && store.excludedProjectCosts[projName] && store.excludedProjectCosts[projName][rowId];
+      itemizedCosts.push({
+        discipline: "🛡️ Insurance & Bonding",
+        date: ins.renewalDate || "N/A",
+        payee: ins.carrier || "Surety / Insurance Carrier",
+        category: ins.policyType || "Insurance / Bond",
+        memo: "Project Surety Bond / Builder's Risk Allocation",
+        amount: Number(ins.annualPremium) || f.monthlyAllocation || 0,
         active: !isExcluded
       });
     }

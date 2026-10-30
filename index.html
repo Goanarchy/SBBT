@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.6.0. Executive financial control system for NJ Local Businesses & Contractors featuring Harvard Business School standard Balance Sheet, rolling 12-month analytics, project cost review audit reports, cloud tooltips, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.6.0</title>
+  <meta name="description" content="Master Business Dashboard v1.6.1. Executive financial control system for NJ Local Businesses & Contractors featuring Harvard Business School standard Balance Sheet, universal cross-discipline project costing, rolling 12-month analytics, project cost review audit reports, cloud tooltips, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.6.1</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.6.0</span>
+          <span class="badge-version">v1.6.1</span>
           <span class="badge-offline-tag" title="Software 100% Offline y Privado">🔒 100% OFFLINE</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
@@ -84,40 +84,40 @@
       <span>📦</span> Project COGS
       <span class="tab-badge" id="count-cogs">0</span>
     </button>
-    <button class="tab-btn" data-tab="cost-review" id="tab-btn-cost-review">
-      <span>🏗️</span> Project Cost Review
-      <span class="tab-badge" id="count-cost-review" style="background:#0284c7; color:#fff;">Active</span>
+    <button class="tab-btn" data-tab="payroll" id="tab-btn-payroll">
+      <span>👥</span> Payroll & Subs
+      <span class="tab-badge" id="count-payroll">0</span>
     </button>
     <button class="tab-btn" data-tab="fleet" id="tab-btn-fleet">
-      <span>🚗</span> Fleet & Gas
+      <span>🚗</span> Fleet, Gas & Tolls
       <span class="tab-badge" id="count-fleet">0</span>
     </button>
     <button class="tab-btn" data-tab="facility" id="tab-btn-facility">
-      <span>🏢</span> Facility, Mortgage & Rent
+      <span>🏢</span> Facility & Yard
       <span class="tab-badge" id="count-facility">0</span>
     </button>
     <button class="tab-btn" data-tab="insurance" id="tab-btn-insurance">
-      <span>🛡️</span> Insurance
+      <span>🛡️</span> Insurance & Bonds
       <span class="tab-badge" id="count-insurance">0</span>
-    </button>
-    <button class="tab-btn" data-tab="payroll" id="tab-btn-payroll">
-      <span>👥</span> Payroll & Team
-      <span class="tab-badge" id="count-payroll">0</span>
     </button>
     <button class="tab-btn" data-tab="utilities" id="tab-btn-utilities">
       <span>⚡</span> Utilities & SaaS
       <span class="tab-badge" id="count-utilities">0</span>
     </button>
-    <button class="tab-btn" data-tab="taxes" id="tab-btn-taxes">
-      <span>🏛️</span> NJ Taxes
-      <span class="tab-badge" id="count-taxes">0</span>
+    <button class="tab-btn" data-tab="cost-review" id="tab-btn-cost-review" style="border-left: 2px solid #0284c7;">
+      <span>🏗️</span> Project Cost Review
+      <span class="tab-badge" id="count-cost-review" style="background:#0284c7; color:#fff;">Active</span>
     </button>
-    <button class="tab-btn" data-tab="pnl" id="tab-btn-pnl">
+    <button class="tab-btn" data-tab="pnl" id="tab-btn-pnl" style="border-left: 2px solid #10b981;">
       <span>📑</span> 12-Month P&L
     </button>
     <button class="tab-btn" data-tab="balance-sheet" id="tab-btn-balance-sheet">
       <span>⚖️</span> Balance Sheet
       <span class="tab-badge" id="count-balance-sheet" style="background:#10b981; color:#fff;">Live</span>
+    </button>
+    <button class="tab-btn" data-tab="taxes" id="tab-btn-taxes">
+      <span>🏛️</span> NJ Taxes
+      <span class="tab-badge" id="count-taxes">0</span>
     </button>
     <button class="tab-btn" data-tab="tools" id="tab-btn-tools" style="border-left: 2px solid #8b5cf6;">
       <span>⚙️</span> System Tools
