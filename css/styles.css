@@ -2266,37 +2266,56 @@ body[data-theme="dark"] .btn-guide-open-help:hover {
   color: #ffffff;
 }
 
-/* Nav strip of tab pills inside modal */
+/* Nav strip of tab pills inside modal - Pro Executive Redesign (Comfortable, Modern & High-Contrast) */
 .tab-help-nav-strip {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
-  padding: 10px 18px;
-  background: #0f172a;
-  border-bottom: 1px solid #334155;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #090e1a 0%, #1e293b 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-help-nav-strip::-webkit-scrollbar {
+  height: 5px;
+}
+.tab-help-nav-strip::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 .tab-help-pill {
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 22px;
+  font-size: 13px;
   font-weight: 700;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 .tab-help-pill:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 .tab-help-pill.active {
   color: #ffffff;
-  background: #0284c7;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
   border-color: #38bdf8;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.5);
+  transform: translateY(-1px);
 }
 
 /* Modal Content Card Styles */
@@ -3242,3 +3261,328 @@ body[data-theme="dark"] .filter-results-badge.filter-badge-highlight {
 body[data-theme="dark"] .filter-sum-pill {
   color: #4ade80;
 }
+
+
+/* ==========================================================================
+   LUXURY EXECUTIVE LIGHT MODE DESIGN SYSTEM (v1.6.1 Enhanced)
+   Inspired by Stripe Dashboard, Mercury Bank & Linear UI
+   ========================================================================== */
+
+/* 1. Global Light Surfaces & Typography */
+body:not([data-theme="dark"]) {
+  background-color: #f8fafc !important; /* Soft, clean, luminous slate-50 */
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]) .main-wrapper {
+  background-color: transparent !important;
+}
+
+/* 2. Light Mode Table & Grid Styling */
+body:not([data-theme="dark"]) .table-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+body:not([data-theme="dark"]) .spreadsheet-grid thead th {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-bottom: 2px solid #94a3b8 !important;
+  letter-spacing: 0.5px;
+}
+
+body:not([data-theme="dark"]) .spreadsheet-grid thead th.th-fillable {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #7dd3fc !important;
+  border-bottom: 2px solid #0284c7 !important;
+}
+
+body:not([data-theme="dark"]) .spreadsheet-grid tbody td {
+  border: 1px solid #f1f5f9 !important;
+}
+
+body:not([data-theme="dark"]) .spreadsheet-grid tbody tr:hover td {
+  background-color: #f8fafc !important;
+}
+
+body:not([data-theme="dark"]) .cell-editable {
+  background-color: #f0f9ff !important;
+  color: #0284c7 !important;
+  border-color: #bae6fd !important;
+}
+
+body:not([data-theme="dark"]) .cell-formula {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]) .spreadsheet-grid tfoot td {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-top: 2px solid #64748b !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+/* 3. Magnific Left Sidebar in Light Mode (Pristine Crisp Modern SaaS Look) */
+body:not([data-theme="dark"]).skin-magnific .magnific-sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-sidebar-header {
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-brand-name {
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-company-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-company-name {
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-company-lic {
+  color: #64748b !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-group-title {
+  color: #94a3b8 !important;
+  font-weight: 800 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item,
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item-action {
+  color: #334155 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item:hover,
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item-action:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item.active {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.12) !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-badge {
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-nav-item.active .magnific-nav-badge {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-sidebar-footer {
+  border-top: 1px solid #f1f5f9 !important;
+  background: #f8fafc !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-footer-security {
+  color: #166534 !important;
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .btn-magnific-switch-skin {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .btn-magnific-switch-skin:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .btn-magnific-theme {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .btn-magnific-theme:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-collapse-toggle-btn {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+body:not([data-theme="dark"]).skin-magnific .magnific-collapse-toggle-btn:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* 4. Magnific Sticky Topbar in Light Mode */
+body:not([data-theme="dark"]) .magnific-topbar {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+body:not([data-theme="dark"]) .magnific-topbar-menu-btn {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+/* 5. Executive Dashboard & Cards in Light Mode */
+body:not([data-theme="dark"]) .dash-executive-header {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not([data-theme="dark"]) .category-totals-deck {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .cat-total-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .mini-month-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .category-guide-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%) !important;
+  border: 1px solid #bae6fd !important;
+}
+
+body:not([data-theme="dark"]) .discipline-toggle-banner {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .table-toolbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* 6. Form Controls & Dropdowns in Light Mode */
+body:not([data-theme="dark"]) select,
+body:not([data-theme="dark"]) .form-control,
+body:not([data-theme="dark"]) .cat-filter-select,
+body:not([data-theme="dark"]) .table-filter-select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body:not([data-theme="dark"]) .cat-filter-select:focus,
+body:not([data-theme="dark"]) .table-filter-select:focus,
+body:not([data-theme="dark"]) .form-control:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* 7. Classic View Top Bar in Light Mode */
+body:not([data-theme="dark"]) .app-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%) !important;
+  border-bottom: 2px solid #2563eb !important;
+}
+
+body:not([data-theme="dark"]) .tabs-navigation-strip {
+  background: #0f172a !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+body:not([data-theme="dark"]) .tab-btn {
+  background: #1e293b !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+body:not([data-theme="dark"]) .tab-btn:hover {
+  background: #334155 !important;
+  color: #ffffff !important;
+}
+
+body:not([data-theme="dark"]) .tab-btn.active {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 #cbd5e1 transparent #cbd5e1 !important;
+  border-top: 3px solid #2563eb !important;
+}
+
+/* 8. Modals in Light Mode */
+body:not([data-theme="dark"]) .modal-dialog {
+  background: #ffffff !important;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .modal-body {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body:not([data-theme="dark"]) .help-section-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not([data-theme="dark"]) .bs-sentinel-bar.sentinel-balanced {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  border: 1px solid #86efac !important;
+}
+
+body:not([data-theme="dark"]) .bs-kpi-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 9. Tab Guide Modal Navigation Strip in Light Mode */
+body:not([data-theme="dark"]) .tab-help-nav-strip {
+  background: #f1f5f9 !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+}
+
+body:not([data-theme="dark"]) .tab-help-pill {
+  color: #334155 !important;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not([data-theme="dark"]) .tab-help-pill:hover {
+  color: #0f172a !important;
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not([data-theme="dark"]) .tab-help-pill.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+}
+

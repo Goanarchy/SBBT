@@ -1531,6 +1531,10 @@ if (typeof window !== 'undefined') {
 }
 if (typeof global !== 'undefined') {
   global.TAB_HELP_GUIDES = TAB_HELP_GUIDES;
+  global.SAMPLE_DEMO_DATA = SAMPLE_DEMO_DATA;
+  global.SAMPLE_DATA = SAMPLE_DEMO_DATA;
+  global.CLEAN_SEED_DATA = CLEAN_SEED_DATA;
+  global.SEED_DATA = SEED_DATA;
 }
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
@@ -1538,7 +1542,8 @@ if (typeof module !== 'undefined' && module.exports) {
     NJ_BUDGET_CONFIG,
     CATEGORY_GUIDES,
     TAB_HELP_GUIDES,
-    SAMPLE_DATA,
+    SAMPLE_DEMO_DATA,
+    SAMPLE_DATA: SAMPLE_DEMO_DATA,
     CLEAN_SEED_DATA,
     SEED_DATA
   };
