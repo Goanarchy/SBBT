@@ -2399,3 +2399,466 @@ body[data-theme="dark"] .bs-source-pill.contra {
   color: #e2e8f0;
 }
 
+
+/* ==========================================================================
+   MAGNIFIC MODERN SIDEBAR SKIN & DASHBOARD SYSTEM (v1.6.1)
+   Ultra-Modern SaaS Layout inspired by Magnific.com & Linear UI
+   ========================================================================== */
+
+/* Layout Transformation when body.skin-magnific is active */
+body.skin-magnific {
+  display: flex !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--bg-app) !important;
+  overflow-x: hidden !important;
+}
+
+/* In Magnific mode, hide classic top bar and classic horizontal tabs */
+body.skin-magnific .app-header {
+  display: none !important;
+}
+body.skin-magnific .tabs-navigation-strip {
+  display: none !important;
+}
+
+/* When in Classic mode, hide Magnific sidebar and topbar */
+body:not(.skin-magnific) .magnific-sidebar {
+  display: none !important;
+}
+body:not(.skin-magnific) .magnific-topbar {
+  display: none !important;
+}
+
+/* The Magnific Left Sidebar Container */
+.magnific-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 275px;
+  min-width: 275px;
+  max-width: 275px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #090e1a;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Sidebar Light Theme */
+body[data-theme="light"].skin-magnific .magnific-sidebar {
+  background: #0f172a; /* Sophisticated deep slate for executive contrast */
+  border-right: 1px solid #1e293b;
+}
+
+/* Collapsed Sidebar State */
+body.skin-magnific.sidebar-collapsed .magnific-sidebar {
+  width: 74px !important;
+  min-width: 74px !important;
+  max-width: 74px !important;
+}
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-group-title,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-brand-meta,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-company-card,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-item-label,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-nav-badge,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-footer-security,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .btn-magnific-switch-skin span:last-child {
+  display: none !important;
+}
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-nav-item,
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-nav-item-action {
+  justify-content: center !important;
+  padding: 10px 0 !important;
+}
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-item-icon {
+  margin: 0 !important;
+  font-size: 18px !important;
+}
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-brand-row {
+  justify-content: center;
+}
+body.skin-magnific.sidebar-collapsed .magnific-sidebar .magnific-collapse-toggle-btn {
+  transform: rotate(180deg);
+}
+
+/* Sidebar Header & Brand */
+.magnific-sidebar-header {
+  padding: 14px 16px 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.magnific-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.magnific-brand-logo {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0284c7 0%, #3b82f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 14px rgba(2, 132, 199, 0.45);
+}
+.magnific-brand-meta {
+  flex: 1;
+  min-width: 0;
+}
+.magnific-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.magnific-version-tag {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.magnific-offline-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #10b981;
+  letter-spacing: 0.4px;
+  margin-top: 1px;
+}
+.magnific-offline-pill .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+.magnific-collapse-toggle-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+.magnific-collapse-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Company Profile Mini-Widget in Sidebar */
+.magnific-company-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.magnific-company-icon {
+  font-size: 16px;
+}
+.magnific-company-info {
+  flex: 1;
+  min-width: 0;
+}
+.magnific-company-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.magnific-company-lic {
+  font-size: 9.5px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.magnific-company-edit-btn {
+  background: none;
+  border: none;
+  color: #38bdf8;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 11px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+.magnific-company-edit-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+}
+
+/* Sidebar Scrollable Area */
+.magnific-sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+.magnific-sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.magnific-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* Navigation Groups */
+.magnific-nav-group {
+  margin-bottom: 14px;
+}
+.magnific-group-title {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.8px;
+  padding: 4px 10px 6px 10px;
+  text-transform: uppercase;
+}
+
+/* Sidebar Navigation Items */
+.magnific-nav-item,
+.magnific-nav-item-action {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 11px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  margin-bottom: 2px;
+  outline: none;
+}
+.magnific-nav-item:hover,
+.magnific-nav-item-action:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+.magnific-nav-item.active {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, rgba(56, 189, 248, 0.08) 100%);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+.magnific-item-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.magnific-item-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.magnific-nav-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+}
+.magnific-nav-item.active .magnific-nav-badge {
+  background: #0284c7;
+  color: #ffffff;
+}
+.magnific-nav-badge.active-tag {
+  background: #0284c7;
+  color: #ffffff;
+}
+.magnific-nav-badge.balance-tag {
+  background: #10b981;
+  color: #ffffff;
+}
+
+/* Sidebar Footer */
+.magnific-sidebar-footer {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.2);
+}
+.magnific-footer-security {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+.magnific-footer-security .lock-icon {
+  font-size: 12px;
+}
+.magnific-footer-actions {
+  display: flex;
+  gap: 6px;
+}
+.btn-magnific-switch-skin {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-magnific-switch-skin:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+.btn-magnific-theme {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+.btn-magnific-theme:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   MAGNIFIC CONTENT VIEWPORT & TOPBAR
+   ========================================================================== */
+.magnific-layout-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body:not(.skin-magnific) .magnific-layout-content {
+  display: block;
+  width: 100%;
+}
+
+.magnific-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  backdrop-filter: blur(14px);
+  gap: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.magnific-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.magnific-topbar-menu-btn {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.magnific-topbar-menu-btn:hover {
+  background: var(--border-light);
+}
+.magnific-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-main);
+}
+.magnific-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Adjust main wrapper inside skin-magnific */
+body.skin-magnific .main-wrapper {
+  max-width: 100% !important;
+  padding: 16px 24px !important;
+  margin: 0 !important;
+  flex: 1 !important;
+}
+
+/* Skin Selector Button Styles */
+.btn-skin-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+

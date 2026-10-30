@@ -182,6 +182,12 @@ Para prevenir errores contables y brindar claridad visual inmediata, las celdas 
   5. **💡 Consejo Pro del Auditor**: Recomendaciones de expertos para evitar multas, superar auditorías y blindar financieramente la compañía.
 * **Barra de Navegación Horizontal en la Ventana**: Permite explorar las guías de cualquiera de los 13 módulos sin necesidad de cerrar y abrir la ventana.
 
+### 3.18 Interfaz de Doble Skin: Menú Lateral Magnific AI Pro vs. Pestañas Clásicas
+* **Transformación Instantánea en 1 Clic**: Haz clic en el botón **"✨ Skin: Magnific Dashboard"** (en la cabecera, al pie del menú lateral o en *System Tools*) para alternar en cualquier momento entre:
+  - **Modo Clásico**: Pestañas horizontales en la parte superior, ideal para usuarios tradicionales de hojas de cálculo.
+  - **Modo Magnific AI Pro**: Interfaz moderna estilo SaaS con menú lateral izquierdo colapsable, secciones agrupadas (*Command Center*, *Operaciones y Facturas*, *Logística e Instalaciones*, *Inteligencia Financiera*, *Ajustes y Herramientas*), migas de pan dinámicas y mayor amplitud visual para tablas de datos.
+* **Seguridad de Datos y Almacenamiento Persistente**: La herramienta solicita al navegador activar el almacenamiento persistente (`navigator.storage.persist()`), evitando que el navegador borre automáticamente la base de datos local por falta de espacio en disco.
+
 ---
 
 ## 4. Solución de Problemas (Causa y Efecto)

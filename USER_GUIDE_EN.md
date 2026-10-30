@@ -226,6 +226,12 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
   5. **💡 Pro-Auditor Advice**: Strategic financial tips from certified public accountants and auditors to legally minimize tax burdens and insulate your company against liability.
 * **Integrated Tab Selector Strip**: Switch between all 13 guides inside the modal without closing and reopening.
 
+### 3.18 Dual-Skin Interface: Magnific AI Modern Sidebar vs. Classic Contractor Tabs
+* **One-Click Workspace Transformation**: Click **"✨ Skin: Magnific Dashboard"** in the top header, the sidebar footer, or in *System Tools* to toggle between:
+  - **Classic View**: Traditional horizontal tabs strip at the top, familiar to desktop spreadsheet users.
+  - **Magnific AI Pro Sidebar View**: Modern high-end SaaS layout featuring a collapsible vertical left sidebar with grouped navigation (*Command Center*, *Operations & Billing*, *Logistics & Facilities*, *Financial Intelligence*, and *System Tools*), live active breadcrumbs, and expanded table viewport.
+* **Persistent Storage & Data Safety**: All customer financial data remains 100% private in browser storage. The engine automatically calls `navigator.storage.persist()` on launch to protect local records against automated browser storage eviction.
+
 ## 4. Troubleshooting Guide (Cause & Effect)
 
 | Issue Observed | Root Cause | Solution |

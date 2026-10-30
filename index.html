@@ -20,6 +20,196 @@
 </head>
 <body>
 
+  <!-- ====================================================================
+       MAGNIFIC MODERN SIDEBAR (Skin: Magnific AI Pro v1.6.1)
+       ==================================================================== -->
+  <aside class="magnific-sidebar" id="magnific-sidebar">
+    <!-- Brand Header -->
+    <div class="magnific-sidebar-header">
+      <div class="magnific-brand-row">
+        <div class="magnific-brand-logo">
+          <span>MBD</span>
+        </div>
+        <div class="magnific-brand-meta">
+          <div class="magnific-brand-title">
+            <span>Master Dashboard</span>
+            <span class="magnific-version-tag">PRO v1.6.1</span>
+          </div>
+          <div class="magnific-offline-pill">
+            <span class="pulse-dot"></span>
+            <span>100% OFFLINE</span>
+          </div>
+        </div>
+        <button class="magnific-collapse-toggle-btn" id="magnific-collapse-btn" onclick="toggleSidebarCollapse()" title="Colapsar / Expandir Barra Lateral">
+          ◀
+        </button>
+      </div>
+
+      <!-- Company Mini Card -->
+      <div class="magnific-company-card">
+        <div class="magnific-company-icon">🏢</div>
+        <div class="magnific-company-info">
+          <div class="magnific-company-name" id="sidebar-company-name">Garden State Premier Solutions LLC</div>
+          <div class="magnific-company-lic" id="sidebar-company-lic">NJ HIC# 13VH09876500</div>
+        </div>
+        <button class="magnific-company-edit-btn" onclick="openCompanyProfileModal()" title="Editar Perfil de Empresa">✏️</button>
+      </div>
+    </div>
+
+    <!-- Navigation Groups -->
+    <div class="magnific-sidebar-scroll">
+      <!-- Group 1: General -->
+      <div class="magnific-nav-group">
+        <div class="magnific-group-title">COMMAND CENTER</div>
+        <button class="tab-btn magnific-nav-item active" data-tab="dashboard" id="sidebar-btn-dashboard" title="Tablero Financiero Ejecutivo">
+          <span class="magnific-item-icon">📊</span>
+          <span class="magnific-item-label">Executive Dashboard</span>
+        </button>
+      </div>
+
+      <!-- Group 2: Operations & Invoicing -->
+      <div class="magnific-nav-group">
+        <div class="magnific-group-title">OPERATIONS &amp; BILLING</div>
+        <button class="tab-btn magnific-nav-item" data-tab="revenue" id="sidebar-btn-revenue" title="Invoicing, Quotes &amp; Proposals (NJ ST-8)">
+          <span class="magnific-item-icon">💵</span>
+          <span class="magnific-item-label">Invoicing &amp; Sales</span>
+          <span class="magnific-nav-badge" id="count-revenue-sidebar">0</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="cogs" id="sidebar-btn-cogs" title="Direct Job COGS &amp; Materials">
+          <span class="magnific-item-icon">📦</span>
+          <span class="magnific-item-label">Project COGS</span>
+          <span class="magnific-nav-badge" id="count-cogs-sidebar">0</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="payroll" id="sidebar-btn-payroll" title="Payroll, Labor &amp; 1099 Subcontractors">
+          <span class="magnific-item-icon">👥</span>
+          <span class="magnific-item-label">Payroll &amp; Subs</span>
+          <span class="magnific-nav-badge" id="count-payroll-sidebar">0</span>
+        </button>
+      </div>
+
+      <!-- Group 3: Logistics & Facilities -->
+      <div class="magnific-nav-group">
+        <div class="magnific-group-title">LOGISTICS &amp; OVERHEAD</div>
+        <button class="tab-btn magnific-nav-item" data-tab="fleet" id="sidebar-btn-fleet" title="Fleet, Fuel Receipts &amp; NJ Tolls (E-ZPass)">
+          <span class="magnific-item-icon">🚗</span>
+          <span class="magnific-item-label">Fleet, Gas &amp; Tolls</span>
+          <span class="magnific-nav-badge" id="count-fleet-sidebar">0</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="facility" id="sidebar-btn-facility" title="Facility, Commercial Rent &amp; Storage Yards">
+          <span class="magnific-item-icon">🏢</span>
+          <span class="magnific-item-label">Facility &amp; Yard</span>
+          <span class="magnific-nav-badge" id="count-facility-sidebar">0</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="insurance" id="sidebar-btn-insurance" title="Commercial Policies, Workers' Comp &amp; Bonds">
+          <span class="magnific-item-icon">🛡️</span>
+          <span class="magnific-item-label">Insurance &amp; Bonds</span>
+          <span class="magnific-nav-badge" id="count-insurance-sidebar">0</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="utilities" id="sidebar-btn-utilities" title="Site Utilities, PSE&amp;G &amp; Job Dumpsters">
+          <span class="magnific-item-icon">⚡</span>
+          <span class="magnific-item-label">Utilities &amp; SaaS</span>
+          <span class="magnific-nav-badge" id="count-utilities-sidebar">0</span>
+        </button>
+      </div>
+
+      <!-- Group 4: Financial Intelligence -->
+      <div class="magnific-nav-group">
+        <div class="magnific-group-title">FINANCIAL INTELLIGENCE</div>
+        <button class="tab-btn magnific-nav-item" data-tab="cost-review" id="sidebar-btn-cost-review" title="Interactive Job Costing &amp; Budget Audit">
+          <span class="magnific-item-icon">🏗️</span>
+          <span class="magnific-item-label">Project Cost Review</span>
+          <span class="magnific-nav-badge active-tag">Active</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="pnl" id="sidebar-btn-pnl" title="12-Month Profit &amp; Loss Consolidated Rollup">
+          <span class="magnific-item-icon">📑</span>
+          <span class="magnific-item-label">12-Month P&amp;L</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="balance-sheet" id="sidebar-btn-balance-sheet" title="Statement of Financial Position (HBS Standard)">
+          <span class="magnific-item-icon">⚖️</span>
+          <span class="magnific-item-label">Balance Sheet</span>
+          <span class="magnific-nav-badge balance-tag" id="count-balance-sheet-sidebar">Live</span>
+        </button>
+        <button class="tab-btn magnific-nav-item" data-tab="taxes" id="sidebar-btn-taxes" title="NJ Taxes, CBT 6.5% &amp; Safe Harbor Reserves">
+          <span class="magnific-item-icon">🏛️</span>
+          <span class="magnific-item-label">NJ Taxes &amp; Reserves</span>
+          <span class="magnific-nav-badge" id="count-taxes-sidebar">0</span>
+        </button>
+      </div>
+
+      <!-- Group 5: Preferences & Tools -->
+      <div class="magnific-nav-group">
+        <div class="magnific-group-title">SYSTEM &amp; SETTINGS</div>
+        <button class="tab-btn magnific-nav-item" data-tab="tools" id="sidebar-btn-tools" title="Database Backups, Excel Generator &amp; Settings">
+          <span class="magnific-item-icon">⚙️</span>
+          <span class="magnific-item-label">System Tools</span>
+        </button>
+        <button class="magnific-nav-item-action" onclick="openModuleWizardModal()" title="Mostrar u Ocultar Disciplinas">
+          <span class="magnific-item-icon">🎛️</span>
+          <span class="magnific-item-label">Configure Modules</span>
+        </button>
+        <button class="magnific-nav-item-action" onclick="openHowToStartModal()" title="Guía Rápida de Inicio">
+          <span class="magnific-item-icon">💡</span>
+          <span class="magnific-item-label">Quick Start Guide</span>
+        </button>
+        <button class="magnific-nav-item-action" onclick="openHelpManualsModal()" title="Centro de Documentación y Manuales">
+          <span class="magnific-item-icon">❓</span>
+          <span class="magnific-item-label">Documentation Center</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Footer -->
+    <div class="magnific-sidebar-footer">
+      <div class="magnific-footer-security">
+        <span class="lock-icon">🔒</span>
+        <span>Local Database Protected</span>
+      </div>
+      <div class="magnific-footer-actions">
+        <button class="btn-magnific-switch-skin" onclick="toggleSkin()" title="Cambiar a la interfaz clásica de pestañas superiores">
+          <span>🖼️</span> <span>Modo Clásico</span>
+        </button>
+        <button class="btn-magnific-theme" id="sidebar-theme-toggle-btn" onclick="toggleThemeGlobal()" title="Cambiar tema claro / oscuro">
+          <span>🌙</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="magnific-layout-content" id="magnific-layout-content">
+    <!-- Magnific Topbar (Visible when body.skin-magnific) -->
+    <header class="magnific-topbar" id="magnific-topbar">
+      <div class="magnific-topbar-left">
+        <button class="magnific-topbar-menu-btn" onclick="toggleSidebarCollapse()" title="Colapsar / Expandir Barra Lateral">
+          ☰
+        </button>
+        <div class="magnific-breadcrumb" id="magnific-active-breadcrumb">
+          <!-- Dynamically populated via updateMagnificBreadcrumb() -->
+        </div>
+      </div>
+
+      <div class="magnific-topbar-right">
+        <!-- File Operations -->
+        <button class="btn btn-open-file" onclick="openExcelImportModal()" title="Abrir e Importar Hoja de Excel (.xlsx / .xls)">
+          📂 OPEN
+        </button>
+        <button class="btn btn-save-file" onclick="triggerSaveAsNewExcelFile()" title="Guardar como Nuevo Archivo Excel Consecutivo">
+          💾 SAVE AS NEW FILE
+        </button>
+        <button class="btn btn-company-profile-highlight" onclick="openCompanyProfileModal()" title="Editar Perfil de Empresa">
+          🏢 Profile
+        </button>
+        <button class="btn btn-outline-light" id="btn-skin-toggle-topbar" onclick="toggleSkin()" title="Cambiar a Vista Clásica de Pestañas">
+          🖼️ Skin: Clásico
+        </button>
+        <button class="btn btn-outline-light" id="btn-theme-toggle-topbar" onclick="toggleThemeGlobal()" title="Cambiar Tema">
+          🌙 Theme
+        </button>
+        <button class="btn btn-help-corner" onclick="openHelpManualsModal()" title="Ayuda y Manuales">
+          ❓ Help
+        </button>
+      </div>
+    </header>
+
   <!-- Top Executive Header -->
   <header class="app-header">
     <div class="brand-section">
@@ -59,6 +249,9 @@
 
     <!-- Group 3: Utility & Help Actions (Right Corner) -->
     <div class="header-action-group header-group-utils">
+      <button class="btn btn-outline-light" id="btn-skin-toggle" onclick="toggleSkin()" title="Cambiar a la interfaz moderna con menú lateral tipo Magnific AI">
+        ✨ Skin: Magnific Dashboard
+      </button>
       <button class="btn btn-outline-light" id="btn-theme-toggle" title="Switch between Dark Mode and Light Mode">
         🌙 Theme
       </button>
@@ -953,6 +1146,29 @@
 
       <div class="tools-grid">
         
+        <!-- Tool 0: Dashboard Skin & Layout Switcher -->
+        <div class="tool-action-card" style="border: 2px solid #0284c7; background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, rgba(56, 189, 248, 0.08) 100%);">
+          <div>
+            <div class="tool-card-title" style="color: #0369a1;">
+              <span>✨</span> Dashboard Interface Skin &amp; Layout Mode
+            </div>
+            <p class="tool-card-desc">
+              Cambia en cualquier momento la apariencia completa del sistema. Elige entre el diseño clásico de contratista con pestañas superiores o el nuevo panel moderno con barra lateral estilo Magnific AI. 100% compatible y sin recargar:
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;">
+              <button type="button" class="btn btn-outline-dark" id="btn-skin-select-classic" onclick="applySkin('classic')" style="font-size: 11px; padding: 9px; text-align: center; border-radius: 6px;">
+                <strong>🖼️ Vista Clásica</strong><br><span style="font-size: 10px; color: var(--text-muted);">Pestañas horizontales</span>
+              </button>
+              <button type="button" class="btn btn-primary" id="btn-skin-select-magnific" onclick="applySkin('magnific')" style="font-size: 11px; padding: 9px; text-align: center; border-radius: 6px; background: linear-gradient(135deg, #0284c7, #0f172a);">
+                <strong>✨ Menú Lateral Magnific</strong><br><span style="font-size: 10px; opacity: 0.85;">Dashboard SaaS moderno</span>
+              </button>
+            </div>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); text-align: center;">
+            Modo Activo: <strong id="skin-active-mode-label" style="color: #0284c7;">Modo Clásico</strong>
+          </div>
+        </div>
+        
         <!-- Tool 1: Save Backup -->
         <div class="tool-action-card">
           <div>
@@ -1131,6 +1347,7 @@
     </section>
 
   </main>
+  </div> <!-- End .magnific-layout-content -->
 
   <!-- ====================================================================
        DEVELOPER FOOTER & CREDITS

@@ -643,6 +643,8 @@ function formatMoney(num) {
 
 function initUI() {
   initTheme();
+  initSkin();
+  initPersistentStorage();
   setupTabs();
   setupDisciplineToggles();
   setupTooltipSystem();
@@ -1106,15 +1108,26 @@ function initTheme() {
 }
 
 function applyTheme(theme) {
-  const btn = document.getElementById("btn-theme-toggle");
+  const btns = [
+    document.getElementById("btn-theme-toggle"),
+    document.getElementById("btn-theme-toggle-topbar"),
+    document.getElementById("sidebar-theme-toggle-btn")
+  ];
   if (theme === "dark") {
     document.body.setAttribute("data-theme", "dark");
-    if (btn) btn.innerHTML = "☀️ Light";
+    btns.forEach(b => { if (b) b.innerHTML = "☀️ Light"; });
   } else {
     document.body.removeAttribute("data-theme");
-    if (btn) btn.innerHTML = "🌙 Dark";
+    btns.forEach(b => { if (b) b.innerHTML = "🌙 Dark"; });
   }
 }
+
+window.toggleThemeGlobal = function() {
+  const current = document.body.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  const nextTheme = current === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  localStorage.setItem("NJ_THEME", nextTheme);
+};
 
 // ==========================================================================
 // Render 2-Line Magnetic Category Guides
@@ -1161,6 +1174,10 @@ function setupDisciplineToggles() {
     if (tabBtn) {
       tabBtn.style.display = isChecked ? "" : "none";
     }
+    const sidebarBtn = document.getElementById(`sidebar-btn-${d}`);
+    if (sidebarBtn) {
+      sidebarBtn.style.display = isChecked ? "" : "none";
+    }
   });
 
   // If active tab was just hidden, switch back to dashboard
@@ -1206,6 +1223,8 @@ function setActiveTab(tabKey) {
     else pane.classList.remove("active");
   });
 
+  updateMagnificBreadcrumb(tabKey);
+
   if (tabKey === "dashboard") renderDashboard();
   else if (tabKey === "cost-review") renderProjectCostReview();
   else if (tabKey === "balance-sheet") renderBalanceSheet();
@@ -1232,20 +1251,33 @@ function renderTabCounts() {
     bsBadge.style.color = "#ffffff";
   }
 
+  const bsSidebarBadge = document.getElementById("count-balance-sheet-sidebar");
+  if (bsSidebarBadge) {
+    const bs = store.calculateBalanceSheet();
+    bsSidebarBadge.textContent = bs.isBalanced ? "Balanced" : "Check";
+    bsSidebarBadge.style.background = bs.isBalanced ? "#10b981" : "#f59e0b";
+    bsSidebarBadge.style.color = "#ffffff";
+  }
+
   Object.keys(SCHEMA_DEFINITIONS).forEach(key => {
     if (key === "balanceSheet") return;
-    const badge = document.getElementById(`count-${key}`);
-    if (badge) {
-      const isActive = store.data.disciplineStatus ? store.data.disciplineStatus[key] !== false : true;
-      if (!isActive) {
-        badge.textContent = "OFF";
-        badge.style.background = "#64748b";
-      } else {
-        const count = (store.data[key] || []).filter(r => store.matchesPeriod(r)).length;
-        badge.textContent = count;
-        badge.style.background = "";
+    const badges = [
+      document.getElementById(`count-${key}`),
+      document.getElementById(`count-${key}-sidebar`)
+    ];
+    const isActive = store.data.disciplineStatus ? store.data.disciplineStatus[key] !== false : true;
+    badges.forEach(badge => {
+      if (badge) {
+        if (!isActive) {
+          badge.textContent = "OFF";
+          badge.style.background = "#64748b";
+        } else {
+          const count = (store.data[key] || []).filter(r => store.matchesPeriod(r)).length;
+          badge.textContent = count;
+          badge.style.background = "";
+        }
       }
-    }
+    });
   });
 }
 
@@ -5019,5 +5051,136 @@ function renderTabHelpContent(tabKey) {
       </div>
     </div>
   `;
+}
+
+// ==========================================================================
+// MAGNIFIC MODERN SIDEBAR SKIN CONTROLLER (v1.6.1)
+// ==========================================================================
+function initSkin() {
+  const savedSkin = localStorage.getItem("MBD_SKIN_MODE") || "classic";
+  const savedCollapsed = localStorage.getItem("MBD_SIDEBAR_COLLAPSED") === "true";
+  if (savedCollapsed) {
+    document.body.classList.add("sidebar-collapsed");
+  }
+  applySkin(savedSkin);
+  updateCompanyProfileElements();
+  updateMagnificBreadcrumb(store.activeTab || "dashboard");
+}
+
+function applySkin(skin) {
+  const isMagnific = skin === "magnific";
+  if (isMagnific) {
+    document.body.classList.add("skin-magnific");
+  } else {
+    document.body.classList.remove("skin-magnific");
+  }
+  localStorage.setItem("MBD_SKIN_MODE", isMagnific ? "magnific" : "classic");
+
+  // Sync button labels
+  const classicBtn = document.getElementById("btn-skin-toggle");
+  if (classicBtn) {
+    classicBtn.innerHTML = isMagnific ? "🖼️ Skin: Vista Clásica" : "✨ Skin: Magnific Dashboard";
+  }
+  const topbarBtn = document.getElementById("btn-skin-toggle-topbar");
+  if (topbarBtn) {
+    topbarBtn.innerHTML = isMagnific ? "🖼️ Skin: Clásico" : "✨ Skin: Magnific";
+  }
+  const activeLabel = document.getElementById("skin-active-mode-label");
+  if (activeLabel) {
+    activeLabel.textContent = isMagnific ? "Menú Lateral Magnific AI" : "Vista Clásica (Pestañas Superiores)";
+    activeLabel.style.color = isMagnific ? "#0284c7" : "#10b981";
+  }
+
+  // Highlight selected button in System Tools
+  const selectClassic = document.getElementById("btn-skin-select-classic");
+  const selectMagnific = document.getElementById("btn-skin-select-magnific");
+  if (selectClassic && selectMagnific) {
+    if (isMagnific) {
+      selectMagnific.classList.remove("btn-outline-dark");
+      selectMagnific.classList.add("btn-primary");
+      selectClassic.classList.remove("btn-primary");
+      selectClassic.classList.add("btn-outline-dark");
+    } else {
+      selectClassic.classList.remove("btn-outline-dark");
+      selectClassic.classList.add("btn-primary");
+      selectMagnific.classList.remove("btn-primary");
+      selectMagnific.classList.add("btn-outline-dark");
+    }
+  }
+
+  // Ensure active tab is highlighted in both nav bars
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    if (btn.getAttribute("data-tab") === store.activeTab) btn.classList.add("active");
+    else btn.classList.remove("active");
+  });
+
+  updateMagnificBreadcrumb(store.activeTab || "dashboard");
+}
+
+window.toggleSkin = function() {
+  const current = document.body.classList.contains("skin-magnific") ? "magnific" : "classic";
+  const next = current === "magnific" ? "classic" : "magnific";
+  applySkin(next);
+};
+
+window.toggleSidebarCollapse = function() {
+  document.body.classList.toggle("sidebar-collapsed");
+  const isCollapsed = document.body.classList.contains("sidebar-collapsed");
+  localStorage.setItem("MBD_SIDEBAR_COLLAPSED", isCollapsed ? "true" : "false");
+};
+
+function updateMagnificBreadcrumb(tabKey) {
+  const breadcrumb = document.getElementById("magnific-active-breadcrumb");
+  if (!breadcrumb) return;
+
+  const tabInfo = {
+    "dashboard": { icon: "📊", name: "Executive Dashboard", sub: "Command Center" },
+    "revenue": { icon: "💵", name: "Invoicing & Sales", sub: "Proposals & Contracts" },
+    "cogs": { icon: "📦", name: "Direct Project COGS", sub: "Materials & Equipment" },
+    "payroll": { icon: "👥", name: "Payroll & Subcontractors", sub: "Labor & 1099 COI" },
+    "fleet": { icon: "🚗", name: "Fleet, Gas & Tolls", sub: "E-ZPass & Travel" },
+    "facility": { icon: "🏢", name: "Facility, Yard & Rent", sub: "Shop & Real Estate" },
+    "insurance": { icon: "🛡️", name: "Insurance Policies & Bonds", sub: "Commercial Coverage" },
+    "utilities": { icon: "⚡", name: "Utilities & Overhead", sub: "PSE&G & Dumpsters" },
+    "cost-review": { icon: "🏗️", name: "Project Cost Review", sub: "Job Costing Audit" },
+    "pnl": { icon: "📑", name: "12-Month P&L Rollup", sub: "Financial Performance" },
+    "balance-sheet": { icon: "⚖️", name: "Executive Balance Sheet", sub: "GAAP Financial Position" },
+    "taxes": { icon: "🏛️", name: "NJ Taxes & Reserves", sub: "CBT & ST-50 Safe Harbor" },
+    "tools": { icon: "⚙️", name: "System Tools & Backups", sub: "Database Administration" }
+  };
+
+  const t = tabInfo[tabKey] || { icon: "📊", name: "Dashboard", sub: "Overview" };
+  const periodText = (typeof store !== 'undefined' && store.selectedMonth === "ALL") 
+    ? "All Months (YTD)" 
+    : ((typeof store !== 'undefined' && store.selectedMonth === "T12M") 
+        ? "Trailing 12M" 
+        : `Month ${store?.selectedMonth || '10'} • ${store?.selectedYear || '2025'}`);
+
+  breadcrumb.innerHTML = `
+    <span style="font-size: 16px; margin-right: 6px;">${t.icon}</span>
+    <strong style="font-size: 13.5px; color: var(--text-main);">${t.name}</strong>
+    <span style="font-size: 11px; color: var(--text-muted); margin-left: 6px;">(${t.sub})</span>
+    <span style="margin: 0 8px; color: var(--border-grid);">•</span>
+    <span class="badge" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;">📅 ${periodText}</span>
+  `;
+}
+
+function updateCompanyProfileElements() {
+  const p = (typeof store !== 'undefined' && store.companyProfile) ? store.companyProfile : (typeof DEFAULT_COMPANY_PROFILE !== 'undefined' ? DEFAULT_COMPANY_PROFILE : {});
+  const nameEl = document.getElementById("sidebar-company-name");
+  const licEl = document.getElementById("sidebar-company-lic");
+  if (nameEl) nameEl.textContent = p.companyName || "Garden State Premier Solutions LLC";
+  if (licEl) licEl.textContent = p.license || "NJ License / HIC# Pending";
+}
+
+// Persistent Storage & Private Browsing Safeguards
+function initPersistentStorage() {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist().then(granted => {
+        if (granted) console.log("✓ SBBT: Local browser storage marked as PERSISTENT.");
+      });
+    }
+  } catch(e) {}
 }
 
