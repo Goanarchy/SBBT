@@ -735,7 +735,17 @@ input:checked + .slider-switch:before { transform: translateX(20px); }
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 0;
 }
 
 .spreadsheet-grid {
@@ -1733,7 +1743,7 @@ body[data-theme="dark"] .row-cost-excluded {
 }
 
 /* ==========================================================================
-   FLOATING CLOUD TOOLTIPS (Nube Emergente Dinámica junto al Cursor)
+   FLOATING CLOUD TOOLTIPS (Dynamic Cursor-Anchored Popups)
    ========================================================================== */
 .tooltip-cloud {
   position: fixed;
@@ -2216,6 +2226,16 @@ body[data-theme="dark"] .bs-source-pill.contra {
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
   transform: translateY(-1px);
 }
+body[data-theme="dark"] .btn-tab-help {
+  background: rgba(2, 132, 199, 0.18);
+  color: #38bdf8;
+  border-color: #0284c7;
+}
+body[data-theme="dark"] .btn-tab-help:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
 .btn-guide-open-help {
   display: inline-flex;
   align-items: center;
@@ -2235,6 +2255,15 @@ body[data-theme="dark"] .bs-source-pill.contra {
   background: #0284c7;
   color: #ffffff;
   border-color: #0284c7;
+}
+body[data-theme="dark"] .btn-guide-open-help {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+  border-color: #0284c7;
+}
+body[data-theme="dark"] .btn-guide-open-help:hover {
+  background: #0284c7;
+  color: #ffffff;
 }
 
 /* Nav strip of tab pills inside modal */
@@ -2407,7 +2436,7 @@ body[data-theme="dark"] .bs-source-pill.contra {
 
 /* Layout Transformation when body.skin-magnific is active */
 body.skin-magnific {
-  display: flex !important;
+  display: block !important;
   min-height: 100vh !important;
   margin: 0 !important;
   padding: 0 !important;

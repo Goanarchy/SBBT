@@ -946,649 +946,584 @@ const TAB_HELP_GUIDES = {
   "dashboard": {
     "tabKey": "dashboard",
     "tabName": "Executive Dashboard",
-    "tabNameEs": "Tablero Financiero Ejecutivo",
-    "badge": "Pestaña Principal #1",
+    "tabNameEs": "Executive Financial Command Center",
+    "badge": "Primary Hub #1",
     "icon": "📊",
-    "subtitle": "Centro de Mando Ejecutivo, Liquidez en Vivo, Márgenes y Centinela Tributario de New Jersey",
-    "purpose": "Proporciona al dueño de negocio y contratista una radiografía completa de la salud financiera en tiempo real. Responde de inmediato a las tres preguntas críticas: ¿Cuánto dinero tengo en el banco?, ¿Cuánto dinero me deben los clientes? y ¿Cuánto dinero me queda de ganancia neta en cada contrato?",
+    "subtitle": "Real-Time Cash Intelligence, Operating Margins & New Jersey Statutory Tax Sentinel",
+    "purpose": "Provides the business owner and trade contractor with a complete real-time financial x-ray. Instantly answers the three critical operational questions of every enterprise: How much cash is in the bank?, How much money do clients owe us?, and What is our true net profit margin across active projects?",
     "howItWorks": [
       {
-        "step": "Paso 1: Selecciona el Período Fiscal",
-        "desc": "Elige el mes de trabajo (ej. Octubre 2025) o 'T12M' (Trailing 12 Months) para ver los últimos 12 meses acumulados. Todos los números del sistema se sincronizan al instante."
+        "step": "Step 1: Select Fiscal Period",
+        "desc": "Choose your active working month (e.g. October 2025), full-year 'All Months (YTD)', or 'T12M' (Trailing 12 Months) to evaluate your rolling 12-month performance. All metrics synchronize immediately."
       },
       {
-        "step": "Paso 2: Revisa las Tarjetas Bursátiles (Trading Tiles)",
-        "desc": "Compara Total Facturado (Ventas brutas) vs Total Cobrado en Banco (Liquidez real), revisa el margen bruto (meta ≥35%) y la pista de efectivo (Cash Runway en meses)."
+        "step": "Step 2: Review Executive Trading Tiles",
+        "desc": "Compare Total Invoiced (sales volume) against Cash Collected in Bank (actual liquidity), review your gross margin (target ≥35%), and verify your cash runway buffer in months."
       },
       {
-        "step": "Paso 3: Analiza el Job Costing Universal de Proyectos",
-        "desc": "Revisa cada contrato activo. La tabla muestra los cobros, costos de las 6 disciplinas y la ganancia neta. Haz clic en cualquier proyecto para auditarlo en detalle."
+        "step": "Step 3: Analyze Universal Project Job Costing",
+        "desc": "Inspect every active customer contract. The table aggregates cash collected, expenses across all 6 disciplines, and true net profit ($). Click any project to drill directly into its cost audit."
       },
       {
-        "step": "Paso 4: Simula Escenarios en el Simulador 'What-If'",
-        "desc": "Mueve los controles deslizantes para anticipar qué pasaría si tus ventas caen un 15% o si el precio de los materiales sube un 10% antes de tomar decisiones."
+        "step": "Step 4: Model Growth in the What-If Sandbox",
+        "desc": "Adjust the revenue and cost sliders to anticipate what happens if sales drop 15% or if materials spike 10% before committing to capital equipment or hiring."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Regla de Solvencia Operativa (Cash Runway)",
-        "desc": "El IRS y los analistas de crédito exigen demostrar que la empresa mantiene fondos suficientes para cubrir sus obligaciones a corto plazo (mínimo 3 a 6 meses de gastos fijos de supervivencia)."
+        "rule": "Operating Solvency & Cash Runway Rule",
+        "desc": "The IRS and commercial credit underwriters require proof that your business maintains sufficient operating liquidity to meet short-term obligations (minimum 3 to 6 months of fixed survival OpEx)."
       },
       {
-        "rule": "Safe Harbor Sentinel (División de Tributación de NJ)",
-        "desc": "Supervisa que tu cuenta de ahorros para impuestos cubra las obligaciones trimestrales de Sales Tax (ST-50) e impuesto corporativo (CBT 6.5%), evitando sanciones por pago insuficiente."
-      },
-      {
-        "rule": "Control de Cuentas por Cobrar (A/R Aging)",
-        "desc": "Identifica facturas con más de 30 días de retraso para evitar que la falta de cobro destruya el flujo de caja del negocio."
+        "rule": "NJ Safe Harbor Tax Sentinel (Division of Taxation)",
+        "desc": "Monitors that your tax savings reserve covers estimated quarterly Sales Tax (ST-50) and Corporation Business Tax (CBT 6.5%), protecting your company from statutory underpayment penalties."
       }
     ],
-    "mockupTitle": "Vista Ejecutiva del Tablero con Indicadores Clave y Job Costing",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>📊 PANEL DE CONTROL EJECUTIVO (MODO AVANZADO)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 SISTEMA EN LÍNEA (100% OFFLINE)</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px; margin-bottom:12px;\">\n          <div class=\"mockup-cell\" style=\"background:#ffffff; border:1px solid #cbd5e1; border-top:3px solid #1e3a8a; padding:8px;\">\n            <div style=\"font-size:9.5px; color:#64748b; font-weight:700;\">TOTAL FACTURADO</div>\n            <div style=\"font-size:14px; font-weight:800; color:#1e3a8a; font-family:monospace;\">$169,600.00</div>\n            <div style=\"font-size:9px; color:#10b981;\">11 Contratos Activos</div>\n          </div>\n          <div class=\"mockup-cell\" style=\"background:#ffffff; border:1px solid #cbd5e1; border-top:3px solid #10b981; padding:8px;\">\n            <div style=\"font-size:9.5px; color:#64748b; font-weight:700;\">COBRADO EN BANCO</div>\n            <div style=\"font-size:14px; font-weight:800; color:#10b981; font-family:monospace;\">$104,200.00</div>\n            <div style=\"font-size:9px; color:#64748b;\">Efectivo Real en Cuenta</div>\n          </div>\n          <div class=\"mockup-cell\" style=\"background:#ffffff; border:1px solid #cbd5e1; border-top:3px solid #0284c7; padding:8px;\">\n            <div style=\"font-size:9.5px; color:#64748b; font-weight:700;\">MARGEN NETO</div>\n            <div style=\"font-size:14px; font-weight:800; color:#0284c7; font-family:monospace;\">64.3%</div>\n            <div style=\"font-size:9px; color:#0284c7;\">Meta de Industria: ≥35%</div>\n          </div>\n          <div class=\"mockup-cell\" style=\"background:#ffffff; border:1px solid #cbd5e1; border-top:3px solid #7e22ce; padding:8px;\">\n            <div style=\"font-size:9.5px; color:#64748b; font-weight:700;\">PISTA DE EFECTIVO</div>\n            <div style=\"font-size:14px; font-weight:800; color:#7e22ce; font-family:monospace;\">5.8 Meses</div>\n            <div style=\"font-size:9px; color:#10b981;\">🟢 Estado Saludable (>3 Mo)</div>\n          </div>\n        </div>\n\n        <div style=\"font-size:11px; font-weight:800; color:#334155; margin-bottom:6px;\">🏗️ TABLA UNIVERSAL DE COSTEO POR PROYECTO (JOB COSTING)</div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2;\">Facility HVAC Upgrade<br><span style=\"font-size:9px; font-weight:normal; color:#64748b;\">Horizon Healthcare NJ</span></div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"flex:0.8;\">Billed: $14,500.00<br><span style=\"color:#10b981; font-size:9.5px;\">Paid: $14,500.00</span></div>\n          <div class=\"mockup-cell\" style=\"flex:1.5; font-size:10px; background:#f1f5f9; border-radius:4px; padding:4px 8px;\">\n            <div>Progreso de Gastos: <strong>$9,527.25 / $14,500.00</strong></div>\n            <div style=\"background:#e2e8f0; height:6px; border-radius:3px; overflow:hidden; margin-top:3px;\">\n              <div style=\"background:#0284c7; width:65.7%; height:100%;\"></div>\n            </div>\n          </div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"flex:0.8; text-align:right;\">Net: <strong>$4,972.75</strong><br><span class=\"badge\" style=\"background:#fef3c7; color:#b45309; font-size:9px;\">🟡 34.3%</span></div>\n          <div class=\"mockup-cell\" style=\"flex:0.6; text-align:center;\"><span class=\"badge\" style=\"background:#0284c7; color:#fff; font-size:9px; padding:3px 6px;\">🔍 Auditar</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>💡 <strong>Lectura Rápida:</strong> Las tarjetas superiores te informan si tu negocio está en zona segura. La tabla inferior te muestra de inmediato qué contratos son rentables y cuáles están en riesgo de sobrecosto. Haz clic en \"Auditar\" para ver el desglose completo.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Revisa la tarjeta 'Pista de Efectivo' (Cash Runway) todos los lunes. Si baja de 3 meses, prioriza de inmediato la cobranza de facturas vencidas antes de asumir nuevas obligaciones de compra o contratos."
+    "mockupTitle": "Executive Trading Tiles & Universal Job Costing Profitability",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>EXECUTIVE FINANCIAL VITALS (OCTOBER 2025 • NJ COMPLIANCE)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 ALL SYSTEMS SOUND</span>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:12px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b; font-weight:700;\">TOTAL INVOICED</div>\n            <div style=\"font-size:14px; font-weight:900; color:#1e3a8a; font-family:monospace;\">$138,400.00</div>\n            <div style=\"font-size:9.5px; color:#15803d; margin-top:2px;\">↑ 12 Contracts Billed</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b; font-weight:700;\">CASH COLLECTED</div>\n            <div style=\"font-size:14px; font-weight:900; color:#15803d; font-family:monospace;\">$101,460.00</div>\n            <div style=\"font-size:9.5px; color:#0284c7; margin-top:2px;\">73.3% Collection Rate</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b; font-weight:700;\">TOTAL OPERATING COSTS</div>\n            <div style=\"font-size:14px; font-weight:900; color:#b91c1c; font-family:monospace;\">$48,930.50</div>\n            <div style=\"font-size:9.5px; color:#64748b; margin-top:2px;\">Materials, Subs &amp; Tolls</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b; font-weight:700;\">NET CASH PROFIT</div>\n            <div style=\"font-size:14px; font-weight:900; color:#15803d; font-family:monospace;\">$52,529.50</div>\n            <div style=\"font-size:9.5px; color:#15803d; margin-top:2px;\">Net Margin: 51.8%</div>\n          </div>\n        </div>\n\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:2;\">PROJECT / CONTRACT</span>\n          <span style=\"flex:1.2; text-align:right;\">BILLED ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">COLLECTED ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">COSTS ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">PROFIT ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:2; font-weight:700; color:#0369a1;\">INV-2025-01 - Cleanroom Wiring</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$48,500.00</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$48,500.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$18,420.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; color:#15803d;\">+$30,080.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px; font-weight:800;\">🟢 62.0%</span></span>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>💡 <strong>Auditor Observation:</strong> The green badge indicates a profit margin exceeding 35%. Click any project row to drill directly into its comprehensive cost review audit.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Reconcile your Cash Collected against your physical bank statement at the close of every Friday. Bank deposits—not uncollected billing volume—determine your true liquidity, payroll capability, and solvency."
   },
   "revenue": {
     "tabKey": "revenue",
     "tabName": "Invoicing & Sales",
-    "tabNameEs": "Facturación, Contratos y Ventas",
-    "badge": "Pestaña Operativa #2",
+    "tabNameEs": "Customer Invoicing, Quotes & NJ Form ST-8",
+    "badge": "Core Discipline #2",
     "icon": "💵",
-    "subtitle": "Cotizaciones, Contratos de Clientes, Anticipos, Facturas por Avance y Exención NJ ST-8",
-    "purpose": "Es el motor de ingresos de tu empresa. Permite cotizar trabajos, registrar contratos aprobados, registrar anticipos cobrados y emitir facturas en PDF profesionales listas para imprimir. Cada contrato registrado aquí genera un 'PROJECT' que se comparte en automático con todas las demás pestañas para calcular la rentabilidad real de la obra.",
+    "subtitle": "Customer Estimates, Retainers, Progress Billings & NJ Form ST-8 Capital Improvement Compliance",
+    "purpose": "Manages all customer proposals, estimates, signed work orders, and progress billings. Strictly enforces New Jersey Sales and Use Tax compliance by distinguishing taxable repair services from tax-exempt capital improvements.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra una Nueva Propuesta o Contrato",
-        "desc": "Haz clic en '➕ Add Invoice / Contract'. Digita el nombre del cliente y asigna el nombre del Proyecto (PROJECT). El sistema creará un código único consecutivo (ej. INV-2025-01)."
+        "step": "Step 1: Record Proposal or Invoice",
+        "desc": "Click '+ Add Quote / Invoice'. Enter the customer name, invoice date, due date, contract value, and mandatory PROJECT name with auto-consecutive numbering."
       },
       {
-        "step": "Paso 2: Digita el Valor del Contrato y Define el Impuesto",
-        "desc": "En 'Contract Value ($)' digita el precio acordado. En 'Sales Tax Status' selecciona 'NJ ST-8 (0% - Capital Improvement)' si la obra aumenta permanentemente el valor del inmueble, o 'YES (6.625%)' si es gravable."
+        "step": "Step 2: Assign Tax Treatment",
+        "desc": "Select NJ Standard 6.625% for repairs or 'ST-8 (0% - NJ Capital Improvement)' under N.J.S.A. 54:32B-3 for permanent building construction."
       },
       {
-        "step": "Paso 3: Registra el Anticipo Cobrado en Banco",
-        "desc": "En 'Deposit / Paid ($)' escribe el dinero que el cliente ya te pagó. El sistema calcula en automático el saldo pendiente en 'Balance Due ($)'."
+        "step": "Step 3: Update Payment Status",
+        "desc": "Switch from 'Quote / Sent' to 'Accepted' upon customer sign-off, or 'Deposit / Active' and 'Paid in Full' as bank funds clear."
       },
       {
-        "step": "Paso 4: Actualiza el Estado Comercial",
-        "desc": "Elige 'Quote / Sent' para propuestas enviadas, 'Accepted' para contratos aprobados, 'Deposit / Active' para obras en marcha con anticipo, o 'Paid in Full' cuando esté liquidada."
-      },
-      {
-        "step": "Paso 5: Imprime la Factura Formal en PDF",
-        "desc": "Haz clic en el icono de impresora 🖨️ para generar la factura con membrete, términos de pago net-30, licencia HICPA de New Jersey y desglose de alcance listo para el cliente."
+        "step": "Step 4: Generate 1-Click Printable PDF Invoices",
+        "desc": "Click '🖨️ PDF' on any invoice to print or save a formal, branded invoice ready for customer delivery or lender verification."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Ley N.J.S.A. 54:32B-3 (Exención ST-8)",
-        "desc": "En New Jersey, los trabajos de construcción y mejoras permanentes de bienes raíces están legalmente exentos del 6.625% de Sales Tax. Para defenderte en una auditoría estatal, debes tener firmado y en archivo el Formulario ST-8 emitido por el cliente."
+        "rule": "NJ Form ST-8 Capital Improvement Exemption (N.J.S.A. 54:32B-3)",
+        "desc": "Capital improvements in NJ are 0% exempt from Sales Tax ONLY when supported by a fully executed Form ST-8 signed by the property owner before mobilization."
       },
       {
-        "rule": "Separación de Pasivo Fiduciario",
-        "desc": "Si cobras el 6.625% de Sales Tax, la herramienta lo calcula en una columna separada porque ese dinero no es ingreso de la empresa; se debe remitir trimestralmente a Trenton en el Formulario ST-50."
-      },
-      {
-        "rule": "Respaldo Documental de Cuentas por Cobrar (A/R)",
-        "desc": "El saldo pendiente alimenta el Balance General (A/R) y el reporte de envejecimiento de facturas, fundamental para solicitar factoring o líneas bancarias."
+        "rule": "Auditable Billing & Retainer Trail",
+        "desc": "The IRS requires a traceable matching trail between billed invoices, down payments, and matching business bank deposit records."
       }
     ],
-    "mockupTitle": "Fila de Facturación Típica con Celdas Celestes Editables y Exención ST-8",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>💵 REGISTRO DE CONTRATO / FACTURA (INVOICING LEDGER)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Celestes (#E0F2FE) = Editables | Blanco = Fórmulas</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell\" style=\"background:#f1f5f9; font-weight:800; font-family:monospace; color:#0f172a;\">INV-2025-01</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-02</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Horizon Healthcare NJ</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"background:#e0f2fe; color:#0369a1; font-weight:800;\">Facility HVAC Upgrade</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"background:#f0fdf4; color:#15803d; border-color:#86efac; font-weight:700;\">NJ ST-8 (0% - Capital Imp)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$14,500.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#64748b;\">$0.00 (Tax)</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800;\">$14,500.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#10b981; font-weight:800; font-family:monospace;\">$14,500.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#64748b;\">$0.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px; font-weight:800;\">Paid in Full</span></div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><button class=\"btn btn-sm btn-outline-dark\" style=\"font-size:10px; padding:2px 6px;\">🖨️ PDF</button></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Celdas Celestes:</strong> Haz doble clic o clic para editar el cliente, fecha, valor de contrato y depósito recibido.<br>\n          👈 <strong>Exención ST-8:</strong> Aplica 0% legalmente con el formulario oficial de NJ.<br>\n          👈 <strong>Botón PDF:</strong> Genera al instante la factura formal lista para imprimir o enviar al cliente.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Apenas un cliente apruebe tu presupuesto, cambia el estado a 'Accepted'. Eso bloquea el contrato en tu cartera activa y te permite empezar a cargarle recibos de materiales y nómina sin alterar tus cobros bancarios."
+    "mockupTitle": "Customer Invoicing Table with NJ Sales Tax and Status Controls",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>INVOICING &amp; SALES LEDGER (NJ TAX DISCLOSURE)</span>\n          <span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-weight:800; font-size:10px;\">OCTOBER 2025</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1;\">DATE</span>\n          <span style=\"flex:1.8;\">CLIENT &amp; PROJECT</span>\n          <span style=\"flex:1.2; text-align:right;\">BASE ($)</span>\n          <span style=\"flex:1.2;\">TAX CODE</span>\n          <span style=\"flex:1.2; text-align:right;\">TAX ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">TOTAL ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n          <span style=\"flex:1; text-align:center;\">ACTION</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/05/2025</span>\n          <span style=\"flex:1.8; font-weight:700; color:#0369a1;\">Merck Research Labs<br><small style=\"color:#64748b;\">Cleanroom Wiring Phase 1</small></span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$48,500.00</span>\n          <span style=\"flex:1.2;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">ST-8 (0%)</span></span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$0.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$48,500.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10.5px;\">Paid in Full</span></span>\n          <span style=\"flex:1; text-align:center;\"><button class=\"btn btn-primary\" style=\"font-size:10px; padding:2px 8px;\">🖨️ PDF</button></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>⚖️ <strong>Audit Rule:</strong> Notice that selecting 'ST-8 (0%)' calculates exactly $0.00 sales tax. The printable PDF invoice automatically outputs the statutory NJ Form ST-8 exemption clause.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Never mobilize on a capital project exceeding $5,000 without an executed contract and a signed NJ Form ST-8 on file. If the NJ Division of Taxation audits your project, lacking a signed ST-8 automatically converts the entire contract value into a 6.625% sales tax assessment payable out of your profit margin."
   },
   "cogs": {
     "tabKey": "cogs",
-    "tabName": "Project COGS & Materials",
-    "tabNameEs": "Costos Directos de Obra y Materiales (COGS)",
-    "badge": "Pestaña Operativa #3",
+    "tabName": "Direct Project COGS",
+    "tabNameEs": "Direct Job Materials & Subcontractor POs",
+    "badge": "Core Discipline #3",
     "icon": "📦",
-    "subtitle": "Facturas de Proveedores, Materiales, Alquiler de Maquinaria y Fletes por Proyecto",
-    "purpose": "Registra todas las compras de materiales, suministros, alquiler de maquinaria y órdenes de compra que se consumen directamente en tus obras. Este valor se resta directamente de tus ventas brutas para determinar la Ganancia Bruta (Gross Profit) del negocio.",
+    "subtitle": "Vendor Material Bills, Direct Supplies, Equipment Rentals & Subcontractor POs",
+    "purpose": "Captures every dollar spent directly on jobs to compute authentic gross profit margins. Ensures all supplier invoices, lumber, electrical fixtures, mechanical parts, and rental equipment are assigned directly to the client contract that consumed them.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra la Compra o Recibo de Material",
-        "desc": "Haz clic en '➕ Add Material / Subcontractor Bill'. Anota el número de PO o factura del proveedor y la fecha de compra."
+        "step": "Step 1: Log Material Bills & Receipts",
+        "desc": "Click '+ Add Expense Bill / PO'. Enter date, vendor name, invoice reference #, and total billed amount."
       },
       {
-        "step": "Paso 2: Asigna el PROJECT Correspondiente",
-        "desc": "Escribe o selecciona en el autocompletado el nombre del Proyecto al que pertenece el material (ej. Facility HVAC Upgrade). Esto garantiza que el costo se impute al contrato correcto."
+        "step": "Step 2: Assign the Matching Project",
+        "desc": "Select the active PROJECT from the autocomplete dropdown. This immediately routes the cost into that project's Job Costing budget."
       },
       {
-        "step": "Paso 3: Selecciona Proveedor y Categoría",
-        "desc": "Indica el proveedor (ej. Grainger, Anixter, Sunbelt Rentals) y la categoría de gasto (Raw Materials, Hardware & Parts, Equipment Rental, Freight)."
-      },
-      {
-        "step": "Paso 4: Digita el Costo y el Estado de Pago",
-        "desc": "Ingresa el valor total en 'Bill Cost ($)'. Elige 'Paid' si lo pagaste con tarjeta/cheque de la empresa o 'Pending / Net 30' si es una compra a crédito a pagar en 30 días."
+        "step": "Step 3: Track Payment Status",
+        "desc": "Mark as 'Paid / Cleared' if paid via debit/check, or 'Pending / Net 30' if awaiting payment to accurately feed Accounts Payable."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Deducibilidad Directa IRC §162 (COGS)",
-        "desc": "El IRS permite deducir al 100% los materiales directamente consumidos en contratos contra el ingreso bruto para calcular la utilidad imponible."
+        "rule": "IRC §6001 Itemized Receipt Retention",
+        "desc": "Credit card statements are insufficient for IRS audits; you must retain itemized vendor invoices displaying the date, supplier, item description, and total cost."
       },
       {
-        "rule": "Créditos Comerciales y Cuentas por Pagar (A/P)",
-        "desc": "Las facturas marcadas como 'Pending / Net 30' alimentan automáticamente las Cuentas por Pagar en el Balance General, reflejando tus pasivos corrientes exactos ante bancos."
-      },
-      {
-        "rule": "Segregación de Gastos Operativos",
-        "desc": "No mezcles suministros de oficina o papelería aquí; esta pestaña es exclusivamente para costos directos de proyectos."
+        "rule": "COGS vs Capitalized Equipment Segregation",
+        "desc": "Consumables and equipment under $2,500 qualify for immediate expensing under the IRS Safe Harbor De Minimis election; major equipment exceeding $2,500 must be capitalized."
       }
     ],
-    "mockupTitle": "Registro de Compra de Materiales con Tag de Proyecto y Proveedor de NJ",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>📦 FACTURAS DE MATERIALES Y COMPRAS DE OBRA (DIRECT COGS)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Alimenta la Ganancia Bruta y el Job Costing</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell\" style=\"background:#f1f5f9; font-weight:800; font-family:monospace; color:#0f172a;\">PO-2025-01</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-04</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#0369a1;\">Facility HVAC Upgrade</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:700;\">Grainger Industrial NJ</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#475569;\">Hardware &amp; Parts</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace; color:#0f172a;\">$3,850.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px; font-weight:800;\">Paid</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Tag de Proyecto (PROJECT):</strong> Al escribir el mismo nombre que en Facturación, la herramienta descuenta este valor de los ingresos de ese trabajo para decirte exactamente cuánto ganaste.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Guarda siempre una foto o escaneo digital de los recibos de ferretería y compras de mostrador (Home Depot, Lowes, Grainger). Si te audita el IRS, la falta de recibo físico descalifica la deducción aunque figure en el extracto bancario."
+    "mockupTitle": "Direct Project COGS Entry Table with Project Allocation",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>DIRECT PROJECT MATERIALS &amp; COGS LEDGER</span>\n          <span class=\"badge\" style=\"background:#fed7aa; color:#9a3412; font-weight:800; font-size:10px;\">JOB COSTING FEED</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1;\">DATE</span>\n          <span style=\"flex:1.5;\">VENDOR</span>\n          <span style=\"flex:2;\">PROJECT ASSIGNMENT</span>\n          <span style=\"flex:1.8;\">MATERIAL DESCRIPTION</span>\n          <span style=\"flex:1.2; text-align:right;\">AMOUNT ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/08/2025</span>\n          <span style=\"flex:1.5; font-weight:700;\">Cooper Electric Supply</span>\n          <span style=\"flex:2; font-weight:700; color:#0369a1;\">Cleanroom Wiring Phase 1</span>\n          <span style=\"flex:1.8; color:#475569;\">400A Panel &amp; Conduit Runs</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$12,450.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>📦 <strong>Instant Job Costing:</strong> Assigning 'Cleanroom Wiring Phase 1' automatically charges this $12,450.00 against that contract's budget in both the Dashboard and Project Cost Review.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Take a photo of vendor delivery tickets and invoices right at the supply counter. Staple paper receipts to monthly credit card statements. The IRS routinely disallows general retail receipts unless they list the specific materials purchased and project site."
   },
   "payroll": {
     "tabKey": "payroll",
-    "tabName": "Payroll & Subs",
-    "tabNameEs": "Nómina y Subcontratistas 1099 (Centinela COI)",
-    "badge": "Pestaña Operativa #4",
+    "tabName": "Payroll & Subcontractors",
+    "tabNameEs": "W-2 Wages, Taxes & 1099 Subcontractor COI Sentinel",
+    "badge": "Core Discipline #4",
     "icon": "👥",
-    "subtitle": "Sueldos W-2, Carga Patronal del 10.9%, Contratistas 1099 y Centinela de Seguro COI",
-    "purpose": "Administra el pago de tu personal y subcontratistas protegiendo a tu negocio de las severas multas de clasificación de New Jersey. Aplica en automático la carga patronal del 10.9% sobre empleados W-2, supervisa que los subcontratistas 1099 tengan seguro propio (COI) y separa los retiros del dueño (Owner Draw) para no inflar los gastos deducibles.",
+    "subtitle": "W-2 Employee Wages, Employer Tax Burden (FICA/SUI/FLI) & 1099 Subcontractor COI Sentinel",
+    "purpose": "Manages direct employee wages and independent trade subcontractors. Automatically calculates the 10.9% employer payroll tax burden on W-2 wages and deploys a strict insurance sentinel to protect your business against New Jersey Workers' Compensation audit penalties.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra al Empleado o Subcontratista",
-        "desc": "Haz clic en '➕ Add Payee / Subcontractor'. Digita el nombre del trabajador o firma subcontratista y su especialidad/rol."
+        "step": "Step 1: Enter Employee or Subcontractor Wages",
+        "desc": "Click '+ Add Payee'. Enter payee name, role/trade, pay period dates, and gross compensation."
       },
       {
-        "step": "Paso 2: Asigna al PROJECT en el que Trabajó",
-        "desc": "Asigna las horas o la factura del subcontratista al contrato de obra correspondiente."
+        "step": "Step 2: Designate Employment Type",
+        "desc": "Choose 'W-2 Full-Time / Part-Time' to apply the 10.9% employer tax burden, '1099 Independent Subcontractor', or 'Owner Draw'."
       },
       {
-        "step": "Paso 3: Selecciona la Clasificación Fiscal",
-        "desc": "Elige: 'W-2 Full Time' (empleado con retenciones), '1099-NEC Contractor' (subcontratista independiente) o 'Owner Draw' (retiro personal de utilidades del dueño)."
-      },
-      {
-        "step": "Paso 4: Verifica el Certificado de Seguro (1099 COI)",
-        "desc": "Para subcontratistas 1099, marca 'COI Verified (Active)' si te entregaron su póliza de seguro, o 'NO COI (Audit Risk ⚠️)' si no tienen seguro. ¡El sistema te alertará en rojo!"
-      },
-      {
-        "step": "Paso 5: Digita el Sueldo Bruto (Gross Pay)",
-        "desc": "Para empleados W-2, el sistema calcula en automático los impuestos patronales de NJ (10.9%) y el costo total real de la empresa."
+        "step": "Step 3: Enforce Subcontractor Insurance (COI)",
+        "desc": "For 1099 subs, select 'COI Verified' if an active insurance certificate is on file, or 'NO COI (Audit Risk ⚠️)' to flag insurance liabilities in red."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Prueba ABC de New Jersey (N.J.S.A. 43:21-19)",
-        "desc": "New Jersey presume que todo trabajador es empleado W-2 a menos que cumpla estrictamente los 3 criterios de la prueba ABC (autonomía total, servicio fuera del giro usual de tu empresa y negocio propio establecido). Clasificar mal acarrea sanciones severas del NJ Department of Labor."
+        "rule": "1099 vs W-2 Worker Classification (NJ ABC Test)",
+        "desc": "New Jersey applies the strictest worker classification test in the nation; workers are presumed to be W-2 employees unless all 3 prongs of the statutory ABC test are established."
       },
       {
-        "rule": "Centinela de Seguro COI (Auditoría de Workers' Comp)",
-        "desc": "La aseguradora estatal (NJ CRIB) audita tus pagos a subcontratistas. Si un 1099 no tiene Certificado de Seguro de Workers' Comp propio, la aseguradora te cobrará las primas patronales completas con recargo."
-      },
-      {
-        "rule": "Tratamiento de Retiros del Dueño (Owner Draws)",
-        "desc": "El dinero que retiras como dueño de una LLC no es sueldo deducible de nómina; la herramienta lo excluye de los gastos de obra y lo lleva al Balance General como reducción de patrimonio."
+        "rule": "NJ Workers' Compensation Annual Policy Audit (NJ CRIB)",
+        "desc": "If an independent subcontractor cannot produce a valid Certificate of Insurance (COI) for the audit period, your insurance carrier will reclassify 100% of their compensation as payroll and charge retroactive premiums."
       }
     ],
-    "mockupTitle": "Gestión de Nómina con Carga Patronal Automática y Alerta Roja de Seguro COI",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>👥 NÓMINA DE PERSONAL Y SUBCONTRATISTAS (PAYROLL & CONTRACTORS)</span>\n          <span style=\"font-size:10px; color:#ef4444; font-weight:800;\">Auditoría Activa de Pólizas COI</span>\n        </div>\n        <!-- Fila W-2 -->\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Elena Rostova</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#0369a1;\">Cleanroom Wiring Phase 1</div>\n          <div class=\"mockup-cell\" style=\"color:#64748b; font-size:10px;\">Senior Project Engineer</div>\n          <div class=\"mockup-cell\" style=\"background:#eff6ff; color:#1d4ed8; font-weight:700; font-size:10px;\">W-2 Full Time</div>\n          <div class=\"mockup-cell\" style=\"color:#94a3b8; font-size:9.5px;\">N/A (W-2 Employee)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$4,600.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#0284c7; font-size:10px;\">+$501.40 (10.9%)</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$5,101.40</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Disbursed</span></div>\n        </div>\n        <!-- Fila 1099 con Seguro -->\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Apex Fiber Optics NJ LLC</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#0369a1;\">Cleanroom Wiring Phase 1</div>\n          <div class=\"mockup-cell\" style=\"color:#64748b; font-size:10px;\">Splicing Subcontractor</div>\n          <div class=\"mockup-cell\" style=\"background:#fef3c7; color:#b45309; font-weight:700; font-size:10px;\">1099-NEC Contractor</div>\n          <div class=\"mockup-cell\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 COI Verified (Active)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$3,800.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#94a3b8;\">$0.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$3,800.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Disbursed</span></div>\n        </div>\n        <!-- Fila 1099 SIN Seguro -->\n        <div class=\"mockup-row\" style=\"background:#fff1f2; border:1px solid #fecdd3;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Jersey Masonry Trade Subs</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#0369a1;\">Facility HVAC Upgrade</div>\n          <div class=\"mockup-cell\" style=\"color:#64748b; font-size:10px;\">Masonry &amp; Core Drilling</div>\n          <div class=\"mockup-cell\" style=\"background:#fef3c7; color:#b45309; font-weight:700; font-size:10px;\">1099-NEC Contractor</div>\n          <div class=\"mockup-cell\" style=\"background:#fee2e2; color:#b91c1c; font-weight:800; font-size:10px;\">⚠️ NO COI (Audit Risk)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$2,200.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#94a3b8;\">$0.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$2,200.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Disbursed</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>⚠️ <strong>Alerta Roja de Auditoría:</strong> El subcontratista sin seguro genera una alerta visual para que le exijas su póliza antes del cierre de año. Para los W-2, la herramienta suma automáticamente la carga social patronal del 10.9%.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Nunca pagues a un subcontratista 1099 en efectivo sin comprobante o sin pedirle el formulario W-9 y su Certificado de Seguro (COI). Si te audita la aseguradora de Workers' Comp o el IRS, el costo de las multas puede superar el valor del contrato entero."
+    "mockupTitle": "Payroll Ledger with W-2 Tax Multiplier and 1099 COI Sentinel",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>PAYROLL &amp; SUBCONTRACTOR COMPLIANCE REGISTER</span>\n          <span class=\"badge\" style=\"background:#fee2e2; color:#b91c1c; font-weight:800; font-size:10px;\">COI SENTINEL ACTIVE</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1.5;\">PAYEE / TRADE</span>\n          <span style=\"flex:1.2;\">TYPE</span>\n          <span style=\"flex:1.2; text-align:right;\">GROSS PAY</span>\n          <span style=\"flex:1.2; text-align:right;\">ER TAXES (10.9%)</span>\n          <span style=\"flex:1.2; text-align:right;\">TOTAL COST</span>\n          <span style=\"flex:1.5; text-align:center;\">COI STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1.5; font-weight:700;\">Marcus Vance (Journeyman)</span>\n          <span style=\"flex:1.2;\"><span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-size:10px;\">W-2 Hourly</span></span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$4,800.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$523.20</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$5,323.20</span>\n          <span style=\"flex:1.5; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">W-2 Insured</span></span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1.5; font-weight:700;\">Apex Pipefitters LLC</span>\n          <span style=\"flex:1.2;\"><span class=\"badge\" style=\"background:#fef3c7; color:#b45309; font-size:10px;\">1099 Sub</span></span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$6,500.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$0.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$6,500.00</span>\n          <span style=\"flex:1.5; text-align:center;\"><span class=\"badge\" style=\"background:#fee2e2; color:#b91c1c; font-size:10px; font-weight:800;\">⚠️ NO COI (Audit Risk)</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>🛡️ <strong>Sentinel Alert:</strong> Apex Pipefitters is flagged in red due to missing insurance. Request an ACORD Certificate of Insurance naming your company as an Additional Insured immediately.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Always obtain an ACORD Certificate of Insurance (COI) naming your company as an Additional Insured BEFORE an independent subcontractor touches your job site. If their policy has lapsed, your insurer will classify 100% of their invoices as uninsured payroll and bill you back-premiums at the annual audit."
   },
   "fleet": {
     "tabKey": "fleet",
     "tabName": "Fleet, Gas & Tolls",
-    "tabNameEs": "Flota, Combustible y Peajes de NJ (E-ZPass)",
-    "badge": "Pestaña Operativa #5",
+    "tabNameEs": "Vehicles, Mileage (IRC §274(d)) & NJ Tolls",
+    "badge": "Core Discipline #5",
     "icon": "🚗",
-    "subtitle": "Bitácora de Vehículos, Gasolina Real, Millaje Oficial IRS ($0.70/mi) y Peajes E-ZPass",
-    "purpose": "Lleva el control estricto de los gastos de transporte de tus vehículos de trabajo y viajes comerciales. Te permite elegir entre deducir los recibos de gasolina reales o aplicar la tarifa de millaje del IRS, registrando además los peajes de autopistas de New Jersey e imputando el costo al proyecto visitado.",
+    "subtitle": "Work Vehicles, Fuel Receipts, Mileage Logs (IRC §274(d)) & Project Toll Allocation",
+    "purpose": "Manages work vehicle expenses, fuel receipts, E-ZPass toll allocations (NJ Turnpike, Garden State Parkway), and standard business mileage deductions. Eliminates IRS audit disallowances by creating contemporaneously documented business travel logs.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra la Salida o Traslado",
-        "desc": "Haz clic en '➕ Add Vehicle / Trip Log'. Ingresa la fecha del viaje y el vehículo utilizado (ej. Ford Transit Van #1)."
+        "step": "Step 1: Choose Deduction Method",
+        "desc": "Switch between 'Actual Fuel / Maintenance Receipts' or 'IRS Standard Mileage Rate ($0.70/mi for 2025)' depending on which method maximizes your tax deductions."
       },
       {
-        "step": "Paso 2: Asigna al PROJECT de Obra",
-        "desc": "Selecciona el Proyecto o contrato al que fuiste a instalar o entregar materiales para que el transporte se cargue como costo del trabajo."
+        "step": "Step 2: Log Trips & Assign NJ Tolls",
+        "desc": "Enter vehicle nickname, trip date, starting location, project site destination, and any E-ZPass tolls incurred."
       },
       {
-        "step": "Paso 3: Elige el Método de Registro (Log Method)",
-        "desc": "Elige 'Actual Fuel Receipt' para ingresar el dinero pagado en gasolina, o 'IRS Mileage Rate' para que el sistema multiplique las millas por $0.70."
-      },
-      {
-        "step": "Paso 4: Registra los Peajes de New Jersey (E-ZPass)",
-        "desc": "Digita los peajes del NJ Turnpike, Garden State Parkway o cruces de puentes en 'NJ Tolls ($)'."
-      },
-      {
-        "step": "Paso 5: Revisa el Costo Total Automático",
-        "desc": "El sistema suma combustible/millas + peajes + reparaciones en 'Total Expense ($)'."
+        "step": "Step 3: Route Direct Costs to Projects",
+        "desc": "Tag the specific PROJECT in the dropdown so fuel and toll costs are charged directly to that contract's job budget."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Regulación IRC §274(d) del IRS",
-        "desc": "El IRS rechaza automáticamente deducciones de vehículos que no posean una bitácora con fecha, propósito comercial, destino y odómetro/millas."
+        "rule": "IRC §274(d) Strict Travel Substantiation",
+        "desc": "The IRS disallows estimated vehicle deductions. Taxpayers must substantiate business mileage with a contemporaneous log recording date, destination, business purpose, and mileage."
       },
       {
-        "rule": "Deducibilidad de Peajes E-ZPass",
-        "desc": "Los peajes pagados en autopistas de New Jersey con fines comerciales son 100% deducibles de impuestos bajo la sección IRC §162."
-      },
-      {
-        "rule": "Tarifa Federal de Millaje 2025",
-        "desc": "La tarifa oficial del IRS para el año fiscal 2025 es de $0.70 por milla recorrida, incluyendo amortización de desgaste del vehículo."
+        "rule": "Commuting vs Business Travel Exclusion",
+        "desc": "Travel between personal residence and regular commercial shop is non-deductible commuting; travel from shop to job sites or between project locations is 100% tax-deductible."
       }
     ],
-    "mockupTitle": "Bitácora de Vehículo con Millaje, Peajes de E-ZPass y Tag de Proyecto",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🚗 BITÁCORA DE VEHÍCULOS Y PEAJES DE NJ (FLEET & TRAVEL)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Cumplimiento Estricto IRS §274(d)</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-03</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:700;\">Ford Transit Van #1</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#0369a1;\">Facility HVAC Upgrade</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-size:10px;\">Delivery &amp; Install - Rutgers</div>\n          <div class=\"mockup-cell\" style=\"background:#eff6ff; color:#1d4ed8; font-size:10px; font-weight:700;\">Actual Fuel Receipt</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace;\">95 mi</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$145.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#0284c7; font-weight:800; font-family:monospace;\">$28.50 (EZ-Pass)</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$173.50</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Peajes E-ZPass Separados:</strong> Al tener una columna exclusiva de peajes, tienes el desglose exacto que exige el IRS si revisa tus extractos de E-ZPass de New Jersey.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Descarga mensualmente el estado de cuenta en PDF de tu cuenta E-ZPass de New Jersey y concílialo con esta pestaña. En obras grandes, los peajes diarios de ida y vuelta por el Turnpike representan miles de dólares que debes cobrar en tu presupuesto."
+    "mockupTitle": "Fleet & Travel Log with Project E-ZPass Toll Allocation",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>FLEET, MILEAGE &amp; E-ZPASS DISPATCH REGISTER</span>\n          <span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-weight:800; font-size:10px;\">IRS §274(d) LOG</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1;\">DATE</span>\n          <span style=\"flex:1.2;\">VEHICLE</span>\n          <span style=\"flex:2;\">PROJECT / DESTINATION</span>\n          <span style=\"flex:1; text-align:right;\">MILES</span>\n          <span style=\"flex:1.2; text-align:right;\">IRS VALUE ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">E-ZPASS ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">TOTAL ($)</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/12/2025</span>\n          <span style=\"flex:1.2; font-weight:700;\">Ford F-250 #04</span>\n          <span style=\"flex:2; color:#0369a1; font-weight:700;\">Cleanroom Wiring Phase 1<br><small style=\"color:#64748b;\">Shop to Merck Rahway Site</small></span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1; text-align:right;\">68 mi</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$47.60</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$14.25</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$61.85</span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>🚗 <strong>Direct Job Costing:</strong> The $14.25 NJ Turnpike toll and $47.60 mileage are automatically charged against 'Cleanroom Wiring Phase 1' to calculate authentic contract profit margins.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Assign dedicated fuel cards to each work truck with odometer prompting at the pump. When traveling the NJ Turnpike or Garden State Parkway for a specific project, enter the toll directly into Fleet tagged with that project name to capture the reimbursement in your final invoice."
   },
   "facility": {
     "tabKey": "facility",
-    "tabName": "Facility & Yard",
-    "tabNameEs": "Instalaciones, Taller y Patios de Acopio",
-    "badge": "Pestaña Operativa #6",
+    "tabName": "Facility, Yard & Rent",
+    "tabNameEs": "Commercial Leases, Storage Yards & CAM Fees",
+    "badge": "Core Discipline #6",
     "icon": "🏢",
-    "subtitle": "Alquileres de Oficinas, Patios de Acopio, Hipotecas Comerciales e Impuesto Predial de NJ",
-    "purpose": "Controla los costos físicos de tu negocio: el taller de operaciones, bodegas de acopio, alquiler de patios para estacionar tráilers o maquinaria, y pagos de hipoteca comercial con reserva de impuesto predial.",
+    "subtitle": "Commercial Shop Leases, Equipment Staging Yards, CAM Charges & Property Escrows",
+    "purpose": "Tracks your physical business footprint: commercial warehouse rent, contractor yard leases, common area maintenance (CAM), shop property taxes, and commercial mortgage interest.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra el Inmueble o Instalación",
-        "desc": "Haz clic en '➕ Add Facility / Property'. Anota la dirección o nombre de la sede (ej. HQ Office & Shop - Hanover NJ)."
+        "step": "Step 1: Enter Lease or Mortgage Payments",
+        "desc": "Click '+ Add Mortgage / Rent Item'. Record monthly base rent, commercial mortgage P&I, and landlord information."
       },
       {
-        "step": "Paso 2: Define si es Gasto General o de un Proyecto",
-        "desc": "Si alquilaste un patio transitorio para almacenar los equipos de una obra, asígnalo al PROJECT; si es tu taller permanente, déjalo en General Overhead."
+        "step": "Step 2: Segregate CAM Fees & Escrows",
+        "desc": "Itemize Common Area Maintenance (CAM), snow removal fees, and municipal property taxes separately for clear tax deductions."
       },
       {
-        "step": "Paso 3: Selecciona el Tipo de Pago",
-        "desc": "Elige entre Commercial Lease, Mortgage P&I, Storage Yard Lease, Property Tax Escrow o CAM & Maintenance."
-      },
-      {
-        "step": "Paso 4: Compara Presupuesto vs Gasto Real",
-        "desc": "Ingresa lo presupuestado en 'Budgeted ($)' y lo pagado en 'Actual Paid ($)'. La columna de variación te indicará si estás dentro de tu límite."
+        "step": "Step 3: Allocate Dedicated Project Yards",
+        "desc": "If leasing a temporary staging yard or trailer for a major job, select that PROJECT to allocate the lease directly to job costs."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Escrow de Impuesto Predial de NJ",
-        "desc": "New Jersey tiene los impuestos sobre bienes raíces comerciales más altos del país. El control del depósito en garantía (escrow) previene embargos municipales o retrasos con el banco."
+        "rule": "Commercial Lease vs Home Office Segregation",
+        "desc": "Commercial rent for a dedicated shop is 100% fully deductible under IRC §162; home office deductions must meet the strict 'exclusive and regular use' standard under IRC §280A."
       },
       {
-        "rule": "Deducibilidad de Arriendos Comerciales",
-        "desc": "El alquiler de oficinas, almacenes y patios de maniobras utilizados exclusivamente para el negocio es 100% deducible de impuestos (IRC §162)."
+        "rule": "Annual CAM Audit Verification",
+        "desc": "Retain annual landlord CAM reconciliations to substantiate operating expense pass-throughs against municipal tax audits."
       }
     ],
-    "mockupTitle": "Control de Alquiler de Taller y Patio de Acopio con Variación de Presupuesto",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🏢 CONTROL DE INSTALACIONES Y PATIOS (FACILITY &amp; YARD)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Supervisión de Presupuesto vs Real</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">HQ Office &amp; Shop - Hanover NJ</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#64748b;\">General Overhead</div>\n          <div class=\"mockup-cell\" style=\"color:#475569; font-size:10px;\">Commercial Lease</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-01</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace;\">$4,200.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$4,200.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#10b981; font-weight:800;\">$0.00 (On Budget)</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Storage Yard - Kenilworth NJ</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#0369a1;\">Warehouse LED Retrofit</div>\n          <div class=\"mockup-cell\" style=\"color:#475569; font-size:10px;\">Storage Yard Lease</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-05</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace;\">$950.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$950.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#10b981; font-weight:800;\">$0.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Patio de Acopio de Obra:</strong> Observa la segunda fila: el patio alquilado en Kenilworth se asignó directamente al proyecto de iluminación, cargándole ese costo a ese cliente específico.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Si compras un almacén o taller a través de tu empresa, separa siempre en tu contabilidad el valor del terreno del valor del edificio, ya que el IRS solo permite depreciar la construcción (a 39 años para inmuebles comerciales), no el terreno."
+    "mockupTitle": "Commercial Facility & Storage Yard Register",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>FACILITY, COMMERCIAL RENT &amp; STAGING YARD EXPENSES</span>\n          <span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-weight:800; font-size:10px;\">FIXED OVERHEAD</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1;\">DATE</span>\n          <span style=\"flex:2;\">FACILITY / LOCATION</span>\n          <span style=\"flex:1.5;\">EXPENSE CATEGORY</span>\n          <span style=\"flex:1.5; text-align:right;\">BASE RENT ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">CAM FEES ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">TOTAL ($)</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/01/2025</span>\n          <span style=\"flex:2; font-weight:700;\">Morristown Contractor Bay #3</span>\n          <span style=\"flex:1.5; color:#475569;\">Warehouse &amp; Shop Lease</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.5; text-align:right;\">$3,850.00</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$425.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$4,275.00</span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>🏢 <strong>Tax Distinction:</strong> Separating the $425.00 CAM fee from base rent provides exact documentation for both tax deduction substantiation and annual landlord lease audits.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Review your commercial landlord's annual CAM (Common Area Maintenance) reconciliation statement closely. Landlords frequently misallocate structural capital repairs into operating CAM expenses; keep your lease agreement handy to challenge unauthorized charges."
   },
   "insurance": {
     "tabKey": "insurance",
     "tabName": "Insurance & Bonds",
-    "tabNameEs": "Seguros Empresariales y Fianzas de Obra",
-    "badge": "Pestaña Operativa #7",
+    "tabNameEs": "Workers' Comp, CGL & Project Surety Bonds",
+    "badge": "Core Discipline #7",
     "icon": "🛡️",
-    "subtitle": "Workers' Comp Obligatorio de NJ, Responsabilidad Civil (CGL) y Fianzas de Cumplimiento",
-    "purpose": "Protege tu empresa contra catástrofes y demandas legales, y administra las fianzas exigidas en licitaciones de New Jersey. Calcula en automático la reserva mensual que debes apartar para que el pago de la prima anual no descapitalice tus cuentas corrientes.",
+    "subtitle": "Workers' Comp, Commercial General Liability (CGL), Inland Marine & Performance Bonds",
+    "purpose": "Controls commercial insurance policies and performance surety bonds required to bid public and private construction contracts across New Jersey. Automatically amortizes annual premiums across 12 fiscal months to prevent cash flow distortion.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra la Póliza o Fianza",
-        "desc": "Haz clic en '➕ Add Insurance Policy'. Elige el tipo de cobertura o fianza de proyecto."
+        "step": "Step 1: Enter Commercial Policies",
+        "desc": "Click '+ Add Policy'. Enter carrier name, policy type (Workers' Comp, CGL, Auto, Umbrella, Inland Marine), policy number, and effective dates."
       },
       {
-        "step": "Paso 2: Asigna si es Exclusiva de un Proyecto",
-        "desc": "Si es una fianza de cumplimiento (Surety Bond) o póliza de riesgo de obra (Builder's Risk) para un contrato, asígnala al PROJECT; si es tu póliza anual general, déjala vacía."
+        "step": "Step 2: Assign Project Surety Bonds",
+        "desc": "If purchasing a dedicated Performance/Payment Bond for a specific job, select that PROJECT to include the bond directly in job costs."
       },
       {
-        "step": "Paso 3: Digita la Aseguradora y Fecha de Vencimiento",
-        "desc": "Ingresa la compañía aseguradora (NJ Manufacturers, Travelers, The Hartford) y la fecha de renovación."
-      },
-      {
-        "step": "Paso 4: Ingresa la Prima Anual (Annual Premium)",
-        "desc": "El sistema calcula automáticamente la reserva mensual recomendada en 'Monthly Allocation ($)' dividiendo el costo entre 12."
+        "step": "Step 3: Monitor Policy Expirations",
+        "desc": "Review the expiration sentinel to renew coverage before policies lapse and halt ongoing job site mobilization."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Ley N.J.S.A. 34:15-1 (Seguro Obligatorio de Workers' Comp)",
-        "desc": "En New Jersey es un mandato legal estricto tener seguro de compensación laboral desde el primer empleado contratado. Operar sin seguro acarrea sanciones penales y multas de hasta $5,000 por cada 10 días de infracción."
+        "rule": "Mandatory NJ Workers' Compensation Coverage (N.J.S.A. 34:15-79)",
+        "desc": "New Jersey strictly mandates Workers' Comp for all corporate employers; operating without coverage carries criminal penalties up to $5,000 per 10-day period."
       },
       {
-        "rule": "Ley de Fianzas Públicas de NJ (N.J.S.A. 2A:44-143)",
-        "desc": "Para licitar en proyectos municipales, distritos escolares o del estado de New Jersey, se exige una fianza de cumplimiento (Performance Bond) y pago de mano de obra y materiales garantizada por aseguradoras autorizadas."
+        "rule": "Inland Marine & Equipment Floater Requirements",
+        "desc": "Standard property policies exclude tools off-premises; contractors must maintain an Inland Marine policy covering equipment in transit and on job sites."
       }
     ],
-    "mockupTitle": "Fianzas de Cumplimiento de Obra y Pólizas Anuales con Amortización Mensual",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🛡️ GESTIÓN DE PÓLIZAS Y FIANZAS DE OBRA (INSURANCE POLICIES)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Amortización Automática a 12 Meses</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#0369a1;\">Cleanroom Wiring Phase 1</div>\n          <div class=\"mockup-cell\" style=\"background:#eff6ff; color:#1d4ed8; font-weight:700; font-size:10px;\">Project Surety Bond (Perf &amp; Pay)</div>\n          <div class=\"mockup-cell mockup-cell-input\">Travelers Bond &amp; Specialty</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-12-31</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$1,850.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$154.17 / mes</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Active</span></div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#64748b;\">All Projects / Trade Labor</div>\n          <div class=\"mockup-cell\" style=\"background:#fef2f2; color:#b91c1c; font-weight:800; font-size:10px;\">NJ Workers' Comp (Mandatory)</div>\n          <div class=\"mockup-cell mockup-cell-input\">NJ Manufacturers (NJM)</div>\n          <div class=\"mockup-cell mockup-cell-input\">2026-03-31</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$7,800.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"font-weight:800; color:#0f172a;\">$650.00 / mes</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Active</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Fianza de Cumplimiento:</strong> La primera fila muestra la fianza contratada con Travelers para garantizar el proyecto en Rutgers, cargando ese costo directamente a ese contrato.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Transfiere cada mes el valor de 'Monthly Allocation' a una cuenta de ahorros para seguros. De este modo, cuando llegue la factura anual de $7,800 de Workers' Comp o General Liability, tendrás el dinero acumulado y tu flujo de caja no sufrirá."
+    "mockupTitle": "Commercial Insurance Ledger with Monthly Amortization",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>COMMERCIAL INSURANCE POLICIES &amp; SURETY BONDS</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">100% COVERED</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1.5;\">CARRIER &amp; POLICY #</span>\n          <span style=\"flex:1.5;\">COVERAGE TYPE</span>\n          <span style=\"flex:1.2; text-align:right;\">ANNUAL ($)</span>\n          <span style=\"flex:1.2; text-align:right;\">MONTHLY ($)</span>\n          <span style=\"flex:1.5;\">PROJECT ASSIGNMENT</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1.5; font-weight:700;\">NJM Insurance #WC-8902</span>\n          <span style=\"flex:1.5; color:#0369a1; font-weight:700;\">Workers' Compensation</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$8,640.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$720.00</span>\n          <span style=\"flex:1.5; color:#64748b;\">Company Overhead</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Active</span></span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1.5; font-weight:700;\">Travelers Bond #PB-4410</span>\n          <span style=\"flex:1.5; color:#0369a1; font-weight:700;\">Performance &amp; Payment Bond</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$1,850.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$1,850.00</span>\n          <span style=\"flex:1.5; font-weight:700; color:#0369a1;\">Cleanroom Wiring Phase 1</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-size:10px;\">Job Bond</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>🛡️ <strong>Universal Costing:</strong> The $1,850.00 surety bond is charged directly to 'Cleanroom Wiring Phase 1' to calculate true project net margin.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Keep digital ACORD certificates organized in an accessible folder. Many public agencies and commercial general contractors require minimum $2M/$4M aggregate limits and 30-day notice of cancellation before issuing final contract retainage."
   },
   "utilities": {
     "tabKey": "utilities",
     "tabName": "Utilities & SaaS",
-    "tabNameEs": "Servicios Públicos y Gastos de Obra (PSE&G y Dumpsters)",
-    "badge": "Pestaña Operativa #8",
+    "tabNameEs": "PSE&G Energy, Communications & Job Site Dumpsters",
+    "badge": "Core Discipline #8",
     "icon": "⚡",
-    "subtitle": "Electricidad y Gas (PSE&G), Agua, Internet, Software SaaS y Dumpsters de Construcción",
-    "purpose": "Supervisa tus gastos corrientes de suministros y tecnología. Además de la luz, gas y telecomunicaciones de tu oficina, te permite registrar y asignar acometidas provisionales de obra con PSE&G y alquiler de contenedores de escombros de 30 yardas como costo directo de cada proyecto.",
+    "subtitle": "Shop Energy (PSE&G), Telecom, SaaS Overhead & Job Site Waste Dumpsters",
+    "purpose": "Monitors operational utilities (PSE&G electric, gas, water, internet, software licenses) and separates fixed shop overhead from direct job site costs like temporary power drops and 30-yard construction dumpsters.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra el Proveedor de Servicios",
-        "desc": "Haz clic en '➕ Add Utility / Overhead'. Elige PSE&G, NJ American Water, Verizon Fios, QuickBooks, Google Workspace o Waste Management."
+        "step": "Step 1: Record Utility Bills",
+        "desc": "Click '+ Add Utility Bill'. Record date, service provider (PSE&G, Verizon, software SaaS), and payment amount."
       },
       {
-        "step": "Paso 2: Define si es un Servicio de Obra",
-        "desc": "Si contrataste un contenedor de basura de construcción (dumpster) o un poste eléctrico temporal para un trabajo, asígnalo al PROJECT de esa obra."
+        "step": "Step 2: Separate Shop Overhead from Job Costs",
+        "desc": "Tag roll-off construction dumpsters and temporary site power drops directly to the client PROJECT."
       },
       {
-        "step": "Paso 3: Digita Presupuesto vs Factura Real",
-        "desc": "Ingresa lo planificado y el valor real de la factura mensual para monitorear sobrecostos o fugas de dinero."
+        "step": "Step 3: Review Recurring Subscriptions",
+        "desc": "Audit monthly SaaS and telecom charges to identify zombie subscriptions and reduce unnecessary fixed overhead."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Deducibilidad de Gastos de Operación (OpEx)",
-        "desc": "El internet, software contable y suministros de energía comercial son deducibles al 100% de impuestos bajo el código IRC §162."
+        "rule": "100% Business Utility Allocation",
+        "desc": "Commercial shop electric and water accounts in the company's legal name are 100% deductible under IRC §162; mixed-use services must be prorated."
       },
       {
-        "rule": "Imputación Directa de Residuos de Construcción",
-        "desc": "Los costos de dumpsters y retiro de escombros de obra son costos deducibles directos del contrato y no deben clasificarse como basura general de oficina."
+        "rule": "Direct Job Dumpster Classification",
+        "desc": "Site dumpsters must be allocated as Direct Job COGS under IRS construction accounting rules, rather than diluted into general administrative overhead."
       }
     ],
-    "mockupTitle": "Registro de Servicios de Oficina y Contenedor de Obra de 30 Yardas",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>⚡ SERVICIOS PÚBLICOS Y TECNOLOGÍA (UTILITIES &amp; SAAS)</span>\n          <span style=\"font-size:10px; color:#0284c7; font-weight:700;\">Control de Facturas Mensuales</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">PSE&amp;G Electric &amp; Gas</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"color:#64748b;\">General Overhead</div>\n          <div class=\"mockup-cell\" style=\"color:#475569; font-size:10px;\">Power &amp; Gas</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace;\">$680.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$715.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#ef4444; font-weight:800;\">+$35.00 (Over)</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800;\">Waste Management 30-Yd Dumpster</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#0369a1;\">Facility HVAC Upgrade</div>\n          <div class=\"mockup-cell\" style=\"color:#475569; font-size:10px;\">Waste &amp; Dumpster</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace;\">$480.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; font-family:monospace;\">$480.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#10b981; font-weight:800;\">$0.00</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>👈 <strong>Dumpster de Construcción Imputado:</strong> La factura de $480 de Waste Management queda cargada al proyecto HVAC, reflejando el costo real de demolición y limpieza del sitio.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Revisa trimestralmente las suscripciones de software. Las empresas de servicios acumulan licencias de apps no utilizadas que representan un goteo silencioso de cientos de dólares al año."
+    "mockupTitle": "Utilities Register Segregating Shop Overhead vs Job Site Dumpsters",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>UTILITIES, COMMUNICATIONS &amp; DUMPSTER DISPOSAL REGISTER</span>\n          <span class=\"badge\" style=\"background:#e0f2fe; color:#0369a1; font-weight:800; font-size:10px;\">OPERATING OVERHEAD</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:1;\">DATE</span>\n          <span style=\"flex:1.8;\">PROVIDER</span>\n          <span style=\"flex:1.5;\">EXPENSE TYPE</span>\n          <span style=\"flex:2;\">PROJECT ALLOCATION</span>\n          <span style=\"flex:1.2; text-align:right;\">AMOUNT ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/06/2025</span>\n          <span style=\"flex:1.8; font-weight:700;\">PSE&amp;G Electric &amp; Gas</span>\n          <span style=\"flex:1.5; color:#475569;\">Shop Electric Meter</span>\n          <span style=\"flex:2; color:#64748b;\">General Overhead</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$640.20</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:1; font-family:monospace; color:#64748b;\">10/09/2025</span>\n          <span style=\"flex:1.8; font-weight:700;\">Waste Management</span>\n          <span style=\"flex:1.5; color:#0369a1; font-weight:700;\">30-Yd Roll-off Dumpster</span>\n          <span style=\"flex:2; font-weight:700; color:#0369a1;\">Cleanroom Wiring Phase 1</span>\n          <span class=\"mockup-cell mockup-cell-input\" style=\"flex:1.2; text-align:right;\">$725.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>⚡ <strong>Direct Job Costing:</strong> The $725.00 Waste Management dumpster is allocated directly to 'Cleanroom Wiring Phase 1', reflecting authentic job-site costs.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Whenever ordering roll-off dumpsters from Waste Management or local haulers for a demolition project, tag that invoice directly to the project name in Utilities or COGS. Job dumpsters are direct contract costs—never swallow them as general overhead."
   },
   "cost-review": {
     "tabKey": "cost-review",
     "tabName": "Project Cost Review",
-    "tabNameEs": "Revisión y Auditoría de Costos de Obra",
-    "badge": "Pestaña de Auditoría #9",
+    "tabNameEs": "Job Costing Audit & Interactive Margin Simulator",
+    "badge": "Audit Hub #9",
     "icon": "🏗️",
-    "subtitle": "Auditoría Quirúrgica de Contratos, Simulación Interactiva con Checkboxes e Informes Imprimibles",
-    "purpose": "Es el laboratorio de rentabilidad por proyecto. Consolida automáticamente todos los egresos registrados en las 6 disciplinas (materiales, nómina, peajes, patios, fianzas y servicios de obra) para un contrato seleccionado. Te permite desmarcar casillas para simular cómo mejoraría tu ganancia si excluyes o renegocias cualquier costo.",
+    "subtitle": "Multi-Discipline Cost Aggregation, Contract Profitability & Interactive Margin Simulator",
+    "purpose": "Aggregates all direct expenses across all 6 disciplines (COGS materials, labor/payroll, travel/tolls, facility/yard, insurance/bonds, and site utilities) assigned to a single client contract. Features an interactive checkbox simulator to model margins in real time and generate formal 1-page internal audit reports.",
     "howItWorks": [
       {
-        "step": "Paso 1: Selecciona el Contrato o Proyecto a Auditar",
-        "desc": "Elige cualquier contrato en el menú desplegable superior. El sistema reúne instantáneamente todas las facturas y pagos asociados a ese trabajo."
+        "step": "Step 1: Select Project to Audit",
+        "desc": "Choose any active customer contract from the master project selector to view its complete financial breakdown."
       },
       {
-        "step": "Paso 2: Evalúa la Barra de Consumo de Presupuesto",
-        "desc": "La barra te indica el porcentaje del contrato que ya ha sido consumido por los gastos activos: verde (<65%), amarillo (65-85%) o rojo (>85% peligro de pérdida)."
+        "step": "Step 2: Inspect Multi-Discipline Line Items",
+        "desc": "Review individual cost lines from Materials, Subcontractors, Dedicated Payroll, Tolls, Bonds, and Dumpsters."
       },
       {
-        "step": "Paso 3: Simula Exclusiones con las Casillas [x]",
-        "desc": "Desmarca cualquier partida de gasto para simular su exclusión. La ganancia neta en dólares ($) y el margen porcentual (%) se recalculan al segundo."
+        "step": "Step 3: Simulate Margin with Checkboxes ([x])",
+        "desc": "Uncheck any expense line to simulate how profit margin changes without it. Click 'Reset All Checks' to restore."
       },
       {
-        "step": "Paso 4: Imprime el Reporte Formal de Auditoría",
-        "desc": "Haz clic en '🖨️ Print Formal Project Audit Report' para imprimir un informe técnico listo para firmar con membrete y desglose clasificado."
+        "step": "Step 4: Print 1-Click Executive Internal Audit Report",
+        "desc": "Click '🖨️ Print Audit Report' to produce a formal, clean 1-page cost audit document for internal project review."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Prevención de Pérdidas en Contratos a Precio Fijo",
-        "desc": "En obras con precio pactado (Lump Sum), los sobrecostos no detectados a tiempo son la causa número uno de quiebra en New Jersey. Esta pestaña te avisa antes de que el trabajo pierda dinero."
+        "rule": "Comprehensive Cost Allocation Principle",
+        "desc": "GAAP construction accounting requires that all direct contract costs—including dedicated travel, permits, and dumpster fees—be attributed directly to project revenues."
       },
       {
-        "rule": "Justificación de Órdenes de Cambio (Change Orders)",
-        "desc": "El reporte desglosado te sirve como prueba irrefutable ante el cliente para cobrar trabajos adicionales que superaron el presupuesto original."
+        "rule": "Change Order Reconciliation",
+        "desc": "Ensure that unbilled scope changes are substantiated with written change orders before project cost overruns exceed contract billings."
       }
     ],
-    "mockupTitle": "Selector de Contrato con Barra de Consumo Presupuestario y Checkboxes",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🏗️ AUDITORÍA DE COSTOS: FACILITY HVAC UPGRADE (HORIZON HEALTHCARE NJ)</span>\n          <span style=\"font-size:10px; color:#10b981; font-weight:800;\">Valor Contrato: $14,500.00</span>\n        </div>\n\n        <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px 14px; margin-bottom:10px;\">\n          <div style=\"display:flex; justify-content:space-between; font-size:11px; font-weight:800; margin-bottom:4px;\">\n            <span>Presupuesto Consumido por Gastos:</span>\n            <span style=\"color:#0284c7; font-family:monospace;\">65.7% ($9,527.25 / $14,500.00)</span>\n          </div>\n          <div style=\"background:#e2e8f0; height:8px; border-radius:4px; overflow:hidden;\">\n            <div style=\"background:linear-gradient(90deg, #10b981 0%, #0284c7 100%); width:65.7%; height:100%;\"></div>\n          </div>\n          <div style=\"display:flex; justify-content:space-between; font-size:10px; color:#64748b; margin-top:4px;\">\n            <span>Costo Total Activo: <strong>$9,527.25</strong></span>\n            <span>Utilidad Neta Simulada: <strong style=\"color:#10b981;\">$4,972.75 (34.3% Margen)</strong></span>\n          </div>\n        </div>\n\n        <!-- Partidas individuales -->\n        <div style=\"display:flex; flex-direction:column; gap:4px; font-size:11px;\">\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Grainger Industrial NJ <span style=\"font-size:9.5px; color:#64748b;\">(Materiales / COGS)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$3,850.00</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Carlos Mendez - Lead Tech <span style=\"font-size:9.5px; color:#64748b;\">(Mano de Obra + Carga 10.9%)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$4,158.75</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Ford Transit Van #1 <span style=\"font-size:9.5px; color:#64748b;\">(Gasolina + Peajes E-ZPass)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$358.50</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Waste Management 30-Yd Dumpster <span style=\"font-size:9.5px; color:#64748b;\">(Contenedor de Obra)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$480.00</div>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>🔘 <strong>Simulación en Tiempo Real:</strong> Si desmarcas cualquiera de las casillas [x], la barra superior se actualiza de inmediato para mostrarte cómo cambia tu margen neto sin ese gasto.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Antes de firmar el acta final de entrega de un proyecto, abre esta pestaña y revisa si el margen neto final coincide con lo que presupuestaste originalmente. Si es menor, sabrás con exactitud si la pérdida fue por mano de obra, fletes o compras no previstas."
+    "mockupTitle": "Interactive Cost Inclusion Simulator and Contract Profitability Deck",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>PROJECT COST REVIEW: CLEANROOM WIRING PHASE 1</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 62.0% PROFIT MARGIN</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:12px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">CONTRACT VALUE</div>\n            <div style=\"font-size:13px; font-weight:900; color:#1e3a8a; font-family:monospace;\">$48,500.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">ASSIGNED COSTS</div>\n            <div style=\"font-size:13px; font-weight:900; color:#b91c1c; font-family:monospace;\">$18,420.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">NET PROFIT</div>\n            <div style=\"font-size:13px; font-weight:900; color:#15803d; font-family:monospace;\">$30,080.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">MARGIN %</div>\n            <div style=\"font-size:13px; font-weight:900; color:#15803d;\">62.0%</div>\n          </div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:0.5; text-align:center;\">INC</span>\n          <span style=\"flex:1;\">DISCIPLINE</span>\n          <span style=\"flex:2;\">DESCRIPTION</span>\n          <span style=\"flex:1.2; text-align:right;\">AMOUNT ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:0.5; text-align:center;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></span>\n          <span style=\"flex:1; font-weight:700; color:#0369a1;\">Materials (COGS)</span>\n          <span style=\"flex:2;\">Cooper Electric Supply (Panel &amp; Conduit)</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$12,450.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:9.5px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:0.5; text-align:center;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></span>\n          <span style=\"flex:1; font-weight:700; color:#d97706;\">Fleet (Tolls)</span>\n          <span style=\"flex:2;\">NJ Turnpike E-ZPass Tolls (8 Trips)</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$114.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:9.5px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>💡 <strong>Interactive Simulator:</strong> Unchecking any item dynamically recalculates net margin and contract progress in real time without altering your underlying database records.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Run a Project Cost Review before submitting progress billings to your client. If your cost consumption exceeds 65% while the physical job is only half finished, issue an immediate change order before your margin evaporates."
   },
   "pnl": {
     "tabKey": "pnl",
-    "tabName": "12-Month P&L Rollup",
-    "tabNameEs": "Estado de Resultados Consolidado a 12 Meses (P&L)",
-    "badge": "Pestaña de Reportes #10",
+    "tabName": "12-Month P&L",
+    "tabNameEs": "12-Month Consolidated Profit & Loss Statement",
+    "badge": "Financial Reports #10",
     "icon": "📈",
-    "subtitle": "Matriz Mensual de Ingresos, Costo de Ventas, Gastos Operativos y Utilidad Neta (EBIT)",
-    "purpose": "Es el documento contable oficial que resume la rentabilidad de tu negocio mes a mes a lo largo del año fiscal. Se alimenta de forma 100% automática a partir de tus registros diarios y es el informe exacto que solicita tu Contador Público Certificado (CPA) para preparar la declaración corporativa de impuestos.",
+    "subtitle": "Monthly Revenue Rollup, Direct Job COGS, Gross Margins & True Net Cash Profit",
+    "purpose": "Provides the definitive 12-month summary of company earnings and expenditures. Consolidates monthly cash inflows against operating expenses to determine actual net operating income for CPA year-end tax returns.",
     "howItWorks": [
       {
-        "step": "Paso 1: Funcionamiento 100% Automatizado",
-        "desc": "No tienes que digitar nada en esta pestaña. La matriz recopila en vivo todas tus facturas, compras directas y gastos de nómina, flota, arriendos, seguros y servicios."
+        "step": "Step 1: Review Monthly Trajectory",
+        "desc": "Inspect income and expense rollups across all 12 fiscal months from January through December."
       },
       {
-        "step": "Paso 2: Lectura de la Cascada Contable",
-        "desc": "Total Billed (Ventas) menos Direct COGS (Materiales) = Ganancia Bruta (Gross Profit). A esto se le restan los gastos fijos (OpEx) para obtener la Utilidad Operativa Neta (EBIT)."
+        "step": "Step 2: Inspect Gross Profit Margin %",
+        "desc": "Ensure your gross margin across jobs consistently exceeds 35% to comfortably cover fixed operating overhead."
       },
       {
-        "step": "Paso 3: Exportación a Excel",
-        "desc": "Haz clic en 'Export P&L to Excel' para generar una hoja de cálculo limpia con formato oficial de presentación financiera."
+        "step": "Step 3: Analyze Fixed Overhead vs Variable Costs",
+        "desc": "Compare direct project materials and labor against fixed facility and utility overhead to identify cost savings."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Base para Declaraciones Federales (IRS 1120 / 1040)",
-        "desc": "El resultado anual de esta matriz es la cifra oficial de Utilidad Neta que se reporta en las declaraciones federales ante el IRS."
+        "rule": "GAAP Accrual vs Cash Accounting Reconciliation",
+        "desc": "Ensure your CPA receives clean reconciliations between actual cash collections and total billed invoices to choose the most tax-advantageous filing method."
       },
       {
-        "rule": "Declaración Corporativa de New Jersey (Formulario CBT-100)",
-        "desc": "El Estado de New Jersey grava las utilidades netas al 6.5% para empresas con beneficios de hasta $100,000 bajo la ley N.J.S.A. 54:10A."
+        "rule": "Consistency in Expense Classification",
+        "desc": "The IRS mandates consistent classification of operating expenses from year to year; never fluctuate between deducting expenses as COGS versus general overhead."
       }
     ],
-    "mockupTitle": "Matriz Mensual de Pérdidas y Ganancias (Enero a Diciembre + T12M)",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>📈 12-MONTH PROFIT &amp; LOSS STATEMENT (P&amp;L ROLLUP)</span>\n          <span style=\"font-size:10px; color:#10b981; font-weight:800;\">Alimentación 100% Automática</span>\n        </div>\n        <div style=\"overflow-x:auto;\">\n          <table style=\"width:100%; border-collapse:collapse; font-size:10.5px;\">\n            <thead>\n              <tr style=\"background:#0f172a; color:#fff;\">\n                <th style=\"padding:4px 8px; text-align:left;\">Línea Contable</th>\n                <th style=\"padding:4px 8px; text-align:right;\">Agosto</th>\n                <th style=\"padding:4px 8px; text-align:right;\">Septiembre</th>\n                <th style=\"padding:4px 8px; text-align:right; background:#1e3a8a;\">Octubre 2025</th>\n                <th style=\"padding:4px 8px; text-align:right; color:#38bdf8;\">T12M Total</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr style=\"border-bottom:1px solid #e2e8f0; font-weight:700;\">\n                <td style=\"padding:4px 8px;\">Gross Revenue (Ventas)</td>\n                <td style=\"padding:4px 8px; text-align:right;\">$18,500.00</td>\n                <td style=\"padding:4px 8px; text-align:right;\">$38,000.00</td>\n                <td style=\"padding:4px 8px; text-align:right; background:#eff6ff;\">$99,000.00</td>\n                <td style=\"padding:4px 8px; text-align:right; font-weight:800;\">$169,600.00</td>\n              </tr>\n              <tr style=\"border-bottom:1px solid #e2e8f0; color:#b91c1c;\">\n                <td style=\"padding:4px 8px;\">Direct COGS (Materiales)</td>\n                <td style=\"padding:4px 8px; text-align:right;\">-$4,800.00</td>\n                <td style=\"padding:4px 8px; text-align:right;\">-$6,100.00</td>\n                <td style=\"padding:4px 8px; text-align:right; background:#eff6ff;\">-$23,520.00</td>\n                <td style=\"padding:4px 8px; text-align:right; font-weight:800;\">-$36,260.00</td>\n              </tr>\n              <tr style=\"border-bottom:1px solid #e2e8f0; font-weight:800; background:#f8fafc; color:#10b981;\">\n                <td style=\"padding:4px 8px;\">GROSS PROFIT (Ganancia Bruta)</td>\n                <td style=\"padding:4px 8px; text-align:right;\">$13,700.00</td>\n                <td style=\"padding:4px 8px; text-align:right;\">$31,900.00</td>\n                <td style=\"padding:4px 8px; text-align:right; background:#eff6ff;\">$75,480.00</td>\n                <td style=\"padding:4px 8px; text-align:right;\">$133,340.00</td>\n              </tr>\n              <tr style=\"border-bottom:1px solid #e2e8f0; color:#64748b;\">\n                <td style=\"padding:4px 8px;\">Operating Expenses (OpEx)</td>\n                <td style=\"padding:4px 8px; text-align:right;\">-$8,200.00</td>\n                <td style=\"padding:4px 8px; text-align:right;\">-$9,400.00</td>\n                <td style=\"padding:4px 8px; text-align:right; background:#eff6ff;\">-$36,461.71</td>\n                <td style=\"padding:4px 8px; text-align:right; font-weight:800;\">-$45,725.50</td>\n              </tr>\n              <tr style=\"font-weight:800; background:#0f172a; color:#38bdf8;\">\n                <td style=\"padding:6px 8px;\">NET OPERATING INCOME (EBIT)</td>\n                <td style=\"padding:6px 8px; text-align:right;\">$5,500.00</td>\n                <td style=\"padding:6px 8px; text-align:right;\">$22,500.00</td>\n                <td style=\"padding:6px 8px; text-align:right; color:#fff;\">$39,018.29</td>\n                <td style=\"padding:6px 8px; text-align:right; color:#86efac;\">$87,614.50</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>📈 <strong>Visión Panorámica:</strong> Esta tabla te permite detectar estacionalidades (meses fuertes vs meses lentos de invierno) para planificar compras y contrataciones.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Compara siempre el margen del mes corriente con el Trailing 12M. Si tu margen de este mes está por debajo del promedio anual, revisa si hubo un incremento repentino en nómina de horas extras o en combustible."
+    "mockupTitle": "12-Month Consolidated Profit and Loss Statement Grid",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>CONSOLIDATED 12-MONTH STATEMENT OF EARNINGS (P&amp;L)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">GAAP FORMAT</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:2;\">FINANCIAL DISCIPLINE</span>\n          <span style=\"flex:1; text-align:right;\">AUG 2025</span>\n          <span style=\"flex:1; text-align:right;\">SEP 2025</span>\n          <span style=\"flex:1; text-align:right;\">OCT 2025</span>\n          <span style=\"flex:1.2; text-align:right;\">YTD TOTAL</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:2; font-weight:800; color:#1e3a8a;\">GROSS REVENUE (COLLECTED)</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace;\">$84,200.00</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace;\">$92,150.00</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace; color:#15803d; font-weight:700;\">$101,460.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:800;\">$986,400.00</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:2; color:#b91c1c;\">Less: Direct Project COGS</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace;\">($28,400.00)</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace;\">($31,200.00)</span>\n          <span style=\"flex:1; text-align:right; font-family:monospace;\">($34,800.00)</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; color:#b91c1c;\">($332,100.00)</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px; background:#eff6ff;\">\n          <span style=\"flex:2; font-weight:800; color:#0369a1;\">GROSS PROFIT MARGIN ($)</span>\n          <span style=\"flex:1; text-align:right; font-weight:700;\">$55,800.00</span>\n          <span style=\"flex:1; text-align:right; font-weight:700;\">$60,950.00</span>\n          <span style=\"flex:1; text-align:right; font-weight:700; color:#15803d;\">$66,660.00</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right; font-weight:900; color:#0369a1;\">$654,300.00</span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>📈 <strong>Executive Insight:</strong> Your YTD Gross Margin is 66.3%, comfortably surpassing the 35% construction benchmark.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Monitor your Gross Profit Margin % monthly. If gross margin falls below 30%, your pricing formula is failing to account for inflation in material and subcontractor costs."
   },
   "balance-sheet": {
     "tabKey": "balance-sheet",
     "tabName": "Balance Sheet",
-    "tabNameEs": "Balance General (Estándar Harvard Business School)",
-    "badge": "Pestaña de Solvencia #11",
+    "tabNameEs": "Statement of Financial Position (HBS GAAP Standard)",
+    "badge": "Solvency Engine #11",
     "icon": "⚖️",
-    "subtitle": "Estado de Situación Financiera, Centinela de Equilibrio Patrimonial y Ratios para Bancos",
-    "purpose": "Certifica el patrimonio neto real y la solvencia de tu empresa bajo los principios de contabilidad generalmente aceptados (GAAP) y las directrices de Harvard Business School: Activos = Pasivos + Patrimonio. Es el estado financiero imprescindible que exigen los bancos para otorgar líneas de crédito comercial, préstamos de la SBA y las compañías de fianzas.",
+    "subtitle": "Statement of Financial Position: Assets = Liabilities + Owners' Equity & Bank Solvency",
+    "purpose": "Enforces the foundational Harvard Business School accounting equation: Assets = Liabilities + Owners' Equity. Measures working capital, liquidity ratios (Current Ratio ≥ 1.5x, Acid-Test), and prints formal bank-ready statements for commercial loan officers and surety underwriters.",
     "howItWorks": [
       {
-        "step": "Paso 1: Conexión Automática con el Sistema",
-        "desc": "El Balance General extrae en vivo tus fondos de caja, cuentas por cobrar (A/R), cuentas por pagar (A/P), impuestos de ventas pendientes (ST-50) y la utilidad neta retenida del año."
+        "step": "Step 1: Inspect Live Ledger Synchronization",
+        "desc": "Real-time feeds automatically pull Cash on Hand, Accounts Receivable (A/R), Accounts Payable (A/P), ST-50 Sales Tax, and Year-to-Date Net Income directly into your statement."
       },
       {
-        "step": "Paso 2: Revisa el Centinela de Equilibrio",
-        "desc": "El banner superior verifica que Total Activos sea exactamente igual a Total Pasivos + Patrimonio. Si está equilibrado, brilla en verde (✅ 100% BALANCED)."
+        "step": "Step 2: Verify Balanced Equilibrium Indicator",
+        "desc": "The green sentinel confirms that Total Assets exactly equal Total Liabilities + Owners' Equity (Variance: $0.00)."
       },
       {
-        "step": "Paso 3: Botón Mágico '⚡ Auto-Reconcile Owner Equity'",
-        "desc": "Si registraste nuevos activos fijos o préstamos y la ecuación se desajusta por centavos o dólares, presiona este botón para calcular la diferencia y equilibrar el capital del dueño en un clic."
+        "step": "Step 3: Review 4 Solvency Ratios",
+        "desc": "Evaluate Working Capital, Current Ratio (Target: ≥1.5x), Quick Ratio (Acid-Test ≥1.0x), and Debt-to-Equity (≤1.5x)."
       },
       {
-        "step": "Paso 4: Supervisa los 4 Ratios de Solvencia",
-        "desc": "Revisa tu Capital de Trabajo Neto, Ratio Circulante (meta ≥1.50x), Prueba Ácida (meta ≥1.00x) y Apalancamiento Deuda/Patrimonio (meta ≤1.50x)."
+        "step": "Step 4: Click '⚡ Auto-Reconcile Owner Equity'",
+        "desc": "If any variance appears after manually adding custom assets or loans, click Auto-Reconcile to restore 100% mathematical equilibrium instantly."
       },
       {
-        "step": "Paso 5: Emite el Balance Formal para Bancos",
-        "desc": "Haz clic en '🖨️ Bank-Ready Statement' para generar el estado financiero con membrete oficial, notas de gestión y doble línea de firma para gerencia y CPA."
+        "step": "Step 5: Print Formal Bank Statement",
+        "desc": "Click '🖨️ Print Formal Bank Statement' to generate an audit-ready, 2-column GAAP Statement of Financial Position with CPA and Owner signature blocks."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Ecuación Fundamental de Contabilidad (GAAP)",
-        "desc": "El principio sagrado de partida doble exige que ningún activo exista sin una fuente de financiamiento (deuda con terceros o patrimonio del dueño)."
+        "rule": "Double-Entry Balance Equilibrium",
+        "desc": "Under US GAAP, Total Assets must always equal Total Liabilities plus Owners' Equity with zero out-of-balance gap."
       },
       {
-        "rule": "Ratios Exigidos por Prestamistas y Fianzas",
-        "desc": "Para calificar a fianzas de obra pública en New Jersey o préstamos bancarios, los analistas de riesgo exigen un Ratio Circulante de al menos 1.5x para garantizar que puedes pagar tus deudas a corto plazo."
+        "rule": "Commercial Bank Working Capital Covenant",
+        "desc": "Surety bond underwriters and commercial lenders require a Current Ratio ≥ 1.5x and positive Working Capital before issuing credit lines or performance bonds."
       }
     ],
-    "mockupTitle": "Balance General de 2 Columnas con Centinela Verde y Ratios de Liquidez",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>⚖️ ESTADO DE SITUACIÓN FINANCIERA (GAAP DOUBLE-ENTRY BALANCE SHEET)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">✅ 100% BALANCED (Variance: $0.00)</span>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:10px; font-size:11px;\">\n          <!-- Columna Izquierda: Activos -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#1e3a8a; border-bottom:1.5px solid #1e3a8a; padding-bottom:3px; margin-bottom:6px;\">ACTIVOS (ASSETS)</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Caja y Bancos (Operativa):</span>\n              <strong style=\"font-family:monospace;\">$87,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cuentas por Cobrar (A/R):</span>\n              <strong style=\"font-family:monospace;\">$36,940.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Inventario de Materiales:</span>\n              <strong style=\"font-family:monospace;\">$20,000.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehículos y Flota (PP&amp;E):</span>\n              <strong style=\"font-family:monospace;\">$40,000.00</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#1e3a8a;\">\n              <span>TOTAL ACTIVOS:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n\n          <!-- Columna Derecha: Pasivos + Patrimonio -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#b91c1c; border-bottom:1.5px solid #b91c1c; padding-bottom:3px; margin-bottom:6px;\">PASIVOS Y PATRIMONIO</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cuentas por Pagar (A/P):</span>\n              <strong style=\"font-family:monospace;\">$12,125.50</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>NJ Sales Tax ST-50 Por Pagar:</span>\n              <strong style=\"font-family:monospace;\">$4,405.63</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Préstamo Vehicular Flota:</span>\n              <strong style=\"font-family:monospace;\">$27,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Capital Aportado del Dueño:</span>\n              <strong style=\"font-family:monospace;\">$136,413.46</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#b91c1c;\">\n              <span>TOTAL PASIVOS + PATRIMONIO:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10px; text-align:center;\">\n          <div style=\"background:#eff6ff; padding:4px; border-radius:4px; border:1px solid #bfdbfe;\">\n            <div>Capital de Trabajo</div>\n            <strong style=\"font-size:11px; color:#1d4ed8;\">$84,714.50</strong>\n          </div>\n          <div style=\"background:#dcfce7; padding:4px; border-radius:4px; border:1px solid #bbf7d0;\">\n            <div>Ratio Circulante</div>\n            <strong style=\"font-size:11px; color:#15803d;\">7.99x (≥1.5x)</strong>\n          </div>\n          <div style=\"background:#f3e8ff; padding:4px; border-radius:4px; border:1px solid #e9d5ff;\">\n            <div>Prueba Ácida</div>\n            <strong style=\"font-size:11px; color:#7e22ce;\">6.68x (≥1.0x)</strong>\n          </div>\n          <div style=\"background:#fef3c7; padding:4px; border-radius:4px; border:1px solid #fde68a;\">\n            <div>Deuda / Patrimonio</div>\n            <strong style=\"font-size:11px; color:#b45309;\">0.28x (≤1.5x)</strong>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>⚖️ <strong>Equilibrio Perfecto:</strong> Ambas columnas suman exactamente $184,840.00 con $0.00 de diferencia. Si necesitas solicitar un préstamo, haz clic en 'Bank-Ready Statement' para imprimirlo.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Guarda un PDF de tu Balance General al cierre de cada trimestre fiscal. Si alguna vez necesitas una fianza urgente para una licitación pública de New Jersey, el oficial de fianzas te pedirá el balance de los últimos 4 trimestres cerrados."
+    "mockupTitle": "Two-Column GAAP Balance Sheet with Equilibrium Sentinel and Ratios",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>STATEMENT OF FINANCIAL POSITION (GAAP DOUBLE-ENTRY BALANCE SHEET)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">✅ 100% BALANCED (Variance: $0.00)</span>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:10px; font-size:11px;\">\n          <!-- Left Column: Assets -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#1e3a8a; border-bottom:1.5px solid #1e3a8a; padding-bottom:3px; margin-bottom:6px;\">ASSETS</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cash &amp; Operating Checking:</span>\n              <strong style=\"font-family:monospace;\">$87,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Accounts Receivable (A/R):</span>\n              <strong style=\"font-family:monospace;\">$36,940.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Materials Inventory:</span>\n              <strong style=\"font-family:monospace;\">$20,000.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehicles &amp; Equipment (PP&amp;E):</span>\n              <strong style=\"font-family:monospace;\">$40,000.00</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#1e3a8a;\">\n              <span>TOTAL ASSETS:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n\n          <!-- Right Column: Liabilities & Equity -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#b91c1c; border-bottom:1.5px solid #b91c1c; padding-bottom:3px; margin-bottom:6px;\">LIABILITIES &amp; OWNERS' EQUITY</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Accounts Payable (A/P):</span>\n              <strong style=\"font-family:monospace;\">$12,125.50</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>NJ Sales Tax ST-50 Payable:</span>\n              <strong style=\"font-family:monospace;\">$4,405.63</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehicle &amp; Equipment Loans:</span>\n              <strong style=\"font-family:monospace;\">$27,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Contributed Owners' Capital:</span>\n              <strong style=\"font-family:monospace;\">$136,413.46</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#b91c1c;\">\n              <span>TOTAL LIABILITIES &amp; EQUITY:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10px; text-align:center;\">\n          <div style=\"background:#eff6ff; padding:4px; border-radius:4px; border:1px solid #bfdbfe;\">\n            <div>Working Capital</div>\n            <strong style=\"font-size:11px; color:#1d4ed8;\">$84,714.50</strong>\n          </div>\n          <div style=\"background:#dcfce7; padding:4px; border-radius:4px; border:1px solid #bbf7d0;\">\n            <div>Current Ratio</div>\n            <strong style=\"font-size:11px; color:#15803d;\">7.99x (≥1.5x)</strong>\n          </div>\n          <div style=\"background:#f3e8ff; padding:4px; border-radius:4px; border:1px solid #e9d5ff;\">\n            <div>Quick Ratio</div>\n            <strong style=\"font-size:11px; color:#7e22ce;\">6.68x (≥1.0x)</strong>\n          </div>\n          <div style=\"background:#fef3c7; padding:4px; border-radius:4px; border:1px solid #b45309;\">\n            <div>Debt-to-Equity</div>\n            <strong style=\"font-size:11px; color:#b45309;\">0.28x (≤1.5x)</strong>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>⚖️ <strong>Mathematical Equilibrium:</strong> Both columns equal exactly $184,840.00 with $0.00 variance. Click 'Print Bank Statement' to produce a formal document for lenders or bonding agents.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Export a PDF of your Balance Sheet at the close of every fiscal quarter. When applying for a commercial line of credit or bidding a major public project, surety underwriters require 4 consecutive quarters of clean, balanced balance sheets."
   },
   "taxes": {
     "tabKey": "taxes",
-    "tabName": "NJ Taxes & Compliance",
-    "tabNameEs": "Impuestos de New Jersey y Safe Harbor",
-    "badge": "Pestaña de Cumplimiento #12",
+    "tabName": "NJ Taxes",
+    "tabNameEs": "New Jersey State Tax Reserves & Safe Harbor",
+    "badge": "Compliance Sentinel #12",
     "icon": "🏛️",
-    "subtitle": "Impuesto Corporativo CBT 6.5%, Ventas ST-50, Pagos Trimestrales y Reporte Anual de NJ",
-    "purpose": "Es tu escudo contra multas, recargos e intereses moratorios del Estado de New Jersey y del IRS. Te muestra qué impuestos vencen cada trimestre y audita si tu cuenta bancaria de ahorros tributarios tiene suficiente saldo reservado para cubrir el pago antes de la fecha límite.",
+    "subtitle": "NJ Corporation Business Tax (CBT 6.5%), Sales Tax (ST-50) & Safe Harbor Protection",
+    "purpose": "Guards your business against underpayment penalties from the State of New Jersey (Trenton). Tracks fiduciary quarterly Sales Tax liabilities (ST-50) and computes estimated Corporate Business Tax (CBT 6.5%) reserves.",
     "howItWorks": [
       {
-        "step": "Paso 1: Registra las Obligaciones del Trimestre",
-        "desc": "Haz clic en '➕ Add Tax Obligation'. Elige: NJ CBT (6.5%), NJ Sales Tax (ST-50), Estimado Federal (1040-ES) o Reporte Anual de NJ ($75)."
+        "step": "Step 1: Track Quarterly Sales Tax (ST-50)",
+        "desc": "Sales tax collected from customer invoices is automatically tracked as a trust-fund liability due to Trenton on the 20th of the month following each quarter."
       },
       {
-        "step": "Paso 2: Digita la Estimación a Pagar (Estimated Due)",
-        "desc": "Anota el monto proyectado que deberás pagar al fisco para ese periodo."
+        "step": "Step 2: Accrue CBT Corporate Tax Reserves (6.5%)",
+        "desc": "The engine calculates the recommended 6.5% Corporation Business Tax reserve on net taxable business income."
       },
       {
-        "step": "Paso 3: Registra el Fondo Apartado en Banco (Reserve Funded)",
-        "desc": "En 'Reserve Funded ($)' anota cuánto dinero tienes efectivamente guardado en tu cuenta bancaria de ahorros de impuestos."
-      },
-      {
-        "step": "Paso 4: Monitorea la Brecha de Reserva (Reserve Gap)",
-        "desc": "Si la brecha es $0.00, estás en Safe Harbor (zona segura). Si aparece en rojo, te indica exactamente cuánto dinero debes apartar antes del vencimiento."
-      },
-      {
-        "step": "Paso 5: Marca como Presentado y Pagado",
-        "desc": "Cuando envíes la remesa a Trenton, cambia el estado a 'Remitted & Filed'."
+        "step": "Step 3: Monitor Safe Harbor Buffer",
+        "desc": "The Safe Harbor Sentinel compares your funded tax reserves against estimated liabilities, displaying 'Safe Harbor Met' in green or alerting to shortfalls in red."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Regla Safe Harbor (Puerto Seguro Tributario)",
-        "desc": "El IRS y New Jersey penalizan los pagos trimestrales insuficientes. Para estar protegido y evitar recargos, debes abonar en cuotas trimestrales al menos el 100% del impuesto del año previo o el 90% del corriente."
+        "rule": "Fiduciary Duty on Sales Tax Collections (N.J.A.C. 18:24)",
+        "desc": "Sales tax collected from customers is state trust-fund money; using sales tax receipts for operating expenses is a severe civil and criminal violation under New Jersey law."
       },
       {
-        "rule": "Fechas Clave de NJ Sales Tax (ST-50)",
-        "desc": "El impuesto sobre ventas de NJ (6.625%) se remite trimestralmente antes del día 20 del mes siguiente al cierre del trimestre (Abril 20, Julio 20, Octubre 20 y Enero 20)."
-      },
-      {
-        "rule": "Renovación Anual Corporativa de NJ ($75)",
-        "desc": "Toda LLC o Corporación registrada en New Jersey debe presentar su Annual Report ante la División de Ingresos para no perder su personería jurídica activa."
+        "rule": "NJ CBT Estimated Payment Deadlines",
+        "desc": "Corporations expecting to owe $500 or more in NJ CBT must submit quarterly estimated voucher payments (CBT-150) by April 15, June 15, September 15, and December 15."
       }
     ],
-    "mockupTitle": "Calendario de Impuestos Trimestrales de New Jersey con Brecha en Cero",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🏛️ CRONOGRAMA DE IMPUESTOS Y RESERVAS (NJ TAXES &amp; SAFE HARBOR)</span>\n          <span style=\"font-size:10px; color:#10b981; font-weight:800;\">Safe Harbor Activo</span>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:700;\">Q3 (Jul - Sep)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#1e3a8a;\">NJ CBT - Corporation Business Tax (6.5%)</div>\n          <div class=\"mockup-cell\" style=\"font-size:10px; color:#475569;\">6.5% Net Inc</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; font-weight:800;\">$2,950.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; color:#10b981; font-weight:800;\">$2,950.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#10b981; font-weight:800;\">$0.00 (Safe)</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-15</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Remitted &amp; Filed</span></div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#ffffff; margin-bottom:6px;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:700;\">Q3 (Jul - Sep)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#1e3a8a;\">NJ Sales Tax (ST-50 Remittance)</div>\n          <div class=\"mockup-cell\" style=\"font-size:10px; color:#475569;\">6.625% Flat</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; font-weight:800;\">$4,410.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; color:#10b981; font-weight:800;\">$4,410.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#10b981; font-weight:800;\">$0.00 (Safe)</div>\n          <div class=\"mockup-cell mockup-cell-input\">2025-10-20</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:10px;\">Remitted &amp; Filed</span></div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#fffbeb; border:1px solid #fef3c7;\">\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:700;\">Q4 (Oct - Dec)</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-weight:800; color:#1e3a8a;\">NJ CBT - Corporation Business Tax</div>\n          <div class=\"mockup-cell\" style=\"font-size:10px; color:#475569;\">6.5% Net Inc</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; font-weight:800;\">$3,200.00</div>\n          <div class=\"mockup-cell mockup-cell-input\" style=\"font-family:monospace; color:#d97706; font-weight:800;\">$2,500.00</div>\n          <div class=\"mockup-cell mockup-cell-formula\" style=\"color:#b91c1c; font-weight:800;\">$700.00 (Faltante)</div>\n          <div class=\"mockup-cell mockup-cell-input\">2026-01-15</div>\n          <div class=\"mockup-cell\" style=\"text-align:center;\"><span class=\"badge\" style=\"background:#fef3c7; color:#b45309; font-size:10px;\">Reserve Needed</span></div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>🛡️ <strong>Alerta de Faltante:</strong> La tercera fila muestra que para el impuesto corporativo Q4 necesitas $3,200 pero solo has apartado $2,500 en tu banco. La herramienta te alerta en rojo que faltan $700 antes del 15 de enero.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Abre una cuenta de ahorros empresarial separada llamada 'TAX SAVINGS' en tu banco. Cada vez que cobres un pago de un cliente, transfiere de inmediato el 20% a esa cuenta. Nunca te faltará dinero para pagar tus impuestos trimestrales."
+    "mockupTitle": "New Jersey Tax Reserve Register and Safe Harbor Sentinel",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>NJ TAX RESERVE SENTINEL &amp; FILING SCHEDULE</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 SAFE HARBOR MET</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:10px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">ST-50 SALES TAX (Q3)</div>\n            <div style=\"font-size:13px; font-weight:900; color:#b91c1c; font-family:monospace;\">$4,405.63</div>\n            <div style=\"font-size:9.5px; color:#64748b;\">Due: Oct 20, 2025</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">NJ CBT RESERVE (6.5%)</div>\n            <div style=\"font-size:13px; font-weight:900; color:#0369a1; font-family:monospace;\">$3,414.42</div>\n            <div style=\"font-size:9.5px; color:#64748b;\">Net Income Reserve</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">TAX SAVINGS BUFFER</div>\n            <div style=\"font-size:13px; font-weight:900; color:#15803d; font-family:monospace;\">$10,000.00</div>\n            <div style=\"font-size:9.5px; color:#15803d; font-weight:700;\">+$2,179.95 Surplus</div>\n          </div>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>🏛️ <strong>Safe Harbor Verified:</strong> Your tax savings reserve exceeds estimated NJ liabilities by $2,179.95, completely shielding your business from underpayment penalties.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Maintain a dedicated high-yield business savings account strictly for sales tax and CBT reserves. Transfer collected tax dollars into this reserve account every Friday so you are never caught short when quarterly tax filings are due."
   },
   "tools": {
     "tabKey": "tools",
-    "tabName": "System Tools & Settings",
-    "tabNameEs": "Herramientas del Sistema, Respaldo y Configuración",
-    "badge": "Pestaña de Utilidades #13",
-    "icon": "🛠️",
-    "subtitle": "Exportación a Excel, Copias de Seguridad JSON, Membrete de Empresa y Control de Módulos",
-    "purpose": "Administra la seguridad y portabilidad de tus datos financieros sin atarte a ninguna nube privada. Te permite exportar libros de Excel de alta fidelidad con la hoja de Job Costing, guardar respaldos cifrados en tu disco o USB, personalizar tu perfil corporativo con tu licencia HICPA de New Jersey y encender o apagar módulos que no utilices.",
+    "tabName": "System Tools",
+    "tabNameEs": "System Administration, Backups & Skins",
+    "badge": "Administration Hub #13",
+    "icon": "⚙️",
+    "subtitle": "Local Database Backups, Excel Companion Generator & Interface Skin Preferences",
+    "purpose": "Provides administrative control over your database: 1-click JSON snapshot backups, companion Excel workbook generation, template resets, and instant interface skin switching between Classic Tabs and Magnific AI Sidebar.",
     "howItWorks": [
       {
-        "step": "Paso 1: Exporta tu Libro de Microsoft Excel",
-        "desc": "Haz clic en '📥 Export Excel Workbook' o '💾 SAVE AS NEW FILE'. Generará al instante el archivo .xlsx o .xls con todas tus fórmulas nativas y la hoja de costeo por proyecto."
+        "step": "Step 1: Download JSON Backup File",
+        "desc": "Click 'Download Backup File (.json)' to create a complete snapshot of all invoices, expenses, projects, and settings on your local computer."
       },
       {
-        "step": "Paso 2: Realiza Copias de Seguridad Semanales (JSON)",
-        "desc": "Haz clic en '💾 Save Backup'. Se descargará un archivo de datos local. Si cambias de computadora, haz clic en '📂 Load Backup' para restaurar toda tu empresa en 2 segundos."
+        "step": "Step 2: Restore from Backup",
+        "desc": "Use 'Load Backup File' to instantly restore records on another computer without manual typing."
       },
       {
-        "step": "Paso 3: Configura el Membrete de tu Empresa",
-        "desc": "En 'Company Profile Settings', coloca el nombre de tu empresa, dirección en New Jersey, teléfono y número de licencia de contratista HICPA. Se imprimirá en todas tus facturas y balances bancarios."
+        "step": "Step 3: Generate Native Protected Excel Companion",
+        "desc": "Click 'Generate Excel Workbook' to produce a multi-tab, formula-protected companion workbook (.xls) with full mathematical parity."
       },
       {
-        "step": "Paso 4: Personaliza tus Pestañas con Module Wizard",
-        "desc": "Si tu empresa no tiene flotas ni camionetas de trabajo, apaga el interruptor de 'Fleet'; esa pestaña desaparecerá de la barra superior para mantener tu pantalla limpia."
+        "step": "Step 4: Toggle Interface Skins",
+        "desc": "Switch between Classic Horizontal Tabs and Magnific AI Modern Sidebar with zero reload or data loss."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Custodia de Libros por 7 Años (IRC §6001)",
-        "desc": "El código tributario federal exige que los negocios conserven sus registros contables durante mínimo 7 años para auditorías del IRS. Guardar tus copias de respaldo JSON y libros de Excel garantiza cumplimiento total sin pagar cuotas mensuales de software."
+        "rule": "7-Year Accounting Record Retention (IRC §6001)",
+        "desc": "Federal and NJ tax regulations require businesses to preserve complete financial records, invoices, and bank backups for at least 7 years."
       },
       {
-        "rule": "Identificación Legal HICPA de New Jersey",
-        "desc": "La ley de protección al consumidor de New Jersey (N.J.A.C. 13:45A-16) exige que todo contrato de mejoras del hogar incluya el número de licencia estatal del contratista. SBBT lo imprime automáticamente en todas las facturas."
+        "rule": "Disaster Recovery & Air-Gapped Local Backups",
+        "desc": "Maintaining local JSON backups protects your business from accidental browser clearing, device theft, or operating system updates."
       }
     ],
-    "mockupTitle": "Tarjetas de Exportación a Excel, Respaldo JSON y Perfil Corporativo",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🛠️ HERRAMIENTAS DE SEGURIDAD Y CONFIGURACIÓN DEL SISTEMA</span>\n          <span style=\"font-size:10px; color:#10b981; font-weight:800;\">100% Datos Locales y Privados</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-size:12px; font-weight:800; color:#1e3a8a; margin-bottom:4px;\">📥 Exportar a Excel</div>\n            <div style=\"font-size:10px; color:#64748b; margin-bottom:8px;\">Genera el libro .xlsx de 11 hojas con fórmulas y costeo de obra.</div>\n            <button class=\"btn btn-sm btn-primary\" style=\"width:100%; font-size:10.5px;\">Exportar Workbook</button>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-size:12px; font-weight:800; color:#059669; margin-bottom:4px;\">💾 Copia de Seguridad JSON</div>\n            <div style=\"font-size:10px; color:#64748b; margin-bottom:8px;\">Descarga archivo de respaldo para guardar en pendrive o disco.</div>\n            <button class=\"btn btn-sm btn-success\" style=\"width:100%; font-size:10.5px;\">Descargar Backup</button>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-size:12px; font-weight:800; color:#7e22ce; margin-bottom:4px;\">🏢 Perfil de Empresa</div>\n            <div style=\"font-size:10px; color:#64748b; margin-bottom:8px;\">Personaliza membrete, teléfono y licencia HICPA de New Jersey.</div>\n            <button class=\"btn btn-sm btn-outline-dark\" style=\"width:100%; font-size:10.5px;\">Editar Membrete</button>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>💾 <strong>Control Total y Cero Costo Mensual:</strong> Tus números financieros jamás viajan a internet. Todo queda guardado en el almacenamiento local de tu navegador y en tus archivos de Excel.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Guarda una copia de respaldo JSON (Save Backup) al final de cada semana y ponle la fecha en el nombre (ej. Backup_GardenState_2025_10_30.json). Si alguna vez limpias las cookies de tu navegador, podrás restaurar todo en 1 segundo."
+    "mockupTitle": "Administrative Tools Deck for Backups, Excel & Skins",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>SYSTEM ADMINISTRATION &amp; DATABASE CONTROL</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">100% LOCAL &amp; SECURE</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:11.5px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#1e3a8a; margin-bottom:4px;\">💾 LOCAL DATABASE BACKUP</div>\n            <p style=\"font-size:11px; color:#64748b; margin:0 0 8px 0;\">Saves complete snapshot of all projects, invoices, and expenses to your drive.</p>\n            <button class=\"btn btn-primary\" style=\"font-size:10.5px; padding:4px 10px;\">Download Backup (.json)</button>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#0369a1; margin-bottom:4px;\">✨ DASHBOARD SKIN SELECTOR</div>\n            <p style=\"font-size:11px; color:#64748b; margin:0 0 8px 0;\">Switch instantly between Classic Horizontal Tabs and Magnific AI Sidebar.</p>\n            <button class=\"btn btn-outline-dark\" style=\"font-size:10.5px; padding:4px 10px;\">Toggle Skin Mode</button>\n          </div>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>⚙️ <strong>Zero Data Loss:</strong> All data is stored locally in your browser. Use 'SAVE AS NEW FILE' or download a JSON backup weekly to maintain physical copies on your hard drive.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Download a JSON backup file and click 'SAVE AS NEW FILE' at the end of every work week. Save these files to an external thumb drive or local backup folder to ensure permanent disaster recovery."
   },
   "costReview": {
     "tabKey": "cost-review",
     "tabName": "Project Cost Review",
-    "tabNameEs": "Revisión y Auditoría de Costos de Obra",
-    "badge": "Pestaña de Auditoría #9",
+    "tabNameEs": "Job Costing Audit & Interactive Margin Simulator",
+    "badge": "Audit Hub #9",
     "icon": "🏗️",
-    "subtitle": "Auditoría Quirúrgica de Contratos, Simulación Interactiva con Checkboxes e Informes Imprimibles",
-    "purpose": "Es el laboratorio de rentabilidad por proyecto. Consolida automáticamente todos los egresos registrados en las 6 disciplinas (materiales, nómina, peajes, patios, fianzas y servicios de obra) para un contrato seleccionado. Te permite desmarcar casillas para simular cómo mejoraría tu ganancia si excluyes o renegocias cualquier costo.",
+    "subtitle": "Multi-Discipline Cost Aggregation, Contract Profitability & Interactive Margin Simulator",
+    "purpose": "Aggregates all direct expenses across all 6 disciplines (COGS materials, labor/payroll, travel/tolls, facility/yard, insurance/bonds, and site utilities) assigned to a single client contract. Features an interactive checkbox simulator to model margins in real time and generate formal 1-page internal audit reports.",
     "howItWorks": [
       {
-        "step": "Paso 1: Selecciona el Contrato o Proyecto a Auditar",
-        "desc": "Elige cualquier contrato en el menú desplegable superior. El sistema reúne instantáneamente todas las facturas y pagos asociados a ese trabajo."
+        "step": "Step 1: Select Project to Audit",
+        "desc": "Choose any active customer contract from the master project selector to view its complete financial breakdown."
       },
       {
-        "step": "Paso 2: Evalúa la Barra de Consumo de Presupuesto",
-        "desc": "La barra te indica el porcentaje del contrato que ya ha sido consumido por los gastos activos: verde (<65%), amarillo (65-85%) o rojo (>85% peligro de pérdida)."
+        "step": "Step 2: Inspect Multi-Discipline Line Items",
+        "desc": "Review individual cost lines from Materials, Subcontractors, Dedicated Payroll, Tolls, Bonds, and Dumpsters."
       },
       {
-        "step": "Paso 3: Simula Exclusiones con las Casillas [x]",
-        "desc": "Desmarca cualquier partida de gasto para simular su exclusión. La ganancia neta en dólares ($) y el margen porcentual (%) se recalculan al segundo."
+        "step": "Step 3: Simulate Margin with Checkboxes ([x])",
+        "desc": "Uncheck any expense line to simulate how profit margin changes without it. Click 'Reset All Checks' to restore."
       },
       {
-        "step": "Paso 4: Imprime el Reporte Formal de Auditoría",
-        "desc": "Haz clic en '🖨️ Print Formal Project Audit Report' para imprimir un informe técnico listo para firmar con membrete y desglose clasificado."
+        "step": "Step 4: Print 1-Click Executive Internal Audit Report",
+        "desc": "Click '🖨️ Print Audit Report' to produce a formal, clean 1-page cost audit document for internal project review."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Prevención de Pérdidas en Contratos a Precio Fijo",
-        "desc": "En obras con precio pactado (Lump Sum), los sobrecostos no detectados a tiempo son la causa número uno de quiebra en New Jersey. Esta pestaña te avisa antes de que el trabajo pierda dinero."
+        "rule": "Comprehensive Cost Allocation Principle",
+        "desc": "GAAP construction accounting requires that all direct contract costs—including dedicated travel, permits, and dumpster fees—be attributed directly to project revenues."
       },
       {
-        "rule": "Justificación de Órdenes de Cambio (Change Orders)",
-        "desc": "El reporte desglosado te sirve como prueba irrefutable ante el cliente para cobrar trabajos adicionales que superaron el presupuesto original."
+        "rule": "Change Order Reconciliation",
+        "desc": "Ensure that unbilled scope changes are substantiated with written change orders before project cost overruns exceed contract billings."
       }
     ],
-    "mockupTitle": "Selector de Contrato con Barra de Consumo Presupuestario y Checkboxes",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>🏗️ AUDITORÍA DE COSTOS: FACILITY HVAC UPGRADE (HORIZON HEALTHCARE NJ)</span>\n          <span style=\"font-size:10px; color:#10b981; font-weight:800;\">Valor Contrato: $14,500.00</span>\n        </div>\n\n        <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px 14px; margin-bottom:10px;\">\n          <div style=\"display:flex; justify-content:space-between; font-size:11px; font-weight:800; margin-bottom:4px;\">\n            <span>Presupuesto Consumido por Gastos:</span>\n            <span style=\"color:#0284c7; font-family:monospace;\">65.7% ($9,527.25 / $14,500.00)</span>\n          </div>\n          <div style=\"background:#e2e8f0; height:8px; border-radius:4px; overflow:hidden;\">\n            <div style=\"background:linear-gradient(90deg, #10b981 0%, #0284c7 100%); width:65.7%; height:100%;\"></div>\n          </div>\n          <div style=\"display:flex; justify-content:space-between; font-size:10px; color:#64748b; margin-top:4px;\">\n            <span>Costo Total Activo: <strong>$9,527.25</strong></span>\n            <span>Utilidad Neta Simulada: <strong style=\"color:#10b981;\">$4,972.75 (34.3% Margen)</strong></span>\n          </div>\n        </div>\n\n        <!-- Partidas individuales -->\n        <div style=\"display:flex; flex-direction:column; gap:4px; font-size:11px;\">\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Grainger Industrial NJ <span style=\"font-size:9.5px; color:#64748b;\">(Materiales / COGS)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$3,850.00</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Carlos Mendez - Lead Tech <span style=\"font-size:9.5px; color:#64748b;\">(Mano de Obra + Carga 10.9%)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$4,158.75</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Ford Transit Van #1 <span style=\"font-size:9.5px; color:#64748b;\">(Gasolina + Peajes E-ZPass)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$358.50</div>\n          </div>\n          <div class=\"mockup-row\" style=\"background:#f8fafc; padding:6px 10px;\">\n            <div style=\"width:24px;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></div>\n            <div style=\"flex:1; font-weight:700;\">Waste Management 30-Yd Dumpster <span style=\"font-size:9.5px; color:#64748b;\">(Contenedor de Obra)</span></div>\n            <div style=\"font-family:monospace; font-weight:800;\">$480.00</div>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>🔘 <strong>Simulación en Tiempo Real:</strong> Si desmarcas cualquiera de las casillas [x], la barra superior se actualiza de inmediato para mostrarte cómo cambia tu margen neto sin ese gasto.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Antes de firmar el acta final de entrega de un proyecto, abre esta pestaña y revisa si el margen neto final coincide con lo que presupuestaste originalmente. Si es menor, sabrás con exactitud si la pérdida fue por mano de obra, fletes o compras no previstas."
+    "mockupTitle": "Interactive Cost Inclusion Simulator and Contract Profitability Deck",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>PROJECT COST REVIEW: CLEANROOM WIRING PHASE 1</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">🟢 62.0% PROFIT MARGIN</span>\n        </div>\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:12px;\">\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">CONTRACT VALUE</div>\n            <div style=\"font-size:13px; font-weight:900; color:#1e3a8a; font-family:monospace;\">$48,500.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">ASSIGNED COSTS</div>\n            <div style=\"font-size:13px; font-weight:900; color:#b91c1c; font-family:monospace;\">$18,420.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">NET PROFIT</div>\n            <div style=\"font-size:13px; font-weight:900; color:#15803d; font-family:monospace;\">$30,080.00</div>\n          </div>\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:8px; text-align:center;\">\n            <div style=\"font-size:10px; color:#64748b;\">MARGIN %</div>\n            <div style=\"font-size:13px; font-weight:900; color:#15803d;\">62.0%</div>\n          </div>\n        </div>\n        <div class=\"mockup-row\" style=\"background:#f1f5f9; font-size:11px; font-weight:700; color:#475569;\">\n          <span style=\"flex:0.5; text-align:center;\">INC</span>\n          <span style=\"flex:1;\">DISCIPLINE</span>\n          <span style=\"flex:2;\">DESCRIPTION</span>\n          <span style=\"flex:1.2; text-align:right;\">AMOUNT ($)</span>\n          <span style=\"flex:1; text-align:center;\">STATUS</span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:0.5; text-align:center;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></span>\n          <span style=\"flex:1; font-weight:700; color:#0369a1;\">Materials (COGS)</span>\n          <span style=\"flex:2;\">Cooper Electric Supply (Panel &amp; Conduit)</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$12,450.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:9.5px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-row\" style=\"font-size:11.5px; margin-top:4px;\">\n          <span style=\"flex:0.5; text-align:center;\"><input type=\"checkbox\" checked style=\"accent-color:#0284c7;\"></span>\n          <span style=\"flex:1; font-weight:700; color:#d97706;\">Fleet (Tolls)</span>\n          <span style=\"flex:2;\">NJ Turnpike E-ZPass Tolls (8 Trips)</span>\n          <span class=\"mockup-cell mockup-cell-formula\" style=\"flex:1.2; text-align:right;\">$114.00</span>\n          <span style=\"flex:1; text-align:center;\"><span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-size:9.5px;\">Paid</span></span>\n        </div>\n        <div class=\"mockup-callout\">\n          <div>💡 <strong>Interactive Simulator:</strong> Unchecking any item dynamically recalculates net margin and contract progress in real time without altering your underlying database records.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Run a Project Cost Review before submitting progress billings to your client. If your cost consumption exceeds 65% while the physical job is only half finished, issue an immediate change order before your margin evaporates."
   },
   "balanceSheet": {
     "tabKey": "balance-sheet",
     "tabName": "Balance Sheet",
-    "tabNameEs": "Balance General (Estándar Harvard Business School)",
-    "badge": "Pestaña de Solvencia #11",
+    "tabNameEs": "Statement of Financial Position (HBS GAAP Standard)",
+    "badge": "Solvency Engine #11",
     "icon": "⚖️",
-    "subtitle": "Estado de Situación Financiera, Centinela de Equilibrio Patrimonial y Ratios para Bancos",
-    "purpose": "Certifica el patrimonio neto real y la solvencia de tu empresa bajo los principios de contabilidad generalmente aceptados (GAAP) y las directrices de Harvard Business School: Activos = Pasivos + Patrimonio. Es el estado financiero imprescindible que exigen los bancos para otorgar líneas de crédito comercial, préstamos de la SBA y las compañías de fianzas.",
+    "subtitle": "Statement of Financial Position: Assets = Liabilities + Owners' Equity & Bank Solvency",
+    "purpose": "Enforces the foundational Harvard Business School accounting equation: Assets = Liabilities + Owners' Equity. Measures working capital, liquidity ratios (Current Ratio ≥ 1.5x, Acid-Test), and prints formal bank-ready statements for commercial loan officers and surety underwriters.",
     "howItWorks": [
       {
-        "step": "Paso 1: Conexión Automática con el Sistema",
-        "desc": "El Balance General extrae en vivo tus fondos de caja, cuentas por cobrar (A/R), cuentas por pagar (A/P), impuestos de ventas pendientes (ST-50) y la utilidad neta retenida del año."
+        "step": "Step 1: Inspect Live Ledger Synchronization",
+        "desc": "Real-time feeds automatically pull Cash on Hand, Accounts Receivable (A/R), Accounts Payable (A/P), ST-50 Sales Tax, and Year-to-Date Net Income directly into your statement."
       },
       {
-        "step": "Paso 2: Revisa el Centinela de Equilibrio",
-        "desc": "El banner superior verifica que Total Activos sea exactamente igual a Total Pasivos + Patrimonio. Si está equilibrado, brilla en verde (✅ 100% BALANCED)."
+        "step": "Step 2: Verify Balanced Equilibrium Indicator",
+        "desc": "The green sentinel confirms that Total Assets exactly equal Total Liabilities + Owners' Equity (Variance: $0.00)."
       },
       {
-        "step": "Paso 3: Botón Mágico '⚡ Auto-Reconcile Owner Equity'",
-        "desc": "Si registraste nuevos activos fijos o préstamos y la ecuación se desajusta por centavos o dólares, presiona este botón para calcular la diferencia y equilibrar el capital del dueño en un clic."
+        "step": "Step 3: Review 4 Solvency Ratios",
+        "desc": "Evaluate Working Capital, Current Ratio (Target: ≥1.5x), Quick Ratio (Acid-Test ≥1.0x), and Debt-to-Equity (≤1.5x)."
       },
       {
-        "step": "Paso 4: Supervisa los 4 Ratios de Solvencia",
-        "desc": "Revisa tu Capital de Trabajo Neto, Ratio Circulante (meta ≥1.50x), Prueba Ácida (meta ≥1.00x) y Apalancamiento Deuda/Patrimonio (meta ≤1.50x)."
+        "step": "Step 4: Click '⚡ Auto-Reconcile Owner Equity'",
+        "desc": "If any variance appears after manually adding custom assets or loans, click Auto-Reconcile to restore 100% mathematical equilibrium instantly."
       },
       {
-        "step": "Paso 5: Emite el Balance Formal para Bancos",
-        "desc": "Haz clic en '🖨️ Bank-Ready Statement' para generar el estado financiero con membrete oficial, notas de gestión y doble línea de firma para gerencia y CPA."
+        "step": "Step 5: Print Formal Bank Statement",
+        "desc": "Click '🖨️ Print Formal Bank Statement' to generate an audit-ready, 2-column GAAP Statement of Financial Position with CPA and Owner signature blocks."
       }
     ],
     "auditChecklist": [
       {
-        "rule": "Ecuación Fundamental de Contabilidad (GAAP)",
-        "desc": "El principio sagrado de partida doble exige que ningún activo exista sin una fuente de financiamiento (deuda con terceros o patrimonio del dueño)."
+        "rule": "Double-Entry Balance Equilibrium",
+        "desc": "Under US GAAP, Total Assets must always equal Total Liabilities plus Owners' Equity with zero out-of-balance gap."
       },
       {
-        "rule": "Ratios Exigidos por Prestamistas y Fianzas",
-        "desc": "Para calificar a fianzas de obra pública en New Jersey o préstamos bancarios, los analistas de riesgo exigen un Ratio Circulante de al menos 1.5x para garantizar que puedes pagar tus deudas a corto plazo."
+        "rule": "Commercial Bank Working Capital Covenant",
+        "desc": "Surety bond underwriters and commercial lenders require a Current Ratio ≥ 1.5x and positive Working Capital before issuing credit lines or performance bonds."
       }
     ],
-    "mockupTitle": "Balance General de 2 Columnas con Centinela Verde y Ratios de Liquidez",
-    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>⚖️ ESTADO DE SITUACIÓN FINANCIERA (GAAP DOUBLE-ENTRY BALANCE SHEET)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">✅ 100% BALANCED (Variance: $0.00)</span>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:10px; font-size:11px;\">\n          <!-- Columna Izquierda: Activos -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#1e3a8a; border-bottom:1.5px solid #1e3a8a; padding-bottom:3px; margin-bottom:6px;\">ACTIVOS (ASSETS)</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Caja y Bancos (Operativa):</span>\n              <strong style=\"font-family:monospace;\">$87,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cuentas por Cobrar (A/R):</span>\n              <strong style=\"font-family:monospace;\">$36,940.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Inventario de Materiales:</span>\n              <strong style=\"font-family:monospace;\">$20,000.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehículos y Flota (PP&amp;E):</span>\n              <strong style=\"font-family:monospace;\">$40,000.00</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#1e3a8a;\">\n              <span>TOTAL ACTIVOS:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n\n          <!-- Columna Derecha: Pasivos + Patrimonio -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#b91c1c; border-bottom:1.5px solid #b91c1c; padding-bottom:3px; margin-bottom:6px;\">PASIVOS Y PATRIMONIO</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cuentas por Pagar (A/P):</span>\n              <strong style=\"font-family:monospace;\">$12,125.50</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>NJ Sales Tax ST-50 Por Pagar:</span>\n              <strong style=\"font-family:monospace;\">$4,405.63</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Préstamo Vehicular Flota:</span>\n              <strong style=\"font-family:monospace;\">$27,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Capital Aportado del Dueño:</span>\n              <strong style=\"font-family:monospace;\">$136,413.46</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#b91c1c;\">\n              <span>TOTAL PASIVOS + PATRIMONIO:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10px; text-align:center;\">\n          <div style=\"background:#eff6ff; padding:4px; border-radius:4px; border:1px solid #bfdbfe;\">\n            <div>Capital de Trabajo</div>\n            <strong style=\"font-size:11px; color:#1d4ed8;\">$84,714.50</strong>\n          </div>\n          <div style=\"background:#dcfce7; padding:4px; border-radius:4px; border:1px solid #bbf7d0;\">\n            <div>Ratio Circulante</div>\n            <strong style=\"font-size:11px; color:#15803d;\">7.99x (≥1.5x)</strong>\n          </div>\n          <div style=\"background:#f3e8ff; padding:4px; border-radius:4px; border:1px solid #e9d5ff;\">\n            <div>Prueba Ácida</div>\n            <strong style=\"font-size:11px; color:#7e22ce;\">6.68x (≥1.0x)</strong>\n          </div>\n          <div style=\"background:#fef3c7; padding:4px; border-radius:4px; border:1px solid #fde68a;\">\n            <div>Deuda / Patrimonio</div>\n            <strong style=\"font-size:11px; color:#b45309;\">0.28x (≤1.5x)</strong>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>⚖️ <strong>Equilibrio Perfecto:</strong> Ambas columnas suman exactamente $184,840.00 con $0.00 de diferencia. Si necesitas solicitar un préstamo, haz clic en 'Bank-Ready Statement' para imprimirlo.</div>\n        </div>\n      </div>\n    ",
-    "proTip": "Guarda un PDF de tu Balance General al cierre de cada trimestre fiscal. Si alguna vez necesitas una fianza urgente para una licitación pública de New Jersey, el oficial de fianzas te pedirá el balance de los últimos 4 trimestres cerrados."
+    "mockupTitle": "Two-Column GAAP Balance Sheet with Equilibrium Sentinel and Ratios",
+    "mockupHtml": "\n      <div class=\"mockup-container\">\n        <div class=\"mockup-table-header\">\n          <span>STATEMENT OF FINANCIAL POSITION (GAAP DOUBLE-ENTRY BALANCE SHEET)</span>\n          <span class=\"badge\" style=\"background:#dcfce7; color:#15803d; font-weight:800; font-size:10px;\">✅ 100% BALANCED (Variance: $0.00)</span>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:10px; font-size:11px;\">\n          <!-- Left Column: Assets -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#1e3a8a; border-bottom:1.5px solid #1e3a8a; padding-bottom:3px; margin-bottom:6px;\">ASSETS</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Cash &amp; Operating Checking:</span>\n              <strong style=\"font-family:monospace;\">$87,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Accounts Receivable (A/R):</span>\n              <strong style=\"font-family:monospace;\">$36,940.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Materials Inventory:</span>\n              <strong style=\"font-family:monospace;\">$20,000.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehicles &amp; Equipment (PP&amp;E):</span>\n              <strong style=\"font-family:monospace;\">$40,000.00</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#1e3a8a;\">\n              <span>TOTAL ASSETS:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n\n          <!-- Right Column: Liabilities & Equity -->\n          <div style=\"background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:10px;\">\n            <div style=\"font-weight:800; color:#b91c1c; border-bottom:1.5px solid #b91c1c; padding-bottom:3px; margin-bottom:6px;\">LIABILITIES &amp; OWNERS' EQUITY</div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Accounts Payable (A/P):</span>\n              <strong style=\"font-family:monospace;\">$12,125.50</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>NJ Sales Tax ST-50 Payable:</span>\n              <strong style=\"font-family:monospace;\">$4,405.63</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Vehicle &amp; Equipment Loans:</span>\n              <strong style=\"font-family:monospace;\">$27,900.00</strong>\n            </div>\n            <div style=\"display:flex; justify-content:space-between; margin-bottom:3px;\">\n              <span>Contributed Owners' Capital:</span>\n              <strong style=\"font-family:monospace;\">$136,413.46</strong>\n            </div>\n            <div style=\"border-top:1.5px solid #0f172a; margin-top:8px; padding-top:4px; display:flex; justify-content:space-between; font-weight:800; font-size:12px; color:#b91c1c;\">\n              <span>TOTAL LIABILITIES &amp; EQUITY:</span>\n              <span style=\"font-family:monospace;\">$184,840.00</span>\n            </div>\n          </div>\n        </div>\n\n        <div style=\"display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10px; text-align:center;\">\n          <div style=\"background:#eff6ff; padding:4px; border-radius:4px; border:1px solid #bfdbfe;\">\n            <div>Working Capital</div>\n            <strong style=\"font-size:11px; color:#1d4ed8;\">$84,714.50</strong>\n          </div>\n          <div style=\"background:#dcfce7; padding:4px; border-radius:4px; border:1px solid #bbf7d0;\">\n            <div>Current Ratio</div>\n            <strong style=\"font-size:11px; color:#15803d;\">7.99x (≥1.5x)</strong>\n          </div>\n          <div style=\"background:#f3e8ff; padding:4px; border-radius:4px; border:1px solid #e9d5ff;\">\n            <div>Quick Ratio</div>\n            <strong style=\"font-size:11px; color:#7e22ce;\">6.68x (≥1.0x)</strong>\n          </div>\n          <div style=\"background:#fef3c7; padding:4px; border-radius:4px; border:1px solid #b45309;\">\n            <div>Debt-to-Equity</div>\n            <strong style=\"font-size:11px; color:#b45309;\">0.28x (≤1.5x)</strong>\n          </div>\n        </div>\n\n        <div class=\"mockup-callout\">\n          <div>⚖️ <strong>Mathematical Equilibrium:</strong> Both columns equal exactly $184,840.00 with $0.00 variance. Click 'Print Bank Statement' to produce a formal document for lenders or bonding agents.</div>\n        </div>\n      </div>\n    ",
+    "proTip": "Export a PDF of your Balance Sheet at the close of every fiscal quarter. When applying for a commercial line of credit or bidding a major public project, surety underwriters require 4 consecutive quarters of clean, balanced balance sheets."
   }
 };
 
 // Compatibility Aliases
 TAB_HELP_GUIDES['costReview'] = TAB_HELP_GUIDES['cost-review'];
 TAB_HELP_GUIDES['balanceSheet'] = TAB_HELP_GUIDES['balance-sheet'];
-
 
 // Global and CommonJS Exports for Cross-Environment Compatibility
 if (typeof window !== 'undefined') {
