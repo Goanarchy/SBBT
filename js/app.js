@@ -1125,11 +1125,18 @@ function renderCategoryGuides() {
     const g = CATEGORY_GUIDES[key];
     if (container && g) {
       container.innerHTML = `
-        <div class="guide-text">
-          <h3>${g.title}</h3>
-          <p>${g.intro}</p>
+        <div class="guide-text" style="flex:1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:3px;">
+            <h3 style="margin:0;">${g.title}</h3>
+            <button class="btn btn-guide-open-help" onclick="openTabHelpModal('${key}')" title="Ver explicación detallada con ejemplos visuales y requisitos del IRS">
+              <span>📖</span> Guía de Pestaña &amp; Ejemplos
+            </button>
+          </div>
+          <p style="margin:0;">${g.intro}</p>
         </div>
-        <div class="guide-rule-badge">${g.tip}</div>
+        <div class="guide-rule-badge" style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+          <div>${g.tip}</div>
+        </div>
       `;
     }
   });
@@ -2294,7 +2301,11 @@ function renderBalanceSheet() {
         <div style="font-size:15px; font-weight:800; color:#1e3a8a; display:flex; align-items:center; gap:8px;">
           <span>⚖️</span> Executive Balance Sheet &amp; Financial Health (HBS Standard)
         </div>
-        <a href="https://online.hbs.edu/blog/post/how-to-read-a-balance-sheet" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; font-weight:700; color:#0284c7; text-decoration:none; display:flex; align-items:center; gap:4px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="btn btn-tab-help" onclick="openTabHelpModal('balance-sheet')" title="Ver explicación detallada de la ecuación contable y ratios financieros">
+            <span>📖</span> Guía de Pestaña
+          </button>
+          <a href="https://online.hbs.edu/blog/post/how-to-read-a-balance-sheet" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; font-weight:700; color:#0284c7; text-decoration:none; display:flex; align-items:center; gap:4px;">
           📖 HBS Accounting Standard ↗
         </a>
       </div>
@@ -2381,6 +2392,9 @@ function renderBalanceSheet() {
     <!-- Action Bar -->
     <div class="bs-action-bar">
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-tab-help" onclick="openTabHelpModal('balance-sheet')" title="Ver explicación del Balance General y requisitos contables">
+          <span>📖</span> Guía de Pestaña
+        </button>
         <button class="btn btn-primary" onclick="openAddModal('balanceSheet')" style="font-weight:700; font-size:12.5px;">
           ➕ Add Balance Sheet Line Item
         </button>
@@ -4875,3 +4889,135 @@ window.closeHelpManualsModal = function() {
   const modal = document.getElementById("modal-help-manuals");
   if (modal) modal.classList.remove("open");
 };
+
+// ==========================================================================
+// TAB HELP & AUDITOR VISUAL GUIDE MODAL (v1.6.1)
+// ==========================================================================
+function openTabHelpModal(tabKey) {
+  if (!tabKey) tabKey = (typeof store !== 'undefined' && store.activeTab) || 'dashboard';
+  renderTabHelpContent(tabKey);
+  const modal = document.getElementById('modal-tab-help');
+  if (modal) modal.classList.add('open');
+}
+
+function closeTabHelpModal() {
+  const modal = document.getElementById('modal-tab-help');
+  if (modal) modal.classList.remove('open');
+}
+
+function renderTabHelpContent(tabKey) {
+  if (typeof TAB_HELP_GUIDES === 'undefined') return;
+  const guide = TAB_HELP_GUIDES[tabKey] || TAB_HELP_GUIDES['dashboard'];
+  const header = document.getElementById('tab-help-modal-header');
+  const navStrip = document.getElementById('tab-help-nav-strip');
+  const body = document.getElementById('tab-help-modal-body');
+  if (!body) return;
+
+  const tabList = [
+    { key: 'dashboard', label: '📊 Dashboard' },
+    { key: 'revenue', label: '💵 Invoicing & Sales' },
+    { key: 'cogs', label: '📦 Direct COGS' },
+    { key: 'payroll', label: '👥 Payroll & Subs' },
+    { key: 'fleet', label: '🚗 Fleet & Tolls' },
+    { key: 'facility', label: '🏢 Facility & Yard' },
+    { key: 'insurance', label: '🛡️ Insurance & Bonds' },
+    { key: 'utilities', label: '⚡ Utilities & SaaS' },
+    { key: 'cost-review', label: '🏗️ Cost Review' },
+    { key: 'pnl', label: '📈 12M P&L' },
+    { key: 'balance-sheet', label: '⚖️ Balance Sheet' },
+    { key: 'taxes', label: '🏛️ NJ Taxes' },
+    { key: 'tools', label: '🛠️ System Tools' }
+  ];
+
+  if (navStrip) {
+    navStrip.innerHTML = tabList.map(t => `
+      <button class="tab-help-pill ${t.key === guide.tabKey ? 'active' : ''}" onclick="renderTabHelpContent('${t.key}')">
+        ${t.label}
+      </button>
+    `).join('');
+  }
+
+  if (header) {
+    header.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">${guide.icon}</span>
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h3 style="margin:0; font-size:16px; font-weight:800; color:#ffffff;">${guide.tabNameEs} (${guide.tabName})</h3>
+            <span class="badge" style="background:#0284c7; color:#fff; font-size:10px; font-weight:800; padding:2px 8px; border-radius:12px;">${guide.badge}</span>
+          </div>
+          <p style="margin:2px 0 0 0; font-size:11.5px; color:#cbd5e1;">${guide.subtitle}</p>
+        </div>
+      </div>
+      <button class="modal-close-btn" onclick="closeTabHelpModal()">&times;</button>
+    `;
+  }
+
+  body.innerHTML = `
+    <!-- 1. Para qué sirve -->
+    <div class="help-section-card" style="border-left: 4px solid #0284c7;">
+      <div class="help-section-title">
+        <span>🎯</span> ¿Para qué sirve esta pestaña? (Objetivo Práctico del Dueño)
+      </div>
+      <p style="font-size:12.5px; color:var(--text-main); line-height:1.55; margin:0;">
+        ${guide.purpose}
+      </p>
+    </div>
+
+    <!-- 2. Cómo funciona paso a paso -->
+    <div class="help-section-card">
+      <div class="help-section-title">
+        <span>📋</span> Flujo de Ingreso y Funcionamiento Paso a Paso
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        ${guide.howItWorks.map((step, idx) => `
+          <div class="help-step-item">
+            <span class="help-step-badge">${idx + 1}</span>
+            <div>
+              <strong style="color:var(--text-main);">${step.step}:</strong>
+              <span style="color:var(--text-muted); font-size:11.5px;"> ${step.desc}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 3. Ejemplo Visual Idéntico a la Aplicación -->
+    <div class="help-section-card" style="background:var(--bg-main);">
+      <div class="help-section-title" style="color:#0369a1;">
+        <span>🖼️</span> Ejemplo Visual Idéntico a la Aplicación
+      </div>
+      <p style="font-size:11px; color:var(--text-muted); margin:0 0 6px 0;">
+        Así es exactamente como se ve y opera esta información dentro de la herramienta:
+      </p>
+      ${guide.mockupHtml}
+    </div>
+
+    <!-- 4. Requisitos Obligatorios del IRS & Ley de New Jersey -->
+    <div class="help-section-card" style="border-left: 4px solid #16a34a; background:rgba(22, 163, 74, 0.03);">
+      <div class="help-section-title" style="color:#15803d;">
+        <span>🏛️</span> Requisitos Obligatorios del IRS &amp; Ley de New Jersey (Visión de Auditor)
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        ${guide.auditChecklist.map(c => `
+          <div style="font-size:12px; line-height:1.5;">
+            <strong style="color:#15803d;">⚖️ ${c.rule}:</strong>
+            <span style="color:var(--text-main);"> ${c.desc}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 5. Consejo Pro del Auditor -->
+    <div style="background:linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color:#fff; padding:14px 18px; border-radius:8px; display:flex; align-items:flex-start; gap:12px;">
+      <span style="font-size:24px; line-height:1;">💡</span>
+      <div>
+        <strong style="color:#38bdf8; font-size:12.5px;">Consejo Pro del Auditor Contable para Ahorrar y Proteger tu Empresa:</strong>
+        <p style="margin:4px 0 0 0; font-size:11.5px; color:#e2e8f0; line-height:1.5;">
+          ${guide.proTip}
+        </p>
+      </div>
+    </div>
+  `;
+}
+

@@ -23,6 +23,7 @@ Al seguir esta guía aprenderás a:
 7. **Activar el Centinela de Seguros de Subcontratistas 1099**: Detectar subcontratistas sin seguro vigente (COI) en color rojo antes de que la auditoría anual de Workers' Comp de Nueva Jersey te aplique multas y recargos patronales.
 8. **Generar Facturas y Presupuestos Imprimibles en 1 Clic**: Producir documentos PDF profesionales con formato formal listos para entregar al usuario o imprimir.
 9. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro complementario `NJ_Small_Business_Budget_v1.6.1.xls` con protección de fórmulas, celdas celestes de entrada y una hoja dedicada exclusiva de **Project Job Costing** que consolida el análisis de cada proyecto.
+10. **Consultar Guías Operativas y Ejemplos Visuales en Cada Pestaña**: Acceder mediante el botón interactivo **"📖 Guía de Pestaña"** en cada módulo a instrucciones paso a paso, representaciones visuales idénticas a la aplicación, requisitos obligatorios del IRS y New Jersey, y consejos pro de auditoría contable.
 
 ---
 
@@ -170,6 +171,16 @@ Para prevenir errores contables y brindar claridad visual inmediata, las celdas 
   - **Razón Deuda/Patrimonio (Debt-to-Equity)** ($\frac{\text{Pasivo Total}}{\text{Patrimonio}}$): Mide el nivel de apalancamiento financiero frente al capital de los dueños (estándar $\le 1.5x$).
 * **Equilibrio en 1 Clic (⚡ Auto-Reconciliar Patrimonio)**: Si tu balance presenta alguna diferencia, haz clic en **"⚡ Auto-Reconcile Owner Equity"**. El sistema calcula la variación y genera/ajusta automáticamente una reserva de patrimonio para que la ecuación $\text{Activos} = \text{Pasivos} + \text{Patrimonio}$ quede 100% balanceada.
 * **🖨️ Generador de Estado Formal para Bancos y Fianzas**: Haz clic en **"🖨️ Print Formal Bank Statement"** para generar un documento formal membretado listo para imprimir o guardar en PDF, con tablas GAAP de doble columna, notas explicativas y líneas de firma para el Administrador y Contador (CPA).
+
+### 3.17 Guías Operativas de Pestaña y Ejemplos Visuales Idénticos ("📖 Guía de Pestaña")
+* **Acceso Directo e Intuitivo**: Cada cabecera de pestaña, barra de herramientas y tarjeta explicativa cuenta con un botón interactivo **"📖 Guía de Pestaña"**.
+* **5 Capas de Claridad y Protección**:
+  1. **🎯 ¿Para qué sirve esta pestaña?**: Propósito práctico en lenguaje directo para el dueño del negocio o contratista.
+  2. **📋 Flujo Paso a Paso**: Instrucciones secuenciales numeradas para ingresar o auditar los datos sin complicaciones.
+  3. **🖼️ Ejemplos Visuales Idénticos a la Aplicación**: Réplicas exactas de los componentes de la interfaz (celdas celestes `#E0F2FE` de entrada, celdas de fórmulas protegidas, etiquetas de estado y notas de advertencia).
+  4. **🏛️ Requisitos Obligatorios del IRS y Ley de New Jersey**: Reglas legales estrictas (exención ST-8, validación de seguro COI de subcontratistas, bitácora de millas y peajes bajo IRC §274(d), y reservas CBT de Trenton).
+  5. **💡 Consejo Pro del Auditor**: Recomendaciones de expertos para evitar multas, superar auditorías y blindar financieramente la compañía.
+* **Barra de Navegación Horizontal en la Ventana**: Permite explorar las guías de cualquiera de los 13 módulos sin necesidad de cerrar y abrir la ventana.
 
 ---
 

@@ -23,6 +23,7 @@ By following this guide, you will be able to:
 7. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
 8. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
 9. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.6.1.xls` workbook with built-in cell protection that locks formulas while leaving input cells open, featuring a dedicated **Project Job Costing** worksheet aggregating project profitability.
+10. **Access Instant In-App Tab Guides & Visual UI Mockups**: Click the blue **"📖 Guía de Pestaña"** button on any tab to view clear instructions, visual mockup illustrations, and mandatory IRS / NJ State tax compliance rules.
 
 ---
 
@@ -214,6 +215,16 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
   - **Debt-to-Equity Ratio** ($\frac{\text{Total Liabilities}}{\text{Total Equity}}$): Indicates borrowing risk vs owner equity investment (industry standard $\le 1.5x$).
 * **1-Click Equilibrium (⚡ Auto-Reconcile)**: If your balance sheet shows an out-of-balance variance, click **"⚡ Auto-Reconcile Owner Equity"**. The engine calculates the difference and automatically registers an equity reserve balancing entry so $\text{Assets} = \text{Liabilities} + \text{Equity}$ in 100% equilibrium!
 * **🖨️ Bank-Ready Formal Statement**: Click **"🖨️ Print Formal Bank Statement"** to produce an audit-grade Statement of Financial Position with company letterhead, GAAP double-entry tables, ratio disclosures, and dual signature lines for CPAs and business owners.
+
+### 3.17 In-App Auditor Tab Guides & Visual UI Mockups ("📖 Guía de Pestaña")
+* **One-Click Comprehensive Guidance**: Every single tab header, toolbar, and category guide card features a dedicated **"📖 Guía de Pestaña"** button.
+* **5 In-Depth Layers of Intelligence**:
+  1. **🎯 Practical Objective**: Exactly what the module is used for and why it matters to the business owner.
+  2. **📋 Numbered Workflow Steps**: Step-by-step instructions on how to enter, review, and utilize data without accounting complexity.
+  3. **🖼️ Exact Visual Mockups**: Real component replicas rendered with identical UI styling (editable light blue `#E0F2FE` cells, calculated formula outputs, badges, and explanatory arrows).
+  4. **🏛️ Mandatory IRS & NJ State Statutory Rules**: Precise tax codes, filing obligations (ST-8, ST-50, NJ CRIB Workers' Comp, IRC §274(d) mileage), and common audit traps.
+  5. **💡 Pro-Auditor Advice**: Strategic financial tips from certified public accountants and auditors to legally minimize tax burdens and insulate your company against liability.
+* **Integrated Tab Selector Strip**: Switch between all 13 guides inside the modal without closing and reopening.
 
 ## 4. Troubleshooting Guide (Cause & Effect)
 

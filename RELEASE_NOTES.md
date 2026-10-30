@@ -53,6 +53,16 @@
    - Includes real-world New Jersey commercial project tags (e.g., *Facility HVAC Upgrade*, *Cleanroom Wiring Phase 1*, *Warehouse LED Retrofit*, *Emergency Electrical Repair*) with Travelers surety bonds, Hanover builder's risk riders, PSE&G temporary meters, and Waste Management dumpsters.
    - Zero-variance balance sheet calibration ($136,413.46 Owner Capital, $0.00 GAAP equilibrium difference).
 
+6. **📖 Interactive In-App Auditor Tab Guides & Visual UI Mockups (All 13 Tabs)**:
+   - **Instant Contextual Assistance**: Every tab header, toolbar, and category guide card features an interactive **"📖 Guía de Pestaña"** button opening an executive modal.
+   - **5 Comprehensive Information Layers per Tab**:
+     * **🎯 Purpose**: Real-world practical objective of the tab for the business owner.
+     * **📋 Step-by-Step Workflow**: Clear, numbered operational sequence for entering data without friction.
+     * **🖼️ Pixel-Perfect UI Mockups**: Replicas styled identically to the application components with light blue input cells (`#E0F2FE`), formula cells, badges, and callouts.
+     * **🏛️ Mandatory IRS & NJ State Tax Rules**: Detailed audit rules (ST-8 exemptions, 1099 COI verification, IRC §274(d) mileage logs, CBT safe harbor).
+     * **💡 Pro-Auditor Tip**: Actionable strategies to prevent audits, avoid penalties, and maximize tax deductions.
+   - **Horizontal Tab Navigation Strip**: Seamlessly browse between all 13 modules directly inside the modal with active pill highlighting.
+
 ---
 
 ## 🏛️ Version 1.6.0
