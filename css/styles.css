@@ -3184,3 +3184,61 @@ body:not(.skin-magnific) .magnific-layout-content {
   }
 }
 
+
+
+/* ==========================================================================
+   ADVANCED FILTER & SEARCH TOOLBAR STYLES (v1.6.1 Enhanced)
+   ========================================================================== */
+.table-filter-strip.filter-active-bar {
+  border-color: #38bdf8;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.04) 0%, rgba(56, 189, 248, 0.02) 100%);
+}
+
+.btn-clear-search {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-clear-search:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+.filter-results-badge.filter-badge-highlight {
+  color: #0369a1;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+
+body[data-theme="dark"] .filter-results-badge.filter-badge-highlight {
+  color: #7dd3fc;
+  background: rgba(2, 132, 199, 0.18);
+  border-color: #0284c7;
+}
+
+.filter-sum-pill {
+  color: #15803d;
+  font-weight: 800;
+  margin-left: 4px;
+}
+
+body[data-theme="dark"] .filter-sum-pill {
+  color: #4ade80;
+}

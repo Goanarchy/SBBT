@@ -106,11 +106,19 @@ class BudgetStore {
     const month = explicitMonth || this.selectedMonth;
     const year = explicitYear || this.selectedYear;
 
-    if (month === "ALL") return true;
-
     const dateField = row.date || row.dueDate || row.renewalDate || row.asOfDate || "";
+
+    // 1. ALL Months (YTD): match all months of the selected year
+    if (month === "ALL") {
+      if (!year || year === "ALL") return true;
+      if (!dateField) return true; // Recurring items without explicit date match active year
+      return dateField.startsWith(`${year}-`);
+    }
+
+    // Items without date (e.g. monthly recurring payroll or utilities) match all single months & quarters
     if (!dateField) return true;
 
+    // 2. Trailing 12 Months (T12M): rolling 12 months window
     if (month === "T12M") {
       const parts = dateField.split("-");
       if (parts.length < 2) return true;
@@ -118,17 +126,29 @@ class BudgetStore {
       const rM = parseInt(parts[1], 10);
       if (isNaN(rY) || isNaN(rM)) return true;
 
-      // Trailing 12 Months: rolling 12 months window up to selected year & October (or selected period)
       const endYear = parseInt(year, 10) || 2025;
-      const endMonth = 10; // Standard fiscal reference anchor
+      const endMonth = 10; // Fiscal anchor
       const endScore = endYear * 12 + endMonth;
       const startScore = endScore - 11;
       const recScore = rY * 12 + rM;
       return recScore >= startScore && recScore <= endScore;
     }
 
+    // 3. Quarterly Filtering (Q1, Q2, Q3, Q4) - Standard NJ & IRS Tax Quarters!
+    if (month.startsWith("Q")) {
+      const qMap = {
+        "Q1": ["01", "02", "03"],
+        "Q2": ["04", "05", "06"],
+        "Q3": ["07", "08", "09"],
+        "Q4": ["10", "11", "12"]
+      };
+      const allowedMonths = qMap[month] || [];
+      return allowedMonths.some(m => dateField.startsWith(`${year}-${m}`));
+    }
+
+    // 4. Exact Month (01-12)
     const targetPrefix = `${year}-${month}`;
-    if (dateField && dateField.startsWith(targetPrefix)) return true;
+    if (dateField.startsWith(targetPrefix)) return true;
     return false;
   }
 
@@ -624,6 +644,7 @@ class BudgetStore {
 
 // Global Store Instance
 const store = new BudgetStore();
+window.store = store;
 
 // State for quick date picker modal
 let activeDatePickTarget = null; // { tabKey, rowIdx, colKey }
@@ -694,6 +715,10 @@ function syncAllPeriodSelects(monthVal, yearVal) {
   const monthNames = {
     "ALL": "All Months (YTD)",
     "T12M": "Trailing 12 Months (T12M)",
+    "Q1": "Q1 (Jan - Mar)",
+    "Q2": "Q2 (Apr - Jun)",
+    "Q3": "Q3 (Jul - Sep)",
+    "Q4": "Q4 (Oct - Dec)",
     "01": "January", "02": "February", "03": "March", "04": "April",
     "05": "May", "06": "June", "07": "July", "08": "August",
     "09": "September", "10": "October", "11": "November", "12": "December"
@@ -723,7 +748,7 @@ function syncAllPeriodSelects(monthVal, yearVal) {
   // 3. Sync subtitle labels
   const currentLabel = monthVal === "T12M"
     ? `Trailing 12 Months (T12M Ending ${yearVal})`
-    : (monthVal === "ALL" ? `All Months (YTD ${yearVal})` : `${monthNames[monthVal] || monthVal} ${yearVal}`);
+    : (monthVal === "ALL" ? `All Months (YTD ${yearVal})` : (monthVal.startsWith("Q") ? `${monthNames[monthVal]} ${yearVal} (Quarterly Tax Period)` : `${monthNames[monthVal] || monthVal} ${yearVal}`));
   const periodSubtitle = document.getElementById("dashboard-period-subtitle");
   if (periodSubtitle) {
     periodSubtitle.innerHTML = `Showing performance for: <strong>${currentLabel}</strong>`;
@@ -1799,6 +1824,61 @@ function renderCategoryComparisonWidget(kpis) {
 // ==========================================================================
 // Category Table Filtering Controller (Instant Search, Status & Project Filter)
 // ==========================================================================
+
+// ==========================================================================
+// ADVANCED FILTERING CONTROLLERS (Instant Search, Multi-Filter & Subtotals)
+// ==========================================================================
+window.handleCostReviewSearch = function(query) {
+  if (!store.costReviewFilters) store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  store.costReviewFilters.search = query || "";
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null, true);
+};
+
+window.handleCostReviewDisciplineFilter = function(disc) {
+  if (!store.costReviewFilters) store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  store.costReviewFilters.discipline = disc || "ALL";
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.handleCostReviewStatusFilter = function(status) {
+  if (!store.costReviewFilters) store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  store.costReviewFilters.status = status || "ALL";
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.handleCostReviewInclusionFilter = function(inc) {
+  if (!store.costReviewFilters) store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  store.costReviewFilters.inclusion = inc || "ALL";
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.clearCostReviewFilters = function() {
+  store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  const sel = document.getElementById("cost-review-project-select");
+  renderProjectCostReview(sel ? sel.value : null);
+};
+
+window.handleBalanceSheetSearch = function(query) {
+  if (!store.bsFilters) store.bsFilters = { search: "", classification: "ALL" };
+  store.bsFilters.search = query || "";
+  renderBalanceSheet(true);
+};
+
+window.handleBalanceSheetClassFilter = function(cls) {
+  if (!store.bsFilters) store.bsFilters = { search: "", classification: "ALL" };
+  store.bsFilters.classification = cls || "ALL";
+  renderBalanceSheet();
+};
+
+window.clearBalanceSheetFilters = function() {
+  store.bsFilters = { search: "", classification: "ALL" };
+  renderBalanceSheet();
+};
+
 window.handleTableSearch = function(tabKey, query) {
   if (!store.tableFilters[tabKey]) store.tableFilters[tabKey] = { search: "", status: "ALL", project: "ALL", type: "ALL" };
   store.tableFilters[tabKey].search = (query || "");
@@ -1856,10 +1936,12 @@ function renderDisciplineTable(tabKey, keepSearchFocus = false) {
 
   // Filter records
   const filteredRecords = periodRecords.filter(row => {
-    // 1. Instant search query
+    // 1. Instant deep search (matches raw fields + formula calculated values)
     if (currentFilters.search) {
       const q = currentFilters.search.toLowerCase();
-      const match = Object.values(row).some(v => String(v || "").toLowerCase().includes(q));
+      const computed = store.calculateFormulas(tabKey, row);
+      const merged = { ...row, ...computed };
+      const match = Object.values(merged).some(v => String(v || "").toLowerCase().includes(q));
       if (!match) return false;
     }
     // 2. Status filter
@@ -1882,12 +1964,23 @@ function renderDisciplineTable(tabKey, keepSearchFocus = false) {
   const isFiltered = Boolean(currentFilters.search || currentFilters.status !== "ALL" || currentFilters.project !== "ALL" || (currentFilters.type && currentFilters.type !== "ALL"));
   const categoryTitle = CATEGORY_GUIDES[tabKey]?.title || tabKey.toUpperCase();
 
+  // Calculate live filtered currency total for instant feedback
+  const primaryCurrencyCol = schema.find(c => ["grossBilled", "amount", "totalCost", "totalExpense", "actualPaid", "monthlyAllocation", "actualAmount", "taxDue"].includes(c.key)) || schema.find(c => c.type === "currency" || c.type === "formula");
+  let filteredSum = 0;
+  if (primaryCurrencyCol) {
+    filteredRecords.forEach(r => {
+      const comp = store.calculateFormulas(tabKey, r);
+      filteredSum += Number(comp[primaryCurrencyCol.key] || r[primaryCurrencyCol.key]) || 0;
+    });
+  }
+
   const filterStripHTML = `
-    <div class="table-filter-strip" id="filter-strip-${tabKey}">
+    <div class="table-filter-strip ${isFiltered ? 'filter-active-bar' : ''}" id="filter-strip-${tabKey}">
       <div class="table-filter-controls">
         <div class="table-search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="filter-search-${tabKey}" class="form-control" placeholder="Search ${escapeHtml(categoryTitle)}..." value="${escapeHtml(currentFilters.search || '')}" oninput="handleTableSearch('${tabKey}', this.value)">
+          <input type="text" id="filter-search-${tabKey}" class="form-control" placeholder="Search ${escapeHtml(categoryTitle)} (name, vendor, job, $)..." value="${escapeHtml(currentFilters.search || '')}" oninput="handleTableSearch('${tabKey}', this.value)">
+          ${currentFilters.search ? `<button type="button" class="btn-clear-search" onclick="handleTableSearch('${tabKey}', '')" title="Clear search">✕</button>` : ''}
         </div>
 
         ${distinctStatuses.length > 0 ? `
@@ -1918,8 +2011,9 @@ function renderDisciplineTable(tabKey, keepSearchFocus = false) {
         ` : ''}
       </div>
 
-      <div class="filter-results-badge">
+      <div class="filter-results-badge ${isFiltered ? 'filter-badge-highlight' : ''}">
         Showing <strong>${filteredRecords.length}</strong> of <strong>${periodRecords.length}</strong> entries
+        ${isFiltered && primaryCurrencyCol ? `<span class="filter-sum-pill">• Filtered Total: <strong>${formatMoney(filteredSum)}</strong></span>` : ''}
       </div>
     </div>
   `;
@@ -2097,7 +2191,7 @@ function renderDisciplineTable(tabKey, keepSearchFocus = false) {
       </tbody>
       <tfoot>
         <tr>
-          <td class="cell-center" colspan="2" style="font-weight:800;">TOTALS</td>
+          <td class="cell-center" colspan="2" style="font-weight:800; ${isFiltered ? 'background:#fef3c7; color:#92400e;' : ''}">${isFiltered ? '🔍 FILTERED TOTALS' : 'TOTALS'}</td>
     `;
 
     schema.slice(1).forEach(col => {
@@ -2310,7 +2404,7 @@ function deleteBalanceSheetItem(idx) {
   }
 }
 
-function renderBalanceSheet() {
+function renderBalanceSheet(keepSearchFocus = false) {
   const container = document.getElementById("balance-sheet-container");
   if (!container) return;
 
@@ -2325,6 +2419,26 @@ function renderBalanceSheet() {
 
   const debtEquityClass = bs.debtToEquity <= 1.0 ? 'bs-pill-success' : (bs.debtToEquity <= 2.0 ? 'bs-pill-info' : 'bs-pill-warning');
   const debtEquityLabel = bs.debtToEquity <= 1.5 ? 'Healthy Leverage' : 'Elevated Leverage';
+
+  if (!store.bsFilters) store.bsFilters = { search: "", classification: "ALL" };
+  const bsf = store.bsFilters;
+  const rawBsRecords = store.data.balanceSheet || [];
+  const distinctBsClasses = Array.from(new Set(rawBsRecords.map(r => r.classification).filter(Boolean)));
+
+  const filteredBsRecords = rawBsRecords.filter(item => {
+    if (bsf.search) {
+      const q = bsf.search.toLowerCase();
+      const text = `${item.accountName || ''} ${item.classification || ''} ${item.id || ''} ${item.notes || ''} ${item.amount || ''}`.toLowerCase();
+      if (!text.includes(q)) return false;
+    }
+    if (bsf.classification && bsf.classification !== "ALL") {
+      if (item.classification !== bsf.classification) return false;
+    }
+    return true;
+  });
+
+  const isBsFiltered = Boolean(bsf.search || bsf.classification !== "ALL");
+  const filteredBsSum = filteredBsRecords.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
   let html = `
     <!-- Category Guide Card -->
@@ -2777,12 +2891,12 @@ function renderBalanceSheet() {
       </div>
     </div>
 
-    <!-- Custom Balance Sheet Line Items Table -->
+    <!-- Custom Balance Sheet Line Items Table with Dedicated Search & Filter -->
     <div class="bs-ledger-card">
       <div class="bs-ledger-header">
         <div>
           <h3 style="font-size:14.5px; font-weight:800; color:#0f172a; display:flex; align-items:center; gap:8px;">
-            <span>📋</span> Custom Balance Sheet Accounts &amp; Fixed Ledger Entries
+            <span>📋</span> Custom Balance Sheet Accounts &amp; Fixed Ledger Entries (${(store.data.balanceSheet || []).length} Accounts)
           </h3>
           <p style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
             Add or edit specific balance sheet accounts (work vehicles, loan balances, bank accounts, Section 179 depreciation).
@@ -2791,6 +2905,33 @@ function renderBalanceSheet() {
         <button class="btn btn-primary" onclick="openAddModal('balanceSheet')" style="font-weight:700; font-size:12px;">
           ➕ Add Account Line
         </button>
+      </div>
+
+      <!-- Balance Sheet Dedicated Ledger Filter Toolbar -->
+      <div class="table-filter-strip" style="margin-bottom:12px; background:var(--bg-card-subtle);">
+        <div class="table-filter-controls">
+          <div class="table-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="bs-filter-search" class="form-control" placeholder="Search accounts (name, notes, ID, $)..." value="${escapeHtml(bsf.search || '')}" oninput="handleBalanceSheetSearch(this.value)">
+            ${bsf.search ? `<button type="button" class="btn-clear-search" onclick="handleBalanceSheetSearch('')" title="Clear search">✕</button>` : ''}
+          </div>
+
+          <select class="table-filter-select" onchange="handleBalanceSheetClassFilter(this.value)" title="Filter by account classification">
+            <option value="ALL" ${bsf.classification === 'ALL' ? 'selected' : ''}>All Classifications (${distinctBsClasses.length})</option>
+            ${distinctBsClasses.map(c => `<option value="${escapeHtml(c)}" ${bsf.classification === c ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('')}
+          </select>
+
+          ${isBsFiltered ? `
+            <button class="btn btn-outline-dark" style="font-size:11px; padding:2px 8px; height:31px; border-color:#cbd5e1;" onclick="clearBalanceSheetFilters()" title="Reset all filters">
+              ✖ Clear Filters
+            </button>
+          ` : ''}
+        </div>
+
+        <div class="filter-results-badge ${isBsFiltered ? 'filter-badge-highlight' : ''}">
+          Showing <strong>${filteredBsRecords.length}</strong> of <strong>${rawBsRecords.length}</strong> accounts
+          ${isBsFiltered ? `<span class="filter-sum-pill">• Filtered Total: <strong>${formatMoney(filteredBsSum)}</strong></span>` : ''}
+        </div>
       </div>
 
       <div class="table-responsive">
@@ -2809,14 +2950,20 @@ function renderBalanceSheet() {
             </tr>
           </thead>
           <tbody>
-            ${(store.data.balanceSheet || []).length === 0 ? `
+            ${filteredBsRecords.length === 0 ? `
               <tr>
                 <td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted); font-size:12.5px;">
-                  No custom balance sheet entries recorded yet.<br>
-                  Click <strong>"➕ Add Account Line"</strong> to register your bank accounts, vehicles, machinery, loans, or initial owner capital!
+                  ${isBsFiltered ? `
+                    No custom accounts match your search or classification filter.<br>
+                    <button class="btn btn-outline-dark" style="font-size:11px; padding:3px 8px; margin-top:8px;" onclick="clearBalanceSheetFilters()">✖ Clear Filters</button>
+                  ` : `
+                    No custom balance sheet entries recorded yet.<br>
+                    Click <strong>"➕ Add Account Line"</strong> to register your bank accounts, vehicles, machinery, loans, or initial owner capital!
+                  `}
                 </td>
               </tr>
-            ` : (store.data.balanceSheet || []).map((row, idx) => {
+            ` : filteredBsRecords.map((row, idx) => {
+              const originalIdx = (store.data.balanceSheet || []).indexOf(row);
               const amt = Number(row.amount) || 0;
               const isContra = amt < 0 || String(row.classification || "").includes("Contra");
               return `
@@ -2843,8 +2990,8 @@ function renderBalanceSheet() {
                   </td>
                   <td class="cell-center">
                     <div style="display:inline-flex; gap:4px;">
-                      <button class="btn-action edit" onclick="openEditModal('balanceSheet', ${idx})" title="Edit Account">✏️</button>
-                      <button class="btn-action delete" onclick="deleteBalanceSheetItem(${idx})" title="Delete Account">🗑️</button>
+                      <button class="btn-action edit" onclick="openEditModal('balanceSheet', ${originalIdx})" title="Edit Account">✏️</button>
+                      <button class="btn-action delete" onclick="deleteBalanceSheetItem(${originalIdx})" title="Delete Account">🗑️</button>
                     </div>
                   </td>
                 </tr>
@@ -2857,6 +3004,15 @@ function renderBalanceSheet() {
   `;
 
   container.innerHTML = html;
+
+  if (keepSearchFocus) {
+    const searchInput = document.getElementById("bs-filter-search");
+    if (searchInput) {
+      searchInput.focus();
+      const len = searchInput.value.length;
+      searchInput.setSelectionRange(len, len);
+    }
+  }
 }
 
 // Formal Bank-Ready Statement Modal Controller
@@ -4131,7 +4287,7 @@ window.resetProjectCostCheckboxes = function() {
   renderProjectCostReview(sel ? sel.value : null);
 };
 
-window.renderProjectCostReview = function(selectedProject) {
+window.renderProjectCostReview = function(selectedProject, keepSearchFocus = false) {
   const container = document.getElementById("cost-review-content");
   const selectEl = document.getElementById("cost-review-project-select");
   if (!container) return;
@@ -4293,8 +4449,10 @@ window.renderProjectCostReview = function(selectedProject) {
     }
   });
 
-  // 4. Calculate Active vs Excluded Costs
+  // 4. Calculate Active vs Excluded Costs & Apply Cost Review Filters
   if (!store.excludedProjectCosts) store.excludedProjectCosts = {};
+  if (!store.costReviewFilters) store.costReviewFilters = { search: "", discipline: "ALL", status: "ALL", inclusion: "ALL" };
+  const crf = store.costReviewFilters;
 
   let activeCostsSum = 0;
   let excludedCostsSum = 0;
@@ -4307,6 +4465,32 @@ window.renderProjectCostReview = function(selectedProject) {
       activeCostsSum += item.amount;
     }
   });
+
+  const distinctCrDisciplines = Array.from(new Set(costLines.map(c => c.discipline).filter(Boolean)));
+  const distinctCrStatuses = Array.from(new Set(costLines.map(c => c.status).filter(Boolean)));
+
+  const filteredCostLines = costLines.filter(item => {
+    if (crf.search) {
+      const q = crf.search.toLowerCase();
+      const text = `${item.discipline} ${item.detail} ${item.date} ${item.status} ${item.amount}`.toLowerCase();
+      if (!text.includes(q)) return false;
+    }
+    if (crf.discipline && crf.discipline !== "ALL") {
+      if (item.discipline !== crf.discipline) return false;
+    }
+    if (crf.status && crf.status !== "ALL") {
+      if (String(item.status || "").toLowerCase() !== crf.status.toLowerCase()) return false;
+    }
+    if (crf.inclusion && crf.inclusion !== "ALL") {
+      const isExcluded = Boolean(store.excludedProjectCosts[item.id]);
+      if (crf.inclusion === "included" && isExcluded) return false;
+      if (crf.inclusion === "excluded" && !isExcluded) return false;
+    }
+    return true;
+  });
+
+  const isCrFiltered = Boolean(crf.search || crf.discipline !== "ALL" || crf.status !== "ALL" || crf.inclusion !== "ALL");
+  const filteredCostLinesSum = filteredCostLines.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
   const netProfit = totalContract - activeCostsSum;
   const marginPct = totalContract > 0 ? ((netProfit / totalContract) * 100).toFixed(1) : "0.0";
@@ -4381,19 +4565,57 @@ window.renderProjectCostReview = function(selectedProject) {
       </div>
     </div>
 
-    <!-- Cost Lines Table with Interactive Checkboxes -->
+    <!-- Cost Lines Table with Interactive Checkboxes & Multi-Filter Toolbar -->
     <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:16px; box-shadow:var(--shadow-sm);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
         <div>
           <h3 style="font-size:14px; font-weight:800; color:#0f172a; margin:0;">
-            📋 Detailed Assigned Cost Breakdown (${costLines.length} Entries)
+            📋 Detailed Assigned Cost Breakdown (${costLines.length} Total Entries)
           </h3>
           <p style="font-size:11.5px; color:var(--text-muted); margin:2px 0 0;">
-            Check or uncheck individual cost lines to simulate contract profitability in real time
+            Filter by discipline, payment status, or keyword to audit expenses and simulate profitability in real time
           </p>
         </div>
         <div style="font-size:11px; font-weight:700; color:#2563eb;">
-          Active Subtotal: ${formatMoney(activeCostsSum)}
+          Active Contract Costs: ${formatMoney(activeCostsSum)}
+        </div>
+      </div>
+
+      <!-- Cost Review Dedicated Filter Strip -->
+      <div class="table-filter-strip" style="margin-bottom:14px; background:var(--bg-card-subtle);">
+        <div class="table-filter-controls">
+          <div class="table-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="cr-filter-search" class="form-control" placeholder="Search costs (vendor, role, item, $)..." value="${escapeHtml(crf.search || '')}" oninput="handleCostReviewSearch(this.value)">
+            ${crf.search ? `<button type="button" class="btn-clear-search" onclick="handleCostReviewSearch('')" title="Clear search">✕</button>` : ''}
+          </div>
+
+          <select class="table-filter-select" onchange="handleCostReviewDisciplineFilter(this.value)" title="Filter by cost discipline">
+            <option value="ALL" ${crf.discipline === 'ALL' ? 'selected' : ''}>All Disciplines (${distinctCrDisciplines.length})</option>
+            ${distinctCrDisciplines.map(d => `<option value="${escapeHtml(d)}" ${crf.discipline === d ? 'selected' : ''}>${escapeHtml(d)}</option>`).join('')}
+          </select>
+
+          <select class="table-filter-select" onchange="handleCostReviewStatusFilter(this.value)" title="Filter by payment status">
+            <option value="ALL" ${crf.status === 'ALL' ? 'selected' : ''}>All Statuses (${distinctCrStatuses.length})</option>
+            ${distinctCrStatuses.map(s => `<option value="${escapeHtml(s)}" ${crf.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
+          </select>
+
+          <select class="table-filter-select" onchange="handleCostReviewInclusionFilter(this.value)" title="Filter by inclusion status">
+            <option value="ALL" ${crf.inclusion === 'ALL' ? 'selected' : ''}>All Items (Included &amp; Excluded)</option>
+            <option value="included" ${crf.inclusion === 'included' ? 'selected' : ''}>Active / Included in Margin Only</option>
+            <option value="excluded" ${crf.inclusion === 'excluded' ? 'selected' : ''}>Simulated Excluded Only</option>
+          </select>
+
+          ${isCrFiltered ? `
+            <button class="btn btn-outline-dark" style="font-size:11px; padding:2px 8px; height:31px; border-color:#cbd5e1;" onclick="clearCostReviewFilters()" title="Reset all filters">
+              ✖ Clear Filters
+            </button>
+          ` : ''}
+        </div>
+
+        <div class="filter-results-badge ${isCrFiltered ? 'filter-badge-highlight' : ''}">
+          Showing <strong>${filteredCostLines.length}</strong> of <strong>${costLines.length}</strong> cost items
+          ${isCrFiltered ? `<span class="filter-sum-pill">• Filtered Subtotal: <strong>${formatMoney(filteredCostLinesSum)}</strong></span>` : ''}
         </div>
       </div>
 
@@ -4417,7 +4639,14 @@ window.renderProjectCostReview = function(selectedProject) {
               </tr>
             </thead>
             <tbody>
-              ${costLines.map((item, idx) => {
+              ${filteredCostLines.length === 0 ? `
+                <tr>
+                  <td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted); font-size:12px;">
+                    No cost items match your search or filter criteria.<br>
+                    <button class="btn btn-outline-dark" style="font-size:11px; padding:3px 8px; margin-top:8px;" onclick="clearCostReviewFilters()">✖ Clear Filters</button>
+                  </td>
+                </tr>
+              ` : filteredCostLines.map((item, idx) => {
                 const isExcluded = Boolean(store.excludedProjectCosts[item.id]);
                 return `
                   <tr class="${isExcluded ? 'row-cost-excluded' : ''}">
@@ -4442,8 +4671,12 @@ window.renderProjectCostReview = function(selectedProject) {
             </tbody>
             <tfoot>
               <tr style="background:var(--bg-card-subtle); font-weight:800;">
-                <td colspan="6" style="text-align:right; padding:10px 14px; font-size:12px;">ACTIVE PROJECT TOTAL:</td>
-                <td style="text-align:right; padding:10px 14px; font-size:14px; color:#b91c1c; font-family:monospace;">${formatMoney(activeCostsSum)}</td>
+                <td colspan="6" style="text-align:right; padding:10px 14px; font-size:12px;">
+                  ${isCrFiltered ? '🔍 FILTERED SUB-TOTAL:' : 'ACTIVE PROJECT TOTAL:'}
+                </td>
+                <td style="text-align:right; padding:10px 14px; font-size:14px; color:#b91c1c; font-family:monospace;">
+                  ${formatMoney(isCrFiltered ? filteredCostLinesSum : activeCostsSum)}
+                </td>
               </tr>
             </tfoot>
           </table>
@@ -4451,6 +4684,15 @@ window.renderProjectCostReview = function(selectedProject) {
       `}
     </div>
   `;
+
+  if (keepSearchFocus) {
+    const searchInput = document.getElementById("cr-filter-search");
+    if (searchInput) {
+      searchInput.focus();
+      const len = searchInput.value.length;
+      searchInput.setSelectionRange(len, len);
+    }
+  }
 };
 
 // ==========================================================================
