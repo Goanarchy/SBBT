@@ -1,6 +1,6 @@
-# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.5.1)
+# 📘 Master Business Dashboard — Manual Oficial de Usuario (v1.6.0)
 **Sistema de Control Financiero Ejecutivo para Pequeñas Empresas y Contratistas de New Jersey**  
-*Versión Oficial: 1.5.0*  
+*Versión Oficial: 1.6.0*  
 *Autor e Ingeniero Principal: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Soporte Directo: `andres00787@gmail.com`*
 
 ---
@@ -11,22 +11,23 @@
 ---
 
 ## 🎯 Propósito de este Manual
-Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.5.1)** sin enredos técnicos ni dolores de cabeza contables.
+Este manual proporciona a contratistas, pequeñas empresas, profesionales de oficios y firmas de servicios en Nueva Jersey una guía completa, directa y operativa para dominar el **Master Business Dashboard (v1.6.0)** sin enredos técnicos ni dolores de cabeza contables.
 
 Al seguir esta guía aprenderás a:
 1. **Administrar Contratos, Anticipos y Facturación Progresiva**: Controlar cuentas de usuarios, depósitos iniciales, pagos progresivos y saldos pendientes, con la nueva opción de estado `"Accepted"` para contratos o propuestas aprobadas.
 2. **Calcular la Rentabilidad Real de Obra (Job Costing)**: Vincular tus facturas de usuarios con tus órdenes de compra de materiales y facturas de subcontratistas que tengan el mismo **Nombre de Proyecto (PROJECT)** para calcular el margen neto en dólares ($) y porcentaje (%) al instante.
-3. **Monitorear Indicadores con Precisión de Exchange de Trading**: Visualizar tus signos vitales financieros en cuadros compactos tipo terminal bursátil que eliminan números y textos sueltos o desordenados.
-4. **Utilizar Pestañas de Navegación Dinámicas**: Habilitar únicamente los módulos que tu negocio realmente utiliza; las pestañas inactivas desaparecen inmediatamente de la barra superior para mantener tu espacio de trabajo enfocado y limpio.
-5. **Aplicar la Exención de Mejora de Capital de NJ (Formulario ST-8 al 0% de Sales Tax)**: Eximir legalmente del 6.625% de impuesto sobre ventas las obras de construcción y remodelación permanente bajo la ley N.J.S.A. 54:32B-3 con total respaldo ante auditorías.
-6. **Activar el Centinela de Seguros de Subcontratistas 1099**: Detectar subcontratistas sin seguro vigente (COI) en color rojo antes de que la auditoría anual de Workers' Comp de Nueva Jersey te aplique multas y recargos patronales.
-7. **Generar Facturas y Presupuestos Imprimibles en 1 Clic**: Producir documentos PDF profesionales con formato formal listos para entregar al usuario o imprimir.
-8. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro de cálculo complementario `NJ_Small_Business_Budget_v1.5.1.xls` con protección nativa que bloquea fórmulas y deja libres las celdas de entrada.
+3. **Dominar el Balance General Ejecutivo (Estándar Harvard Business School)**: Controlar tus Activos, Pasivos y Patrimonio bajo la ecuación $\text{Activos} = \text{Pasivos} + \text{Patrimonio}$, supervisar tu capital de trabajo, ratio circulante ($\ge 1.5x$) y generar estados formales para bancos.
+4. **Monitorear Indicadores con Precisión de Exchange de Trading**: Visualizar tus signos vitales financieros en cuadros compactos tipo terminal bursátil que eliminan números y textos sueltos o desordenados.
+5. **Utilizar Pestañas de Navegación Dinámicas**: Habilitar únicamente los módulos que tu negocio realmente utiliza; las pestañas inactivas desaparecen inmediatamente de la barra superior para mantener tu espacio de trabajo enfocado y limpio.
+6. **Aplicar la Exención de Mejora de Capital de NJ (Formulario ST-8 al 0% de Sales Tax)**: Eximir legalmente del 6.625% de impuesto sobre ventas las obras de construcción y remodelación permanente bajo la ley N.J.S.A. 54:32B-3 con total respaldo ante auditorías.
+7. **Activar el Centinela de Seguros de Subcontratistas 1099**: Detectar subcontratistas sin seguro vigente (COI) en color rojo antes de que la auditoría anual de Workers' Comp de Nueva Jersey te aplique multas y recargos patronales.
+8. **Generar Facturas y Presupuestos Imprimibles en 1 Clic**: Producir documentos PDF profesionales con formato formal listos para entregar al usuario o imprimir.
+9. **Trabajar en Microsoft Excel Tradicional**: Utilizar el libro de cálculo complementario `NJ_Small_Business_Budget_v1.6.0.xls` con protección nativa que bloquea fórmulas y deja libres las celdas de entrada.
 
 ---
 
 ## 📦 Qué Hacer con los Archivos al Recibirlos por Correo o Enlace
-Cuando descargues el paquete oficial (`SBBT_v1.5.1_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
+Cuando descargues el paquete oficial (`SBBT_v1.6.0_Ready_To_Use.zip`), sigue estos 3 sencillos pasos:
 
 ```mermaid
 flowchart LR
@@ -34,9 +35,9 @@ flowchart LR
     B --> C["3. Doble clic en index.html"]
 ```
 
-1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.5.1_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
+1. **Descomprimir la Carpeta ZIP**: Haz clic derecho sobre `SBBT_v1.6.0_Ready_To_Use.zip` y selecciona **"Extraer todo..."** (o *Extract All*). Elige cualquier carpeta de tu preferencia (Escritorio o Documentos).
 2. **Abrir el Tablero Web**: Haz doble clic en el archivo **`index.html`**. Se abrirá de inmediato en Google Chrome, Microsoft Edge, Safari, Brave o Mozilla Firefox.
-3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.5.1.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
+3. **Libro Opcional de Microsoft Excel**: Si prefieres trabajar dentro de Microsoft Excel, abre **`NJ_Small_Business_Budget_v1.6.0.xls`**. Las fórmulas de cálculo están bloqueadas contra sobrescritura accidental; las celdas celestes están listas para tus números.
 
 > [!IMPORTANT]
 > **Cero Instalación y Privacidad Total**: No necesitas servidores, bases de datos ni conexión a internet. La aplicación corre 100% dentro de tu navegador de manera privada y segura. Tus números financieros confidenciales jamás salen de tu computadora.
@@ -151,6 +152,24 @@ Para prevenir errores contables y brindar claridad visual inmediata, las celdas 
 * **Descargar Respaldo Local (`.json`)**: Guarda una copia de seguridad íntegra de toda tu información en tu disco duro.
 * **Generar Hoja Oficial de Excel (`.xls`)**: Exporta tu libro de trabajo con protección nativa de fórmulas.
 * **Limpiar a Plantilla en Blanco ($0.00)**: Deja todas las hojas en $0.00 listas para entregar al usuario final.
+
+### 3.16 Balance General Ejecutivo y Centinela de Salud Financiera (Estándar Harvard Business School)
+* **¿Qué es el Balance General?**: Siguiendo los principios de Harvard Business School Online, el Balance General (Estado de Situación Financiera) es el reporte contable formal que muestra lo que tu empresa tiene (**Activos**), lo que debe (**Pasivos**) y el valor neto de los socios (**Patrimonio**):
+  $$\text{Activos} = \text{Pasivos} + \text{Patrimonio}$$
+* **Sincronización Automática en Tiempo Real**: ¡No tienes que reescribir nada! SBBT extrae automáticamente:
+  - **Efectivo Disponible**: Saldo real en banco calculado a partir de tus reservas iniciales más todos los cobros recibidos menos todos los pagos operativos y materiales efectuados.
+  - **Cuentas por Cobrar (A/R)**: Saldos pendientes de cobro de facturas y contratos activos.
+  - **Cuentas por Pagar (A/P)**: Órdenes de compra y facturas de subcontratistas en estado "Pending / Net 30" en COGS.
+  - **Pasivo de Sales Tax de NJ**: Impuesto retenido de clientes pendiente de remitir a Trenton vía Formulario ST-50.
+  - **Retiros de Dueño (Owner Draws)**: Distribuciones de capital registradas en Nómina.
+  - **Utilidad Neta del Ejercicio**: Beneficio neto en caja sincronizado en vivo desde el P&L de 12 Meses.
+* **4 Ratios Financieros Clave (Liquidez y Solvencia)**:
+  - **Capital de Trabajo Neto** ($\text{Activo Circulante} - \text{Pasivo Circulante}$): Mide el colchón de liquidez operativa inmediata.
+  - **Razón Circulante (Current Ratio)** ($\frac{\text{Activos Circulantes}}{\text{Pasivos Circulantes}}$): El estándar de Harvard exige $\ge 1.5x$ (las etiquetas tipo semáforo alertan si cae por debajo de $1.0x$).
+  - **Prueba Ácida (Quick Ratio)** ($\frac{\text{Efectivo} + \text{A/R}}{\text{Pasivos Circulantes}}$): Mide tu capacidad de pago inmediato sin necesidad de vender materiales o inventarios.
+  - **Razón Deuda/Patrimonio (Debt-to-Equity)** ($\frac{\text{Pasivo Total}}{\text{Patrimonio}}$): Mide el nivel de apalancamiento financiero frente al capital de los dueños (estándar $\le 1.5x$).
+* **Equilibrio en 1 Clic (⚡ Auto-Reconciliar Patrimonio)**: Si tu balance presenta alguna diferencia, haz clic en **"⚡ Auto-Reconcile Owner Equity"**. El sistema calcula la variación y genera/ajusta automáticamente una reserva de patrimonio para que la ecuación $\text{Activos} = \text{Pasivos} + \text{Patrimonio}$ quede 100% balanceada.
+* **🖨️ Generador de Estado Formal para Bancos y Fianzas**: Haz clic en **"🖨️ Print Formal Bank Statement"** para generar un documento formal membretado listo para imprimir o guardar en PDF, con tablas GAAP de doble columna, notas explicativas y líneas de firma para el Administrador y Contador (CPA).
 
 ---
 

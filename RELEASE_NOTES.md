@@ -4,7 +4,53 @@
 
 ---
 
-## 🏛️ Version 1.5.1 (Latest Release)
+## 🏛️ Version 1.6.0 (Latest Release)
+* **Official Release Date**: October 30, 2026
+* **Status**: Available & Active
+* **Package Asset**: `SBBT_v1.6.0_Ready_To_Use.zip` (Desktop Build)
+* **Core Focus**: Executive Balance Sheet (Harvard Business School Online GAAP Standard: Assets = Liabilities + Owners' Equity), Real-Time Financial Health Sentinel (Traffic-Light Equilibrium Indicator), Live Cross-Discipline Auto-Wiring (A/R, A/P, ST-50 Sales Tax, CBT Accruals, Owner Draws, Net Income), 4 Small Business Liquidity & Solvency Ratios (Working Capital, Current Ratio ≥ 1.5x, Acid-Test Quick Ratio ≥ 1.0x, Debt-to-Equity), One-Click "⚡ Auto-Reconcile Owner Equity", Bank-Ready Formal Statement of Financial Position Printer, and Updated Formatted Excel Companion Workbook (`NJ_Small_Business_Budget_v1.6.0.xls`).
+
+### 🌟 Key Upgrades in Version 1.6.0
+
+1. **⚖️ Executive Balance Sheet Engine (Harvard Business School GAAP Standard)**:
+   - Grounded directly in the principles outlined by **Harvard Business School Online** in [*How to Read a Balance Sheet*](https://online.hbs.edu/blog/post/how-to-read-a-balance-sheet) and benchmarked against top small business accounting software (QuickBooks, Xero, Wave).
+   - Enforces the universal double-entry accounting equation:
+     $$\text{Assets} = \text{Liabilities} + \text{Owners' Equity}$$
+   - Features a clean, GAAP two-column presentation on desktop (Assets on left, Liabilities & Equity on right) that gracefully stacks on mobile devices.
+
+2. **⚡ Real-Time Cross-Discipline Ledger Auto-Wiring**:
+   - **Cash & Cash Equivalents**: Auto-derived from Initial Cash Reserve + Total Cash Collected - Total Operating & COGS Expenses Disbursed.
+   - **Accounts Receivable (A/R)**: Automatically aggregates outstanding customer balances from active, deposit, sent, and overdue invoices.
+   - **Accounts Payable (A/P)**: Automatically extracts unpaid vendor bills and supplier purchase orders marked "Pending / Net 30" in Direct COGS.
+   - **NJ Sales Tax Payable (ST-50)**: Real-time liability for state sales tax (6.625%) collected from customers awaiting quarterly remittance to Trenton.
+   - **NJ CBT & Tax Accrual**: Live statutory tax reserve shortfall buffer ensuring safe-harbor compliance.
+   - **Owner Draws & Distributions**: Automatically aggregates withdrawals and partner distributions from Payroll where classification is "Owner Draw".
+   - **Current Year Net Income**: Seamlessly auto-synced from the 12-Month P&L consolidated net cash profit!
+
+3. **🚦 Real-Time Financial Health Sentinel & Executive Solvency Ratios**:
+   - **Accounting Equation Equilibrium Badge**: Prominent glowing banner verifying Total Assets = Liabilities + Equity. Turns green (`✅ GAAP EQUATION IN EQUILIBRIUM`) when balanced, or amber/red with variance explanation (`⚠️ UNBALANCED`) if out of balance.
+   - **One-Click "⚡ Auto-Reconcile Owner Equity"**: Automatically calculates the exact delta and injects/updates an Owner Equity balancing reserve entry, restoring perfect equilibrium with a single click.
+   - **Net Working Capital**: Displays liquid operational buffer (Current Assets - Current Liabilities) in high-contrast typography.
+   - **Current Ratio (HBS Liquidity Multiple)**: Computes Current Assets / Current Liabilities with traffic-light status tags (🌟 Strong ≥ 2.0x, ✅ Sound 1.5 - 2.0x, ⚠️ Tight 1.0 - 1.5x, 🚨 Deficit < 1.0x).
+   - **Acid-Test Quick Ratio**: Evaluates immediate liquidity excluding physical materials and supplies inventory ((Cash + A/R) / Current Liabilities with benchmark ≥ 1.0x).
+   - **Debt-to-Equity Ratio & Net Worth**: Measures financial leverage (Total Liabilities / Total Equity) with standard trade contractor threshold (≤ 1.5x).
+
+4. **📋 Custom Balance Sheet Accounts Ledger**:
+   - Dedicated table to record, edit, and delete custom balance sheet accounts (e.g. Work Vans, Heavy Machinery, Scaffolding, Section 179 Accelerated Depreciation contra-assets, Retainage Receivables, Commercial Mortgages, SBA Loans).
+   - In-place row actions, auto-complete account memory, and GAAP classification pills with color coding.
+
+5. **🖨️ Formal Bank-Ready Statement of Financial Position Generator**:
+   - One-click modal generator producing an executive, audit-grade financial statement tailored for bank loan officers, bonding agents, insurance underwriters, and CPAs.
+   - Features corporate letterhead (with license, address, contact details), full GAAP two-column tables, executive ratio disclosures, management representation notice, and formal dual signature lines (Managing Member & CPA / Review Officer).
+   - Clean `@media print` styling for high-definition printouts or PDF export.
+
+6. **📈 Formatted Excel Companion Workbook (`NJ_Small_Business_Budget_v1.6.0.xls`)**:
+   - Updated standalone spreadsheet companion with a brand-new **Balance Sheet** worksheet featuring native Excel formulas (`=SUM(...)`, `=Assets - (Liabilities + Equity)`, `=Working Capital`, `=Current Ratio`).
+   - Native formula protection, soft light-blue input cells, and formatted summary cards.
+
+---
+
+## 🏛️ Version 1.5.1 (Prior Release)
 * **Official Release Date**: October 28, 2026
 * **Status**: Available & Active
 * **Package Asset**: `SBBT_v1.5.1_Ready_To_Use.zip` (Desktop Build)

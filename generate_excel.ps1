@@ -1,5 +1,5 @@
 # PowerShell script to generate a rich multi-tab Microsoft Excel SpreadsheetML file
-$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.5.1.xls"
+$filePath = Join-Path $PSScriptRoot "NJ_Small_Business_Budget_v1.6.0.xls"
 
 $xml = @"
 <?xml version="1.0"?>
@@ -11,7 +11,7 @@ $xml = @"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Google Antigravity Engineering</Author>
-  <Title>Master Business Dashboard - Financial Control System v1.5.1 | NJ Local Businesses &amp; Contractors</Title>
+  <Title>Master Business Dashboard - Financial Control System v1.6.0 | NJ Local Businesses &amp; Contractors</Title>
   <Company>Garden State Premier Solutions LLC</Company>
  </DocumentProperties>
  <Styles>
@@ -1009,6 +1009,242 @@ $xml = @"
     <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R2C7:R6C7)"><Data ss:Type="Number">700.00</Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
     <Cell ss:StyleID="TotalsLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <Worksheet ss:Name="Balance Sheet">
+  <Table ss:ExpandedColumnCount="8" ss:DefaultRowHeight="19">
+   <Column ss:Width="260"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="25"/>
+   <Column ss:Width="260"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="10"/>
+
+   <!-- TITLE BLOCK -->
+   <Row ss:Height="24">
+    <Cell ss:MergeAcross="6" ss:StyleID="TitleStyle">
+     <Data ss:Type="String">STATEMENT OF FINANCIAL POSITION (BALANCE SHEET) — GAAP DOUBLE-ENTRY</Data>
+    </Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="6" ss:StyleID="SubtitleStyle">
+     <Data ss:Type="String">Harvard Business School Online Accounting Principles: Assets = Liabilities + Owners' Equity | Garden State Premier Solutions LLC</Data>
+    </Cell>
+   </Row>
+   <Row ss:Height="12"><Cell ss:StyleID="Default"/></Row>
+
+   <!-- SECTION HEADERS -->
+   <Row ss:Height="22">
+    <Cell ss:MergeAcross="2" ss:StyleID="HeaderStyle"><Data ss:Type="String">ASSETS (LEFT COLUMN)</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="2" ss:StyleID="HeaderStyle"><Data ss:Type="String">LIABILITIES &amp; OWNERS' EQUITY (RIGHT COLUMN)</Data></Cell>
+   </Row>
+   <Row ss:Height="20">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Asset Account Line Item</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Source</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Amount ($)</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Obligation / Equity Line Item</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Source</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Amount ($)</Data></Cell>
+   </Row>
+
+   <!-- 1. CURRENT ASSETS vs CURRENT LIABILITIES -->
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="TotalsLabel"><Data ss:Type="String">CURRENT ASSETS (Liquidity &lt; 1 Year)</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="2" ss:StyleID="TotalsLabel"><Data ss:Type="String">CURRENT LIABILITIES (Due &lt; 1 Year)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Cash &amp; Cash Equivalents (Operating &amp; Tax Reserves)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Bank Journal</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">28540.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accounts Payable (A/P - Pending Bills &amp; Subs)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Direct COGS</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4200.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accounts Receivable (A/R - Invoicing Outstanding)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Invoicing</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">52350.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Sales Tax Payable (Form ST-50 Liability)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ Taxes</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">1875.50</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Retainage Receivable (NJ Commercial Retainage)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Contracts</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">4500.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">NJ CBT &amp; Safe Harbor Estimated Tax Accrual</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Tax Sentinel</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">700.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Job Materials &amp; Supplies Warehouse Inventory</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Warehouse</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">7800.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accrued Payroll &amp; 1099 Subcontractor Payables</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Payroll Log</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2500.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Prepaid Commercial Insurance &amp; Expenses</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Insurance</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">3650.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Corporate Credit Cards &amp; Pro Desk Trade Lines</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Trade Credit</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">2850.00</Data></Cell>
+   </Row>
+
+   <!-- SUB-TOTALS CURRENT -->
+   <Row ss:Height="21">
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL CURRENT ASSETS</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R[-5]C:R[-1]C)"><Data ss:Type="Number">96840.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL CURRENT LIABILITIES</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R[-5]C:R[-1]C)"><Data ss:Type="Number">12125.50</Data></Cell>
+   </Row>
+   <Row ss:Height="8"><Cell ss:StyleID="Default"/></Row>
+
+   <!-- 2. FIXED ASSETS vs LONG-TERM LIABILITIES -->
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="TotalsLabel"><Data ss:Type="String">PROPERTY, PLANT &amp; EQUIPMENT (PP&amp;E)</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="2" ss:StyleID="TotalsLabel"><Data ss:Type="String">LONG-TERM LIABILITIES (Maturity &gt; 1 Year)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">2023 Ford Transit Cargo Van #1 (Marcus)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Fleet Asset</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">42500.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Ford Motor Credit Commercial Van Note (Balance)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Term Loan</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18400.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">2022 Chevrolet Silverado 2500HD Utility Truck</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Fleet Asset</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">38000.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Commercial Equipment Term Financing Note</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Term Note</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">9500.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Commercial Machinery, Scaffolding &amp; ProPress Tools</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Tool Registry</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">24500.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Commercial Shop Mortgage / SBA 7(a) Note</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">SBA / Bank</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">0.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Less: Accumulated Depreciation (Section 179)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Contra-Asset</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">-22000.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL LONG-TERM LIABILITIES</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R[-3]C:R[-1]C)"><Data ss:Type="Number">27900.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Commercial HQ &amp; Storage Yard Security Deposit</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Lease Escrow</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">5000.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL LIABILITIES (Current + Long-Term)</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R12C7+R18C7"><Data ss:Type="Number">40025.50</Data></Cell>
+   </Row>
+
+   <!-- SUB-TOTALS FIXED ASSETS -->
+   <Row ss:Height="21">
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">NET PROPERTY, PLANT &amp; EQUIPMENT</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R[-5]C:R[-1]C)"><Data ss:Type="Number">88000.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="2" ss:StyleID="TotalsLabel"><Data ss:Type="String">OWNERS' EQUITY (Net Worth)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="Default"/>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Owner Initial Capital Contributions (Paid-in Equity)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Founder Equity</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">45000.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="Default"/>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Less: Owner Draws &amp; Partner Distributions</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Payroll Log</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">-6000.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="Default"/>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Retained Earnings (Prior Fiscal Years)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Prior Profits</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">18200.00</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:MergeAcross="2" ss:StyleID="Default"/>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Current Year Net Income (FY 2025 Retained Profit)</Data></Cell>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">12M P&amp;L</Data></Cell>
+    <Cell ss:StyleID="InputCellCurrency"><Data ss:Type="Number">87614.50</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:MergeAcross="2" ss:StyleID="Default"/>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL OWNERS' EQUITY</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=SUM(R[-4]C:R[-1]C)"><Data ss:Type="Number">144814.50</Data></Cell>
+   </Row>
+
+   <!-- GRAND TOTALS -->
+   <Row ss:Height="24">
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL ASSETS</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R12C3+R20C3"><Data ss:Type="Number">184840.00</Data></Cell>
+    <Cell ss:StyleID="Default"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="TotalsLabel"><Data ss:Type="String">TOTAL LIABILITIES &amp; OWNERS' EQUITY</Data></Cell>
+    <Cell ss:StyleID="TotalsCurrency" ss:Formula="=R19C7+R25C7"><Data ss:Type="Number">184840.00</Data></Cell>
+   </Row>
+   <Row ss:Height="12"><Cell ss:StyleID="Default"/></Row>
+
+   <!-- RATIOS & SENTINEL AUDIT -->
+   <Row ss:Height="20">
+    <Cell ss:MergeAcross="6" ss:StyleID="HeaderStyle"><Data ss:Type="String">EXECUTIVE FINANCIAL RATIOS &amp; GAAP EQUILIBRIUM AUDIT (HBS STANDARDS)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Accounting Equation Balance Difference</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=R26C3-R26C7"><Data ss:Type="Number">0.00</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="StandardCell"><Data ss:Type="String">Must equal $0.00 for GAAP double-entry equilibrium (Assets = Liabilities + Equity)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Net Working Capital</Data></Cell>
+    <Cell ss:StyleID="FormulaCell" ss:Formula="=R12C3-R12C7"><Data ss:Type="Number">84714.50</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="StandardCell"><Data ss:Type="String">Current Assets - Current Liabilities (Liquid operational safety buffer)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Current Ratio (Liquidity Multiple)</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=R12C3/R12C7"><Data ss:Type="Number">7.99</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="StandardCell"><Data ss:Type="String">Harvard Benchmark: ≥ 1.50x to comfortably cover short-term debts</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Quick Ratio (Acid-Test)</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=(R7C3+R8C3)/R12C7"><Data ss:Type="Number">6.68</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="StandardCell"><Data ss:Type="String">Benchmark: ≥ 1.00x strict immediate liquidity without relying on inventory sale</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="StandardCell"><Data ss:Type="String">Debt-to-Equity Ratio</Data></Cell>
+    <Cell ss:StyleID="FormulaCellGeneral" ss:Formula="=R19C7/R25C7"><Data ss:Type="Number">0.28</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="StandardCell"><Data ss:Type="String">Benchmark: ≤ 1.50x for trade contractors (Total Liabilities / Total Equity)</Data></Cell>
    </Row>
   </Table>
  </Worksheet>

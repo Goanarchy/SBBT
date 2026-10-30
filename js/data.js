@@ -27,7 +27,7 @@ const DEFAULT_COMPANY_PROFILE = {
 
 const NJ_BUDGET_CONFIG = {
   appName: "Master Business Dashboard",
-  version: "1.5.1",
+  version: "1.6.0",
   companyName: "Garden State Premier Solutions LLC",
   location: "Morristown, New Jersey",
   stateCode: "NJ",
@@ -85,6 +85,11 @@ const CATEGORY_GUIDES = {
     title: "🏛️ NJ Taxes & Safe Harbor Reserves",
     intro: "Track NJ CBT (6.5%), Sales Tax ST-50 remittances, and quarterly estimated tax reserves.",
     tip: "✏️ Keep the 'Reserve Gap' at $0 to guarantee you are 100% compliant and avoid state penalties."
+  },
+  balanceSheet: {
+    title: "⚖️ Executive Balance Sheet & Financial Health (HBS Standard)",
+    intro: "Formal Statement of Financial Position following Harvard Business School principles: Assets = Liabilities + Owners' Equity. Measures solvency, working capital liquidity, and debt coverage for banks, bonding agents, and NJ tax authorities.",
+    tip: "💡 The Balance Sheet automatically pulls live data from Invoicing, COGS, Taxes, and Payroll. When Total Assets equal Total Liabilities + Equity, the Health Sentinel turns green (BALANCED)!"
   }
 };
 
@@ -177,6 +182,37 @@ const SCHEMA_DEFINITIONS = {
     { key: "shortfall", label: "Reserve Gap ($)", fillable: false, type: "formula", tooltip: "Remaining gap (Must be $0 for safe harbor)." },
     { key: "dueDate", label: "Deadline", fillable: true, type: "date", tooltip: "Filing deadline." },
     { key: "status", label: "Status", fillable: true, type: "select", options: ["Remitted & Filed", "Fully Funded", "Reserve Needed"], tooltip: "Compliance health." }
+  ],
+
+  balanceSheet: [
+    { key: "id", label: "Line Item #", fillable: false, type: "text", tooltip: "Balance Sheet unique item reference." },
+    { key: "asOfDate", label: "As of Date", fillable: true, type: "date", tooltip: "Effective valuation date of this asset, liability, or equity balance." },
+    { key: "accountName", label: "Account / Balance Name", required: true, fillable: true, type: "autocomplete", tooltip: "Account or asset title (e.g. Operating Checking, 2023 Ford Transit Van, SBA Loan, Initial Owner Equity)." },
+    { key: "classification", label: "GAAP Classification", required: true, fillable: true, type: "select", options: [
+      "Current Asset - Cash & Equivalents",
+      "Current Asset - Accounts Receivable",
+      "Current Asset - Retainage Receivable",
+      "Current Asset - Materials & Supplies Inventory",
+      "Current Asset - Prepaid Expenses",
+      "Fixed Asset - Vehicles & Fleet (PP&E)",
+      "Fixed Asset - Machinery, Tools & Equipment",
+      "Fixed Asset - Accumulated Depreciation (Contra)",
+      "Other Asset - Security Deposits & Long-Term",
+      "Current Liability - Accounts Payable (A/P)",
+      "Current Liability - NJ Sales Tax ST-50 Liability",
+      "Current Liability - NJ CBT & Tax Reserves",
+      "Current Liability - Accrued Payroll & 1099 Payables",
+      "Current Liability - Trade Credit & Credit Cards",
+      "Long-Term Liability - Vehicle Financing Loans",
+      "Long-Term Liability - Equipment Financing Loans",
+      "Long-Term Liability - SBA & Commercial Mortgages",
+      "Owner's Equity - Owner Capital Contributions",
+      "Owner's Equity - Owner Draws & Distributions (Contra)",
+      "Owner's Equity - Retained Earnings (Prior Years)"
+    ], tooltip: "Standard GAAP classification determining placement on Balance Sheet and financial ratio calculations." },
+    { key: "amount", label: "Current Balance ($)", required: true, fillable: true, type: "currency", tooltip: "Current balance value. Use negative for contra-assets (depreciation) or owner draws." },
+    { key: "syncMode", label: "Ledger Source", fillable: true, type: "select", options: ["Auto-Ledger Synced", "Manual Ledger Adjustment", "Fixed Starting Balance"], tooltip: "How this item is maintained: auto-calculated from active journals or manually adjusted." },
+    { key: "notes", label: "Notes & Disclosures", fillable: true, type: "text", tooltip: "Auditor notes, bank account trailing digits, interest rate, or Section 179 notes." }
   ]
 };
 
@@ -696,6 +732,125 @@ const SAMPLE_DEMO_DATA = {
       "dueDate": "2026-01-15",
       "status": "Reserve Needed"
     }
+  ],
+  "balanceSheet": [
+    {
+      "id": "BS-01",
+      "asOfDate": "2025-10-31",
+      "accountName": "Commercial Retainage Receivable (NJ Contracts)",
+      "classification": "Current Asset - Retainage Receivable",
+      "amount": 4500.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "10% commercial retainage withheld on Cleanroom & Healthcare contracts pending final punch list"
+    },
+    {
+      "id": "BS-02",
+      "asOfDate": "2025-10-31",
+      "accountName": "Job Materials & Supplies Warehouse Inventory",
+      "classification": "Current Asset - Materials & Supplies Inventory",
+      "amount": 7800.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Unallocated copper conduit, LED high-bays, and HVAC fittings in Morristown yard"
+    },
+    {
+      "id": "BS-03",
+      "asOfDate": "2025-10-31",
+      "accountName": "Prepaid Commercial General Liability & Workers Comp",
+      "classification": "Current Asset - Prepaid Expenses",
+      "amount": 3650.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Unamortized prepaid premium balance for statutory NJ policies"
+    },
+    {
+      "id": "BS-04",
+      "asOfDate": "2025-10-31",
+      "accountName": "2023 Ford Transit Cargo Van #1 (Marcus)",
+      "classification": "Fixed Asset - Vehicles & Fleet (PP&E)",
+      "amount": 42500.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Equipped with ladder racks, shelving bins, and commercial inverter package"
+    },
+    {
+      "id": "BS-05",
+      "asOfDate": "2025-10-31",
+      "accountName": "2022 Chevrolet Silverado 2500HD Utility Truck",
+      "classification": "Fixed Asset - Vehicles & Fleet (PP&E)",
+      "amount": 38000.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Heavy tow package, utility cap, and onboard mobile generator"
+    },
+    {
+      "id": "BS-06",
+      "asOfDate": "2025-10-31",
+      "accountName": "Commercial Machinery, Scaffolding & ProPress Tools",
+      "classification": "Fixed Asset - Machinery, Tools & Equipment",
+      "amount": 24500.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Milwaukee cordless pipeline tools, Ridgid diagnostic cameras, rolling scaffolding"
+    },
+    {
+      "id": "BS-07",
+      "asOfDate": "2025-10-31",
+      "accountName": "Less: Accumulated Depreciation (Section 179 / MACRS)",
+      "classification": "Fixed Asset - Accumulated Depreciation (Contra)",
+      "amount": -22000.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "IRS Section 179 accelerated depreciation taken on fleet vehicles & equipment"
+    },
+    {
+      "id": "BS-08",
+      "asOfDate": "2025-10-31",
+      "accountName": "Commercial HQ & Storage Yard Security Deposit",
+      "classification": "Other Asset - Security Deposits & Long-Term",
+      "amount": 5000.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Escrow held with Morristown Commercial Properties LLC"
+    },
+    {
+      "id": "BS-09",
+      "asOfDate": "2025-10-31",
+      "accountName": "Corporate Fleet Gas & Pro Desk Trade Credit Lines",
+      "classification": "Current Liability - Trade Credit & Credit Cards",
+      "amount": 2850.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "30-day revolving supply account balances"
+    },
+    {
+      "id": "BS-10",
+      "asOfDate": "2025-10-31",
+      "accountName": "Ford Motor Credit Commercial Van Note (Long-Term)",
+      "classification": "Long-Term Liability - Vehicle Financing Loans",
+      "amount": 18400.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "48-month vehicle financing at 5.9% APR, monthly principal & interest"
+    },
+    {
+      "id": "BS-11",
+      "asOfDate": "2025-10-31",
+      "accountName": "Equipment Financing Note (Long-Term)",
+      "classification": "Long-Term Liability - Equipment Financing Loans",
+      "amount": 9500.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Machinery term note with M&T Equipment Finance"
+    },
+    {
+      "id": "BS-12",
+      "asOfDate": "2025-10-31",
+      "accountName": "Owner Initial Capital Investment (Paid-in Equity)",
+      "classification": "Owner's Equity - Owner Capital Contributions",
+      "amount": 135360.12,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Initial founder equity and LLC capital contribution balancing Assets = Liabilities + Equity"
+    },
+    {
+      "id": "BS-13",
+      "asOfDate": "2025-10-31",
+      "accountName": "Retained Earnings (Prior Fiscal Years)",
+      "classification": "Owner's Equity - Retained Earnings (Prior Years)",
+      "amount": 18200.0,
+      "syncMode": "Manual Ledger Adjustment",
+      "notes": "Cumulative retained business profits prior to FY 2025"
+    }
   ]
 };
 
@@ -707,7 +862,8 @@ const CLEAN_SEED_DATA = {
   insurance: [],
   payroll: [],
   utilities: [],
-  taxes: []
+  taxes: [],
+  balanceSheet: []
 };
 
 // Default seed is CLEAN for pristine user delivery

@@ -1,5 +1,5 @@
 /**
- * MASTER BUSINESS DASHBOARD (v1.5.0)
+ * MASTER BUSINESS DASHBOARD (v1.6.0)
  * Executive Multi-Tab High-Fidelity Workbook Exporter using SheetJS
  * Tailored for New Jersey Local Businesses & Trade Contractors
  */
@@ -16,7 +16,7 @@ function exportBudgetToExcel(store, customFilename = null) {
   // 1. Executive Summary Sheet
   const kpis = store.calculateKPIs();
   const summaryData = [
-    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.5.0)"],
+    ["MASTER BUSINESS DASHBOARD — EXECUTIVE FINANCIAL SUMMARY (v1.6.0)"],
     ["Target Audience:", "NJ Local Businesses & Trade Contractors"],
     ["Company Name:", (store.companyProfile && store.companyProfile.companyName) || NJ_BUDGET_CONFIG.companyName],
     ["Location:", NJ_BUDGET_CONFIG.location],
@@ -301,6 +301,61 @@ function exportBudgetToExcel(store, customFilename = null) {
   ];
   XLSX.utils.book_append_sheet(wb, wsTax, "NJ Taxes & Compliance");
 
+  // 10. Balance Sheet Worksheet (HBS Standard)
+  const bs = store.calculateBalanceSheet();
+  const bsRows = [
+    ["STATEMENT OF FINANCIAL POSITION (BALANCE SHEET) — GAAP DOUBLE-ENTRY"],
+    ["Company Name:", (store.companyProfile && store.companyProfile.companyName) || NJ_BUDGET_CONFIG.companyName],
+    ["As of Date:", new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })],
+    ["Accounting Standard:", "Harvard Business School GAAP: Assets = Liabilities + Owners' Equity"],
+    ["Equilibrium Status:", bs.isBalanced ? "BALANCED (100% IN EQUILIBRIUM)" : `UNBALANCED (Variance: $${fmt(bs.variance)})`],
+    [""],
+    ["ASSETS (LEFT COLUMN)", "AMOUNT ($)", "", "LIABILITIES & EQUITY (RIGHT COLUMN)", "AMOUNT ($)"],
+    ["CURRENT ASSETS", "", "", "CURRENT LIABILITIES", ""],
+    ["Cash & Cash Equivalents (Live Operating & Reserves)", Number(bs.totalCash.toFixed(2)), "", "Accounts Payable (A/P - Pending Bills & Subs)", Number(bs.totalAP.toFixed(2))],
+    ["Accounts Receivable (A/R - Invoiced Outstanding)", Number(bs.totalAR.toFixed(2)), "", "NJ Sales Tax Payable (ST-50 Liability)", Number(bs.totalSalesTaxPayable.toFixed(2))],
+    ["Retainage Receivable (NJ Commercial Retainage)", Number(bs.retainageReceivable.toFixed(2)), "", "NJ CBT & Safe Harbor Tax Accrual", Number(bs.totalTaxAccrual.toFixed(2))],
+    ["Job Materials & Supplies Warehouse Inventory", Number(bs.inventoryMaterials.toFixed(2)), "", "Accrued Payroll & 1099 Payables", Number(bs.accruedPayroll.toFixed(2))],
+    ["Prepaid Expenses & Insurance Policies", Number(bs.prepaidExpenses.toFixed(2)), "", "Corporate Credit Cards & Trade Credit", Number(bs.tradeCreditCards.toFixed(2))],
+    ["Other Current Assets", Number(bs.otherCurrentAssets.toFixed(2)), "", "Other Current Liabilities", Number(bs.otherCurrentLiabilities.toFixed(2))],
+    ["TOTAL CURRENT ASSETS", { f: "SUM(B9:B14)" }, "", "TOTAL CURRENT LIABILITIES", { f: "SUM(E9:E14)" }],
+    [""],
+    ["PROPERTY, PLANT & EQUIPMENT (PP&E)", "", "", "LONG-TERM LIABILITIES", ""],
+    ["Work Fleet & Commercial Vehicles", Number(bs.fleetVehicles.toFixed(2)), "", "Commercial Fleet Vehicle Financing Notes", Number(bs.vehicleLoans.toFixed(2))],
+    ["Machinery, Tools & Equipment", Number(bs.equipmentTools.toFixed(2)), "", "Equipment Term Financing Notes", Number(bs.equipmentLoans.toFixed(2))],
+    ["Less: Accumulated Depreciation (Section 179)", -Math.abs(Number(bs.accumulatedDepreciation.toFixed(2))), "", "Commercial Mortgage & SBA Loans", Number(bs.commercialMortgages.toFixed(2))],
+    ["Security Deposits & Long-Term Assets", Number(bs.securityDepositsLongTerm.toFixed(2)), "", "Other Long-Term Debt", Number(bs.otherLongTermLiabilities.toFixed(2))],
+    ["Other Non-Current Assets", Number(bs.otherFixedAssets.toFixed(2)), "", "", ""],
+    ["NET PROPERTY, PLANT & EQUIPMENT", { f: "SUM(B18:B22)" }, "", "TOTAL LONG-TERM LIABILITIES", { f: "SUM(E18:E21)" }],
+    ["", "", "", "TOTAL LIABILITIES", { f: "E15+E23" }],
+    ["", "", "", "", ""],
+    ["", "", "", "OWNERS' EQUITY", ""],
+    ["", "", "", "Owner's Capital Contributions (Paid-in)", Number(bs.ownerCapital.toFixed(2))],
+    ["", "", "", "Less: Owner Draws & Distributions", -Math.abs(Number(bs.totalOwnerDraws.toFixed(2)))],
+    ["", "", "", "Retained Earnings (Prior Fiscal Years)", Number(bs.retainedEarnings.toFixed(2))],
+    ["", "", "", "Current Year Net Income (FY 2025)", Number(bs.totalCurrentYearNetIncome.toFixed(2))],
+    ["", "", "", "Other Equity Adjustments & Reserves", Number(bs.customEquity.toFixed(2))],
+    ["", "", "", "TOTAL OWNERS' EQUITY", { f: "SUM(E27:E31)" }],
+    ["", "", "", "", ""],
+    ["TOTAL ASSETS", { f: "B15+B23" }, "", "TOTAL LIABILITIES & OWNERS' EQUITY", { f: "E24+E32" }],
+    [""],
+    ["EXECUTIVE RATIO ANALYSIS", "VALUE", "HBS BENCHMARK", "CONTRACTOR SOLVENCY GUIDANCE"],
+    ["Net Working Capital", { f: "B15-E15" }, "Positive Cash Cushion", "Short-term operational liquidity cushion"],
+    ["Current Ratio (Liquidity)", { f: "B15/E15" }, "≥ 1.50x Benchmark", "Ability to cover short-term debts with liquid assets"],
+    ["Quick Ratio (Acid-Test)", { f: "(B9+B10)/E15" }, "≥ 1.00x Strict Test", "Instant liquidity excluding materials inventory"],
+    ["Debt-to-Equity Ratio", { f: "E24/E32" }, "≤ 1.50x Benchmark", "Financial leverage and solvency health"]
+  ];
+
+  const wsBS = XLSX.utils.aoa_to_sheet(bsRows);
+  wsBS['!cols'] = [
+    { wch: 45 },
+    { wch: 18 },
+    { wch: 6 },
+    { wch: 45 },
+    { wch: 18 }
+  ];
+  XLSX.utils.book_append_sheet(wb, wsBS, "Balance Sheet");
+
   // Trigger Download with Consecutive Naming
   let filename = customFilename;
   if (!filename) {
@@ -312,7 +367,7 @@ function exportBudgetToExcel(store, customFilename = null) {
     const dd = String(d.getDate()).padStart(2, '0');
     const seqStr = String(seq).padStart(3, '0');
     const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
-    filename = `${company}_Budget_${yyyy}${mm}${dd}_v1.5.0_Rev${seqStr}.xlsx`;
+    filename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.0_Rev${seqStr}.xlsx`;
   }
   XLSX.writeFile(wb, filename);
 }
@@ -326,7 +381,7 @@ window.triggerSaveAsNewExcelFile = function() {
   const dd = String(d.getDate()).padStart(2, '0');
   const seqStr = String(seq).padStart(3, '0');
   const company = ((store.companyProfile && store.companyProfile.companyName) || "NJ_Business").replace(/[^a-zA-Z0-9]/g, '_');
-  const defaultFilename = `${company}_Budget_${yyyy}${mm}${dd}_v1.5.0_Rev${seqStr}.xlsx`;
+  const defaultFilename = `${company}_Budget_${yyyy}${mm}${dd}_v1.6.0_Rev${seqStr}.xlsx`;
 
   const chosenName = prompt("💾 SAVE AS NEW FILE (Excel):\n\nEnter a new consecutive filename to save your workbook without overwriting previous versions:", defaultFilename);
   if (chosenName === null) return; // User cancelled

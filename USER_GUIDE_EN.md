@@ -1,6 +1,6 @@
-# 📖 Master Business Dashboard — Official User Manual (v1.5.1)
+# 📖 Master Business Dashboard — Official User Manual (v1.6.0)
 **Executive Financial Control System for New Jersey Local Businesses & Trade Contractors**  
-*Official Release: Version 1.5.1*  
+*Official Release: Version 1.6.0*  
 *Author & Lead Engineer: [Victor Montoya Rojas](https://www.linkedin.com/in/victormontoyarojas/) | Support: `andres00787@gmail.com`*
 
 ---
@@ -11,22 +11,23 @@
 ---
 
 ## 🎯 Purpose of this Manual
-This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.5.1)** without accounting jargon or technical frustration.
+This manual provides New Jersey trade contractors, general contractors, commercial specialty trades, and local business owners with a clear, step-by-step operational roadmap to master the **Master Business Dashboard (v1.6.0)** without accounting jargon or technical frustration.
 
 By following this guide, you will be able to:
 1. **Track Contracts, Retainers & Progress Billing**: Manage user accounts, down payment deposits, progress billings, and outstanding balances with the newly added `"Accepted"` status option for approved quotes.
 2. **Execute Real-Time Job Costing & Profit Margins**: Correlate user billings directly with material bills and subcontractor invoices matching the same **PROJECT / Project Name** to compute net profit ($) and gross margin (%) instantly.
-3. **Navigate Trading Exchange-Precision Financial Dashboards**: View your financial vitals in structured, compact trading exchange-style tiles that eliminate loose numbers and cluttered layouts.
-4. **Leverage Dynamic Navigation Tabs**: Enable only the business modules you actively use; unneeded tabs disappear immediately from the navigation strip so you only see what you are working on.
-5. **Apply NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)**: Legally exempt qualified capital installation and construction work under N.J.S.A. 54:32B-3 with an auditable compliance trail.
-6. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
-7. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
-8. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.5.1.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
+3. **Master the Executive Balance Sheet (HBS GAAP Standard)**: Maintain a formal Statement of Financial Position enforcing $\text{Assets} = \text{Liabilities} + \text{Owners' Equity}$, monitor working capital, track the Current Ratio ($\ge 1.5x$), and export formal bank statements.
+4. **Navigate Trading Exchange-Precision Financial Dashboards**: View your financial vitals in structured, compact trading exchange-style tiles that eliminate loose numbers and cluttered layouts.
+5. **Leverage Dynamic Navigation Tabs**: Enable only the business modules you actively use; unneeded tabs disappear immediately from the navigation strip so you only see what you are working on.
+6. **Apply NJ Form ST-8 Capital Improvement Exemptions (0% Sales Tax)**: Legally exempt qualified capital installation and construction work under N.J.S.A. 54:32B-3 with an auditable compliance trail.
+7. **Enforce the 1099 Subcontractor COI Sentinel**: Flag uninsured independent subcontractors in bold red before annual New Jersey Workers' Compensation policy audits assess heavy surcharges.
+8. **Generate 1-Click Printable PDF Invoices & Estimates**: Produce clean, branded invoices and proposals ready to print or save to PDF directly in your browser.
+9. **Work Seamlessly in Microsoft Excel**: Use the included `NJ_Small_Business_Budget_v1.6.0.xls` workbook with built-in cell protection that locks formulas while leaving input cells open.
 
 ---
 
 ## 📦 What to Do With Your Files Upon Download or Email
-When you receive your official release package (`SBBT_v1.5.1_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
+When you receive your official release package (`SBBT_v1.6.0_Ready_To_Use.zip`) via email, direct download link, or USB drive, follow these 3 setup steps:
 
 ```mermaid
 flowchart LR
@@ -34,9 +35,9 @@ flowchart LR
     B --> C["3. Double-Click index.html"]
 ```
 
-1. **Extract the ZIP Package**: Right-click `SBBT_v1.5.1_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
+1. **Extract the ZIP Package**: Right-click `SBBT_v1.6.0_Ready_To_Use.zip` and select **"Extract All..."**. Choose any folder on your computer (such as your Desktop or Documents).
 2. **Launch the Master Web Dashboard**: Double-click **`index.html`**. It opens immediately in Google Chrome, Microsoft Edge, Safari, Brave, or Mozilla Firefox.
-3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.5.1.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
+3. **Optional Native Excel Companion**: If you prefer working directly inside Microsoft Excel, double-click **`NJ_Small_Business_Budget_v1.6.0.xls`**. Formulas are locked and protected; light-blue cells are ready for your data.
 
 > [!IMPORTANT]
 > **Zero Installation & 100% Data Privacy**: You do **not** need a web server, cloud database, or active internet connection. All calculations, SheetJS imports, and exports run 100% locally in your browser. Your confidential business numbers never leave your computer.
@@ -195,6 +196,24 @@ To prevent calculation errors and provide instant visual clarity, cells follow s
 * **Modify Any Record In-Place**: Every data table (Invoicing, COGS, Fleet, Facility, Insurance, Payroll, Utilities, Taxes) now features a dedicated **✏️ Edit** button alongside the delete button.
 * **Smart Synchronized Modal**: Clicking `✏️` opens the entry modal with all original values pre-filled, automatically selecting the matching Month, Day, and Year dropdowns.
 * **Zero Disruption**: Modify client names, amounts, tax classifications, or job descriptions and click **Save Changes** without having to delete the record or recalculate totals.
+
+### 3.16 Executive Balance Sheet & Financial Health Sentinel (HBS GAAP Standard)
+* **What is a Balance Sheet?**: Grounded in Harvard Business School Online accounting standards, a Balance Sheet is a formal financial statement summarizing your company's **Assets**, **Liabilities**, and **Owners' Equity** at a specific point in time:
+  $$\text{Assets} = \text{Liabilities} + \text{Owners' Equity}$$
+* **Live Auto-Wiring**: You do not have to retype data! SBBT automatically pulls:
+  - **Cash on Hand**: Operating bank cash computed from initial reserves plus all cash collected minus all operating and material expenses paid.
+  - **Accounts Receivable (A/R)**: Outstanding balances across all unpaid invoices.
+  - **Accounts Payable (A/P)**: Unpaid subcontractor bills and supplier POs marked "Pending / Net 30" in COGS.
+  - **NJ Sales Tax Liability**: Unremitted Form ST-50 fiduciary tax collected from clients.
+  - **Owner Draws**: Member distributions recorded in Payroll.
+  - **Current Year Net Income**: Bottom-line profit auto-synced from the 12-Month P&L.
+* **4 Executive Solvency Ratios**:
+  - **Net Working Capital** ($\text{Current Assets} - \text{Current Liabilities}$): Measures day-to-day liquidity buffer.
+  - **Current Ratio** ($\frac{\text{Current Assets}}{\text{Current Liabilities}}$): HBS benchmark is $\ge 1.5x$ (traffic-light indicators warn if liquidity falls below $1.0x$).
+  - **Acid-Test Quick Ratio** ($\frac{\text{Cash} + \text{A/R}}{\text{Current Liabilities}}$): Tests immediate debt coverage without needing to sell physical inventory or tools.
+  - **Debt-to-Equity Ratio** ($\frac{\text{Total Liabilities}}{\text{Total Equity}}$): Indicates borrowing risk vs owner equity investment (industry standard $\le 1.5x$).
+* **1-Click Equilibrium (⚡ Auto-Reconcile)**: If your balance sheet shows an out-of-balance variance, click **"⚡ Auto-Reconcile Owner Equity"**. The engine calculates the difference and automatically registers an equity reserve balancing entry so $\text{Assets} = \text{Liabilities} + \text{Equity}$ in 100% equilibrium!
+* **🖨️ Bank-Ready Formal Statement**: Click **"🖨️ Print Formal Bank Statement"** to produce an audit-grade Statement of Financial Position with company letterhead, GAAP double-entry tables, ratio disclosures, and dual signature lines for CPAs and business owners.
 
 ## 4. Troubleshooting Guide (Cause & Effect)
 

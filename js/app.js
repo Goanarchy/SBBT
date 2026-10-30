@@ -18,7 +18,7 @@
 
 class BudgetStore {
   constructor() {
-    this.version = "1.5.1";
+    this.version = "1.6.0";
     this.storageKey = "NJ_BUDGET_STORE_V1";
     this.cleanFlagKey = "MBD_CLEAN_V124";
     this.wizardFlagKey = "MBD_WIZARD_V130";
@@ -35,7 +35,8 @@ class BudgetStore {
     if (!this.data.disciplineStatus) {
       this.data.disciplineStatus = {
         revenue: true, cogs: true, fleet: true, facility: true,
-        insurance: true, payroll: true, utilities: true, taxes: true
+        insurance: true, payroll: true, utilities: true, taxes: true,
+        balanceSheet: true
       };
     }
   }
@@ -48,8 +49,12 @@ class BudgetStore {
         if (!parsed.disciplineStatus) {
           parsed.disciplineStatus = {
             revenue: true, cogs: true, fleet: true, facility: true,
-            insurance: true, payroll: true, utilities: true, taxes: true
+            insurance: true, payroll: true, utilities: true, taxes: true,
+            balanceSheet: true
           };
+        }
+        if (!parsed.balanceSheet) {
+          parsed.balanceSheet = [];
         }
         return parsed;
       } catch (e) {
@@ -59,11 +64,12 @@ class BudgetStore {
 
     // Pristine clean seed state for official release
     const clean = JSON.parse(JSON.stringify(typeof CLEAN_SEED_DATA !== 'undefined' ? CLEAN_SEED_DATA : {
-      revenue: [], cogs: [], fleet: [], facility: [], insurance: [], payroll: [], utilities: [], taxes: []
+      revenue: [], cogs: [], fleet: [], facility: [], insurance: [], payroll: [], utilities: [], taxes: [], balanceSheet: []
     }));
     clean.disciplineStatus = {
       revenue: true, cogs: true, fleet: true, facility: true,
-      insurance: true, payroll: true, utilities: true, taxes: true
+      insurance: true, payroll: true, utilities: true, taxes: true,
+      balanceSheet: true
     };
     return clean;
   }
@@ -76,8 +82,10 @@ class BudgetStore {
     this.data = JSON.parse(JSON.stringify(SAMPLE_DEMO_DATA));
     this.data.disciplineStatus = {
       revenue: true, cogs: true, fleet: true, facility: true,
-      insurance: true, payroll: true, utilities: true, taxes: true
+      insurance: true, payroll: true, utilities: true, taxes: true,
+      balanceSheet: true
     };
+    if (!this.data.balanceSheet) this.data.balanceSheet = [];
     this.saveData();
   }
 
@@ -86,8 +94,10 @@ class BudgetStore {
     this.data = JSON.parse(JSON.stringify(CLEAN_SEED_DATA));
     this.data.disciplineStatus = {
       revenue: true, cogs: true, fleet: true, facility: true,
-      insurance: true, payroll: true, utilities: true, taxes: true
+      insurance: true, payroll: true, utilities: true, taxes: true,
+      balanceSheet: true
     };
+    if (!this.data.balanceSheet) this.data.balanceSheet = [];
     this.saveData();
   }
 
@@ -98,7 +108,7 @@ class BudgetStore {
 
     if (month === "ALL") return true;
 
-    const dateField = row.date || row.dueDate || row.renewalDate || "";
+    const dateField = row.date || row.dueDate || row.renewalDate || row.asOfDate || "";
     if (!dateField) return true;
 
     if (month === "T12M") {
@@ -372,7 +382,11 @@ class BudgetStore {
 
   // --- RECORD MUTATIONS (UNSHIFT TO TOP FOR INSTANT VISUAL CLARITY) ---
   generateNextDocumentId(tabKey, dateStr) {
-    const prefix = tabKey === "revenue" ? "INV" : (tabKey === "cogs" ? "PO" : tabKey.slice(0, 3).toUpperCase());
+    let prefix = "BS";
+    if (tabKey === "revenue") prefix = "INV";
+    else if (tabKey === "cogs") prefix = "PO";
+    else if (tabKey === "balanceSheet") prefix = "BS";
+    else prefix = tabKey.slice(0, 3).toUpperCase();
     let y = "2025";
     if (dateStr && dateStr.length >= 4) {
       y = dateStr.slice(0, 4);
@@ -393,6 +407,200 @@ class BudgetStore {
 
     const nextNum = maxNum + 1;
     return `${prefix}-${y}-${String(nextNum).padStart(2, '0')}`;
+  }
+
+  // --- EXECUTIVE BALANCE SHEET ENGINE (HBS GAAP STANDARD) ---
+  calculateBalanceSheet() {
+    const kpis = this.calculateKPIs();
+    const isDisciplineActive = (key) => this.data.disciplineStatus ? this.data.disciplineStatus[key] !== false : true;
+
+    // 1. Live Auto-Wired Ledger Values
+    const autoCash = Math.max(0, (NJ_BUDGET_CONFIG.initialCashReserve || 0) + (kpis.cashCollected || 0) - (kpis.totalExpenses || 0));
+    const autoAccountsReceivable = kpis.accountsReceivable || 0;
+
+    let autoAccountsPayable = 0;
+    if (isDisciplineActive("cogs")) {
+      (this.data.cogs || []).forEach(c => {
+        if (String(c.status || "").toLowerCase().includes("pending")) {
+          autoAccountsPayable += Number(c.amount) || 0;
+        }
+      });
+    }
+
+    let autoSalesTaxPayable = 0;
+    if (isDisciplineActive("revenue")) {
+      (this.data.revenue || []).forEach(r => {
+        const f = this.calculateFormulas("revenue", r);
+        if (f.salesTax > 0 && r.status !== "Paid in Full") {
+          autoSalesTaxPayable += f.salesTax;
+        }
+      });
+    }
+
+    const autoTaxAccrual = kpis.taxGap || 0;
+
+    let autoOwnerDraws = 0;
+    if (isDisciplineActive("payroll")) {
+      (this.data.payroll || []).forEach(p => {
+        if (String(p.type || "").toLowerCase().includes("draw")) {
+          autoOwnerDraws += Number(p.grossPay) || 0;
+        }
+      });
+    }
+
+    const autoCurrentYearNetIncome = kpis.netIncome || 0;
+
+    // 2. Custom Balance Sheet Items
+    const bsItems = this.data.balanceSheet || [];
+
+    let customCash = 0;
+    let customAR = 0;
+    let retainageReceivable = 0;
+    let inventoryMaterials = 0;
+    let prepaidExpenses = 0;
+    let otherCurrentAssets = 0;
+
+    let fleetVehicles = 0;
+    let equipmentTools = 0;
+    let accumulatedDepreciation = 0;
+    let securityDepositsLongTerm = 0;
+    let otherFixedAssets = 0;
+
+    let customAP = 0;
+    let customSalesTaxPayable = 0;
+    let customTaxAccrual = 0;
+    let accruedPayroll = 0;
+    let tradeCreditCards = 0;
+    let otherCurrentLiabilities = 0;
+
+    let vehicleLoans = 0;
+    let equipmentLoans = 0;
+    let commercialMortgages = 0;
+    let otherLongTermLiabilities = 0;
+
+    let ownerCapital = 0;
+    let customOwnerDraws = 0;
+    let retainedEarnings = 0;
+    let customEquity = 0;
+
+    bsItems.forEach(item => {
+      const amt = Number(item.amount) || 0;
+      const cls = String(item.classification || "");
+
+      if (cls.includes("Cash & Equivalents")) customCash += amt;
+      else if (cls.includes("Accounts Receivable")) customAR += amt;
+      else if (cls.includes("Retainage Receivable")) retainageReceivable += amt;
+      else if (cls.includes("Materials & Supplies Inventory")) inventoryMaterials += amt;
+      else if (cls.includes("Prepaid Expenses")) prepaidExpenses += amt;
+      else if (cls.includes("Current Asset")) otherCurrentAssets += amt;
+
+      else if (cls.includes("Vehicles & Fleet")) fleetVehicles += amt;
+      else if (cls.includes("Machinery, Tools")) equipmentTools += amt;
+      else if (cls.includes("Accumulated Depreciation")) accumulatedDepreciation += amt; // contra asset (negative)
+      else if (cls.includes("Security Deposits")) securityDepositsLongTerm += amt;
+      else if (cls.includes("Fixed Asset") || cls.includes("Other Asset")) otherFixedAssets += amt;
+
+      else if (cls.includes("Accounts Payable")) customAP += amt;
+      else if (cls.includes("Sales Tax")) customSalesTaxPayable += amt;
+      else if (cls.includes("CBT") || cls.includes("Tax Reserves")) customTaxAccrual += amt;
+      else if (cls.includes("Payroll")) accruedPayroll += amt;
+      else if (cls.includes("Trade Credit")) tradeCreditCards += amt;
+      else if (cls.includes("Current Liability")) otherCurrentLiabilities += amt;
+
+      else if (cls.includes("Vehicle Financing")) vehicleLoans += amt;
+      else if (cls.includes("Equipment Financing")) equipmentLoans += amt;
+      else if (cls.includes("SBA") || cls.includes("Mortgage")) commercialMortgages += amt;
+      else if (cls.includes("Long-Term Liability")) otherLongTermLiabilities += amt;
+
+      else if (cls.includes("Owner Capital")) ownerCapital += amt;
+      else if (cls.includes("Owner Draws")) customOwnerDraws += amt;
+      else if (cls.includes("Retained Earnings")) retainedEarnings += amt;
+      else if (cls.includes("Equity")) customEquity += amt;
+    });
+
+    // Consolidated Subtotals
+    const totalCash = autoCash + customCash;
+    const totalAR = autoAccountsReceivable + customAR;
+    const totalCurrentAssets = totalCash + totalAR + retainageReceivable + inventoryMaterials + prepaidExpenses + otherCurrentAssets;
+
+    const netFixedAssets = fleetVehicles + equipmentTools + accumulatedDepreciation + securityDepositsLongTerm + otherFixedAssets;
+    const totalAssets = totalCurrentAssets + netFixedAssets;
+
+    const totalAP = autoAccountsPayable + customAP;
+    const totalSalesTaxPayable = autoSalesTaxPayable + customSalesTaxPayable;
+    const totalTaxAccrual = autoTaxAccrual + customTaxAccrual;
+    const totalCurrentLiabilities = totalAP + totalSalesTaxPayable + totalTaxAccrual + accruedPayroll + tradeCreditCards + otherCurrentLiabilities;
+
+    const totalLongTermLiabilities = vehicleLoans + equipmentLoans + commercialMortgages + otherLongTermLiabilities;
+    const totalLiabilities = totalCurrentLiabilities + totalLongTermLiabilities;
+
+    const totalOwnerDraws = autoOwnerDraws + customOwnerDraws;
+    const totalCurrentYearNetIncome = autoCurrentYearNetIncome;
+    const totalEquity = ownerCapital - totalOwnerDraws + retainedEarnings + totalCurrentYearNetIncome + customEquity;
+
+    const totalLiabilitiesAndEquity = totalLiabilities + totalEquity;
+
+    // Variance & Sentinel
+    const variance = Number((totalAssets - totalLiabilitiesAndEquity).toFixed(2));
+    const isBalanced = Math.abs(variance) < 0.01;
+
+    // HBS Ratios
+    const workingCapital = totalCurrentAssets - totalCurrentLiabilities;
+    const currentRatio = totalCurrentLiabilities > 0 ? (totalCurrentAssets / totalCurrentLiabilities) : (totalCurrentAssets > 0 ? 10.0 : 1.0);
+    const quickRatio = totalCurrentLiabilities > 0 ? ((totalCash + totalAR) / totalCurrentLiabilities) : (totalCurrentAssets > 0 ? 10.0 : 1.0);
+    const debtToEquity = totalEquity > 0 ? (totalLiabilities / totalEquity) : 0;
+    const debtToAssets = totalAssets > 0 ? (totalLiabilities / totalAssets) : 0;
+
+    return {
+      autoCash, autoAccountsReceivable, autoAccountsPayable, autoSalesTaxPayable, autoTaxAccrual, autoOwnerDraws, autoCurrentYearNetIncome,
+      totalCash, totalAR, retainageReceivable, inventoryMaterials, prepaidExpenses, otherCurrentAssets, totalCurrentAssets,
+      fleetVehicles, equipmentTools, accumulatedDepreciation, securityDepositsLongTerm, otherFixedAssets, netFixedAssets,
+      totalAssets,
+      totalAP, totalSalesTaxPayable, totalTaxAccrual, accruedPayroll, tradeCreditCards, otherCurrentLiabilities, totalCurrentLiabilities,
+      vehicleLoans, equipmentLoans, commercialMortgages, otherLongTermLiabilities, totalLongTermLiabilities,
+      totalLiabilities,
+      ownerCapital, totalOwnerDraws, retainedEarnings, totalCurrentYearNetIncome, customEquity, totalEquity,
+      totalLiabilitiesAndEquity,
+      variance, isBalanced, workingCapital, currentRatio, quickRatio, debtToEquity, debtToAssets
+    };
+  }
+
+  autoReconcileEquity() {
+    const bs = this.calculateBalanceSheet();
+    const variance = Number((bs.totalAssets - bs.totalLiabilitiesAndEquity).toFixed(2));
+    if (Math.abs(variance) < 0.01) {
+      alert("✅ Your Balance Sheet is already perfectly balanced!\nTotal Assets equal Total Liabilities & Owners' Equity.");
+      return;
+    }
+
+    if (!this.data.balanceSheet) this.data.balanceSheet = [];
+
+    const existingIdx = this.data.balanceSheet.findIndex(i => 
+      i.classification && i.classification.includes("Owner's Equity") && 
+      (i.accountName.includes("Balancing") || i.accountName.includes("Reconciliation") || i.accountName.includes("Capital Contributions"))
+    );
+
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    if (existingIdx >= 0) {
+      this.data.balanceSheet[existingIdx].amount = Number((this.data.balanceSheet[existingIdx].amount + variance).toFixed(2));
+      this.data.balanceSheet[existingIdx].notes = `Auto-reconciled on ${todayStr} to balance GAAP equation Assets = Liabilities + Equity`;
+    } else {
+      const docId = this.generateNextDocumentId("balanceSheet", todayStr);
+      this.data.balanceSheet.push({
+        id: docId,
+        asOfDate: todayStr,
+        accountName: "Owner Capital / Equity Balancing Reserve",
+        classification: "Owner's Equity - Owner Capital Contributions",
+        amount: Number(variance.toFixed(2)),
+        syncMode: "Auto-Ledger Synced",
+        notes: `Auto-reconciled on ${todayStr} to satisfy Assets = Liabilities + Equity`
+      });
+    }
+
+    this.saveData();
+    renderAll();
+    alert(`✅ Balance Sheet Successfully Reconciled!\n\nAdjustment: ${formatMoney(variance)}\nNew Status: BALANCED (In Equilibrium)`);
   }
 
   addRecord(tabKey, record) {
@@ -992,6 +1200,7 @@ function setActiveTab(tabKey) {
 
   if (tabKey === "dashboard") renderDashboard();
   else if (tabKey === "cost-review") renderProjectCostReview();
+  else if (tabKey === "balance-sheet") renderBalanceSheet();
   else if (tabKey === "pnl") renderPnLSheet();
   else if (tabKey === "tools") { /* Tools tab is static */ }
   else renderDisciplineTable(tabKey);
@@ -1001,12 +1210,22 @@ function renderAll() {
   renderTabCounts();
   if (store.activeTab === "dashboard") renderDashboard();
   else if (store.activeTab === "cost-review") renderProjectCostReview();
+  else if (store.activeTab === "balance-sheet") renderBalanceSheet();
   else if (store.activeTab === "pnl") renderPnLSheet();
   else if (store.activeTab !== "tools") renderDisciplineTable(store.activeTab);
 }
 
 function renderTabCounts() {
+  const bsBadge = document.getElementById("count-balance-sheet");
+  if (bsBadge) {
+    const bs = store.calculateBalanceSheet();
+    bsBadge.textContent = bs.isBalanced ? "Balanced" : "Check";
+    bsBadge.style.background = bs.isBalanced ? "#10b981" : "#f59e0b";
+    bsBadge.style.color = "#ffffff";
+  }
+
   Object.keys(SCHEMA_DEFINITIONS).forEach(key => {
+    if (key === "balanceSheet") return;
     const badge = document.getElementById(`count-${key}`);
     if (badge) {
       const isActive = store.data.disciplineStatus ? store.data.disciplineStatus[key] !== false : true;
@@ -2021,6 +2240,723 @@ function renderPnLSheet() {
   html += `</tbody></table>`;
   container.innerHTML = html;
 }
+
+// ==========================================================================
+// Executive Balance Sheet & Financial Health (Harvard Business School Standard)
+// ==========================================================================
+function getClassificationBadgeStyle(classification) {
+  const cls = String(classification || "");
+  if (cls.includes("Cash") || cls.includes("Accounts Receivable") || cls.includes("Current Asset")) {
+    return "background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0;";
+  } else if (cls.includes("Fixed Asset") || cls.includes("Vehicles") || cls.includes("Machinery") || cls.includes("Other Asset")) {
+    if (cls.includes("Contra") || cls.includes("Depreciation")) {
+      return "background:#fef2f2; color:#991b1b; border:1px solid #fecaca;";
+    }
+    return "background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe;";
+  } else if (cls.includes("Current Liability") || cls.includes("Payable") || cls.includes("Credit Cards") || cls.includes("Taxes")) {
+    return "background:#fffbeb; color:#92400e; border:1px solid #fde68a;";
+  } else if (cls.includes("Long-Term Liability") || cls.includes("Loan") || cls.includes("Mortgage")) {
+    return "background:#faf5ff; color:#6b21a8; border:1px solid #e9d5ff;";
+  } else if (cls.includes("Equity") || cls.includes("Capital") || cls.includes("Retained Earnings")) {
+    return "background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;";
+  }
+  return "background:#f1f5f9; color:#334155; border:1px solid #cbd5e1;";
+}
+
+function deleteBalanceSheetItem(idx) {
+  if (confirm("Delete this balance sheet account entry?")) {
+    store.deleteRecord("balanceSheet", idx);
+    renderAll();
+  }
+}
+
+function renderBalanceSheet() {
+  const container = document.getElementById("balance-sheet-container");
+  if (!container) return;
+
+  const bs = store.calculateBalanceSheet();
+  const profile = store.companyProfile || DEFAULT_COMPANY_PROFILE;
+
+  const currentRatioClass = bs.currentRatio >= 2.0 ? 'bs-pill-success' : (bs.currentRatio >= 1.5 ? 'bs-pill-info' : (bs.currentRatio >= 1.0 ? 'bs-pill-warning' : 'bs-pill-danger'));
+  const currentRatioLabel = bs.currentRatio >= 2.0 ? '🌟 Strong Liquidity (≥2.0x)' : (bs.currentRatio >= 1.5 ? '✅ Sound Cushion (1.5 - 2.0x)' : (bs.currentRatio >= 1.0 ? '⚠️ Tight (1.0 - 1.5x)' : '🚨 Deficit (<1.0x)'));
+
+  const quickRatioClass = bs.quickRatio >= 1.2 ? 'bs-pill-success' : (bs.quickRatio >= 1.0 ? 'bs-pill-info' : 'bs-pill-warning');
+  const quickRatioLabel = bs.quickRatio >= 1.0 ? 'Acid-Test Passed (≥1.0x)' : 'Inventory Dependent (<1.0x)';
+
+  const debtEquityClass = bs.debtToEquity <= 1.0 ? 'bs-pill-success' : (bs.debtToEquity <= 2.0 ? 'bs-pill-info' : 'bs-pill-warning');
+  const debtEquityLabel = bs.debtToEquity <= 1.5 ? 'Healthy Leverage' : 'Elevated Leverage';
+
+  let html = `
+    <!-- Category Guide Card -->
+    <div class="category-guide-card">
+      <div class="category-guide-header">
+        <div style="font-size:15px; font-weight:800; color:#1e3a8a; display:flex; align-items:center; gap:8px;">
+          <span>⚖️</span> Executive Balance Sheet &amp; Financial Health (HBS Standard)
+        </div>
+        <a href="https://online.hbs.edu/blog/post/how-to-read-a-balance-sheet" target="_blank" rel="noopener noreferrer" style="font-size:11.5px; font-weight:700; color:#0284c7; text-decoration:none; display:flex; align-items:center; gap:4px;">
+          📖 HBS Accounting Standard ↗
+        </a>
+      </div>
+      <p style="margin:4px 0 8px 0; font-size:12px; color:var(--text-muted); line-height:1.5;">
+        Formal Statement of Financial Position following Harvard Business School principles: <strong>Assets = Liabilities + Owners' Equity</strong>. Measures solvency, working capital liquidity, and debt coverage for banks, bonding agents, and NJ tax authorities.
+      </p>
+      <div style="font-size:11px; color:#0369a1; font-weight:600;">
+        💡 Live auto-wiring pulls active receivables, pending bills, taxes, and P&amp;L profits directly into your statement!
+      </div>
+    </div>
+
+    <!-- Top Sentinel & Financial Health Strip -->
+    <div class="bs-sentinel-bar ${bs.isBalanced ? 'sentinel-balanced' : 'sentinel-unbalanced'}">
+      <div class="sentinel-left">
+        <div class="sentinel-badge ${bs.isBalanced ? 'badge-balanced' : 'badge-unbalanced'}">
+          ${bs.isBalanced ? '✅ GAAP ACCOUNTING EQUATION IN EQUILIBRIUM' : '⚠️ UNBALANCED VARIANCE DETECTED'}
+        </div>
+        <div class="sentinel-equation">
+          Total Assets (<strong>${formatMoney(bs.totalAssets)}</strong>) = Liabilities (<strong>${formatMoney(bs.totalLiabilities)}</strong>) + Owners' Equity (<strong>${formatMoney(bs.totalEquity)}</strong>)
+        </div>
+        <div class="sentinel-detail">
+          ${bs.isBalanced ? 
+            '✨ Accounting equilibrium verified: Total Assets exactly equal Total Liabilities &amp; Owners’ Equity (Audit-Ready).' : 
+            `⚠️ Net Out-of-Balance Gap: <strong>${formatMoney(Math.abs(bs.variance))}</strong>. Click "Auto-Reconcile Owner Equity" to automatically balance.`
+          }
+        </div>
+      </div>
+      <div class="sentinel-actions">
+        ${!bs.isBalanced ? `
+          <button class="btn btn-warning" onclick="store.autoReconcileEquity()" style="font-weight:800; font-size:12px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15);">
+            ⚡ Auto-Reconcile Owner Equity
+          </button>
+        ` : `
+          <button class="btn btn-outline-success" onclick="store.autoReconcileEquity()" style="font-weight:700; font-size:11.5px;">
+            ⚖️ Verify Equilibrium
+          </button>
+        `}
+      </div>
+    </div>
+
+    <!-- Executive Health KPI Cards -->
+    <div class="bs-kpi-deck">
+      <div class="bs-kpi-card">
+        <div class="bs-kpi-label">💼 Net Working Capital</div>
+        <div class="bs-kpi-val" style="color:${bs.workingCapital >= 0 ? '#10b981' : '#ef4444'};">
+          ${formatMoney(bs.workingCapital)}
+        </div>
+        <div class="bs-kpi-sub">
+          Current Assets ($${formatMoney(bs.totalCurrentAssets)}) - Current Liab ($${formatMoney(bs.totalCurrentLiabilities)})
+        </div>
+      </div>
+
+      <div class="bs-kpi-card">
+        <div class="bs-kpi-label">📊 Current Ratio (HBS Liquidity)</div>
+        <div class="bs-kpi-val" style="color:${bs.currentRatio >= 1.5 ? '#10b981' : (bs.currentRatio >= 1.0 ? '#f59e0b' : '#ef4444')};">
+          ${bs.currentRatio.toFixed(2)}x
+        </div>
+        <div class="bs-kpi-sub">
+          <span class="bs-status-badge ${currentRatioClass}">${currentRatioLabel}</span>
+        </div>
+      </div>
+
+      <div class="bs-kpi-card">
+        <div class="bs-kpi-label">🧪 Quick Ratio (Acid-Test)</div>
+        <div class="bs-kpi-val" style="color:${bs.quickRatio >= 1.0 ? '#10b981' : '#f59e0b'};">
+          ${bs.quickRatio.toFixed(2)}x
+        </div>
+        <div class="bs-kpi-sub">
+          <span class="bs-status-badge ${quickRatioClass}">${quickRatioLabel}</span>
+        </div>
+      </div>
+
+      <div class="bs-kpi-card">
+        <div class="bs-kpi-label">🏛️ Debt-to-Equity &amp; Net Worth</div>
+        <div class="bs-kpi-val" style="color:#2563eb;">
+          ${bs.debtToEquity.toFixed(2)}
+        </div>
+        <div class="bs-kpi-sub">
+          <span class="bs-status-badge ${debtEquityClass}">${debtEquityLabel}</span> • Net Worth: <strong>${formatMoney(bs.totalEquity)}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="bs-action-bar">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openAddModal('balanceSheet')" style="font-weight:700; font-size:12.5px;">
+          ➕ Add Balance Sheet Line Item
+        </button>
+        <button class="btn btn-outline-primary" onclick="renderAll()" style="font-weight:700; font-size:12px;">
+          🔄 Sync Ledger Feeds
+        </button>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-save-file" onclick="openFormalBalanceSheetModal()" style="font-weight:800; font-size:12px; background:linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%) !important; color:#fff !important; border:none; padding:7px 15px !important; border-radius:6px; cursor:pointer;">
+          🖨️ Print Formal Bank Statement
+        </button>
+        <button class="btn btn-outline-secondary" onclick="exportBudgetToExcel(store)" style="font-weight:700; font-size:12px;">
+          📥 Export Excel Workbook
+        </button>
+      </div>
+    </div>
+
+    <!-- Two-Column GAAP Balance Sheet Layout -->
+    <div class="bs-gaap-grid">
+      <!-- LEFT COLUMN: ASSETS -->
+      <div class="bs-gaap-col">
+        <div class="bs-col-header">
+          <span>ASSETS</span>
+          <span class="bs-header-total">${formatMoney(bs.totalAssets)}</span>
+        </div>
+
+        <div class="bs-table-wrap">
+          <table class="bs-financial-table">
+            <thead>
+              <tr>
+                <th>Account / Asset Line Item</th>
+                <th style="width:110px; text-align:center;">Ledger Source</th>
+                <th style="width:130px; text-align:right;">Amount ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- CURRENT ASSETS SECTION -->
+              <tr class="bs-section-hdr"><td colspan="3">CURRENT ASSETS (Liquidity &lt; 1 Year)</td></tr>
+              
+              <tr>
+                <td>
+                  <strong>Cash &amp; Cash Equivalents</strong>
+                  <div class="bs-subtext">Operating checking, payroll account &amp; liquid reserves</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">Live Journal</span></td>
+                <td class="cell-number" style="font-weight:700; color:#10b981;">${formatMoney(bs.totalCash)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Accounts Receivable (A/R)</strong>
+                  <div class="bs-subtext">Outstanding balances due on active, sent, deposit &amp; overdue quotes</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">Invoicing Feed</span></td>
+                <td class="cell-number" style="font-weight:700; color:#2563eb;">${formatMoney(bs.totalAR)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Retainage Receivable (NJ Contracts)</strong>
+                  <div class="bs-subtext">5%-10% commercial retainage withheld pending final project sign-off</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Contract Term</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.retainageReceivable)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Materials &amp; Supplies Inventory</strong>
+                  <div class="bs-subtext">Unallocated job materials, wiring, fixtures &amp; equipment parts on hand</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Warehouse Count</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.inventoryMaterials)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Prepaid Expenses &amp; Insurance</strong>
+                  <div class="bs-subtext">Unamortized portion of prepaid policies &amp; annual memberships</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Policy Amort</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.prepaidExpenses)}</td>
+              </tr>
+
+              ${bs.otherCurrentAssets !== 0 ? `
+                <tr>
+                  <td><strong>Other Current Assets</strong></td>
+                  <td class="cell-center"><span class="bs-source-pill manual">Custom</span></td>
+                  <td class="cell-number" style="font-weight:700;">${formatMoney(bs.otherCurrentAssets)}</td>
+                </tr>
+              ` : ''}
+
+              <tr class="bs-subtotal-row">
+                <td colspan="2">TOTAL CURRENT ASSETS</td>
+                <td class="cell-number">${formatMoney(bs.totalCurrentAssets)}</td>
+              </tr>
+
+              <!-- FIXED ASSETS SECTION -->
+              <tr class="bs-section-hdr"><td colspan="3">PROPERTY, PLANT &amp; EQUIPMENT (PP&amp;E / Long-Term)</td></tr>
+
+              <tr>
+                <td>
+                  <strong>Work Fleet &amp; Commercial Vehicles</strong>
+                  <div class="bs-subtext">Service vans, utility pickup trucks &amp; heavy trailers</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Fleet Asset</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.fleetVehicles)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Machinery, Heavy Tools &amp; Equipment</strong>
+                  <div class="bs-subtext">Generators, pro-press equipment, scaffolding &amp; diagnostic machinery</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Tool Registry</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.equipmentTools)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Less: Accumulated Depreciation (Section 179)</strong>
+                  <div class="bs-subtext">Tax &amp; GAAP depreciation contra-asset deducted from book value</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill contra">Contra-Asset</span></td>
+                <td class="cell-number" style="font-weight:700; color:#ef4444;">(${formatMoney(Math.abs(bs.accumulatedDepreciation))})</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Security Deposits &amp; Long-Term Assets</strong>
+                  <div class="bs-subtext">Commercial yard lease escrow &amp; utility deposits</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Escrow</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.securityDepositsLongTerm)}</td>
+              </tr>
+
+              ${bs.otherFixedAssets !== 0 ? `
+                <tr>
+                  <td><strong>Other Non-Current Assets</strong></td>
+                  <td class="cell-center"><span class="bs-source-pill manual">Custom</span></td>
+                  <td class="cell-number" style="font-weight:700;">${formatMoney(bs.otherFixedAssets)}</td>
+                </tr>
+              ` : ''}
+
+              <tr class="bs-subtotal-row">
+                <td colspan="2">NET PROPERTY, PLANT &amp; EQUIPMENT</td>
+                <td class="cell-number">${formatMoney(bs.netFixedAssets)}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bs-total-row">
+                <td colspan="2">TOTAL ASSETS</td>
+                <td class="cell-number">${formatMoney(bs.totalAssets)}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: LIABILITIES & OWNERS' EQUITY -->
+      <div class="bs-gaap-col">
+        <div class="bs-col-header" style="background:#0f172a;">
+          <span>LIABILITIES &amp; OWNERS' EQUITY</span>
+          <span class="bs-header-total">${formatMoney(bs.totalLiabilitiesAndEquity)}</span>
+        </div>
+
+        <div class="bs-table-wrap">
+          <table class="bs-financial-table">
+            <thead>
+              <tr>
+                <th>Account / Liability &amp; Equity Line Item</th>
+                <th style="width:110px; text-align:center;">Ledger Source</th>
+                <th style="width:130px; text-align:right;">Amount ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- CURRENT LIABILITIES SECTION -->
+              <tr class="bs-section-hdr"><td colspan="3">CURRENT LIABILITIES (Obligations Due &lt; 1 Year)</td></tr>
+
+              <tr>
+                <td>
+                  <strong>Accounts Payable (A/P)</strong>
+                  <div class="bs-subtext">Unpaid supplier receipts, POs &amp; Net 30 trade bills in COGS</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">COGS Feed</span></td>
+                <td class="cell-number" style="font-weight:700; color:#d97706;">${formatMoney(bs.totalAP)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>NJ Sales Tax Payable (ST-50)</strong>
+                  <div class="bs-subtext">Sales tax collected from NJ customers awaiting quarterly remittance</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">Tax Feed</span></td>
+                <td class="cell-number" style="font-weight:700; color:#d97706;">${formatMoney(bs.totalSalesTaxPayable)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>NJ CBT &amp; Safe Harbor Accruals</strong>
+                  <div class="bs-subtext">Accrued Corporation Business Tax (6.5%) &amp; quarterly obligations</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">Tax Sentinel</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.totalTaxAccrual)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Accrued Payroll &amp; 1099 Payables</strong>
+                  <div class="bs-subtext">Earned wages, withholding taxes &amp; unbilled subcontractor invoices</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Payroll</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.accruedPayroll)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Corporate Credit Cards &amp; Supply Lines</strong>
+                  <div class="bs-subtext">30-day revolving credit balances (Home Depot Pro, WEX Fuel, Visa)</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Trade Line</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.tradeCreditCards)}</td>
+              </tr>
+
+              ${bs.otherCurrentLiabilities !== 0 ? `
+                <tr>
+                  <td><strong>Other Current Liabilities</strong></td>
+                  <td class="cell-center"><span class="bs-source-pill manual">Custom</span></td>
+                  <td class="cell-number" style="font-weight:700;">${formatMoney(bs.otherCurrentLiabilities)}</td>
+                </tr>
+              ` : ''}
+
+              <tr class="bs-subtotal-row">
+                <td colspan="2">TOTAL CURRENT LIABILITIES</td>
+                <td class="cell-number">${formatMoney(bs.totalCurrentLiabilities)}</td>
+              </tr>
+
+              <!-- LONG-TERM LIABILITIES SECTION -->
+              <tr class="bs-section-hdr"><td colspan="3">LONG-TERM LIABILITIES (Maturity &gt; 1 Year)</td></tr>
+
+              <tr>
+                <td>
+                  <strong>Commercial Fleet Vehicle Financing Notes</strong>
+                  <div class="bs-subtext">Ford Motor Credit / Ally auto loan principal balances</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Term Loan</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.vehicleLoans)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Equipment Financing &amp; Machinery Leases</strong>
+                  <div class="bs-subtext">Long-term equipment notes &amp; capital lease obligations</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Term Note</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.equipmentLoans)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Commercial Mortgages &amp; SBA 7(a) Loans</strong>
+                  <div class="bs-subtext">Shop real estate mortgages &amp; SBA working capital notes</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Bank Note</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.commercialMortgages)}</td>
+              </tr>
+
+              ${bs.otherLongTermLiabilities !== 0 ? `
+                <tr>
+                  <td><strong>Other Long-Term Debt</strong></td>
+                  <td class="cell-center"><span class="bs-source-pill manual">Custom</span></td>
+                  <td class="cell-number" style="font-weight:700;">${formatMoney(bs.otherLongTermLiabilities)}</td>
+                </tr>
+              ` : ''}
+
+              <tr class="bs-subtotal-row">
+                <td colspan="2">TOTAL LONG-TERM LIABILITIES</td>
+                <td class="cell-number">${formatMoney(bs.totalLongTermLiabilities)}</td>
+              </tr>
+
+              <tr style="background:var(--bg-card-subtle); font-weight:800; border-top:1px solid var(--border-grid); border-bottom:1px solid var(--border-grid);">
+                <td colspan="2" style="padding-left:14px; color:#b91c1c;">TOTAL LIABILITIES (Current + Long-Term)</td>
+                <td class="cell-number" style="color:#b91c1c;">${formatMoney(bs.totalLiabilities)}</td>
+              </tr>
+
+              <!-- OWNERS' EQUITY SECTION -->
+              <tr class="bs-section-hdr"><td colspan="3">OWNERS' EQUITY (Net Worth of the Enterprise)</td></tr>
+
+              <tr>
+                <td>
+                  <strong>Owner's Capital Contributions</strong>
+                  <div class="bs-subtext">Initial equity capital &amp; subsequent partner contributions</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Paid-in Capital</span></td>
+                <td class="cell-number" style="font-weight:700; color:#16a34a;">${formatMoney(bs.ownerCapital)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Less: Owner Draws &amp; Partner Distributions</strong>
+                  <div class="bs-subtext">Cumulative partner withdrawals &amp; member draws from Payroll</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill contra">Payroll Feed</span></td>
+                <td class="cell-number" style="font-weight:700; color:#ef4444;">(${formatMoney(Math.abs(bs.totalOwnerDraws))})</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Retained Earnings (Prior Fiscal Years)</strong>
+                  <div class="bs-subtext">Cumulative net earnings retained in business from prior years</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill manual">Prior Profits</span></td>
+                <td class="cell-number" style="font-weight:700;">${formatMoney(bs.retainedEarnings)}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Current Year Net Income (FY 2025)</strong>
+                  <div class="bs-subtext">Auto-synced from 12-Month P&amp;L consolidated net cash margin</div>
+                </td>
+                <td class="cell-center"><span class="bs-source-pill auto">P&amp;L Live Feed</span></td>
+                <td class="cell-number" style="font-weight:800; color:${bs.totalCurrentYearNetIncome >= 0 ? '#10b981' : '#ef4444'};">
+                  ${formatMoney(bs.totalCurrentYearNetIncome)}
+                </td>
+              </tr>
+
+              ${bs.customEquity !== 0 ? `
+                <tr>
+                  <td><strong>Equity Adjustments / Reserves</strong></td>
+                  <td class="cell-center"><span class="bs-source-pill manual">Custom</span></td>
+                  <td class="cell-number" style="font-weight:700;">${formatMoney(bs.customEquity)}</td>
+                </tr>
+              ` : ''}
+
+              <tr class="bs-subtotal-row">
+                <td colspan="2">TOTAL OWNERS' EQUITY</td>
+                <td class="cell-number" style="color:#16a34a;">${formatMoney(bs.totalEquity)}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bs-total-row">
+                <td colspan="2">TOTAL LIABILITIES &amp; EQUITY</td>
+                <td class="cell-number">${formatMoney(bs.totalLiabilitiesAndEquity)}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Balance Sheet Line Items Table -->
+    <div class="bs-ledger-card">
+      <div class="bs-ledger-header">
+        <div>
+          <h3 style="font-size:14.5px; font-weight:800; color:#0f172a; display:flex; align-items:center; gap:8px;">
+            <span>📋</span> Custom Balance Sheet Accounts &amp; Fixed Ledger Entries
+          </h3>
+          <p style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+            Add or edit specific balance sheet accounts (work vehicles, loan balances, bank accounts, Section 179 depreciation).
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddModal('balanceSheet')" style="font-weight:700; font-size:12px;">
+          ➕ Add Account Line
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="discipline-table">
+          <thead>
+            <tr>
+              <th style="width:40px; text-align:center;">#</th>
+              <th style="width:90px; text-align:center;">ID</th>
+              <th style="width:105px; text-align:center;">As of Date</th>
+              <th>Account / Balance Title</th>
+              <th style="width:230px;">GAAP Classification</th>
+              <th style="width:130px; text-align:right;">Balance Amount ($)</th>
+              <th style="width:140px; text-align:center;">Ledger Source</th>
+              <th>Notes &amp; Disclosures</th>
+              <th style="width:90px; text-align:center;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${(store.data.balanceSheet || []).length === 0 ? `
+              <tr>
+                <td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted); font-size:12.5px;">
+                  No custom balance sheet entries recorded yet.<br>
+                  Click <strong>"➕ Add Account Line"</strong> to register your bank accounts, vehicles, machinery, loans, or initial owner capital!
+                </td>
+              </tr>
+            ` : (store.data.balanceSheet || []).map((row, idx) => {
+              const amt = Number(row.amount) || 0;
+              const isContra = amt < 0 || String(row.classification || "").includes("Contra");
+              return `
+                <tr>
+                  <td class="cell-center" style="font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+                  <td class="cell-center" style="font-family:monospace; font-weight:700; font-size:11px;">${escapeHtml(row.id || `BS-${idx+1}`)}</td>
+                  <td class="cell-center" style="font-size:11.5px;">${escapeHtml(row.asOfDate || "")}</td>
+                  <td style="font-weight:700; color:#0f172a;">${escapeHtml(row.accountName || "")}</td>
+                  <td>
+                    <span class="badge" style="font-size:10.5px; font-weight:700; padding:3px 7px; border-radius:4px; ${getClassificationBadgeStyle(row.classification)}">
+                      ${escapeHtml(row.classification || "")}
+                    </span>
+                  </td>
+                  <td style="text-align:right; font-weight:800; font-family:monospace; font-size:13px; color:${isContra ? '#ef4444' : '#0f172a'};">
+                    ${isContra ? `(${formatMoney(Math.abs(amt))})` : formatMoney(amt)}
+                  </td>
+                  <td class="cell-center">
+                    <span class="bs-source-pill ${row.syncMode === 'Auto-Ledger Synced' ? 'auto' : 'manual'}">
+                      ${escapeHtml(row.syncMode || 'Manual Adjustment')}
+                    </span>
+                  </td>
+                  <td style="font-size:11px; color:var(--text-muted); max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${escapeHtml(row.notes || '')}">
+                    ${escapeHtml(row.notes || '—')}
+                  </td>
+                  <td class="cell-center">
+                    <div style="display:inline-flex; gap:4px;">
+                      <button class="btn-action edit" onclick="openEditModal('balanceSheet', ${idx})" title="Edit Account">✏️</button>
+                      <button class="btn-action delete" onclick="deleteBalanceSheetItem(${idx})" title="Delete Account">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+// Formal Bank-Ready Statement Modal Controller
+window.openFormalBalanceSheetModal = function() {
+  const modal = document.getElementById("modal-formal-balance-sheet");
+  const container = document.getElementById("formal-balance-sheet-content");
+  if (!modal || !container) return;
+
+  const bs = store.calculateBalanceSheet();
+  const profile = store.companyProfile || DEFAULT_COMPANY_PROFILE;
+  const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  container.innerHTML = `
+    <!-- Letterhead -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #0f172a; padding-bottom:16px; margin-bottom:18px;">
+      <div>
+        <div style="font-size:18px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px;">
+          ${escapeHtml(profile.companyName || "GARDEN STATE PREMIER SOLUTIONS LLC")}
+        </div>
+        <div style="font-size:11.5px; font-weight:700; color:#0284c7; margin-top:2px;">
+          ${escapeHtml(profile.specialty || "Commercial & Residential Contractor Services")}
+        </div>
+        <div style="font-size:11px; color:#475569; margin-top:3px;">
+          ${escapeHtml(profile.address || "")}${profile.address && profile.cityStateZip ? ', ' : ''}${escapeHtml(profile.cityStateZip || "")} • Tel: ${escapeHtml(profile.phone || "N/A")} • ${escapeHtml(profile.email || "")}
+        </div>
+        ${profile.license ? `<div style="font-size:10.5px; color:#64748b; font-weight:700; margin-top:2px;">📜 License: ${escapeHtml(profile.license)}</div>` : ''}
+      </div>
+      <div style="text-align:right;">
+        <span style="background:#0f172a; color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px;">FORMAL FINANCIAL STATEMENT</span>
+        <div style="font-size:15px; font-weight:900; color:#0369a1; margin-top:6px;">STATEMENT OF FINANCIAL POSITION</div>
+        <div style="font-size:11px; color:#475569; margin-top:2px;">As of Date: <strong>${dateStr}</strong></div>
+      </div>
+    </div>
+
+    <!-- Executive Health Ratios Banner for Bank Underwriters -->
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px 14px;">
+      <div>
+        <div style="font-size:9.5px; font-weight:800; color:#64748b;">GAAP EQUATION</div>
+        <div style="font-size:13px; font-weight:900; color:${bs.isBalanced ? '#16a34a' : '#b91c1c'};">${bs.isBalanced ? 'Balanced (100%)' : 'Variance Present'}</div>
+      </div>
+      <div>
+        <div style="font-size:9.5px; font-weight:800; color:#64748b;">WORKING CAPITAL</div>
+        <div style="font-size:13px; font-weight:900; color:#1e3a8a;">${formatMoney(bs.workingCapital)}</div>
+      </div>
+      <div>
+        <div style="font-size:9.5px; font-weight:800; color:#64748b;">CURRENT RATIO</div>
+        <div style="font-size:13px; font-weight:900; color:${bs.currentRatio >= 1.5 ? '#16a34a' : '#b45309'};">${bs.currentRatio.toFixed(2)}x (HBS Std ≥1.5)</div>
+      </div>
+      <div>
+        <div style="font-size:9.5px; font-weight:800; color:#64748b;">TOTAL NET WORTH</div>
+        <div style="font-size:13px; font-weight:900; color:#16a34a;">${formatMoney(bs.totalEquity)}</div>
+      </div>
+    </div>
+
+    <!-- Formal Statement Two-Column Layout -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <!-- ASSETS -->
+      <div>
+        <div style="background:#0f172a; color:#fff; padding:6px 12px; font-size:12px; font-weight:900; display:flex; justify-content:space-between;">
+          <span>ASSETS</span>
+          <span>${formatMoney(bs.totalAssets)}</span>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:11.5px; margin-top:6px;">
+          <tr style="background:#f1f5f9; font-weight:800; border-bottom:1px solid #cbd5e1;"><td colspan="2" style="padding:4px 8px;">CURRENT ASSETS</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Cash &amp; Cash Equivalents</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.totalCash)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Accounts Receivable (A/R)</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.totalAR)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Contract Retainage Receivable</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.retainageReceivable)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Job Materials &amp; Supplies Inventory</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.inventoryMaterials)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Prepaid Insurance &amp; Expenses</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.prepaidExpenses)}</td></tr>
+          <tr style="background:#f8fafc; font-weight:800; border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"><td style="padding:5px 8px;">Total Current Assets</td><td style="text-align:right; padding:5px 8px; color:#1e3a8a;">${formatMoney(bs.totalCurrentAssets)}</td></tr>
+
+          <tr style="background:#f1f5f9; font-weight:800; border-bottom:1px solid #cbd5e1;"><td colspan="2" style="padding:4px 8px; margin-top:8px;">PROPERTY, PLANT &amp; EQUIPMENT</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Commercial Work Fleet &amp; Vehicles</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.fleetVehicles)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Machinery, Tools &amp; Equipment</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.equipmentTools)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Less: Accumulated Depreciation (Sec 179)</td><td style="text-align:right; font-weight:700; color:#ef4444; padding:4px 8px;">(${formatMoney(Math.abs(bs.accumulatedDepreciation))})</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Security Deposits &amp; Long-Term Assets</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.securityDepositsLongTerm)}</td></tr>
+          <tr style="background:#f8fafc; font-weight:800; border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"><td style="padding:5px 8px;">Net Property, Plant &amp; Equipment</td><td style="text-align:right; padding:5px 8px; color:#1e3a8a;">${formatMoney(bs.netFixedAssets)}</td></tr>
+
+          <tr style="background:#e0f2fe; font-weight:900; font-size:12.5px; border-top:2px solid #0369a1; border-bottom:3px double #0369a1;"><td style="padding:7px 8px; color:#0369a1;">TOTAL ASSETS</td><td style="text-align:right; padding:7px 8px; color:#0369a1;">${formatMoney(bs.totalAssets)}</td></tr>
+        </table>
+      </div>
+
+      <!-- LIABILITIES & EQUITY -->
+      <div>
+        <div style="background:#0f172a; color:#fff; padding:6px 12px; font-size:12px; font-weight:900; display:flex; justify-content:space-between;">
+          <span>LIABILITIES &amp; EQUITY</span>
+          <span>${formatMoney(bs.totalLiabilitiesAndEquity)}</span>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:11.5px; margin-top:6px;">
+          <tr style="background:#f1f5f9; font-weight:800; border-bottom:1px solid #cbd5e1;"><td colspan="2" style="padding:4px 8px;">CURRENT LIABILITIES</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Accounts Payable (A/P)</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.totalAP)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">NJ Sales Tax Payable (ST-50)</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.totalSalesTaxPayable)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">NJ CBT &amp; Safe Harbor Accruals</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.totalTaxAccrual)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Accrued Payroll &amp; 1099 Payables</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.accruedPayroll)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Trade Credit &amp; Commercial Cards</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.tradeCreditCards)}</td></tr>
+          <tr style="background:#f8fafc; font-weight:800; border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"><td style="padding:5px 8px;">Total Current Liabilities</td><td style="text-align:right; padding:5px 8px; color:#b91c1c;">${formatMoney(bs.totalCurrentLiabilities)}</td></tr>
+
+          <tr style="background:#f1f5f9; font-weight:800; border-bottom:1px solid #cbd5e1;"><td colspan="2" style="padding:4px 8px;">LONG-TERM LIABILITIES</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Commercial Fleet Financing Notes</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.vehicleLoans)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Equipment Term Financing Notes</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.equipmentLoans)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Commercial Mortgage / SBA Notes</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.commercialMortgages)}</td></tr>
+          <tr style="background:#f8fafc; font-weight:800; border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"><td style="padding:5px 8px;">Total Long-Term Liabilities</td><td style="text-align:right; padding:5px 8px; color:#b91c1c;">${formatMoney(bs.totalLongTermLiabilities)}</td></tr>
+          <tr style="background:#fee2e2; font-weight:800;"><td style="padding:5px 8px; color:#991b1b;">TOTAL LIABILITIES</td><td style="text-align:right; padding:5px 8px; color:#991b1b;">${formatMoney(bs.totalLiabilities)}</td></tr>
+
+          <tr style="background:#f1f5f9; font-weight:800; border-bottom:1px solid #cbd5e1;"><td colspan="2" style="padding:4px 8px;">OWNERS' EQUITY</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Owner Capital Contributions</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.ownerCapital)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Less: Owner Draws &amp; Distributions</td><td style="text-align:right; font-weight:700; color:#ef4444; padding:4px 8px;">(${formatMoney(Math.abs(bs.totalOwnerDraws))})</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Retained Earnings (Prior Years)</td><td style="text-align:right; font-weight:700; padding:4px 8px;">${formatMoney(bs.retainedEarnings)}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:4px 8px;">Current Year Net Income</td><td style="text-align:right; font-weight:700; padding:4px 8px; color:#16a34a;">${formatMoney(bs.totalCurrentYearNetIncome)}</td></tr>
+          <tr style="background:#f8fafc; font-weight:800; border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"><td style="padding:5px 8px;">Total Owners' Equity</td><td style="text-align:right; padding:5px 8px; color:#16a34a;">${formatMoney(bs.totalEquity)}</td></tr>
+
+          <tr style="background:#e0f2fe; font-weight:900; font-size:12.5px; border-top:2px solid #0369a1; border-bottom:3px double #0369a1;"><td style="padding:7px 8px; color:#0369a1;">TOTAL LIABILITIES &amp; EQUITY</td><td style="text-align:right; padding:7px 8px; color:#0369a1;">${formatMoney(bs.totalLiabilitiesAndEquity)}</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Management & Preparer Representation Disclosures -->
+    <div style="font-size:10px; color:#64748b; line-height:1.4; border-top:1px solid #e2e8f0; padding-top:10px; margin-bottom:24px;">
+      <strong>STATEMENT DISCLOSURE:</strong> This Statement of Financial Position has been compiled using the accrual and cash flows generated by the Master Business Dashboard system in accordance with standard U.S. GAAP guidelines and Harvard Business School double-entry principles (Assets = Liabilities + Equity). Figures reflect current recorded assets, liabilities, and retained earnings as of the date indicated.
+    </div>
+
+    <!-- Formal Signature Block -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:24px; padding-top:10px;">
+      <div>
+        <div style="border-bottom:1px solid #0f172a; height:36px; margin-bottom:6px;"></div>
+        <div style="font-size:11px; font-weight:800; color:#0f172a;">MANAGING MEMBER / AUTHORIZED OFFICER</div>
+        <div style="font-size:10px; color:#64748b;">Garden State Premier Solutions LLC • Date: ___________________</div>
+      </div>
+      <div>
+        <div style="border-bottom:1px solid #0f172a; height:36px; margin-bottom:6px;"></div>
+        <div style="font-size:11px; font-weight:800; color:#0f172a;">CERTIFIED PUBLIC ACCOUNTANT / PREPARER</div>
+        <div style="font-size:10px; color:#64748b;">Financial Controller / Review Officer • Date: ___________________</div>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("open");
+};
+
+window.closeFormalBalanceSheetModal = function() {
+  const modal = document.getElementById("modal-formal-balance-sheet");
+  if (modal) modal.classList.remove("open");
+};
+
+window.printFormalBalanceSheet = function() {
+  window.print();
+};
 
 // ==========================================================================
 

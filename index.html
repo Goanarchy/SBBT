@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Master Business Dashboard v1.5.1. Executive financial control system for NJ Local Businesses & Contractors featuring rolling 12-month analytics, project cost review audit reports, cloud tooltips, and interactive graphical indicators.">
-  <title>Master Business Dashboard | Version 1.5.1</title>
+  <meta name="description" content="Master Business Dashboard v1.6.0. Executive financial control system for NJ Local Businesses & Contractors featuring Harvard Business School standard Balance Sheet, rolling 12-month analytics, project cost review audit reports, cloud tooltips, and interactive graphical indicators.">
+  <title>Master Business Dashboard | Version 1.6.0</title>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
       <div class="brand-meta">
         <h1>
           Master Business Dashboard
-          <span class="badge-version">v1.5.1</span>
+          <span class="badge-version">v1.6.0</span>
           <span class="badge-offline-tag" title="Software 100% Offline y Privado">🔒 100% OFFLINE</span>
         </h1>
         <p>Operational Budget & NJ Tax Reserve Engine | NJ Local Businesses & Contractors</p>
@@ -114,6 +114,10 @@
     </button>
     <button class="tab-btn" data-tab="pnl" id="tab-btn-pnl">
       <span>📑</span> 12-Month P&L
+    </button>
+    <button class="tab-btn" data-tab="balance-sheet" id="tab-btn-balance-sheet">
+      <span>⚖️</span> Balance Sheet
+      <span class="tab-badge" id="count-balance-sheet" style="background:#10b981; color:#fff;">Live</span>
     </button>
     <button class="tab-btn" data-tab="tools" id="tab-btn-tools" style="border-left: 2px solid #8b5cf6;">
       <span>⚙️</span> System Tools
@@ -904,6 +908,15 @@
     </section>
 
     <!-- ====================================================================
+         TAB 11: EXECUTIVE BALANCE SHEET (HARVARD BUSINESS SCHOOL STANDARD)
+         ==================================================================== -->
+    <section class="tab-pane" id="tab-balance-sheet">
+      <div id="balance-sheet-container">
+        <!-- Dynamically rendered by renderBalanceSheet() in app.js -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
          TAB 12: SYSTEM TOOLS & SETTINGS (ADMIN SUITE)
          ==================================================================== -->
     <section class="tab-pane" id="tab-tools">
@@ -1663,6 +1676,30 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Modal: Formal Bank-Ready Statement of Financial Position (Balance Sheet) -->
+  <div class="modal-overlay" id="modal-formal-balance-sheet">
+    <div class="modal-dialog" style="max-width: 860px; max-height: 92vh; overflow-y: auto;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size: 20px;">⚖️</span>
+          <span style="font-weight: 800; font-size: 14px; color:#fff;">Formal Statement of Financial Position (Balance Sheet)</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeFormalBalanceSheetModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px 28px; background: #fff; color:#0f172a;" id="formal-balance-sheet-content">
+        <!-- Rendered dynamically by openFormalBalanceSheetModal() -->
+      </div>
+      <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid var(--border-light); justify-content: space-between;">
+        <button type="button" class="btn btn-outline-dark" onclick="closeFormalBalanceSheetModal()">Close Preview</button>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-primary" onclick="printFormalBalanceSheet()" style="font-weight: 800; display:flex; align-items:center; gap:6px;">
+            🖨️ Print Bank Statement (PDF)
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
