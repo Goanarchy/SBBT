@@ -20,9 +20,14 @@
 </head>
 <body>
 
+  <!-- Backdrop for Mobile Sidebar Drawer -->
+  <div class="magnific-sidebar-backdrop" id="magnific-sidebar-backdrop" onclick="closeSidebarMobile()"></div>
+
   <!-- ====================================================================
        MAGNIFIC MODERN SIDEBAR (Skin: Magnific AI Pro v1.6.1)
        ==================================================================== -->
+  <div class="app-shell" id="app-shell">
+
   <aside class="magnific-sidebar" id="magnific-sidebar">
     <!-- Brand Header -->
     <div class="magnific-sidebar-header">
@@ -1347,36 +1352,36 @@
     </section>
 
   </main>
-  </div> <!-- End .magnific-layout-content -->
 
-  <!-- ====================================================================
-       DEVELOPER FOOTER & CREDITS
-       ==================================================================== -->
-  <footer class="app-footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <span class="footer-logo">MBD</span>
-        <div>
-          <div class="footer-title">Master Business Dashboard</div>
-          <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.4.1</strong></div>
+      <!-- DEVELOPER FOOTER & CREDITS (Positioned cleanly at bottom of content) -->
+      <footer class="app-footer">
+        <div class="footer-container">
+          <div class="footer-brand">
+            <span class="footer-logo">MBD</span>
+            <div>
+              <div class="footer-title">Master Business Dashboard</div>
+              <div class="footer-version">System Version: <strong class="badge-version" style="font-size:10.5px;">v1.6.1</strong></div>
+            </div>
+          </div>
+          
+          <div class="footer-credits">
+            <span>Engineered & Developed by </span>
+            <a href="https://www.linkedin.com/in/victormontoyarojas/" target="_blank" rel="noopener noreferrer" class="footer-link-linkedin" title="Victor Montoya Rojas">
+              <strong>Victor Montoya Rojas</strong>
+            </a>
+          </div>
+
+          <div class="footer-support">
+            <span>Questions or Inquiries? </span>
+            <a href="mailto:andres00787@gmail.com?subject=Inquiry%20-%20Master%20Business%20Dashboard&body=Hello%20Victor%2C%0A%0AI%20am%20using%20the%20Master%20Business%20Dashboard%20and%20I%20have%20the%20following%20inquiry%3A" class="footer-link-email" title="Send email inquiry to andres00787@gmail.com">
+              ✉️ <strong>andres00787@gmail.com</strong>
+            </a>
+          </div>
         </div>
-      </div>
-      
-      <div class="footer-credits">
-        <span>Engineered & Developed by </span>
-        <a href="https://www.linkedin.com/in/victormontoyarojas/" target="_blank" rel="noopener noreferrer" class="footer-link-linkedin" title="Victor Montoya Rojas">
-          <strong>Victor Montoya Rojas</strong>
-        </a>
-      </div>
+      </footer>
 
-      <div class="footer-support">
-        <span>Questions or Inquiries? </span>
-        <a href="mailto:andres00787@gmail.com?subject=Inquiry%20-%20Master%20Business%20Dashboard%20v1.3.0&body=Hello%20Victor%2C%0A%0AI%20am%20using%20the%20Master%20Business%20Dashboard%20(v1.3.0)%20and%20I%20have%20the%20following%20question%20or%20inquiry%3A%0A%0A%5BWrite%20your%20question%20here%5D%0A%0AThank%20you!" class="footer-link-email" title="Send email inquiry to andres00787@gmail.com">
-          ✉️ <strong>andres00787@gmail.com</strong>
-        </a>
-      </div>
-    </div>
-  </footer>
+    </div> <!-- End .magnific-layout-content -->
+  </div> <!-- End .app-shell -->
 
   <!-- ====================================================================
        PREDICTIVE AUTOCOMPLETE DATALISTS (GOOGLE-STYLE SMART MEMORY)

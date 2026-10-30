@@ -5124,9 +5124,15 @@ window.toggleSkin = function() {
 };
 
 window.toggleSidebarCollapse = function() {
-  document.body.classList.toggle("sidebar-collapsed");
-  const isCollapsed = document.body.classList.contains("sidebar-collapsed");
-  localStorage.setItem("MBD_SIDEBAR_COLLAPSED", isCollapsed ? "true" : "false");
+  if (window.innerWidth < 992) {
+    // On tablet / mobile, toggle the mobile drawer
+    document.body.classList.toggle("sidebar-mobile-open");
+  } else {
+    // On desktop, collapse/expand the icon rail
+    document.body.classList.toggle("sidebar-collapsed");
+    const isCollapsed = document.body.classList.contains("sidebar-collapsed");
+    localStorage.setItem("MBD_SIDEBAR_COLLAPSED", isCollapsed ? "true" : "false");
+  }
 };
 
 function updateMagnificBreadcrumb(tabKey) {
@@ -5183,4 +5189,23 @@ function initPersistentStorage() {
     }
   } catch(e) {}
 }
+
+// ==========================================================================
+// MOBILE DRAWER & RESPONSIVE SIDEBAR CONTROLLER
+// ==========================================================================
+window.closeSidebarMobile = function() {
+  document.body.classList.remove("sidebar-mobile-open");
+};
+
+window.openSidebarMobile = function() {
+  document.body.classList.add("sidebar-mobile-open");
+};
+
+// Auto-close mobile drawer when user taps any navigation item
+document.addEventListener("click", function(e) {
+  const navItem = e.target.closest(".magnific-nav-item, .magnific-nav-item-action");
+  if (navItem && window.innerWidth < 992) {
+    closeSidebarMobile();
+  }
+});
 
